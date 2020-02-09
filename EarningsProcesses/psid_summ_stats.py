@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import pickle
 import os
-from linearmodels import PanelOLS
+
 
 # Create directory if output directory does not already exist
 cur_path = os.path.split(os.path.abspath(__file__))[0]

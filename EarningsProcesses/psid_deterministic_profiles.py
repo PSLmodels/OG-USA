@@ -13,7 +13,8 @@ if not os.access(output_dir, os.F_OK):
 
 # estimate lifetime wage profile for each percentile group
 # Read in dataframe of PSID data
-df = pickle.load(open('psid_lifetime_income.pkl', 'rb'))
+df = pickle.load(open(os.path.join(
+    cur_path, 'psid_data_files', 'psid_lifetime_income.pkl'), 'rb'))
 
 list_of_dfs_with_fitted_vals = []
 model_results = {

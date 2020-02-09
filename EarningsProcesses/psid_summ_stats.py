@@ -12,11 +12,12 @@ if not os.access(output_dir, os.F_OK):
     os.makedirs(output_dir)
 
 # Read in dictionary of regression results
-first_stage_results = pickle.load(open('first_stage_reg_results.pkl',
-                                       'rb'))
+first_stage_results = pickle.load(open(os.path.join(
+    cur_path, 'first_stage_reg_results.pkl'), 'rb'))
 
 # Read in dataframe of PSID data
-df = pickle.load(open('psid_lifetime_income.pkl', 'rb'))
+df = pickle.load(open(os.path.join(
+    cur_path, 'psid_data_files', 'psid_lifetime_income.pkl'), 'rb'))
 
 # save psid to stata data file
 stata_df = df.copy()
@@ -148,6 +149,7 @@ summ_stats_by_group['   Hourly Wage, Age 50'].append(fullsample_means['earn_50']
 summ_stats_by_group['   Hourly Wage, Age 80'].append(fullsample_means['earn_80'])
 summ_group = pd.DataFrame.from_dict(summ_stats_by_group)
 print(summ_group)
+summ_group.to_csv(os.path.join(output_dir, 'summ_stats_by_group.csv'))
 
 decile_list = list(range(1, 11))
 summ_stats_by_decile = {
@@ -192,3 +194,4 @@ summ_stats_by_decile['   Hourly Wage, Age 80'].append(fullsample_means['earn_80'
 
 summ_decile = pd.DataFrame.from_dict(summ_stats_by_decile)
 print(summ_decile)
+summ_decile.to_csv(os.path.join(output_dir, 'summ_stats_by_decile.csv'))

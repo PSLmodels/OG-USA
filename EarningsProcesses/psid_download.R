@@ -18,7 +18,7 @@ cwf <- read.xlsx("http://psidonline.isr.umich.edu/help/xyr/psid.xlsx")
 years_to_pull = c(1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977,
                   1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987,
                   1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997,
-                  1999, 2001, 2003, 2005, 2007, 2009, 2011, 2013, 2015)
+                  1999, 2001, 2003, 2005, 2007, 2009, 2011, 2013, 2015, 2017)
 
 # Get list of variables codes for each variable in each year
 family_var_names <- list(# Family variables
@@ -132,7 +132,19 @@ family_var_names <- list(# Family variables
                         spouse_whether_report_biz_hours2="ER60945",
                         spouse_whether_report_biz_hours3="ER60959",
                         # Family wealth variables
-                        net_wealth="ER48878",
+                        net_wealth1="ER65406",
+                        net_wealth2="ER65408",
+                        other_debts="ER43611",
+                        other_assets="ER48931",
+                        net_real_estate_not_primary="ER52354",
+                        mortgage1="ER60049",
+                        mortgage2="ER60070",
+                        house_value="ER60031",
+                        net_vehicle_wealth="ER61731",
+                        IRA_annuities="ER65376",
+                        stocks="ER65368",
+                        checking_savings="ER65368",
+                        business_assets="ER52346",
                         whether_receive_inheritance="ER49041",
                         whether_receive_inheritance_1st="ER49041",
                         whether_receive_inheritance_2nd="ER49046",

@@ -2,7 +2,9 @@ import numpy as np
 import pandas as pd
 import pickle
 import os
+import matplotlib.pyplot as plt
 from linearmodels import PanelOLS
+import ogusa # import just for MPL style file
 
 # Create directory if output directory does not already exist
 cur_path = os.path.split(os.path.abspath(__file__))[0]
@@ -52,3 +54,14 @@ reg_results.to_csv(os.path.join(
 long_reg_results = pd.DataFrame.from_dict(model_results)
 long_reg_results.to_csv(os.path.join(
     output_dir, 'DeterministicProfileRegResults_long.csv'))
+
+# Plot of lifecycle profiles of hours by lifetime income group
+# create variable from fraction of time endowment work
+df['labor_supply'] = (
+    df['earnhours_hh'] / (24 * 5 * (df['married'] + 1) * 50))
+pd.pivot_table(df, values= 'labor_supply', index='age',
+               columns='li_group', aggfunc='mean').plot(legend=True)
+plt.title('Lifecycle Profiles of Hours by Lifetime Income Group')
+
+plt.savefig(os.path.join(
+    output_dir, 'lifecycle_laborsupply.png'))

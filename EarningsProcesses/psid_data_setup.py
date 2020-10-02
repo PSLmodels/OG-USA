@@ -162,11 +162,12 @@ psid_df['married'] = (psid_df['marital_status'] == 1).astype(int)
 
 # sample selection
 # drop very young, very old, those with very low earnings, and any
-# outliers with very high earnings
+# outliers with very high earnings, those working at least 200 hrs
 # should check to see if we want to drop any particular years... (e.g.,
 # I think some data is missing before 1970)
 psid_df.query('age >= 20 & age <= 80 & incwage_hh >= 5' +
-              ' & wage_rate >= 5 & wage_rate <= 25000', inplace=True)
+              ' & wage_rate >= 5 & wage_rate <= 25000' +
+              ' & earnhours_hh > 200', inplace=True)
 # Indicator for obs beign from PSID not interpolated value
 # used to make drops later
 psid_df.sort_values(by=['hh_id', 'year'], inplace=True)
@@ -319,7 +320,7 @@ print('Descritpion of data coming out of estimation: ', df_w_fit.describe())
 
 # Compute lifetime income for each filer
 int_rate = 0.04  # assumed interest rate to compute NPV of lifetime income
-time_endow = 4000  # assumed time endowment - set at 4000 hours !!! May want to change this to be different for single households thank married !!!
+time_endow = 4000  # assumed time endowment - set at 4000 hours !!! May want to change this to be different for single households than married !!!
 df_w_fit['time_wage'] = np.exp(df_w_fit['ln_fillin_wage']) * time_endow
 df_w_fit['lifetime_inc'] = (df_w_fit['time_wage'] *
                             ((1 / (1 + int_rate)) **

@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pickle
 import os
+import ogusa # import just for MPL style file   
 
 # Create directory if output directory does not already exist
 cur_path = os.path.split(os.path.abspath(__file__))[0]
@@ -52,17 +53,20 @@ df[df['year_data'] >= 1988].groupby('li_group').mean().plot.bar(
     y='inheritance')
 plt.savefig(os.path.join(image_dir, 'inheritance_li.png'))
 
-# Matrix Fraction of inheritances in a year by age*lifetime_inc
-# matrix
 # lifecycle plots with line for each ability type
-df[df['year_data'] >= 1988].groupby(
-    ['age', 'li_group']).mean()['net_wealth'].unstack().plot(
-        legend=True)
+pd.pivot_table(df[df['year_data'] >= 1988], values='net_wealth', index='age',
+               columns='li_group', aggfunc='mean').plot(legend=True)
 plt.savefig(os.path.join(image_dir, 'net_wealth_age_li.png'))
-df[df['year_data'] >= 1988].groupby(
-    ['age', 'li_group']).mean()['inheritance'].unstack().plot(
-        legend=True)
+pd.pivot_table(df[df['year_data'] >= 1988], values='inheritance', index='age',
+               columns='li_group', aggfunc='mean').plot(legend=True)
 plt.savefig(os.path.join(image_dir, 'inheritance_age_li.png'))
 
+# Matrix Fraction of inheritances in a year by age and lifetime_inc
+inheritance_matrix = pd.pivot_table(
+    df[df['year_data'] >= 1988], values='inheritance', index='age',
+    columns='li_group', aggfunc='sum')
+inheritance_matrix = inheritance_matrix / inheritance_matrix.sum().sum()
+inheritance_matrix.to_csv(os.path.join(
+    output_dir, 'bequest_matrix.csv'))
 
 # Will need to do some smoothing with a KDE when estimate the matrix...

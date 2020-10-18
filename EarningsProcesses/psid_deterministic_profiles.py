@@ -75,7 +75,7 @@ plt.savefig(os.path.join(
     output_dir, 'lifecycle_earnings_profiles.png'))
 
 # Plot of lifecycles of hourly earnings from processes from data
-pd.pivot_table(df, values= 'ln_earn_rate', index='age',
+pd.pivot_table(df, values='ln_earn_rate', index='age',
                columns='li_group', aggfunc='mean').plot(legend=True)
 plt.title('Empirical Lifecycle Earnings Profiles by Lifetime Income Group')
 
@@ -86,7 +86,7 @@ plt.savefig(os.path.join(
 # create variable from fraction of time endowment work
 df['labor_supply'] = (
     df['earnhours_hh'] / (24 * 5 * (df['married'] + 1) * 50))
-pd.pivot_table(df, values= 'labor_supply', index='age',
+pd.pivot_table(df, values='labor_supply', index='age',
                columns='li_group', aggfunc='mean').plot(legend=True)
 plt.title('Lifecycle Profiles of Hours by Lifetime Income Group')
 

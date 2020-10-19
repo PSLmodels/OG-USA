@@ -1,10 +1,9 @@
 import numpy as np
 import pandas as pd
-import pickle
 import os
 import matplotlib.pyplot as plt
 from linearmodels import PanelOLS
-import ogusa # import just for MPL style file
+import ogusa  # import just for MPL style file
 
 # Create directory if output directory does not already exist
 cur_path = os.path.split(os.path.abspath(__file__))[0]
@@ -15,8 +14,8 @@ if not os.access(output_dir, os.F_OK):
 
 # estimate lifetime wage profile for each percentile group
 # Read in dataframe of PSID data
-df = pickle.load(open(os.path.join(
-    cur_path, 'psid_data_files', 'psid_lifetime_income.pkl'), 'rb'))
+df = ogusa.utils.safe_read_pickle(os.path.join(
+    cur_path, 'psid_data_files', 'psid_lifetime_income.pkl'))
 
 list_of_dfs_with_fitted_vals = []
 model_results = {

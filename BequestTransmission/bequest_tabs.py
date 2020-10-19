@@ -1,14 +1,9 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-from scipy import stats
-from scipy.stats import norm
 from scipy.stats import kde
-import seaborn
-import pickle
 import os
-import ogusa # import just for MPL style file   
+import ogusa  # import just for MPL style file   
 
 # Create directory if output directory does not already exist
 cur_path = os.path.split(os.path.abspath(__file__))[0]
@@ -22,23 +17,22 @@ if not os.access(image_dir, os.F_OK):
     os.makedirs(image_dir)
 
 # Define a lambda function to compute the weighted mean:
-wm = lambda x: np.average(
-    x, weights=df.loc[x.index, "fam_smpl_wgt_core"])
+# wm = lambda x: np.average(
+#     x, weights=df.loc[x.index, "fam_smpl_wgt_core"])
 
 # Read in dataframe of PSID data
-df = pickle.load(open(os.path.join(
-    cur_path, '..', 'EarningsProcesses', 'psid_data_files',
-    'psid_lifetime_income.pkl'), 'rb'))
+df = ogusa.utils.safe_read_pickle(os.path.join(
+        cur_path, '..', 'EarningsProcesses', 'psid_data_files',
+        'psid_lifetime_income.pkl'))
 
 # Do some tabs with data file...
 # 'net_wealth', 'inheritance', 'value_inheritance_1st',
 # 'value_inheritance_2nd', 'value_inheritance_3rd'
 # inheritance available from 1988 onwards...
+# Note that the resulting distribution is very different from what
+# Rick has found with the SCF
 
 # Total inheritances by year
-# line plot
-# df.groupby('year_data').apply(wm).plot(y='net_wealth')
-# plt.savefig(os.path.join(image_dir, 'net_wealth_year.png'))
 df.groupby('year_data').mean().plot(y='inheritance')
 plt.savefig(os.path.join(image_dir, 'inheritance_year.png'))
 
@@ -124,7 +118,7 @@ def MVKDE(S, J, proportion_matrix, filename=None, plot=False, bandwidth=.25):
         listit2 = np.ones(i)
         listit2 *= k
         income_frequency = np.append(income_frequency, listit2)
-        k+=1
+        k += 1
 
     freq_mat = np.vstack((age_frequency, income_frequency)).T
     density = kde.gaussian_kde(freq_mat.T, bw_method=bandwidth)
@@ -144,6 +138,7 @@ def MVKDE(S, J, proportion_matrix, filename=None, plot=False, bandwidth=.25):
         ax.set_zlabel("Received proportion of total bequests")
         plt.savefig(filename)
     return estimator_scaled
+
 
 # estimate kernel density of bequests
 kde_matrix = MVKDE(

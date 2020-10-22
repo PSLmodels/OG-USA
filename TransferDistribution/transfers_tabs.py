@@ -30,9 +30,23 @@ df['total_transfers'] = (
     df['head_and_spouse_transfer_income'] +
     df['other_familyunit_transfer_income'])
 
+df['sum_transfers'] = (
+    df['other_familyunit_ssi_prior_year'] +
+    df['head_other_welfare_prior_year'] +
+    df['spouse_other_welfare_prior_year'] +
+    df['other_familyunit_other_welfare_prior_year'] +
+    df['head_unemp_inc_prior_year'] +
+    df['spouse_unemp_inc_prior_year'] +
+    df['other_familyunit_unemp_inc_prior_year'])
+
 # Total total_transfers by year
 df.groupby('year_data').mean().plot(y='total_transfers')
 plt.savefig(os.path.join(image_dir, 'total_transfers_year.png'))
+df.groupby('year_data').mean().plot(y='sum_transfers')
+plt.savefig(os.path.join(image_dir, 'sum_transfers_year.png'))
+# note that the sum of transfer categories is much lower than the
+# tranfers variable.  The transfers variable goes more to high income
+# and old, even though it says it excludes social security
 
 # Fraction of total_transfers in a year by age
 # line plot
@@ -52,6 +66,11 @@ pd.pivot_table(df[df['year_data'] >= 1988], values='total_transfers',
                aggfunc='mean').plot(legend=True)
 plt.savefig(os.path.join(image_dir, 'total_transfers_age_li.png'))
 
+pd.pivot_table(df[df['year_data'] >= 1988], values='sum_transfers',
+               index='age', columns='li_group',
+               aggfunc='mean').plot(legend=True)
+plt.savefig(os.path.join(image_dir, 'sum_transfers_age_li.png'))
+
 # Matrix Fraction of total_transfers in a year by age and lifetime_inc
 total_transfers_matrix = pd.pivot_table(
     df[df['year_data'] >= 1988], values='total_transfers', index='age',
@@ -61,7 +80,7 @@ total_transfers_matrix.fillna(value=0, inplace=True)
 total_transfers_matrix = (total_transfers_matrix /
                           total_transfers_matrix.sum().sum())
 total_transfers_matrix.to_csv(os.path.join(
-    output_dir, 'bequest_matrix.csv'))
+    output_dir, 'transfer_matrix.csv'))
 
 
 # Will need to do some smoothing with a KDE when estimate the matrix...
@@ -128,13 +147,12 @@ def MVKDE(S, J, proportion_matrix, filename=None, plot=False, bandwidth=.25):
         ax.plot_surface(agei,incomei, estimator_scaled, rstride=5)
         ax.set_xlabel("Age")
         ax.set_ylabel("Ability Types")
-        ax.set_zlabel("Received proportion of total bequests")
+        ax.set_zlabel("Received proportion of total transfers")
         plt.savefig(filename)
-        plt.show()
     return estimator_scaled
 
 
-# estimate kernel density of bequests
+# estimate kernel density of transfers
 kde_matrix = MVKDE(
     80, 7, total_transfers_matrix.to_numpy(),
     filename=os.path.join(image_dir, 'total_transfers_kde.png'), plot=True,

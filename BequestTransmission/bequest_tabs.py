@@ -32,9 +32,19 @@ df = ogusa.utils.safe_read_pickle(os.path.join(
 # Note that the resulting distribution is very different from what
 # Rick has found with the SCF
 
+df['sum_inherit'] = (
+    df['value_inheritance_1st'] + df['value_inheritance_2nd'] +
+    df['value_inheritance_3rd'])
+print(df[['sum_inherit', 'inheritance']].describe())
+
+
 # Total inheritances by year
 df.groupby('year_data').mean().plot(y='inheritance')
 plt.savefig(os.path.join(image_dir, 'inheritance_year.png'))
+df.groupby('year_data').mean().plot(y='sum_inherit')
+plt.savefig(os.path.join(image_dir, 'sum_inherit_year.png'))
+# not that summing up inheritances gives a much larger value than
+# taking the inheritance variable
 
 # Fraction of inheritances in a year by age
 # line plot

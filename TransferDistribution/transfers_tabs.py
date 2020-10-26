@@ -26,59 +26,61 @@ df = ogusa.utils.safe_read_pickle(os.path.join(
         'psid_lifetime_income.pkl'))
 
 # Do some tabs with data file...
-# 'net_wealth', 'inheritance', 'value_inheritance_1st',
-# 'value_inheritance_2nd', 'value_inheritance_3rd'
-# inheritance available from 1988 onwards...
-# Note that the resulting distribution is very different from what
-# Rick has found with the SCF
+df['total_transfers'] = (
+    df['head_and_spouse_transfer_income'] +
+    df['other_familyunit_transfer_income'])
 
-df['sum_inherit'] = (
-    df['value_inheritance_1st'] + df['value_inheritance_2nd'] +
-    df['value_inheritance_3rd'])
-print(df[['sum_inherit', 'inheritance']].describe())
+df['sum_transfers'] = (
+    df['other_familyunit_ssi_prior_year'] +
+    df['head_other_welfare_prior_year'] +
+    df['spouse_other_welfare_prior_year'] +
+    df['other_familyunit_other_welfare_prior_year'] +
+    df['head_unemp_inc_prior_year'] +
+    df['spouse_unemp_inc_prior_year'] +
+    df['other_familyunit_unemp_inc_prior_year'])
 
+# Total total_transfers by year
+df.groupby('year_data').mean().plot(y='total_transfers')
+plt.savefig(os.path.join(image_dir, 'total_transfers_year.png'))
+df.groupby('year_data').mean().plot(y='sum_transfers')
+plt.savefig(os.path.join(image_dir, 'sum_transfers_year.png'))
+# note that the sum of transfer categories is much lower than the
+# tranfers variable.  The transfers variable goes more to high income
+# and old, even though it says it excludes social security
 
-# Total inheritances by year
-df.groupby('year_data').mean().plot(y='inheritance')
-plt.savefig(os.path.join(image_dir, 'inheritance_year.png'))
-df.groupby('year_data').mean().plot(y='sum_inherit')
-plt.savefig(os.path.join(image_dir, 'sum_inherit_year.png'))
-# not that summing up inheritances gives a much larger value than
-# taking the inheritance variable
-
-# Fraction of inheritances in a year by age
+# Fraction of total_transfers in a year by age
 # line plot
-df[df['year_data'] >= 1988].groupby('age').mean().plot(y='net_wealth')
-plt.savefig(os.path.join(image_dir, 'net_wealth_age.png'))
-df[df['year_data'] >= 1988].groupby('age').mean().plot(y='inheritance')
-plt.savefig(os.path.join(image_dir, 'inheritance_age.png'))
+df[df['year_data'] >= 1988].groupby('age').mean().plot(
+    y='total_transfers')
+plt.savefig(os.path.join(image_dir, 'total_transfers_age.png'))
 
-# Inheritances by lifetime income group
+# total_transfers by lifetime income group
 # bar plot
 df[df['year_data'] >= 1988].groupby('li_group').mean().plot.bar(
-    y='net_wealth')
-plt.savefig(os.path.join(image_dir, 'net_wealth_li.png'))
-df[df['year_data'] >= 1988].groupby('li_group').mean().plot.bar(
-    y='inheritance')
-plt.savefig(os.path.join(image_dir, 'inheritance_li.png'))
+    y='total_transfers')
+plt.savefig(os.path.join(image_dir, 'total_transfers_li.png'))
 
 # lifecycle plots with line for each ability type
-pd.pivot_table(df[df['year_data'] >= 1988], values='net_wealth', index='age',
-               columns='li_group', aggfunc='mean').plot(legend=True)
-plt.savefig(os.path.join(image_dir, 'net_wealth_age_li.png'))
-pd.pivot_table(df[df['year_data'] >= 1988], values='inheritance', index='age',
-               columns='li_group', aggfunc='mean').plot(legend=True)
-plt.savefig(os.path.join(image_dir, 'inheritance_age_li.png'))
+pd.pivot_table(df[df['year_data'] >= 1988], values='total_transfers',
+               index='age', columns='li_group',
+               aggfunc='mean').plot(legend=True)
+plt.savefig(os.path.join(image_dir, 'total_transfers_age_li.png'))
 
-# Matrix Fraction of inheritances in a year by age and lifetime_inc
-inheritance_matrix = pd.pivot_table(
-    df[df['year_data'] >= 1988], values='inheritance', index='age',
+pd.pivot_table(df[df['year_data'] >= 1988], values='sum_transfers',
+               index='age', columns='li_group',
+               aggfunc='mean').plot(legend=True)
+plt.savefig(os.path.join(image_dir, 'sum_transfers_age_li.png'))
+
+# Matrix Fraction of total_transfers in a year by age and lifetime_inc
+total_transfers_matrix = pd.pivot_table(
+    df[df['year_data'] >= 1988], values='total_transfers', index='age',
     columns='li_group', aggfunc='sum')
 # replace NaN with zero
-inheritance_matrix.fillna(value=0, inplace=True)
-inheritance_matrix = inheritance_matrix / inheritance_matrix.sum().sum()
-inheritance_matrix.to_csv(os.path.join(
-    output_dir, 'bequest_matrix.csv'))
+total_transfers_matrix.fillna(value=0, inplace=True)
+total_transfers_matrix = (total_transfers_matrix /
+                          total_transfers_matrix.sum().sum())
+total_transfers_matrix.to_csv(os.path.join(
+    output_dir, 'transfer_matrix.csv'))
 
 
 # Will need to do some smoothing with a KDE when estimate the matrix...
@@ -145,15 +147,15 @@ def MVKDE(S, J, proportion_matrix, filename=None, plot=False, bandwidth=.25):
         ax.plot_surface(agei,incomei, estimator_scaled, rstride=5)
         ax.set_xlabel("Age")
         ax.set_ylabel("Ability Types")
-        ax.set_zlabel("Received proportion of total bequests")
+        ax.set_zlabel("Received proportion of total transfers")
         plt.savefig(filename)
     return estimator_scaled
 
 
-# estimate kernel density of bequests
+# estimate kernel density of transfers
 kde_matrix = MVKDE(
-    80, 7, inheritance_matrix.to_numpy(),
-    filename=os.path.join(image_dir, 'inheritance_kde.png'), plot=True,
+    80, 7, total_transfers_matrix.to_numpy(),
+    filename=os.path.join(image_dir, 'total_transfers_kde.png'), plot=True,
     bandwidth=.5)
 np.savetxt(os.path.join(
-    output_dir, 'bequest_matrix_kde.csv'), kde_matrix, delimiter=",")
+    output_dir, 'total_transfers_kde.csv'), kde_matrix, delimiter=",")

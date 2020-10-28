@@ -6,9 +6,7 @@ library(psidR)
 
 # set directory in which to save data
 script.dir <- getwd()
-# args <- commandArgs(trailingOnly = F)
-# script.dir <- normalizePath(dirname(sub("^--file=", "", args[grep("^--file=", args)])))
-mydir <- file.path(script.dir, 'psid_data_files/')
+mydir <- file.path(script.dir)
 print(paste0('Directory to save files = ', mydir))
 
 # Read in PSID variable crosswalk file from PSID website
@@ -179,4 +177,4 @@ for (var in names(ind_var_names)){
 print('Beginning to build panel')
 # Build PSID panel
 psid_df <- build.panel(datadir=mydir, fam.vars=famvars, ind.vars=indvars, design='all')
-save(psid_df,file=file.path(script.dir, 'psid_data_files', 'psid1968to2015.RData'))
+save(psid_df,file=file.path(script.dir, 'psid_data_files', 'psid1968to2017.RData'))

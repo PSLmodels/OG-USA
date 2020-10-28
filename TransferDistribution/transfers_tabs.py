@@ -22,8 +22,7 @@ if not os.access(image_dir, os.F_OK):
 
 # Read in dataframe of PSID data
 df = ogusa.utils.safe_read_pickle(os.path.join(
-        cur_path, '..', 'EarningsProcesses', 'psid_data_files',
-        'psid_lifetime_income.pkl'))
+    cur_path, '..', 'Data', 'PSID', 'psid_lifetime_income.pkl'))
 
 # Do some tabs with data file...
 df['total_transfers'] = (

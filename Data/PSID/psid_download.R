@@ -10,6 +10,7 @@ mydir <- file.path(script.dir)
 print(paste0('Directory to save files = ', mydir))
 
 # Read in PSID variable crosswalk file from PSID website
+# cwf = openxlsx::read.xlsx(system.file(package="psidR","psid-lists","psid.xlsx"))
 cwf <- read.xlsx("http://psidonline.isr.umich.edu/help/xyr/psid.xlsx")
 
 # Set survey years to pull
@@ -130,19 +131,19 @@ family_var_names <- list(# Family variables
                         spouse_whether_report_biz_hours2="ER60945",
                         spouse_whether_report_biz_hours3="ER60959",
                         # Family wealth variables
-                        net_wealth1="ER65406",
-                        net_wealth2="ER65408",
-                        other_debts="ER43611",
-                        other_assets="ER48931",
-                        net_real_estate_not_primary="ER52354",
-                        mortgage1="ER60049",
-                        mortgage2="ER60070",
-                        house_value="ER60031",
-                        net_vehicle_wealth="ER61731",
-                        IRA_annuities="ER65376",
-                        stocks="ER65368",
-                        checking_savings="ER65368",
-                        business_assets="ER52346",
+                        # net_wealth1="ER65406",
+                        # net_wealth2="ER65408",
+                        # other_debts="ER43611",
+                        # other_assets="ER48931",
+                        # net_real_estate_not_primary="ER52354",
+                        # mortgage1="ER60049",
+                        # mortgage2="ER60070",
+                        # house_value="ER60031",
+                        # net_vehicle_wealth="ER61731",
+                        # IRA_annuities="ER65376",
+                        # stocks="ER65368",
+                        # checking_savings="ER65368",
+                        # business_assets="ER52346",
                         whether_receive_inheritance="ER49041",
                         whether_receive_inheritance_1st="ER49041",
                         whether_receive_inheritance_2nd="ER49046",
@@ -161,20 +162,19 @@ family_var_names <- list(# Family variables
                         ## There are variables on parents age/death, parent's wealth (only in 1988), parents education
                         ## skipping this for now, but maybe interesting to explore timing of bequests and death of parents
                       )
-
 # Individual variables
 ind_var_names <- list(ind_hours="ER30823")
 
 # Create dataframes of variable names for each year
 famvars <- data.frame(year=years_to_pull)
 for (var in names(family_var_names)){
-  famvars[[var]] <- c(getNamesPSID(family_var_names[[var]], cwf, years=years_to_pull))
+  famvars[[var]] <- c(getNamesPSID(family_var_names[[var]], cwf, years=years_to_pull))$variable
 }
 indvars <- data.frame(year=years_to_pull)
 for (var in names(ind_var_names)){
-  indvars[[var]] <- c(getNamesPSID(ind_var_names[[var]], cwf, years=years_to_pull))
+  indvars[[var]] <- c(getNamesPSID(ind_var_names[[var]], cwf, years=years_to_pull))$variable
 }
 print('Beginning to build panel')
 # Build PSID panel
-psid_df <- build.panel(datadir=mydir, fam.vars=famvars, ind.vars=indvars, design='all')
-save(psid_df,file=file.path(script.dir, 'psid_data_files', 'psid1968to2017.RData'))
+psid_df <- build.panel(datadir=mydir, fam.vars=famvars, ind.vars=indvars, sample="SRC", design='all')
+save(psid_df,file=file.path(script.dir, 'psid1968to2017.RData'))

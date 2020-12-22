@@ -12,7 +12,8 @@ from ogusa import SS
 from ogusa.utils import Inequality
 
 
-def beta_estimate(beta_initial_guesses, og_spec={}, client=None):
+def beta_estimate(beta_initial_guesses, og_spec={}, two_step=False,
+                  client=None):
     '''
     This function estimates the beta_j parameters using a simulated
     method of moments estimator that targets moments of the wealth
@@ -22,6 +23,7 @@ def beta_estimate(beta_initial_guesses, og_spec={}, client=None):
     beta_initial_guesses (array-like): array of initial guesses for the
         beta_j parameters
     og_spec (dict): any updates to default model parameters
+    two_step (boolean): whether to use a two-step estimator
     client (Dask Client object): dask client for multiprocessing
 
     Returns:
@@ -48,6 +50,9 @@ def beta_estimate(beta_initial_guesses, og_spec={}, client=None):
     bnds = np.tile(np.array([1e-12, 1]), (p.J, 1))  # Need (1e-12, 1) J times
     # pack arguments in a tuple
     min_args = (data_moments, W, p, client)
+    # NOTE: may want to try some global optimization routing like
+    # simulated annealing (aka basin hopping) or differential
+    # evolution
     est_output = opt.minimize(
         minstat, beta_initial_guesses, args=(min_args),
         method="L-BFGS-B", bounds=bnds, tol=1e-15, options={
@@ -55,29 +60,20 @@ def beta_estimate(beta_initial_guesses, og_spec={}, client=None):
     beta_hat = est_output['x']
 
     # calculate std errors
-    h = 0.01  # pct change in parameter
-    # compute numerical derivatives that will need for SE's
-    model_moments_low = np.zeros((p.J, len(data_moments)))
-    model_moments_high = np.zeros((p.J, len(data_moments)))
-    beta_low = beta_hat
-    beta_high = beta_hat
-    for i in range(len(beta_hat)):
-        # compute moments with downward change in param
-        beta_low[i] = beta_hat[i] * (1 + h)
-        p.beta = beta_low
-        ss_output = ss_output = SS.run_SS(p, client=client)
-        model_moments_low[i, :] = calc_moments(ss_output, p)
-        # compute moments with upward change in param
-        beta_high[i] = beta_hat[i] * (1 + h)
-        p.beta = beta_low
-        ss_output = ss_output = SS.run_SS(p, client=client)
-        model_moments_high[i, :] = calc_moments(ss_output, p)
+    K = len(data_moments)
+    beta_se, VCV_params = compute_se(
+        beta_hat, W, K, p, h=0.01, client=client)
 
-    deriv_moments = (
-        (model_moments_high - model_moments_low).T / (2 * h * beta_hat))
-    VCV_params = np.linalg.inv(np.dot(np.dot(deriv_moments.T, W),
-                               deriv_moments))
-    beta_se = (np.diag(VCV_params)) ** (1 / 2)
+    if two_step:
+        W = VCV_params
+        min_args = (data_moments, W, p, client)
+        est_output = opt.minimize(
+            minstat, beta_initial_guesses, args=(min_args),
+            method="L-BFGS-B", bounds=bnds, tol=1e-15, options={
+                'maxfun': 1, 'maxiter': 1, 'maxls': 1})
+        beta_hat = est_output['x']
+        beta_se, VCV_params = compute_se(
+            beta_hat, W, K, p, h=0.01, client=client)
 
     return beta_hat, beta_se
 
@@ -171,6 +167,10 @@ def compute_weighting_matrix(p, optimal_weight=False):
     '''
     # determine weighting matrix
     if optimal_weight:
+        # This uses the inverse of the VCV matrix for the data moments
+        # more precisely estimated moments get more weight
+        # Reference: Gourieroux, Monfort, and Renault (1993,
+        # Journal of Applied Econometrics)
         # read in SCF
         n = 1000  # number of bootstrap iterations
         scf = wealth.get_wealth_data(
@@ -212,3 +212,46 @@ def VCV_moments(scf, n, bin_weights, J):
     VCV = np.cov(wealth_moments_boot.T)
 
     return VCV
+
+
+def compute_se(beta_hat, W, K, p, h=0.01, client=None):
+    '''
+    Function to compute standard errors for the SMM estimator.
+
+    Args:
+        beta_hat (array-like): estimates of beta parameters
+        W (Numpy array): weighting matrix
+        K (int): number of moments
+        p (OG-USA Specifications object): model parameters
+        h (scalar): percentage to move parameters for numerical derivatives
+        client (Dask Client object): Dask client
+
+    Returns:
+        beta_se (array-like): standard errors for beta estimates
+        VCV_params (Numpy array): VCV matrix for parameter estimates
+
+    '''
+    # compute numerical derivatives that will need for SE's
+    model_moments_low = np.zeros((p.J, K))
+    model_moments_high = np.zeros((p.J, K))
+    beta_low = beta_hat
+    beta_high = beta_hat
+    for i in range(len(beta_hat)):
+        # compute moments with downward change in param
+        beta_low[i] = beta_hat[i] * (1 + h)
+        p.beta = beta_low
+        ss_output = ss_output = SS.run_SS(p, client=client)
+        model_moments_low[i, :] = calc_moments(ss_output, p)
+        # compute moments with upward change in param
+        beta_high[i] = beta_hat[i] * (1 + h)
+        p.beta = beta_low
+        ss_output = ss_output = SS.run_SS(p, client=client)
+        model_moments_high[i, :] = calc_moments(ss_output, p)
+
+    deriv_moments = (
+        (model_moments_high - model_moments_low).T / (2 * h * beta_hat))
+    VCV_params = np.linalg.inv(np.dot(np.dot(deriv_moments.T, W),
+                               deriv_moments))
+    beta_se = (np.diag(VCV_params)) ** (1 / 2)
+
+    return beta_se, VCV_params

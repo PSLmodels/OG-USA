@@ -33,14 +33,16 @@ def beta_estimate(beta_initial_guesses, og_spec={}, two_step=False,
     '''
 
     # initialize parametes object
-    p = Specifications()
+    tax_func_path = '/Users/jason.debacker/repos/dynamic/ogusa/data/tax_functions/TxFuncEst_baseline_PUF.pkl'
+    p = Specifications(baseline=True)
     p.update_specifications(og_spec)
+    p.get_tax_function_parameters(client, False, tax_func_path)
 
     # Compute wealth moments from the data
     scf = wealth.get_wealth_data(
             scf_yrs_list=[2019], web=True, directory=None)
     data_moments = wealth.compute_wealth_moments(
-            scf, p.lambdas, p.J)
+            scf, p.lambdas)
 
     # Get weighting matrix
     W = compute_weighting_matrix(p, optimal_weight=False)
@@ -99,6 +101,7 @@ def minstat(beta_guesses, *args):
     p.beta = beta_guesses
 
     # Solve model SS
+    print('Baseline = ', p.baseline)
     ss_output = SS.run_SS(p, client=client)
 
     # Compute moments from model SS
@@ -207,7 +210,7 @@ def VCV_moments(scf, n, bin_weights, J):
         # note that wealth moments from data are in array in same order
         # as model moments are computed in this module
         wealth_moments_boot[i, :] = wealth.compute_wealth_moments(
-            sample, bin_weights, J)
+            sample, bin_weights)
 
     VCV = np.cov(wealth_moments_boot.T)
 

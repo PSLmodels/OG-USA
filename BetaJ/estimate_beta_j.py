@@ -5,11 +5,16 @@ beta_j parameters for OG-USA.
 
 
 import numpy as np
+import os
 import scipy.optimize as opt
 from ogusa.parameters import Specifications
 from ogusa import wealth
 from ogusa import SS
 from ogusa.utils import Inequality
+
+
+# Don't print output along the way of SS solution
+SS.VERBOSE = False
 
 
 def beta_estimate(beta_initial_guesses, og_spec={}, two_step=False,
@@ -33,7 +38,9 @@ def beta_estimate(beta_initial_guesses, og_spec={}, two_step=False,
     '''
 
     # initialize parametes object
-    tax_func_path = '/Users/jason.debacker/repos/dynamic/ogusa/data/tax_functions/TxFuncEst_baseline_PUF.pkl'
+    tax_func_path = os.path.join(
+        '..', '..', '..', 'dynamic', 'ogusa', 'data', 'tax_functions',
+        'TxFuncEst_baseline_PUF.pkl')
     p = Specifications(baseline=True)
     p.update_specifications(og_spec)
     p.get_tax_function_parameters(client, False, tax_func_path)
@@ -94,7 +101,7 @@ def minstat(beta_guesses, *args):
         model moments
 
     '''
-    # upack args tuple
+    # unpack args tuple
     data_moments, W, p, client = args
 
     # Update beta in parameters object with beta guesses

@@ -39,7 +39,7 @@ def beta_estimate(beta_initial_guesses, og_spec={}, two_step=False,
 
     # initialize parametes object
     tax_func_path = os.path.join(
-        '..', '..', '..', 'dynamic', 'ogusa', 'data', 'tax_functions',
+        '..', '..', 'dynamic', 'ogusa', 'data', 'tax_functions',
         'TxFuncEst_baseline_PUF.pkl')
     p = Specifications(baseline=True)
     p.update_specifications(og_spec)

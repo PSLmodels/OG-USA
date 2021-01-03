@@ -253,7 +253,7 @@ def compute_se(beta_hat, W, K, p, h=0.01, client=None):
         ss_output = ss_output = SS.run_SS(p, client=client)
         model_moments_low[i, :] = calc_moments(ss_output, p)
         # compute moments with upward change in param
-        beta_high[i] = beta_hat[i] * (1 + h)
+        beta_high[i] = beta_hat[i] * (1 - h)
         p.beta = beta_low
         ss_output = ss_output = SS.run_SS(p, client=client)
         model_moments_high[i, :] = calc_moments(ss_output, p)

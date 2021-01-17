@@ -257,13 +257,13 @@ class ogusa_calibrate():
         return dict_params, run_micro
 
     # Macro estimation
-    def get_macro(self):
+    self.macro_params = macro_params.get_macro_params()
 
     # eta estimation
-    def get_eta(self):
+    self.eta = transfer_distribution.get_transfer_matrix()
 
     # zeta estimation
-    def get_zeta(self):
+    self.zeta = bequest_transmission.get_bequest_matrix()
 
     # method to return all newly calibrated parameters in a dictionary
     def get_dict(self):

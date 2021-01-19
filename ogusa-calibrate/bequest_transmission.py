@@ -75,8 +75,6 @@ def MVKDE(S, J, proportion_matrix, filename=None, plot=False, bandwidth=.25):
     return estimator_scaled
 
 
-
-
 def get_bequest_matrix():
     '''
     Returns S x J matrix representing the fraction of aggregate

@@ -1,27 +1,44 @@
-from ogusa-calibrate import (estimate_beta_j, bequest_transmission,
-                             demographics, deterministic_profiles,
-                             macro_params, transfer_distribution)
+from ogusa-calibrate import (
+    estimate_beta_j, bequest_transmission, demographics,
+    deterministic_profiles, macro_params, transfer_distribution,
+    income)
+
 
 class Calibration():
     ''' OG-USA calibration class
     '''
-    def __init__(self,
+    def __init__(self, p,
                  estimate_tax_functions=False, estimate_beta=False,
                  estimate_chi_n=False, baseline_dir=BASELINE_DIR,
                  iit_reform={}, guid='', data='cps',
                  client=None, num_workers=1):
 
         if estimate_tax_functions:
-            get_tax_function_parameters(self, client, run_micro=False,
-                                    tax_func_path=None)
+            self.get_tax_function_parameters(
+                self, client, run_micro=False, tax_func_path=None)
         if estimate_beta:
-            beta_j = self.get_beta_j(self)
-        if estimate_chi_n:
-            chi_n = self.get_chi_n()
+            self.beta_j = estimate_beta_j.beta_estimate(self)
+        # if estimate_chi_n:
+        #     chi_n = self.get_chi_n()
 
-        self.macro_params = self.get_macro_params()
-        self.eta = self.get_eta()
-        self.zeta = self.get_zeta()
+        # Macro estimation
+        self.macro_params = macro_params.get_macro_params()
+
+        # eta estimation
+        self.eta = transfer_distribution.get_transfer_matrix()
+
+        # zeta estimation
+        self.zeta = bequest_transmission.get_bequest_matrix()
+
+        # earnings profiles
+        self.e = income.get_e_interp(
+            p.S, p.omega_SS, p.omega_SS_80, p.lambdas,
+            plot=False)
+
+        # demographics
+        self.demographic_params = demographics.get_pop_objs(
+                p.E, p.S, p.T, 1, 100, p.start_year)
+
 
     # Tax Functions
     def get_tax_function_parameters(self, client, run_micro=False,
@@ -256,15 +273,6 @@ class Calibration():
 
         return dict_params, run_micro
 
-    # Macro estimation
-    self.macro_params = macro_params.get_macro_params()
-
-    # eta estimation
-    self.eta = transfer_distribution.get_transfer_matrix()
-
-    # zeta estimation
-    self.zeta = bequest_transmission.get_bequest_matrix()
-
     # method to return all newly calibrated parameters in a dictionary
     def get_dict(self):
         dict = {}
@@ -277,6 +285,7 @@ class Calibration():
         dict['eta'] = self.eta
         dict['zeta'] = self.zeta
         dict.update(self.macro_params)
-
+        dict['e'] = self.e
+        dict.update(self.demographic_params)
 
         return dict

@@ -28,7 +28,6 @@ dependencies:
 - coverage
 - requests
 - xlwt
-- pandas_datareader
 - statsmodels
 - linearmodels
 - rpy2
@@ -36,3 +35,4 @@ dependencies:
   - jupyter-book>=0.8.0
   - cs-kit
   - cs2tc
+  - pandas-datareader

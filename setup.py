@@ -22,6 +22,7 @@ config = {
     'package_data': {
                      'ogusa': [
                                'data/PSID/*'
+                              ]
                      },
     'classifiers': [
         'Development Status :: 2 - Pre-Alpha',

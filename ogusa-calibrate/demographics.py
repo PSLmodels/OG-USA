@@ -337,18 +337,19 @@ def get_pop_objs(E, S, T, min_yr, max_yr, curr_year, GraphDiag=False):
                 diagnostics
 
     Returns:
-        omega_path_S (Numpy array), time path of the population
-            distribution from the current state to the steady-state,
-            size T+S x S
-        g_n_SS (scalar): steady-state population growth rate
-        omega_SS (Numpy array): normalized steady-state population
-            distribution, length S
-        surv_rates (Numpy array): survival rates that correspond to
-            each model period of life, lenght S
-        mort_rates (Numpy array): mortality rates that correspond to
-            each model period of life, length S
-        g_n_path (Numpy array): population growth rates over the time
-            path, length T + S
+        pop_dict (dict): includes:
+            omega_path_S (Numpy array), time path of the population
+                distribution from the current state to the steady-state,
+                size T+S x S
+            g_n_SS (scalar): steady-state population growth rate
+            omega_SS (Numpy array): normalized steady-state population
+                distribution, length S
+            surv_rates (Numpy array): survival rates that correspond to
+                each model period of life, lenght S
+            mort_rates (Numpy array): mortality rates that correspond to
+                each model period of life, length S
+            g_n_path (Numpy array): population growth rates over the time
+                path, length T + S
 
     '''
     # age_per = np.linspace(min_yr, max_yr, E+S)
@@ -539,6 +540,10 @@ def get_pop_objs(E, S, T, min_yr, max_yr, curr_year, GraphDiag=False):
 
     # return omega_path_S, g_n_SS, omega_SSfx, survival rates,
     # mort_rates_S, and g_n_path
-    return (omega_path_S.T, g_n_SS, omega_SSfx[-S:] /
-            omega_SSfx[-S:].sum(), 1-mort_rates_S, mort_rates_S,
-            g_n_path, imm_rates_mat.T, omega_S_preTP)
+    pop_dict = {'omega': omega_path_S.T, 'g_n_SS', :g_n_SS,
+                'omega_SS': omega_SSfx[-S:] / omega_SSfx[-S:].sum(),
+                'surv_rate': 1-mort_rates_S, 'rho': mort_rates_S,
+                'g_n': g_n_path, 'imm_rates': imm_rates_mat.T,
+                'omega_S_preTP': omega_S_preTP}
+
+    return pop_dict

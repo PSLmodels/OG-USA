@@ -1,7 +1,10 @@
 from ogusa-calibrate import (
     estimate_beta_j, bequest_transmission, demographics,
     deterministic_profiles, macro_params, transfer_distribution,
-    income)
+    income, txfunc)
+import os
+import numpy as np
+from ogusa.utils import safe_read_pickle
 
 
 class Calibration():
@@ -10,12 +13,13 @@ class Calibration():
     def __init__(self, p,
                  estimate_tax_functions=False, estimate_beta=False,
                  estimate_chi_n=False, baseline_dir=BASELINE_DIR,
-                 iit_reform={}, guid='', data='cps',
+                 tax_func_path=None, iit_reform={}, guid='', data='cps',
                  client=None, num_workers=1):
 
         if estimate_tax_functions:
-            self.get_tax_function_parameters(
-                self, client, run_micro=False, tax_func_path=None)
+            self.tax_params = self.get_tax_function_parameters(
+                self, p, iit_reform, guid, data, client, num_workers,
+                run_micro=True, tax_func_path)
         if estimate_beta:
             self.beta_j = estimate_beta_j.beta_estimate(self)
         # if estimate_chi_n:
@@ -39,9 +43,10 @@ class Calibration():
         self.demographic_params = demographics.get_pop_objs(
                 p.E, p.S, p.T, 1, 100, p.start_year)
 
-
     # Tax Functions
-    def get_tax_function_parameters(self, client, run_micro=False,
+    def get_tax_function_parameters(self, p, iit_reform={}, guid="",
+                                    data="", client=None, num_workers=1,
+                                    run_micro=False,
                                     tax_func_path=None):
         '''
         Reads pickle file of tax function parameters or estimates the
@@ -61,12 +66,12 @@ class Calibration():
                 pckl = "TxFuncEst_baseline{}.pkl".format(self.guid)
                 tax_func_path = os.path.join(self.output_base, pckl)
                 print('Using baseline tax parameters from ',
-                        tax_func_path)
+                      tax_func_path)
             else:
                 pckl = "TxFuncEst_policy{}.pkl".format(self.guid)
                 tax_func_path = os.path.join(self.output_base, pckl)
                 print('Using reform policy tax parameters from ',
-                        tax_func_path)
+                      tax_func_path)
         # If run_micro is false, check to see if parameters file exists
         # and if it is consistent with Specifications instance
         if not run_micro:
@@ -74,17 +79,17 @@ class Calibration():
                 tax_func_path)
         if run_micro:
             txfunc.get_tax_func_estimate(  # pragma: no cover
-                self.BW, self.S, self.starting_age, self.ending_age,
-                self.baseline, self.analytical_mtrs, self.tax_func_type,
-                self.age_specific, self.start_year, self.iit_reform,
-                self.guid, tax_func_path, self.data, client,
-                self.num_workers)
+                p.BW, p.S, p.starting_age, p.ending_age,
+                p.baseline, p.analytical_mtrs, p.tax_func_type,
+                p.age_specific, p.start_year, iit_reform,
+                guid, tax_func_path, data, client,
+                num_workers)
             dict_params, _ = self.read_tax_func_estimate(tax_func_path)
         self.mean_income_data = dict_params['tfunc_avginc'][0]
         try:
             self.frac_tax_payroll = np.append(
                 dict_params['tfunc_frac_tax_payroll'],
-                np.ones(self.T + self.S - self.BW) *
+                np.ones(p.T + p.S - p.BW) *
                 dict_params['tfunc_frac_tax_payroll'][-1])
         except KeyError:
             pass
@@ -225,34 +230,34 @@ class Calibration():
             try:
                 if current_taxcalc != dict_params['tax_calc_version']:
                     print('WARNING: Tax function parameters estimated' +
-                            ' from Tax Calculator version that is not ' +
-                            ' the one currently installed on this machine.')
+                          ' from Tax Calculator version that is not ' +
+                          ' the one currently installed on this machine.')
                     print('Current TC version is ', current_taxcalc,
-                            ', Estimated tax functions from version ',
-                            dict_params.get('tax_calc_version', None))
+                          ', Estimated tax functions from version ',
+                          dict_params.get('tax_calc_version', None))
                     flag = 1
             except KeyError:
                 pass
             try:
                 if self.start_year != dict_params['start_year']:
                     print('Model start year not consistent with tax ' +
-                            'function parameter estimates')
+                          'function parameter estimates')
                     flag = 1
             except KeyError:
                 pass
             try:
                 if self.BW != dict_params['BW']:
                     print('Model budget window length is not ' +
-                            'consistent with tax function parameter ' +
-                            'estimates')
+                          'consistent with tax function parameter ' +
+                          'estimates')
                     flag = 1
             except KeyError:
                 pass
             try:
                 if self.tax_func_type != dict_params['tax_func_type']:
                     print('Model tax function type is not ' +
-                            'consistent with tax function parameter ' +
-                            'estimates')
+                          'consistent with tax function parameter ' +
+                          'estimates')
                     flag = 1
             except KeyError:
                 pass
@@ -264,7 +269,7 @@ class Calibration():
         else:
             flag = 1
             print('Tax function parameter estimates do not exist at' +
-                    ' given path. Running new estimation.')
+                  ' given path. Running new estimation.')
         if flag >= 1:
             dict_params = None
             run_micro = True

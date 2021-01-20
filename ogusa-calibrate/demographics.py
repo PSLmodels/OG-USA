@@ -124,26 +124,30 @@ def get_mort(totpers, min_yr, max_yr, graph=False):
     # mort_data = pd.read_csv(mort_file, thousands=',')
     raw_data_male = pd.read_csv(
         'https://www.ssa.gov/oact/HistEst/PerLifeTables/2016/' +
-        'PerLifeTables_M_Alt2_TR2016.csv', thousands=',')
+        'PerLifeTables_M_Alt2_TR2016.csv', thousands=',',
+        skiprows=4)
     raw_data_female = pd.read_csv(
         'https://www.ssa.gov/oact/HistEst/PerLifeTables/2016/' +
-        'PerLifeTables_M_Alt2_TR2016.csv', thousands=',')
-    raw_data_male.rename({'x': 'Age', 'q(x)': 'Male Mort. Rate',
-                          'l(x)': 'Num. Male Lives'}, inplace=True)
+        'PerLifeTables_M_Alt2_TR2016.csv', thousands=',',
+        skiprows=4)
+    raw_data_male.rename(columns={
+        'x': 'Age', 'q(x)': 'Male Mort. Rate',
+        'l(x)': 'Num. Male Lives'}, inplace=True)
     raw_data_male = raw_data_male[[
         'Year', 'Age', 'Male Mort. Rate', 'Num. Male Lives']]
-    raw_data_female.rename({'x': 'Age', 'q(x)': 'Female Mort. Rate',
-                            'l(x)': 'Num. Female Lives'}, inplace=True)
+    raw_data_female.rename(columns={
+        'x': 'Age', 'q(x)': 'Female Mort. Rate',
+        'l(x)': 'Num. Female Lives'}, inplace=True)
     raw_data_female = raw_data_female[[
         'Year', 'Age', 'Female Mort. Rate', 'Num. Female Lives']]
     raw_data = raw_data_male.merge(raw_data_female, on=['Year', 'Age'])
     mort_data = raw_data[raw_data['Year'] == 2015]
-    age_year_all = mort_data['Age'] + 1
+    age_year_all = mort_data['Age'].values + 1
     mort_rates_all = (
         ((mort_data['Male Mort. Rate'] * mort_data['Num. Male Lives']) +
          (mort_data['Female Mort. Rate'] *
           mort_data['Num. Female Lives'])) /
-        (mort_data['Num. Male Lives'] + mort_data['Num. Female Lives']))
+        (mort_data['Num. Male Lives'] + mort_data['Num. Female Lives'])).values
     age_year_all = age_year_all[np.isfinite(mort_rates_all)]
     mort_rates_all = mort_rates_all[np.isfinite(mort_rates_all)]
     # Calculate implied mortality rates in sub-bins of mort_rates_all.
@@ -540,7 +544,7 @@ def get_pop_objs(E, S, T, min_yr, max_yr, curr_year, GraphDiag=False):
 
     # return omega_path_S, g_n_SS, omega_SSfx, survival rates,
     # mort_rates_S, and g_n_path
-    pop_dict = {'omega': omega_path_S.T, 'g_n_SS', :g_n_SS,
+    pop_dict = {'omega': omega_path_S.T, 'g_n_SS': g_n_SS,
                 'omega_SS': omega_SSfx[-S:] / omega_SSfx[-S:].sum(),
                 'surv_rate': 1-mort_rates_S, 'rho': mort_rates_S,
                 'g_n': g_n_path, 'imm_rates': imm_rates_mat.T,

@@ -5,6 +5,7 @@ from ogusa-calibrate import (
 import os
 import numpy as np
 from ogusa.utils import safe_read_pickle
+import pkg_resources
 
 
 class Calibration():
@@ -17,9 +18,9 @@ class Calibration():
                  client=None, num_workers=1):
 
         if estimate_tax_functions:
-            self.tax_params = self.get_tax_function_parameters(
+            self.tax_function_params = self.get_tax_function_parameters(
                 self, p, iit_reform, guid, data, client, num_workers,
-                run_micro=True, tax_func_path)
+                run_micro=True, tax_func_path=tax_func_path)
         if estimate_beta:
             self.beta_j = estimate_beta_j.beta_estimate(self)
         # if estimate_chi_n:
@@ -62,14 +63,14 @@ class Calibration():
         '''
         # set paths if none given
         if tax_func_path is None:
-            if self.baseline:
-                pckl = "TxFuncEst_baseline{}.pkl".format(self.guid)
-                tax_func_path = os.path.join(self.output_base, pckl)
+            if p.baseline:
+                pckl = "TxFuncEst_baseline{}.pkl".format(guid)
+                tax_func_path = os.path.join(p.output_base, pckl)
                 print('Using baseline tax parameters from ',
                       tax_func_path)
             else:
-                pckl = "TxFuncEst_policy{}.pkl".format(self.guid)
-                tax_func_path = os.path.join(self.output_base, pckl)
+                pckl = "TxFuncEst_policy{}.pkl".format(guid)
+                tax_func_path = os.path.join(p.output_base, pckl)
                 print('Using reform policy tax parameters from ',
                       tax_func_path)
         # If run_micro is false, check to see if parameters file exists
@@ -84,19 +85,19 @@ class Calibration():
                 p.age_specific, p.start_year, iit_reform,
                 guid, tax_func_path, data, client,
                 num_workers)
-            dict_params, _ = self.read_tax_func_estimate(tax_func_path)
-        self.mean_income_data = dict_params['tfunc_avginc'][0]
+            dict_params, _ = self.read_tax_func_estimate(p, tax_func_path)
+        mean_income_data = dict_params['tfunc_avginc'][0]
         try:
-            self.frac_tax_payroll = np.append(
+            frac_tax_payroll = np.append(
                 dict_params['tfunc_frac_tax_payroll'],
                 np.ones(p.T + p.S - p.BW) *
                 dict_params['tfunc_frac_tax_payroll'][-1])
         except KeyError:
             pass
         try:
-            self.taxcalc_version = dict_params['taxcalc_version']
+            taxcalc_version = dict_params['taxcalc_version']
         except KeyError:
-            self.taxcalc_version = 'No version recorded'
+            taxcalc_version = 'No version recorded'
 
         # Reorder indices of tax function and tile for all years after
         # budget window ends
@@ -113,11 +114,11 @@ class Calibration():
         params_list = ['etr', 'mtrx', 'mtry']
         BW_in_tax_params = dict_params['tfunc_etr_params_S'].shape[1]
         S_in_tax_params = dict_params['tfunc_etr_params_S'].shape[0]
-        if self.BW != BW_in_tax_params:
+        if p.BW != BW_in_tax_params:
             print('Warning: There is a discrepency between the start' +
                     ' year of the model and that of the tax functions!!')
         # After printing warning, make it work by tiling
-        if self.BW > BW_in_tax_params:
+        if p.BW > BW_in_tax_params:
             for item in params_list:
                 dict_params['tfunc_' + item + '_params_S'] =\
                     np.concatenate(
@@ -125,90 +126,37 @@ class Calibration():
                             np.tile(dict_params['tfunc_' + item +
                                                 '_params_S'][:, -1, :].
                                     reshape(S_in_tax_params, 1, num_etr_params),
-                                    (1, self.BW - BW_in_tax_params, 1))),
+                                    (1, p.BW - BW_in_tax_params, 1))),
                         axis=1)
                 dict_params['tfunc_avg_' + item] =\
                     np.append(dict_params['tfunc_avg_' + item],
-                                np.tile(dict_params['tfunc_avg_' + item][-1],
-                                        (self.BW - BW_in_tax_params)))
-        if self.S != S_in_tax_params:
+                              np.tile(dict_params['tfunc_avg_' + item][-1],
+                                      (p.BW - BW_in_tax_params)))
+        if p.S != S_in_tax_params:
             print('Warning: There is a discrepency between the ages' +
-                    ' used in the model and those in the tax functions!!')
+                  ' used in the model and those in the tax functions!!')
         # After printing warning, make it work by tiling
-        if self.S > S_in_tax_params:
+        if p.S > S_in_tax_params:
             for item in params_list:
                 dict_params['tfunc_' + item + '_params_S'] =\
                     np.concatenate(
                         (dict_params['tfunc_' + item + '_params_S'],
                             np.tile(dict_params['tfunc_' + item +
                                                 '_params_S'][-1, :, :].
-                                    reshape(1, self.BW, num_etr_params),
-                                    (self.S - S_in_tax_params, 1, 1))),
+                                    reshape(1, p.BW, num_etr_params),
+                                    (p.S - S_in_tax_params, 1, 1))),
                         axis=0)
-        self.etr_params = np.empty((self.T, self.S, num_etr_params))
-        self.mtrx_params = np.empty((self.T, self.S, num_mtrx_params))
-        self.mtry_params = np.empty((self.T, self.S, num_mtry_params))
-        self.etr_params[:self.BW, :, :] =\
-            np.transpose(
-                dict_params['tfunc_etr_params_S'][:self.S, :self.BW, :],
-                axes=[1, 0, 2])
-        self.etr_params[self.BW:, :, :] =\
-            np.tile(np.transpose(
-                dict_params['tfunc_etr_params_S'][:self.S, -1, :].reshape(
-                    self.S, 1, num_etr_params), axes=[1, 0, 2]),
-                    (self.T - self.BW, 1, 1))
-        self.mtrx_params[:self.BW, :, :] =\
-            np.transpose(
-                dict_params['tfunc_mtrx_params_S'][:self.S, :self.BW, :],
-                axes=[1, 0, 2])
-        self.mtrx_params[self.BW:, :, :] =\
-            np.transpose(
-                dict_params['tfunc_mtrx_params_S'][:self.S, -1, :].reshape(
-                    self.S, 1, num_mtrx_params), axes=[1, 0, 2])
-        self.mtry_params[:self.BW, :, :] =\
-            np.transpose(
-                dict_params['tfunc_mtry_params_S'][:self.S, :self.BW, :],
-                axes=[1, 0, 2])
-        self.mtry_params[self.BW:, :, :] =\
-            np.transpose(
-                dict_params['tfunc_mtry_params_S'][:self.S, -1, :].reshape(
-                    self.S, 1, num_mtry_params), axes=[1, 0, 2])
+        tax_param_dict = {
+            'etr_params': dict_params['tfunc_etr_params_S'],
+            'mtrx_params': dict_params['tfunc_mtrx_params_S'],
+            'mtry_params': dict_params['tfunc_mtry_params_S'],
+            'taxcalc_version': taxcalc_version,
+            'mean_income_data': mean_income_data,
+            'frac_tax_payroll': frac_tax_payroll}
 
-        if self.constant_rates:
-            print('Using constant rates!')
-            # # Make all ETRs equal the average
-            self.etr_params = np.zeros(self.etr_params.shape)
-            # set shift to average rate
-            self.etr_params[:self.BW, :, 10] = np.tile(
-                dict_params['tfunc_avg_etr'].reshape(self.BW, 1),
-                (1, self.S))
-            self.etr_params[self.BW:, :, 10] =\
-                dict_params['tfunc_avg_etr'][-1]
+        return tax_param_dict
 
-            # # Make all MTRx equal the average
-            self.mtrx_params = np.zeros(self.mtrx_params.shape)
-            # set shift to average rate
-            self.mtrx_params[:self.BW, :, 10] = np.tile(
-                dict_params['tfunc_avg_mtrx'].reshape(self.BW, 1),
-                (1, self.S))
-            self.mtrx_params[self.BW:, :, 10] =\
-                dict_params['tfunc_avg_mtrx'][-1]
-
-            # # Make all MTRy equal the average
-            self.mtry_params = np.zeros(self.mtry_params.shape)
-            # set shift to average rate
-            self.mtry_params[:self.BW, :, 10] = np.tile(
-                dict_params['tfunc_avg_mtry'].reshape(self.BW, 1),
-                (1, self.S))
-            self.mtry_params[self.BW:, :, 10] =\
-                dict_params['tfunc_avg_mtry'][-1]
-        if self.zero_taxes:
-            print('Zero taxes!')
-            self.etr_params = np.zeros(self.etr_params.shape)
-            self.mtrx_params = np.zeros(self.mtrx_params.shape)
-            self.mtry_params = np.zeros(self.mtry_params.shape)
-
-    def read_tax_func_estimate(self, tax_func_path):
+    def read_tax_func_estimate(self, p, tax_func_path):
         '''
         This function reads in tax function parameters from pickle
         files.
@@ -239,14 +187,14 @@ class Calibration():
             except KeyError:
                 pass
             try:
-                if self.start_year != dict_params['start_year']:
+                if p.start_year != dict_params['start_year']:
                     print('Model start year not consistent with tax ' +
                           'function parameter estimates')
                     flag = 1
             except KeyError:
                 pass
             try:
-                if self.BW != dict_params['BW']:
+                if p.BW != dict_params['BW']:
                     print('Model budget window length is not ' +
                           'consistent with tax function parameter ' +
                           'estimates')
@@ -254,7 +202,7 @@ class Calibration():
             except KeyError:
                 pass
             try:
-                if self.tax_func_type != dict_params['tax_func_type']:
+                if p.tax_func_type != dict_params['tax_func_type']:
                     print('Model tax function type is not ' +
                           'consistent with tax function parameter ' +
                           'estimates')
@@ -282,7 +230,7 @@ class Calibration():
     def get_dict(self):
         dict = {}
         if estimate_tax_functions:
-            dict['tax_func_params'] = self.taxfunctions
+            dict.update(self.tax_function_params)
         if estimate_beta:
             dict['beta_annual'] = self.beta
         if estimate_chi_n:

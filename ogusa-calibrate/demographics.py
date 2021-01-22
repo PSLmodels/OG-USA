@@ -31,9 +31,9 @@ def get_fert(totpers, min_yr, max_yr, graph=False):
     '''
     This function generates a vector of fertility rates by model period
     age that corresponds to the fertility rate data by age in years
-    (Source: National Vital Statistics Reports, Volume 64, Number 1,
-    January 15, 2015, Table 3, final 2013 data
-    http://www.cdc.gov/nchs/data/nvsr/nvsr64/nvsr64_01.pdf)
+    using data from the National Center for Health Statistics National
+    Vital Statistic System:
+    https://www.cdc.gov/nchs/nvss/cohort_fertility_tables.htm
 
     Args:
         totpers (int): total number of agent life periods (E+S), >= 3
@@ -47,50 +47,50 @@ def get_fert(totpers, min_yr, max_yr, graph=False):
             of life
 
     '''
-    # Get current population data (2013) for weighting
-    pop_file = os.path.join(
-        CUR_PATH, 'data', 'demographic', 'pop_data.csv')
-    pop_data = pd.read_csv(pop_file, thousands=',')
-    pop_data_samp = pop_data[(pop_data['Age'] >= min_yr - 1) &
-                             (pop_data['Age'] <= max_yr - 1)]
-    curr_pop = np.array(pop_data_samp['2013'], dtype='f')
-    curr_pop_pct = curr_pop / curr_pop.sum()
-    # Get fertility rate by age-bin data
-    fert_data = (np.array([0.0, 0.0, 0.3, 12.3, 47.1, 80.7, 105.5, 98.0,
-                           49.3, 10.4, 0.8, 0.0, 0.0]) / 2000)
-    # Mid points of age bins
-    age_midp = np.array([9, 10, 12, 16, 18.5, 22, 27, 32, 37, 42, 47,
-                         55, 56])
-    # Generate interpolation functions for fertility rates
-    fert_func = si.interp1d(age_midp, fert_data, kind='cubic')
-    # Calculate average fertility rate in each age bin using trapezoid
-    # method with a large number of points in each bin.
-    binsize = (max_yr - min_yr + 1) / totpers
-    num_sub_bins = float(10000)
-    len_subbins = (np.float64(100 * num_sub_bins)) / totpers
-    age_sub = (np.linspace(np.float64(binsize) / num_sub_bins,
-                           np.float64(max_yr),
-                           int(num_sub_bins*max_yr)) - 0.5 *
-               np.float64(binsize) / num_sub_bins)
-    curr_pop_sub = np.repeat(np.float64(curr_pop_pct) / num_sub_bins,
-                             num_sub_bins)
-    fert_rates_sub = np.zeros(curr_pop_sub.shape)
-    pred_ind = (age_sub > age_midp[0]) * (age_sub < age_midp[-1])
-    age_pred = age_sub[pred_ind]
-    fert_rates_sub[pred_ind] = np.float64(fert_func(age_pred))
+    # Read raw data from NCHS
+    raw = pd.read_csv(
+        'ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/nvss/birth/cohort/Table01.csv',
+        skiprows=4)
+    # keep only latest year in data
+    fert_data = raw[raw['Calendar year'] == 2005]
+    fert_data = (
+        fert_data[fert_data['Race of women'] == "All races 1"]
+        [['Current age of women', 'Live-birth order total']])
+    fert_data.rename(
+        columns={'Current age of women': 'Age',
+                 'Live-birth order total': 'Births per 1000'},
+        inplace=True)
+    age_year_all = np.append(
+        np.append(np.arange(min_yr, fert_data.Age.min()),
+                  fert_data['Age'].values),
+        np.arange(fert_data.Age.max() + 1, max_yr + 1))
+    fert_rates_all = np.append(
+        np.append(np.zeros(int(fert_data.Age.min()) - min_yr),
+                  fert_data['Births per 1000'].values),
+        np.zeros(int(max_yr - fert_data.Age.max())))
+    # divide by 2000 because fertility rates per woman and we want per
+    # household
+    fert_rates_all = fert_rates_all / 2000
+    # Calculate implied fertility rates in sub-bins of fert_rates_all.
+    fert_rates_mxyr = fert_rates_all[0:max_yr]
+    num_sub_bins = int(100)
+    len_subbins = ((np.float64((max_yr - min_yr + 1) * num_sub_bins)) /
+                   totpers)
+    fert_rates_sub = np.zeros(num_sub_bins * max_yr, dtype=float)
+    for i in range(max_yr):
+        fert_rates_sub[i * num_sub_bins:(i + 1) * num_sub_bins] =\
+            (1 - ((1 - fert_rates_mxyr[i]) ** (1.0 / num_sub_bins)))
     fert_rates = np.zeros(totpers)
     end_sub_bin = 0
     for i in range(totpers):
         beg_sub_bin = int(end_sub_bin)
         end_sub_bin = int(np.rint((i + 1) * len_subbins))
-        fert_rates[i] = ((
-            curr_pop_sub[beg_sub_bin:end_sub_bin] *
-            fert_rates_sub[beg_sub_bin:end_sub_bin]).sum() /
-            curr_pop_sub[beg_sub_bin:end_sub_bin].sum())
+        fert_rates[i] = (
+            1 - (1 - (fert_rates_sub[beg_sub_bin:end_sub_bin])).prod())
 
-    if graph:
-        pp.plot_fert_rates(fert_func, age_midp, totpers, min_yr, max_yr,
-                           fert_data, fert_rates, output_dir=OUTPUT_DIR)
+    # if graph:  # need to fix plot function for new data output
+    #     pp.plot_fert_rates(fert_rates, age_midp, totpers, min_yr, max_yr,
+    #                        fert_data, fert_rates, output_dir=OUTPUT_DIR)
 
     return fert_rates
 

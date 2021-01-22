@@ -99,9 +99,8 @@ def get_mort(totpers, min_yr, max_yr, graph=False):
     '''
     This function generates a vector of mortality rates by model period
     age.
-    (Source: Male and Female death probabilities Actuarial Life table,
-    2011 Social Security Administration,
-    http://www.ssa.gov/oact/STATS/table4c6.html)
+    Source: Male and Female death probabilities Actuarial Life table,
+    Social Security Administration
 
     Args:
         totpers (int): total number of agent life periods (E+S), >= 3
@@ -242,44 +241,44 @@ def get_imm_resid(totpers, min_yr, max_yr):
             each period of life, length E+S
 
     '''
-    pop_file = os.path.join(
-        CUR_PATH, 'data', 'demographic', 'pop_data.csv')
-    pop_data = pd.read_csv(pop_file, thousands=',')
+    pop_data = pd.read_csv('https://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2010-2019/nc-est2019-agesex-res.csv')
+    pop_data = pop_data[pop_data['SEX'] == 0][['AGE', 'POPESTIMATE2016', 'POPESTIMATE2017', 'POPESTIMATE2018', 'POPESTIMATE2019']]
+    pop_data.rename(columns={'AGE': 'Age', 'POPESTIMATE2016': '2016', 'POPESTIMATE2017': '2017', 'POPESTIMATE2018': '2018', 'POPESTIMATE2019': '2019'}, inplace=True)
     pop_data_samp = pop_data[(pop_data['Age'] >= min_yr - 1) &
                              (pop_data['Age'] <= max_yr - 1)]
-    pop_2010, pop_2011, pop_2012, pop_2013 = (
-        np.array(pop_data_samp['2010'], dtype='f'),
-        np.array(pop_data_samp['2011'], dtype='f'),
-        np.array(pop_data_samp['2012'], dtype='f'),
-        np.array(pop_data_samp['2013'], dtype='f'))
-    pop_2010_EpS = pop_rebin(pop_2010, totpers)
-    pop_2011_EpS = pop_rebin(pop_2011, totpers)
-    pop_2012_EpS = pop_rebin(pop_2012, totpers)
-    pop_2013_EpS = pop_rebin(pop_2013, totpers)
+    pop_2016, pop_2017, pop_2018, pop_2019 = (
+        np.array(pop_data_samp['2016'], dtype='f'),
+        np.array(pop_data_samp['2017'], dtype='f'),
+        np.array(pop_data_samp['2018'], dtype='f'),
+        np.array(pop_data_samp['2019'], dtype='f'))
+    pop_2016_EpS = pop_rebin(pop_2016, totpers)
+    pop_2017_EpS = pop_rebin(pop_2017, totpers)
+    pop_2018_EpS = pop_rebin(pop_2018, totpers)
+    pop_2019_EpS = pop_rebin(pop_2019, totpers)
     # Create three years of estimated immigration rates for youngest age
     # individuals
     imm_mat = np.zeros((3, totpers))
-    pop11vec = np.array([pop_2010_EpS[0], pop_2011_EpS[0],
-                         pop_2012_EpS[0]])
-    pop21vec = np.array([pop_2011_EpS[0], pop_2012_EpS[0],
-                         pop_2013_EpS[0]])
+    pop11vec = np.array([pop_2016_EpS[0], pop_2017_EpS[0],
+                         pop_2018_EpS[0]])
+    pop21vec = np.array([pop_2017_EpS[0], pop_2018_EpS[0],
+                         pop_2019_EpS[0]])
     fert_rates = get_fert(totpers, min_yr, max_yr, False)
     mort_rates, infmort_rate = get_mort(totpers, min_yr, max_yr, False)
-    newbornvec = np.dot(fert_rates, np.vstack((pop_2010_EpS,
-                                               pop_2011_EpS,
-                                               pop_2012_EpS)).T)
+    newbornvec = np.dot(fert_rates, np.vstack((pop_2016_EpS,
+                                               pop_2017_EpS,
+                                               pop_2018_EpS)).T)
     imm_mat[:, 0] = ((pop21vec - (1 - infmort_rate) * newbornvec) /
                      pop11vec)
     # Estimate 3 years of immigration rates for all other-aged
     # individuals
-    pop11mat = np.vstack((pop_2010_EpS[:-1], pop_2011_EpS[:-1],
-                          pop_2012_EpS[:-1]))
-    pop12mat = np.vstack((pop_2010_EpS[1:], pop_2011_EpS[1:],
-                          pop_2012_EpS[1:]))
-    pop22mat = np.vstack((pop_2011_EpS[1:], pop_2012_EpS[1:],
-                          pop_2013_EpS[1:]))
+    pop17mat = np.vstack((pop_2016_EpS[:-1], pop_2017_EpS[:-1],
+                          pop_2018_EpS[:-1]))
+    pop18mat = np.vstack((pop_2016_EpS[1:], pop_2017_EpS[1:],
+                          pop_2018_EpS[1:]))
+    pop19mat = np.vstack((pop_2017_EpS[1:], pop_2018_EpS[1:],
+                          pop_2019_EpS[1:]))
     mort_mat = np.tile(mort_rates[:-1], (3, 1))
-    imm_mat[:, 1:] = (pop22mat - (1 - mort_mat) * pop11mat) / pop12mat
+    imm_mat[:, 1:] = (pop19mat - (1 - mort_mat) * pop17mat) / pop18mat
     # Final estimated immigration rates are the averages over 3 years
     imm_rates = imm_mat.mean(axis=0)
 

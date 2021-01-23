@@ -117,10 +117,8 @@ def get_mort(totpers, min_yr, max_yr, graph=False):
 
     '''
     # Get mortality rate by age data
-    infmort_rate = 0.00587  # taken from 2015 U.S. infant mortality rate
-    # mort_file = os.path.join(
-    #     CUR_PATH, 'data', 'demographic', 'mort_rates2011.csv')
-    # mort_data = pd.read_csv(mort_file, thousands=',')
+    infmort_rate = 0.00566  # taken from 2018 U.S. infant mortality rate
+    # https://www.cdc.gov/nchs/products/databriefs/db355.htm
     raw_data_male = pd.read_csv(
         'https://www.ssa.gov/oact/HistEst/PerLifeTables/2016/' +
         'PerLifeTables_M_Alt2_TR2016.csv', thousands=',',
@@ -347,7 +345,7 @@ def get_pop_objs(E, S, T, min_yr, max_yr, curr_year, GraphDiag=False):
             omega_SS (Numpy array): normalized steady-state population
                 distribution, length S
             surv_rates (Numpy array): survival rates that correspond to
-                each model period of life, lenght S
+                each model period of life, length S
             mort_rates (Numpy array): mortality rates that correspond to
                 each model period of life, length S
             g_n_path (Numpy array): population growth rates over the time

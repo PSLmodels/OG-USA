@@ -243,7 +243,7 @@ def get_imm_resid(totpers, min_yr, max_yr):
         pop_data[pop_data['SEX'] == 0][['AGE', 'POPESTIMATE2016',
                                         'POPESTIMATE2017',
                                         'POPESTIMATE2018',
-                                        'POPESTIMATE2019']]
+                                        'POPESTIMATE2019']])
     pop_data.rename(columns={
         'AGE': 'Age', 'POPESTIMATE2016': '2016',
         'POPESTIMATE2017': '2017', 'POPESTIMATE2018': '2018',
@@ -390,7 +390,7 @@ def get_pop_objs(E, S, T, min_yr, max_yr, curr_year, GraphDiag=False):
         pop_data[pop_data['SEX'] == 0][['AGE', 'POPESTIMATE2016',
                                         'POPESTIMATE2017',
                                         'POPESTIMATE2018',
-                                        'POPESTIMATE2019']]
+                                        'POPESTIMATE2019']])
     pop_data.rename(columns={
         'AGE': 'Age', 'POPESTIMATE2016': '2016',
         'POPESTIMATE2017': '2017', 'POPESTIMATE2018': '2018',

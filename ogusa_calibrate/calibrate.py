@@ -13,10 +13,13 @@ class Calibration():
     '''
     def __init__(self, p,
                  estimate_tax_functions=False, estimate_beta=False,
-                 estimate_chi_n=False, baseline_dir=BASELINE_DIR,
+                 estimate_chi_n=False,
                  tax_func_path=None, iit_reform={}, guid='', data='cps',
                  client=None, num_workers=1):
 
+        self.estimate_tax_functions = estimate_tax_functions
+        self.estimate_beta = estimate_beta
+        self.estimate_chi_n = estimate_chi_n
         if estimate_tax_functions:
             self.tax_function_params = self.get_tax_function_parameters(
                 self, p, iit_reform, guid, data, client, num_workers,
@@ -229,11 +232,11 @@ class Calibration():
     # method to return all newly calibrated parameters in a dictionary
     def get_dict(self):
         dict = {}
-        if estimate_tax_functions:
+        if self.estimate_tax_functions:
             dict.update(self.tax_function_params)
-        if estimate_beta:
+        if self.estimate_beta:
             dict['beta_annual'] = self.beta
-        if estimate_chi_n:
+        if self.estimate_chi_n:
             dict['chi_n'] = self.chi_n
         dict['eta'] = self.eta
         dict['zeta'] = self.zeta

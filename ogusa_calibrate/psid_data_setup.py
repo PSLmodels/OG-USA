@@ -21,7 +21,7 @@ This script takes PSID data created from psid_download.R and:
 '''
 
 # Read data from R into pandas dataframe
-r['load']("./psid_data_files/psid1968to2017.RData")
+r['load']("psid1968to2017.RData")
 raw_df = r('psid_df')
 
 # Create unique identifier for each household

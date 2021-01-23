@@ -1,4 +1,4 @@
-from ogusa-calibrate import (
+from ogusa_calibrate import (
     estimate_beta_j, bequest_transmission, demographics,
     deterministic_profiles, macro_params, transfer_distribution,
     income, txfunc)

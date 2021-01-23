@@ -15,9 +15,9 @@ config = {
     'download_url': 'https://github.com/PLSmodels/OG-USA-Calibration/',
     'version': version,
     'license': 'CC0 1.0 Universal public domain dedication',
-    'packages': ['ogusa-calibrate'],
+    'packages': ['ogusa_calibrate'],
     'include_package_data': True,
-    'name': 'ogusa-calibrate',
+    'name': 'ogusa_calibrate',
     'install_requires': [],
     'package_data': {
                      'ogusa': [

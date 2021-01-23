@@ -98,7 +98,7 @@ def get_bequest_matrix():
 
     # Read in dataframe of PSID data
     df = ogusa.utils.safe_read_pickle(os.path.join(
-        cur_path, '..', 'Data', 'PSID', 'psid_lifetime_income.pkl'))
+        cur_path, 'data', 'PSID', 'psid_lifetime_income.pkl'))
 
     # Do some tabs with data file...
     # 'net_wealth', 'inheritance', 'value_inheritance_1st',
@@ -113,37 +113,37 @@ def get_bequest_matrix():
     print(df[['sum_inherit', 'inheritance']].describe())
 
 
-    # Total inheritances by year
-    df.groupby('year_data').mean().plot(y='inheritance')
-    plt.savefig(os.path.join(image_dir, 'inheritance_year.png'))
-    df.groupby('year_data').mean().plot(y='sum_inherit')
-    plt.savefig(os.path.join(image_dir, 'sum_inherit_year.png'))
-    # not that summing up inheritances gives a much larger value than
-    # taking the inheritance variable
+    # # Total inheritances by year
+    # df.groupby('year_data').mean().plot(y='inheritance')
+    # plt.savefig(os.path.join(image_dir, 'inheritance_year.png'))
+    # df.groupby('year_data').mean().plot(y='sum_inherit')
+    # plt.savefig(os.path.join(image_dir, 'sum_inherit_year.png'))
+    # # not that summing up inheritances gives a much larger value than
+    # # taking the inheritance variable
 
-    # Fraction of inheritances in a year by age
-    # line plot
-    df[df['year_data'] >= 1988].groupby('age').mean().plot(y='net_wealth')
-    plt.savefig(os.path.join(image_dir, 'net_wealth_age.png'))
-    df[df['year_data'] >= 1988].groupby('age').mean().plot(y='inheritance')
-    plt.savefig(os.path.join(image_dir, 'inheritance_age.png'))
+    # # Fraction of inheritances in a year by age
+    # # line plot
+    # df[df['year_data'] >= 1988].groupby('age').mean().plot(y='net_wealth')
+    # plt.savefig(os.path.join(image_dir, 'net_wealth_age.png'))
+    # df[df['year_data'] >= 1988].groupby('age').mean().plot(y='inheritance')
+    # plt.savefig(os.path.join(image_dir, 'inheritance_age.png'))
 
-    # Inheritances by lifetime income group
-    # bar plot
-    df[df['year_data'] >= 1988].groupby('li_group').mean().plot.bar(
-        y='net_wealth')
-    plt.savefig(os.path.join(image_dir, 'net_wealth_li.png'))
-    df[df['year_data'] >= 1988].groupby('li_group').mean().plot.bar(
-        y='inheritance')
-    plt.savefig(os.path.join(image_dir, 'inheritance_li.png'))
+    # # Inheritances by lifetime income group
+    # # bar plot
+    # df[df['year_data'] >= 1988].groupby('li_group').mean().plot.bar(
+    #     y='net_wealth')
+    # plt.savefig(os.path.join(image_dir, 'net_wealth_li.png'))
+    # df[df['year_data'] >= 1988].groupby('li_group').mean().plot.bar(
+    #     y='inheritance')
+    # plt.savefig(os.path.join(image_dir, 'inheritance_li.png'))
 
-    # lifecycle plots with line for each ability type
-    pd.pivot_table(df[df['year_data'] >= 1988], values='net_wealth', index='age',
-                columns='li_group', aggfunc='mean').plot(legend=True)
-    plt.savefig(os.path.join(image_dir, 'net_wealth_age_li.png'))
-    pd.pivot_table(df[df['year_data'] >= 1988], values='inheritance', index='age',
-                columns='li_group', aggfunc='mean').plot(legend=True)
-    plt.savefig(os.path.join(image_dir, 'inheritance_age_li.png'))
+    # # lifecycle plots with line for each ability type
+    # pd.pivot_table(df[df['year_data'] >= 1988], values='net_wealth', index='age',
+    #             columns='li_group', aggfunc='mean').plot(legend=True)
+    # plt.savefig(os.path.join(image_dir, 'net_wealth_age_li.png'))
+    # pd.pivot_table(df[df['year_data'] >= 1988], values='inheritance', index='age',
+    #             columns='li_group', aggfunc='mean').plot(legend=True)
+    # plt.savefig(os.path.join(image_dir, 'inheritance_age_li.png'))
 
     # Matrix Fraction of inheritances in a year by age and lifetime_inc
     inheritance_matrix = pd.pivot_table(
@@ -152,8 +152,8 @@ def get_bequest_matrix():
     # replace NaN with zero
     inheritance_matrix.fillna(value=0, inplace=True)
     inheritance_matrix = inheritance_matrix / inheritance_matrix.sum().sum()
-    inheritance_matrix.to_csv(os.path.join(
-        output_dir, 'bequest_matrix.csv'))
+    # inheritance_matrix.to_csv(os.path.join(
+    #     output_dir, 'bequest_matrix.csv'))
 
     # estimate kernel density of bequests
     kde_matrix = MVKDE(
@@ -162,5 +162,5 @@ def get_bequest_matrix():
         bandwidth=.5)
     np.savetxt(os.path.join(
         output_dir, 'bequest_matrix_kde.csv'), kde_matrix, delimiter=",")
-    
+
     return kde_matrix

@@ -112,8 +112,7 @@ def get_mort(totpers, min_yr, max_yr, graph=False):
     Returns:
         mort_rates (Numpy array) mortality rates that correspond to each
             period of life
-        infmort_rate (scalar): infant mortality rate from 2015 U.S. CIA
-            World Factbook
+        infmort_rate (scalar): infant mortality rate
 
     '''
     # Get mortality rate by age data
@@ -238,9 +237,17 @@ def get_imm_resid(totpers, min_yr, max_yr):
             each period of life, length E+S
 
     '''
-    pop_data = pd.read_csv('https://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2010-2019/nc-est2019-agesex-res.csv')
-    pop_data = pop_data[pop_data['SEX'] == 0][['AGE', 'POPESTIMATE2016', 'POPESTIMATE2017', 'POPESTIMATE2018', 'POPESTIMATE2019']]
-    pop_data.rename(columns={'AGE': 'Age', 'POPESTIMATE2016': '2016', 'POPESTIMATE2017': '2017', 'POPESTIMATE2018': '2018', 'POPESTIMATE2019': '2019'}, inplace=True)
+    pop_data = pd.read_csv(
+        'https://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2010-2019/nc-est2019-agesex-res.csv')
+    pop_data = (
+        pop_data[pop_data['SEX'] == 0][['AGE', 'POPESTIMATE2016',
+                                        'POPESTIMATE2017',
+                                        'POPESTIMATE2018',
+                                        'POPESTIMATE2019']]
+    pop_data.rename(columns={
+        'AGE': 'Age', 'POPESTIMATE2016': '2016',
+        'POPESTIMATE2017': '2017', 'POPESTIMATE2018': '2018',
+        'POPESTIMATE2019': '2019'}, inplace=True)
     pop_data_samp = pop_data[(pop_data['Age'] >= min_yr - 1) &
                              (pop_data['Age'] <= max_yr - 1)]
     pop_2016, pop_2017, pop_2018, pop_2019 = (
@@ -377,9 +384,17 @@ def get_pop_objs(E, S, T, min_yr, max_yr, curr_year, GraphDiag=False):
 
     # Generate time path of the nonstationary population distribution
     omega_path_lev = np.zeros((E + S, T + S))
-    pop_data = pd.read_csv('https://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2010-2019/nc-est2019-agesex-res.csv')
-    pop_data = pop_data[pop_data['SEX'] == 0][['AGE', 'POPESTIMATE2016', 'POPESTIMATE2017', 'POPESTIMATE2018', 'POPESTIMATE2019']]
-    pop_data.rename(columns={'AGE': 'Age', 'POPESTIMATE2016': '2016', 'POPESTIMATE2017': '2017', 'POPESTIMATE2018': '2018', 'POPESTIMATE2019': '2019'}, inplace=True)
+    pop_data = pd.read_csv(
+        'https://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2010-2019/nc-est2019-agesex-res.csv')
+    pop_data = (
+        pop_data[pop_data['SEX'] == 0][['AGE', 'POPESTIMATE2016',
+                                        'POPESTIMATE2017',
+                                        'POPESTIMATE2018',
+                                        'POPESTIMATE2019']]
+    pop_data.rename(columns={
+        'AGE': 'Age', 'POPESTIMATE2016': '2016',
+        'POPESTIMATE2017': '2017', 'POPESTIMATE2018': '2018',
+        'POPESTIMATE2019': '2019'}, inplace=True)
     pop_data_samp = pop_data[(pop_data['Age'] >= min_yr - 1) &
                              (pop_data['Age'] <= max_yr - 1)]
     pop_2019 = np.array(pop_data_samp['2019'], dtype='f')

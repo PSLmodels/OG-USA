@@ -75,7 +75,7 @@ def MVKDE(S, J, proportion_matrix, filename=None, plot=False, bandwidth=.25):
     return estimator_scaled
 
 
-def get_transfer_matrix():
+def get_transfer_matrix(graphs=False):
     '''
     Compute SxJ matrix representing the distribution of aggregate
     government transfers by age and lifetime income group.
@@ -113,37 +113,38 @@ def get_transfer_matrix():
         df['spouse_unemp_inc_prior_year'] +
         df['other_familyunit_unemp_inc_prior_year'])
 
-    # Total total_transfers by year
-    # df.groupby('year_data').mean().plot(y='total_transfers')
-    # plt.savefig(os.path.join(image_dir, 'total_transfers_year.png'))
-    # df.groupby('year_data').mean().plot(y='sum_transfers')
-    # plt.savefig(os.path.join(image_dir, 'sum_transfers_year.png'))
-    # # note that the sum of transfer categories is much lower than the
-    # # tranfers variable.  The transfers variable goes more to high income
-    # # and old, even though it says it excludes social security
+    if graphs:
+        # Total total_transfers by year
+        df.groupby('year_data').mean().plot(y='total_transfers')
+        plt.savefig(os.path.join(image_dir, 'total_transfers_year.png'))
+        df.groupby('year_data').mean().plot(y='sum_transfers')
+        plt.savefig(os.path.join(image_dir, 'sum_transfers_year.png'))
+        # note that the sum of transfer categories is much lower than the
+        # tranfers variable.  The transfers variable goes more to high income
+        # and old, even though it says it excludes social security
 
-    # # Fraction of total_transfers in a year by age
-    # # line plot
-    # df[df['year_data'] >= 1988].groupby('age').mean().plot(
-    #     y='total_transfers')
-    # plt.savefig(os.path.join(image_dir, 'total_transfers_age.png'))
+        # Fraction of total_transfers in a year by age
+        # line plot
+        df[df['year_data'] >= 1988].groupby('age').mean().plot(
+            y='total_transfers')
+        plt.savefig(os.path.join(image_dir, 'total_transfers_age.png'))
 
-    # # total_transfers by lifetime income group
-    # # bar plot
-    # df[df['year_data'] >= 1988].groupby('li_group').mean().plot.bar(
-    #     y='total_transfers')
-    # plt.savefig(os.path.join(image_dir, 'total_transfers_li.png'))
+        # total_transfers by lifetime income group
+        # bar plot
+        df[df['year_data'] >= 1988].groupby('li_group').mean().plot.bar(
+            y='total_transfers')
+        plt.savefig(os.path.join(image_dir, 'total_transfers_li.png'))
 
-    # # lifecycle plots with line for each ability type
-    # pd.pivot_table(df[df['year_data'] >= 1988], values='total_transfers',
-    #             index='age', columns='li_group',
-    #             aggfunc='mean').plot(legend=True)
-    # plt.savefig(os.path.join(image_dir, 'total_transfers_age_li.png'))
+        # lifecycle plots with line for each ability type
+        pd.pivot_table(df[df['year_data'] >= 1988], values='total_transfers',
+                    index='age', columns='li_group',
+                    aggfunc='mean').plot(legend=True)
+        plt.savefig(os.path.join(image_dir, 'total_transfers_age_li.png'))
 
-    # pd.pivot_table(df[df['year_data'] >= 1988], values='sum_transfers',
-    #             index='age', columns='li_group',
-    #             aggfunc='mean').plot(legend=True)
-    # plt.savefig(os.path.join(image_dir, 'sum_transfers_age_li.png'))
+        pd.pivot_table(df[df['year_data'] >= 1988], values='sum_transfers',
+                    index='age', columns='li_group',
+                    aggfunc='mean').plot(legend=True)
+        plt.savefig(os.path.join(image_dir, 'sum_transfers_age_li.png'))
 
     # Matrix Fraction of total_transfers in a year by age and lifetime_inc
     total_transfers_matrix = pd.pivot_table(
@@ -163,5 +164,5 @@ def get_transfer_matrix():
         bandwidth=.5)
     np.savetxt(os.path.join(
         output_dir, 'total_transfers_kde.csv'), kde_matrix, delimiter=",")
-    
+
     return kde_matrix

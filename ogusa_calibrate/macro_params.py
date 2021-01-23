@@ -93,7 +93,4 @@ def get_macro_params():
     macro_parameters['r_gov_shift'] = res.params['BAA Corp Bond Rates']
     macro_parameters['r_gov_scale'] = res.params['constant']
 
-    # print parameters to screen
-    print(macro_parameters)
-
     return macro_parameters

@@ -1,5 +1,5 @@
 '''
-This script uses data from FRED to find values for parameters for the
+This module uses data from FRED to find values for parameters for the
 OG-USA model that rely on macro data for calibration.
 '''
 
@@ -70,9 +70,9 @@ def get_macro_params():
     # find alpha_G
     macro_parameters['alpha_G'] = pd.Series(
         (fred_data_q['Gov expenditures'] -
-        fred_data_q['Total gov transfer payments'] -
-        fred_data_q['Gov interest payments']) /
-        fred_data_q['Nominal GDP']).loc[baseline_date]
+         fred_data_q['Total gov transfer payments'] -
+         fred_data_q['Gov interest payments']) /
+         fred_data_q['Nominal GDP']).loc[baseline_date]
 
     # find gamma
     macro_parameters['gamma'] = 1 - fred_data_a['Labor share'].mean()
@@ -88,7 +88,7 @@ def get_macro_params():
     # mod = PanelOLS(fred_data['10 year treasury rate'],
     #                fred_data[['constant', 'BAA Corp Bond Rates']])
     mod = sm.OLS(rate_data['10 year treasury rate'],
-                rate_data[['constant', 'BAA Corp Bond Rates']])
+                 rate_data[['constant', 'BAA Corp Bond Rates']])
     res = mod.fit()
     macro_parameters['r_gov_shift'] = res.params['BAA Corp Bond Rates']
     macro_parameters['r_gov_scale'] = res.params['constant']

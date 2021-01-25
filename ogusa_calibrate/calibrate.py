@@ -1,7 +1,6 @@
 from ogusa_calibrate import (
     estimate_beta_j, bequest_transmission, demographics,
-    deterministic_profiles, macro_params, transfer_distribution,
-    income, txfunc)
+    macro_params, transfer_distribution, income, txfunc)
 import os
 import numpy as np
 from ogusa.utils import safe_read_pickle
@@ -105,8 +104,6 @@ class Calibration():
         # Reorder indices of tax function and tile for all years after
         # budget window ends
         num_etr_params = dict_params['tfunc_etr_params_S'].shape[2]
-        num_mtrx_params = dict_params['tfunc_mtrx_params_S'].shape[2]
-        num_mtry_params = dict_params['tfunc_mtry_params_S'].shape[2]
         # First check to see if tax parameters that are used were
         # estimated with a budget window and ages that are as long as
         # the those implied based on the start year and model age.

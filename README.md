@@ -13,6 +13,7 @@ This repository contains source code and data used to calibrate the OG-USA model
 Once the package is installed, you an example of this to update the parameters used in OG-USA using Python is the following:
 
 ```
+from ogusa.parameters import Specifications
 from ogusa_calibrate.calibrate import Calibration
 p = Specifications()
 c = Calibration(p)

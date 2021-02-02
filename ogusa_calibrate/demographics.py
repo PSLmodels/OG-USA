@@ -31,9 +31,9 @@ def get_fert(totpers, min_yr, max_yr, graph=False):
     '''
     This function generates a vector of fertility rates by model period
     age that corresponds to the fertility rate data by age in years
-    (Source: National Vital Statistics Reports, Volume 64, Number 1,
-    January 15, 2015, Table 3, final 2013 data
-    http://www.cdc.gov/nchs/data/nvsr/nvsr64/nvsr64_01.pdf)
+    using data from the National Center for Health Statistics National
+    Vital Statistic System:
+    https://www.cdc.gov/nchs/nvss/cohort_fertility_tables.htm
 
     Args:
         totpers (int): total number of agent life periods (E+S), >= 3
@@ -47,50 +47,50 @@ def get_fert(totpers, min_yr, max_yr, graph=False):
             of life
 
     '''
-    # Get current population data (2013) for weighting
-    pop_file = os.path.join(
-        CUR_PATH, 'data', 'demographic', 'pop_data.csv')
-    pop_data = pd.read_csv(pop_file, thousands=',')
-    pop_data_samp = pop_data[(pop_data['Age'] >= min_yr - 1) &
-                             (pop_data['Age'] <= max_yr - 1)]
-    curr_pop = np.array(pop_data_samp['2013'], dtype='f')
-    curr_pop_pct = curr_pop / curr_pop.sum()
-    # Get fertility rate by age-bin data
-    fert_data = (np.array([0.0, 0.0, 0.3, 12.3, 47.1, 80.7, 105.5, 98.0,
-                           49.3, 10.4, 0.8, 0.0, 0.0]) / 2000)
-    # Mid points of age bins
-    age_midp = np.array([9, 10, 12, 16, 18.5, 22, 27, 32, 37, 42, 47,
-                         55, 56])
-    # Generate interpolation functions for fertility rates
-    fert_func = si.interp1d(age_midp, fert_data, kind='cubic')
-    # Calculate average fertility rate in each age bin using trapezoid
-    # method with a large number of points in each bin.
-    binsize = (max_yr - min_yr + 1) / totpers
-    num_sub_bins = float(10000)
-    len_subbins = (np.float64(100 * num_sub_bins)) / totpers
-    age_sub = (np.linspace(np.float64(binsize) / num_sub_bins,
-                           np.float64(max_yr),
-                           int(num_sub_bins*max_yr)) - 0.5 *
-               np.float64(binsize) / num_sub_bins)
-    curr_pop_sub = np.repeat(np.float64(curr_pop_pct) / num_sub_bins,
-                             num_sub_bins)
-    fert_rates_sub = np.zeros(curr_pop_sub.shape)
-    pred_ind = (age_sub > age_midp[0]) * (age_sub < age_midp[-1])
-    age_pred = age_sub[pred_ind]
-    fert_rates_sub[pred_ind] = np.float64(fert_func(age_pred))
+    # Read raw data from NCHS
+    raw = pd.read_csv(
+        'ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/nvss/birth/cohort/Table01.csv',
+        skiprows=4)
+    # keep only latest year in data
+    fert_data = raw[raw['Calendar year'] == 2005]
+    fert_data = (
+        fert_data[fert_data['Race of women'] == "All races 1"]
+        [['Current age of women', 'Live-birth order total']])
+    fert_data.rename(
+        columns={'Current age of women': 'Age',
+                 'Live-birth order total': 'Births per 1000'},
+        inplace=True)
+    age_year_all = np.append(
+        np.append(np.arange(min_yr, fert_data.Age.min()),
+                  fert_data['Age'].values),
+        np.arange(fert_data.Age.max() + 1, max_yr + 1))
+    fert_rates_all = np.append(
+        np.append(np.zeros(int(fert_data.Age.min()) - min_yr),
+                  fert_data['Births per 1000'].values),
+        np.zeros(int(max_yr - fert_data.Age.max())))
+    # divide by 2000 because fertility rates per woman and we want per
+    # household
+    fert_rates_all = fert_rates_all / 2000
+    # Calculate implied fertility rates in sub-bins of fert_rates_all.
+    fert_rates_mxyr = fert_rates_all[0:max_yr]
+    num_sub_bins = int(100)
+    len_subbins = ((np.float64((max_yr - min_yr + 1) * num_sub_bins)) /
+                   totpers)
+    fert_rates_sub = np.zeros(num_sub_bins * max_yr, dtype=float)
+    for i in range(max_yr):
+        fert_rates_sub[i * num_sub_bins:(i + 1) * num_sub_bins] =\
+            (1 - ((1 - fert_rates_mxyr[i]) ** (1.0 / num_sub_bins)))
     fert_rates = np.zeros(totpers)
     end_sub_bin = 0
     for i in range(totpers):
         beg_sub_bin = int(end_sub_bin)
         end_sub_bin = int(np.rint((i + 1) * len_subbins))
-        fert_rates[i] = ((
-            curr_pop_sub[beg_sub_bin:end_sub_bin] *
-            fert_rates_sub[beg_sub_bin:end_sub_bin]).sum() /
-            curr_pop_sub[beg_sub_bin:end_sub_bin].sum())
+        fert_rates[i] = (
+            1 - (1 - (fert_rates_sub[beg_sub_bin:end_sub_bin])).prod())
 
-    if graph:
-        pp.plot_fert_rates(fert_func, age_midp, totpers, min_yr, max_yr,
-                           fert_data, fert_rates, output_dir=OUTPUT_DIR)
+    # if graph:  # need to fix plot function for new data output
+    #     pp.plot_fert_rates(fert_rates, age_midp, totpers, min_yr, max_yr,
+    #                        fert_data, fert_rates, output_dir=OUTPUT_DIR)
 
     return fert_rates
 
@@ -99,9 +99,8 @@ def get_mort(totpers, min_yr, max_yr, graph=False):
     '''
     This function generates a vector of mortality rates by model period
     age.
-    (Source: Male and Female death probabilities Actuarial Life table,
-    2011 Social Security Administration,
-    http://www.ssa.gov/oact/STATS/table4c6.html)
+    Source: Male and Female death probabilities Actuarial Life table,
+    Social Security Administration
 
     Args:
         totpers (int): total number of agent life periods (E+S), >= 3
@@ -113,37 +112,38 @@ def get_mort(totpers, min_yr, max_yr, graph=False):
     Returns:
         mort_rates (Numpy array) mortality rates that correspond to each
             period of life
-        infmort_rate (scalar): infant mortality rate from 2015 U.S. CIA
-            World Factbook
+        infmort_rate (scalar): infant mortality rate
 
     '''
     # Get mortality rate by age data
-    infmort_rate = 0.00587  # taken from 2015 U.S. infant mortality rate
-    # mort_file = os.path.join(
-    #     CUR_PATH, 'data', 'demographic', 'mort_rates2011.csv')
-    # mort_data = pd.read_csv(mort_file, thousands=',')
+    infmort_rate = 0.00566  # taken from 2018 U.S. infant mortality rate
+    # https://www.cdc.gov/nchs/products/databriefs/db355.htm
     raw_data_male = pd.read_csv(
         'https://www.ssa.gov/oact/HistEst/PerLifeTables/2016/' +
-        'PerLifeTables_M_Alt2_TR2016.csv', thousands=',')
+        'PerLifeTables_M_Alt2_TR2016.csv', thousands=',',
+        skiprows=4)
     raw_data_female = pd.read_csv(
         'https://www.ssa.gov/oact/HistEst/PerLifeTables/2016/' +
-        'PerLifeTables_M_Alt2_TR2016.csv', thousands=',')
-    raw_data_male.rename({'x': 'Age', 'q(x)': 'Male Mort. Rate',
-                          'l(x)': 'Num. Male Lives'}, inplace=True)
+        'PerLifeTables_M_Alt2_TR2016.csv', thousands=',',
+        skiprows=4)
+    raw_data_male.rename(columns={
+        'x': 'Age', 'q(x)': 'Male Mort. Rate',
+        'l(x)': 'Num. Male Lives'}, inplace=True)
     raw_data_male = raw_data_male[[
         'Year', 'Age', 'Male Mort. Rate', 'Num. Male Lives']]
-    raw_data_female.rename({'x': 'Age', 'q(x)': 'Female Mort. Rate',
-                            'l(x)': 'Num. Female Lives'}, inplace=True)
+    raw_data_female.rename(columns={
+        'x': 'Age', 'q(x)': 'Female Mort. Rate',
+        'l(x)': 'Num. Female Lives'}, inplace=True)
     raw_data_female = raw_data_female[[
         'Year', 'Age', 'Female Mort. Rate', 'Num. Female Lives']]
     raw_data = raw_data_male.merge(raw_data_female, on=['Year', 'Age'])
     mort_data = raw_data[raw_data['Year'] == 2015]
-    age_year_all = mort_data['Age'] + 1
+    age_year_all = mort_data['Age'].values + 1
     mort_rates_all = (
         ((mort_data['Male Mort. Rate'] * mort_data['Num. Male Lives']) +
          (mort_data['Female Mort. Rate'] *
           mort_data['Num. Female Lives'])) /
-        (mort_data['Num. Male Lives'] + mort_data['Num. Female Lives']))
+        (mort_data['Num. Male Lives'] + mort_data['Num. Female Lives'])).values
     age_year_all = age_year_all[np.isfinite(mort_rates_all)]
     mort_rates_all = mort_rates_all[np.isfinite(mort_rates_all)]
     # Calculate implied mortality rates in sub-bins of mort_rates_all.
@@ -220,11 +220,10 @@ def get_imm_resid(totpers, min_yr, max_yr):
     levels in different periods, then output average calculated
     immigration rate. We have to replace the first mortality rate in
     this function in order to adjust the first implied immigration rate
-    (Source: Population data come from Annual Estimates of the Resident
-    Population by Single Year of Age and Sex: April 1, 2010 to July 1,
-    2013 (Both sexes) National Characteristics, Vintage 2013, US Census
-    Bureau,
-    http://www.census.gov/popest/data/national/asrh/2013/index.html)
+    (Source: Population data come Census National Population Characteristics
+    2010-2019, Annual Estimates of the Resident Population by Single
+    Year of Age and Sex for the United States: April 1, 2010 to
+    July 1, 2019 (NC-EST2019-AGESEX-RES))
 
     Args:
         totpers (int): total number of agent life periods (E+S), >= 3
@@ -238,44 +237,52 @@ def get_imm_resid(totpers, min_yr, max_yr):
             each period of life, length E+S
 
     '''
-    pop_file = os.path.join(
-        CUR_PATH, 'data', 'demographic', 'pop_data.csv')
-    pop_data = pd.read_csv(pop_file, thousands=',')
+    pop_data = pd.read_csv(
+        'https://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2010-2019/nc-est2019-agesex-res.csv')
+    pop_data = (
+        pop_data[pop_data['SEX'] == 0][['AGE', 'POPESTIMATE2016',
+                                        'POPESTIMATE2017',
+                                        'POPESTIMATE2018',
+                                        'POPESTIMATE2019']])
+    pop_data.rename(columns={
+        'AGE': 'Age', 'POPESTIMATE2016': '2016',
+        'POPESTIMATE2017': '2017', 'POPESTIMATE2018': '2018',
+        'POPESTIMATE2019': '2019'}, inplace=True)
     pop_data_samp = pop_data[(pop_data['Age'] >= min_yr - 1) &
                              (pop_data['Age'] <= max_yr - 1)]
-    pop_2010, pop_2011, pop_2012, pop_2013 = (
-        np.array(pop_data_samp['2010'], dtype='f'),
-        np.array(pop_data_samp['2011'], dtype='f'),
-        np.array(pop_data_samp['2012'], dtype='f'),
-        np.array(pop_data_samp['2013'], dtype='f'))
-    pop_2010_EpS = pop_rebin(pop_2010, totpers)
-    pop_2011_EpS = pop_rebin(pop_2011, totpers)
-    pop_2012_EpS = pop_rebin(pop_2012, totpers)
-    pop_2013_EpS = pop_rebin(pop_2013, totpers)
+    pop_2016, pop_2017, pop_2018, pop_2019 = (
+        np.array(pop_data_samp['2016'], dtype='f'),
+        np.array(pop_data_samp['2017'], dtype='f'),
+        np.array(pop_data_samp['2018'], dtype='f'),
+        np.array(pop_data_samp['2019'], dtype='f'))
+    pop_2016_EpS = pop_rebin(pop_2016, totpers)
+    pop_2017_EpS = pop_rebin(pop_2017, totpers)
+    pop_2018_EpS = pop_rebin(pop_2018, totpers)
+    pop_2019_EpS = pop_rebin(pop_2019, totpers)
     # Create three years of estimated immigration rates for youngest age
     # individuals
     imm_mat = np.zeros((3, totpers))
-    pop11vec = np.array([pop_2010_EpS[0], pop_2011_EpS[0],
-                         pop_2012_EpS[0]])
-    pop21vec = np.array([pop_2011_EpS[0], pop_2012_EpS[0],
-                         pop_2013_EpS[0]])
+    pop11vec = np.array([pop_2016_EpS[0], pop_2017_EpS[0],
+                         pop_2018_EpS[0]])
+    pop21vec = np.array([pop_2017_EpS[0], pop_2018_EpS[0],
+                         pop_2019_EpS[0]])
     fert_rates = get_fert(totpers, min_yr, max_yr, False)
     mort_rates, infmort_rate = get_mort(totpers, min_yr, max_yr, False)
-    newbornvec = np.dot(fert_rates, np.vstack((pop_2010_EpS,
-                                               pop_2011_EpS,
-                                               pop_2012_EpS)).T)
+    newbornvec = np.dot(fert_rates, np.vstack((pop_2016_EpS,
+                                               pop_2017_EpS,
+                                               pop_2018_EpS)).T)
     imm_mat[:, 0] = ((pop21vec - (1 - infmort_rate) * newbornvec) /
                      pop11vec)
     # Estimate 3 years of immigration rates for all other-aged
     # individuals
-    pop11mat = np.vstack((pop_2010_EpS[:-1], pop_2011_EpS[:-1],
-                          pop_2012_EpS[:-1]))
-    pop12mat = np.vstack((pop_2010_EpS[1:], pop_2011_EpS[1:],
-                          pop_2012_EpS[1:]))
-    pop22mat = np.vstack((pop_2011_EpS[1:], pop_2012_EpS[1:],
-                          pop_2013_EpS[1:]))
+    pop17mat = np.vstack((pop_2016_EpS[:-1], pop_2017_EpS[:-1],
+                          pop_2018_EpS[:-1]))
+    pop18mat = np.vstack((pop_2016_EpS[1:], pop_2017_EpS[1:],
+                          pop_2018_EpS[1:]))
+    pop19mat = np.vstack((pop_2017_EpS[1:], pop_2018_EpS[1:],
+                          pop_2019_EpS[1:]))
     mort_mat = np.tile(mort_rates[:-1], (3, 1))
-    imm_mat[:, 1:] = (pop22mat - (1 - mort_mat) * pop11mat) / pop12mat
+    imm_mat[:, 1:] = (pop19mat - (1 - mort_mat) * pop17mat) / pop18mat
     # Final estimated immigration rates are the averages over 3 years
     imm_rates = imm_mat.mean(axis=0)
 
@@ -337,20 +344,22 @@ def get_pop_objs(E, S, T, min_yr, max_yr, curr_year, GraphDiag=False):
                 diagnostics
 
     Returns:
-        omega_path_S (Numpy array), time path of the population
-            distribution from the current state to the steady-state,
-            size T+S x S
-        g_n_SS (scalar): steady-state population growth rate
-        omega_SS (Numpy array): normalized steady-state population
-            distribution, length S
-        surv_rates (Numpy array): survival rates that correspond to
-            each model period of life, lenght S
-        mort_rates (Numpy array): mortality rates that correspond to
-            each model period of life, length S
-        g_n_path (Numpy array): population growth rates over the time
-            path, length T + S
+        pop_dict (dict): includes:
+            omega_path_S (Numpy array), time path of the population
+                distribution from the current state to the steady-state,
+                size T+S x S
+            g_n_SS (scalar): steady-state population growth rate
+            omega_SS (Numpy array): normalized steady-state population
+                distribution, length S
+            surv_rates (Numpy array): survival rates that correspond to
+                each model period of life, length S
+            mort_rates (Numpy array): mortality rates that correspond to
+                each model period of life, length S
+            g_n_path (Numpy array): population growth rates over the time
+                path, length T + S
 
     '''
+    assert curr_year >= 2019
     # age_per = np.linspace(min_yr, max_yr, E+S)
     fert_rates = get_fert(E + S, min_yr, max_yr, graph=False)
     mort_rates, infmort_rate = get_mort(E + S, min_yr, max_yr,
@@ -375,24 +384,32 @@ def get_pop_objs(E, S, T, min_yr, max_yr, curr_year, GraphDiag=False):
 
     # Generate time path of the nonstationary population distribution
     omega_path_lev = np.zeros((E + S, T + S))
-    pop_file = os.path.join(
-        CUR_PATH, 'data', 'demographic', 'pop_data.csv')
-    pop_data = pd.read_csv(pop_file, thousands=',')
+    pop_data = pd.read_csv(
+        'https://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2010-2019/nc-est2019-agesex-res.csv')
+    pop_data = (
+        pop_data[pop_data['SEX'] == 0][['AGE', 'POPESTIMATE2016',
+                                        'POPESTIMATE2017',
+                                        'POPESTIMATE2018',
+                                        'POPESTIMATE2019']])
+    pop_data.rename(columns={
+        'AGE': 'Age', 'POPESTIMATE2016': '2016',
+        'POPESTIMATE2017': '2017', 'POPESTIMATE2018': '2018',
+        'POPESTIMATE2019': '2019'}, inplace=True)
     pop_data_samp = pop_data[(pop_data['Age'] >= min_yr - 1) &
                              (pop_data['Age'] <= max_yr - 1)]
-    pop_2013 = np.array(pop_data_samp['2013'], dtype='f')
+    pop_2019 = np.array(pop_data_samp['2019'], dtype='f')
     # Generate the current population distribution given that E+S might
     # be less than max_yr-min_yr+1
     age_per_EpS = np.arange(1, E + S + 1)
-    pop_2013_EpS = pop_rebin(pop_2013, E + S)
-    pop_2013_pct = pop_2013_EpS / pop_2013_EpS.sum()
+    pop_2019_EpS = pop_rebin(pop_2019, E + S)
+    pop_2019_pct = pop_2019_EpS / pop_2019_EpS.sum()
     # Age most recent population data to the current year of analysis
-    pop_curr = pop_2013_EpS.copy()
-    data_year = 2013
+    pop_curr = pop_2019_EpS.copy()
+    data_year = 2019
     pop_next = np.dot(OMEGA_orig, pop_curr)
     g_n_curr = ((pop_next[-S:].sum() - pop_curr[-S:].sum()) /
-                pop_curr[-S:].sum())  # g_n in 2013
-    pop_past = pop_curr  # assume 2012-2013 pop
+                pop_curr[-S:].sum())  # g_n in 2019
+    pop_past = pop_curr  # assume 2018-2019 pop
     # Age the data to the current year
     for per in range(curr_year - data_year):
         pop_next = np.dot(OMEGA_orig, pop_curr)
@@ -533,12 +550,16 @@ def get_pop_objs(E, S, T, min_yr, max_yr, curr_year, GraphDiag=False):
                             S, output_dir=OUTPUT_DIR)
         pp.plot_imm_fixed(age_per_EpS, imm_rates_orig, imm_rates_adj, E,
                           S, output_dir=OUTPUT_DIR)
-        pp.plot_population_path(age_per_EpS, pop_2013_pct,
+        pp.plot_population_path(age_per_EpS, pop_2019_pct,
                                 omega_path_lev, omega_SSfx, curr_year,
                                 E, S, output_dir=OUTPUT_DIR)
 
     # return omega_path_S, g_n_SS, omega_SSfx, survival rates,
     # mort_rates_S, and g_n_path
-    return (omega_path_S.T, g_n_SS, omega_SSfx[-S:] /
-            omega_SSfx[-S:].sum(), 1-mort_rates_S, mort_rates_S,
-            g_n_path, imm_rates_mat.T, omega_S_preTP)
+    pop_dict = {'omega': omega_path_S.T, 'g_n_SS': g_n_SS,
+                'omega_SS': omega_SSfx[-S:] / omega_SSfx[-S:].sum(),
+                'surv_rate': 1-mort_rates_S, 'rho': mort_rates_S,
+                'g_n': g_n_path, 'imm_rates': imm_rates_mat.T,
+                'omega_S_preTP': omega_S_preTP}
+
+    return pop_dict

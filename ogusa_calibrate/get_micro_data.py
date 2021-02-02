@@ -9,9 +9,12 @@ from pandas import DataFrame
 from dask import delayed, compute
 import dask.multiprocessing
 import numpy as np
+import os
 import pickle
 import pkg_resources
 from ogusa.constants import DEFAULT_START_YEAR, TC_LAST_YEAR, PUF_START_YEAR
+
+CUR_PATH = os.path.split(os.path.abspath(__file__))[0]
 
 
 def get_calculator(baseline, calculator_start_year, reform=None,
@@ -80,7 +83,7 @@ def get_calculator(baseline, calculator_start_year, reform=None,
 
 
 def get_data(baseline=False, start_year=DEFAULT_START_YEAR, reform={},
-             data=None, client=None, num_workers=1):
+             data=None, path=CUR_PATH, client=None, num_workers=1):
     '''
     This function creates dataframes of micro data with marginal tax
     rates and information to compute effective tax rates from the
@@ -94,6 +97,7 @@ def get_data(baseline=False, start_year=DEFAULT_START_YEAR, reform={},
             baseline
         data (DataFrame or str): DataFrame or path to datafile for
             Records object
+        path (str): path to save microdata files to
         client (Dask Client object): client for Dask multiprocessing
         num_workers (int): number of workers to use for Dask
             multiprocessing
@@ -126,9 +130,9 @@ def get_data(baseline=False, start_year=DEFAULT_START_YEAR, reform={},
         micro_data_dict[str(year)] = DataFrame(result)
 
     if baseline:
-        pkl_path = "micro_data_baseline.pkl"
+        pkl_path = os.path.join(path, "micro_data_baseline.pkl")
     else:
-        pkl_path = "micro_data_policy.pkl"
+        pkl_path = os.path.join(path, "micro_data_policy.pkl")
 
     with open(pkl_path, "wb") as f:
         pickle.dump(micro_data_dict, f)

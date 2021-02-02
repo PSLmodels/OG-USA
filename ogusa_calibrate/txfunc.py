@@ -950,7 +950,8 @@ def tax_func_estimate(BW, S, starting_age, ending_age,
                       analytical_mtrs=False, tax_func_type='DEP',
                       age_specific=False, reform={}, data=None,
                       desc_data=False, graph_data=False,
-                      graph_est=False, client=None, num_workers=1):
+                      graph_est=False, path=CUR_PATH, client=None,
+                      num_workers=1):
     '''
     This function performs analysis on the source data from Tax-
     Calculator and estimates functions for the effective tax rate (ETR),
@@ -975,6 +976,7 @@ def tax_func_estimate(BW, S, starting_age, ending_age,
         reform (dict): policy reform dictionary for Tax-Calculator
         data (str or Pandas DataFrame): path to or data to use in
             Tax-Calculator
+        path (str): path to save output plots and tax function estimates
         client (Dask client object): client
         num_workers (int): number of workers to use for parallelization
             with Dask
@@ -1028,14 +1030,12 @@ def tax_func_estimate(BW, S, starting_age, ending_age,
     # --------------------------------------------------------------------
     # '''
     start_time = time.time()
-    output_dir = os.path.join(CUR_PATH, 'OUTPUT', 'TaxFunctions')
-    if not os.access(output_dir, os.F_OK):
-        os.makedirs(output_dir)
+    output_dir = path
 
     # call tax caculator and get microdata
     micro_data, taxcalc_version = get_micro_data.get_data(
         baseline=baseline, start_year=start_year, reform=reform,
-        data=data, client=client, num_workers=num_workers)
+        data=data, path=path, client=client, num_workers=num_workers)
 
     lazy_values = []
     for t in years_list:
@@ -1270,7 +1270,8 @@ def get_tax_func_estimate(BW, S, starting_age, ending_age,
     dict_params = tax_func_estimate(
         BW, S, starting_age, ending_age, start_year, baseline,
         analytical_mtrs, tax_func_type, age_specific, reform, data=data,
-        client=client, num_workers=num_workers)
+        path=os.path.split(tax_func_path)[0], client=client,
+        num_workers=num_workers)
 
     with open(tax_func_path, "wb") as f:
         pickle.dump(dict_params, f)

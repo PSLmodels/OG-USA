@@ -21,7 +21,7 @@ This script takes PSID data created from psid_download.R and:
 '''
 
 # Read data from R into pandas dataframe
-r['load']("./psid_data_files/psid1968to2017.RData")
+r['load']("psid1968to2017.RData")
 raw_df = r('psid_df')
 
 # Create unique identifier for each household
@@ -121,7 +121,7 @@ nominal_vars = ['head_labor_inc', 'spouse_labor_inc',
                 'spouse_noncorp_bus_asset_income',
                 'head_noncorp_bus_labor_income',
                 'spouse_noncorp_bus_labor_income', 'noncorp_businc',
-                'net_wealth', 'inheritance', 'value_inheritance_1st',
+                'inheritance', 'value_inheritance_1st',
                 'value_inheritance_2nd', 'value_inheritance_3rd']
 for item in nominal_vars:
     psid_df[item] = (psid_df[item] * cpi_2010) / psid_df['CPIAUCSL']

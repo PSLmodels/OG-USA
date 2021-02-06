@@ -121,6 +121,7 @@ nominal_vars = ['head_labor_inc', 'spouse_labor_inc',
                 'spouse_noncorp_bus_asset_income',
                 'head_noncorp_bus_labor_income',
                 'spouse_noncorp_bus_labor_income', 'noncorp_businc',
+                # TODO: Add net_wealth when available (see issue #21).
                 'inheritance', 'value_inheritance_1st',
                 'value_inheritance_2nd', 'value_inheritance_3rd']
 for item in nominal_vars:

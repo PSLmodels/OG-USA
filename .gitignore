@@ -31,3 +31,5 @@ htmlcov/*
 envs/
 *.egg-info/
 dask-worker-space/
+ogusa_calibrate/*.csv
+ogusa_calibrate/*.pkl

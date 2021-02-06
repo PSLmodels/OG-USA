@@ -102,7 +102,7 @@ fred_data["year_data"] = fred_data.index.year
 psid_df2 = psid_df.merge(fred_data, how="left", on="year_data")
 psid_df = psid_df2
 cpi_2010 = fred_data.loc[datetime.datetime(2010, 12, 31), "CPIAUCSL"]
-nominal_vars = [
+NOMINAL_VARS = [
     "head_labor_inc",
     "spouse_labor_inc",
     "head_whether_receive_afdc_prior_year",
@@ -151,13 +151,13 @@ nominal_vars = [
     "value_inheritance_2nd",
     "value_inheritance_3rd",
 ]
-for item in nominal_vars:
+for item in NOMINAL_VARS:
     psid_df[item] = (psid_df[item] * cpi_2010) / psid_df["CPIAUCSL"]
 # remove intermediate dataframes
 del raw_df, spouse_df, head_df, fred_data, psid_df2
 
 # Fill in  missing values with zeros
-psid_df[nominal_vars] = psid_df[nominal_vars].fillna(0)
+psid_df[NOMINAL_VARS] = psid_df[NOMINAL_VARS].fillna(0)
 psid_df[["head_annual_hours", "spouse_annual_hours"]] = psid_df[
     ["head_annual_hours", "spouse_annual_hours"]
 ].fillna(0)
@@ -278,7 +278,7 @@ rebalanced_data = balanced_panel.merge(
 )
 # Backfill and then forward fill variables that are constant over time
 # within hhid
-constant_vars = [
+CONSTANT_VARS = [
     "head_race",
     "head_gender",
     "singlemale",
@@ -289,7 +289,7 @@ constant_vars = [
     "pernum",
 ]
 rebalanced2 = rebalanced_data
-for item in constant_vars:
+for item in CONSTANT_VARS:
     rebalanced_data[item] = rebalanced_data.groupby("hh_id")[item].fillna(
         method="bfill"
     )
@@ -335,7 +335,7 @@ df["age_mfemale3"] = df["age3"] * df["marriedfemalehead"]
 
 # run regressions to impute wages for years not observed in sample
 df.set_index(["hh_id", "year"], inplace=True)
-list_of_statuses = [
+LIST_OF_STATUSES = [
     "Single Males",
     "Single Females",
     "Married, Male Head",
@@ -377,10 +377,10 @@ for i, data in enumerate(list_of_dfs):
         data.ln_wage_rate, data[["age", "age2", "age3"]], entity_effects=True
     )
     res = mod.fit(cov_type="clustered", cluster_entity=True)
-    print("Summary for ", list_of_statuses[i])
+    print("Summary for ", LIST_OF_STATUSES[i])
     print(res.summary)
     # Save model results to dictionary
-    first_stage_model_results[list_of_statuses[i]] = [
+    first_stage_model_results[LIST_OF_STATUSES[i]] = [
         res.params["age"],
         res.std_errors["age"],
         res.params["age2"],
@@ -409,25 +409,25 @@ print("Description of data coming out of estimation: ", df_w_fit.describe())
 # Seems to be the same as going into estimation
 
 # Compute lifetime income for each filer
-int_rate = 0.04  # assumed interest rate to compute NPV of lifetime income
+INT_RATE = 0.04  # assumed interest rate to compute NPV of lifetime income
 # Assumed time endowment - set at 4000 hours
 # May want to change this to be different for single households than married
-time_endow = 4000
+TIME_ENDOW = 4000
 
-df_w_fit["time_wage"] = np.exp(df_w_fit["ln_fillin_wage"]) * time_endow
+df_w_fit["time_wage"] = np.exp(df_w_fit["ln_fillin_wage"]) * TIME_ENDOW
 df_w_fit["lifetime_inc"] = df_w_fit["time_wage"] * (
-    (1 / (1 + int_rate)) ** (df_w_fit["age"] - 20)
+    (1 / (1 + INT_RATE)) ** (df_w_fit["age"] - 20)
 )
 li_df = (df_w_fit[["lifetime_inc"]].groupby(["hh_id"]).sum()).copy()
 # find percentile in distribution of lifetime income
 li_df["li_percentile"] = li_df.lifetime_inc.rank(pct=True)
 # Put in bins
-groups = [0.0, 0.25, 0.5, 0.7, 0.8, 0.9, 0.99, 1.0]
-cats_pct = ["0-25", "26-50", "51-70", "71-80", "81-90", "91-99", "100"]
+GROUPS = [0.0, 0.25, 0.5, 0.7, 0.8, 0.9, 0.99, 1.0]
+CATS_PCT = ["0-25", "26-50", "51-70", "71-80", "81-90", "91-99", "100"]
 li_df = li_df.join(
-    pd.get_dummies(pd.cut(li_df["li_percentile"], groups, labels=cats_pct))
+    pd.get_dummies(pd.cut(li_df["li_percentile"], GROUPS, labels=CATS_PCT))
 ).copy()
-li_df["li_group"] = pd.cut(li_df["li_percentile"], groups)
+li_df["li_group"] = pd.cut(li_df["li_percentile"], GROUPS)
 deciles = list(np.arange(0.0, 1.1, 0.10))
 cats_10 = ["D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10"]
 li_df = li_df.join(
@@ -463,7 +463,7 @@ if panel_li.shape[0] != num_obs_psid:
 
 # Check that have at least 1000 obs in each year
 panel_li.sort_values(by=["hh_id", "year"], inplace=True)
-var_list = nominal_vars + constant_vars
+var_list = NOMINAL_VARS + CONSTANT_VARS
 for item in var_list:
     print("Checking ", item)
     try:
@@ -474,11 +474,11 @@ for item in var_list:
 # check everyone has a group and decile and that fraction in each is
 # correct. Note that can't check the latter with final unbalanced panel.
 print("Checking counts of percentile groupings: ")
-for item in cats_10 + cats_pct:
+for item in cats_10 + CATS_PCT:
     assert panel_li[item].count() == panel_li.shape[0]
 print("Checking percentile groupings: ")
 for d in cats_10:
     assert math.isclose(li_df[d].mean(), 0.1, rel_tol=0.03)
-for i, g in enumerate(cats_pct):
-    percent_in_g = groups[i + 1] - groups[i]
+for i, g in enumerate(CATS_PCT):
+    percent_in_g = GROUPS[i + 1] - GROUPS[i]
     assert math.isclose(li_df[g].mean(), percent_in_g, rel_tol=0.03)

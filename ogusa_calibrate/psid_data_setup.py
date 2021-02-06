@@ -410,13 +410,16 @@ print("Description of data coming out of estimation: ", df_w_fit.describe())
 
 # Compute lifetime income for each filer
 int_rate = 0.04  # assumed interest rate to compute NPV of lifetime income
-time_endow = 4000  # assumed time endowment - set at 4000 hours !!! May want to change this to be different for single households than married !!!
+# Assumed time endowment - set at 4000 hours
+# May want to change this to be different for single households than married
+time_endow = 4000
+
 df_w_fit["time_wage"] = np.exp(df_w_fit["ln_fillin_wage"]) * time_endow
 df_w_fit["lifetime_inc"] = df_w_fit["time_wage"] * (
     (1 / (1 + int_rate)) ** (df_w_fit["age"] - 20)
 )
 li_df = (df_w_fit[["lifetime_inc"]].groupby(["hh_id"]).sum()).copy()
-# find percentile in distrubtion of lifetime income
+# find percentile in distribution of lifetime income
 li_df["li_percentile"] = li_df.lifetime_inc.rank(pct=True)
 # Put in bins
 groups = [0.0, 0.25, 0.5, 0.7, 0.8, 0.9, 0.99, 1.0]

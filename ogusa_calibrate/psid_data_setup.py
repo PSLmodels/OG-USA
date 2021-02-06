@@ -316,7 +316,7 @@ df_w_fit = list_of_dfs_with_fitted_vals[0].append(
         list_of_dfs_with_fitted_vals[2].append(
             list_of_dfs_with_fitted_vals[3])))
 df_w_fit.rename(columns={"predictions": "ln_fillin_wage"}, inplace=True)
-print('Descritpion of data coming out of estimation: ', df_w_fit.describe())
+print('Description of data coming out of estimation: ', df_w_fit.describe())
 # Seems to be the same as going into estimation
 
 # Compute lifetime income for each filer

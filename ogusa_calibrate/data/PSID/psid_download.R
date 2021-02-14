@@ -28,8 +28,7 @@ family_var_names <- list(# Family variables
                         spouse_age="ER47319",
                         head_gender="ER47318",
                         head_num_children="V10977",
-                        num_children="ER37724",
-                        num_children_away_from_home="V561",
+                        num_family="ER66016",
                         num_children_under18="ER47320",
                         # race
                         head_race="ER64810",

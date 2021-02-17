@@ -27,6 +27,7 @@ htmlcov/*
 *.sublime*
 .DS_Store
 *puf.csv
+*tax_func_loop_inputs_large.pkl
 */OUTPUT/*
 envs/
 *.egg-info/

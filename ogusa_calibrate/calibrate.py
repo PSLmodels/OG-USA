@@ -3,8 +3,10 @@ from ogusa_calibrate import (
     macro_params, transfer_distribution, income, txfunc)
 import os
 import numpy as np
-from ogusa.utils import safe_read_pickle
+from ogusa.utils import safe_read_pickle, mkdirs
 import pkg_resources
+
+CUR_PATH = os.path.split(os.path.abspath(__file__))[0]
 
 
 class Calibration():
@@ -21,7 +23,7 @@ class Calibration():
         self.estimate_chi_n = estimate_chi_n
         if estimate_tax_functions:
             self.tax_function_params = self.get_tax_function_parameters(
-                self, p, iit_reform, guid, data, client, num_workers,
+                p, iit_reform, guid, data, client, num_workers,
                 run_micro=True, tax_func_path=tax_func_path)
         if estimate_beta:
             self.beta_j = estimate_beta_j.beta_estimate(self)
@@ -67,14 +69,16 @@ class Calibration():
         if tax_func_path is None:
             if p.baseline:
                 pckl = "TxFuncEst_baseline{}.pkl".format(guid)
-                tax_func_path = os.path.join(p.output_base, pckl)
+                tax_func_path = os.path.join(CUR_PATH, pckl)
                 print('Using baseline tax parameters from ',
                       tax_func_path)
             else:
                 pckl = "TxFuncEst_policy{}.pkl".format(guid)
-                tax_func_path = os.path.join(p.output_base, pckl)
+                tax_func_path = os.path.join(CUR_PATH, pckl)
                 print('Using reform policy tax parameters from ',
                       tax_func_path)
+        # create directory for tax function pickles to be saved to
+        mkdirs(os.path.split(tax_func_path)[0])
         # If run_micro is false, check to see if parameters file exists
         # and if it is consistent with Specifications instance
         if not run_micro:

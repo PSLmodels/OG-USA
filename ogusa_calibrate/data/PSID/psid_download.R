@@ -1,5 +1,3 @@
-library(devtools)
-install_github("floswald/psidR")
 library(openxlsx)
 library(psidR)
 

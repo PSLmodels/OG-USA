@@ -3,4 +3,5 @@ channels:
 - r
 dependencies:
 - r
+- r-devtools
 - r-openxlsx

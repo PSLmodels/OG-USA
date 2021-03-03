@@ -12,7 +12,6 @@ dependencies:
 - pandas>=1.0.5
 - matplotlib
 - taxcalc>=3.0.0
-# - ogusa -- comment out for now since OG-USA on GH too big, an no Conda package
 - dask==2.30.0
 - dask-core==2.30.0
 - distributed==2.30.1
@@ -36,3 +35,4 @@ dependencies:
   - cs-kit
   - cs2tc
   - pandas-datareader
+  - git+https://github.com/PSLmodels/OG-USA.git

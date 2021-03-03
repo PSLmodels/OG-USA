@@ -1,7 +1,0 @@
-name: ogusa-calibrate-dev-r
-channels:
-- r
-dependencies:
-- r
-- r-devtools
-- r-openxlsx

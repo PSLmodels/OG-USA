@@ -5,7 +5,8 @@ from pandas.testing import assert_frame_equal
 import numpy as np
 import os
 from ogusa.constants import CPS_START_YEAR, PUF_START_YEAR, TC_LAST_YEAR
-from ogusa import get_micro_data, utils
+from ogusa_calibrate import get_micro_data
+from ogusa import utils
 from taxcalc import GrowFactors
 NUM_WORKERS = min(multiprocessing.cpu_count(), 7)
 # get path to puf if puf.csv in ogusa/ directory

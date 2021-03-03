@@ -8,7 +8,6 @@ model
 import os
 import numpy as np
 import scipy.optimize as opt
-import scipy.interpolate as si
 import pandas as pd
 from ogusa import parameter_plots as pp
 
@@ -49,8 +48,8 @@ def get_fert(totpers, min_yr, max_yr, graph=False):
     '''
     # Read raw data from NCHS
     raw = pd.read_csv(
-        'ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/nvss/birth/cohort/Table01.csv',
-        skiprows=4)
+        'ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/nvss/birth/' +
+        'cohort/Table01.csv', skiprows=4)
     # keep only latest year in data
     fert_data = raw[raw['Calendar year'] == 2005]
     fert_data = (
@@ -60,10 +59,6 @@ def get_fert(totpers, min_yr, max_yr, graph=False):
         columns={'Current age of women': 'Age',
                  'Live-birth order total': 'Births per 1000'},
         inplace=True)
-    age_year_all = np.append(
-        np.append(np.arange(min_yr, fert_data.Age.min()),
-                  fert_data['Age'].values),
-        np.arange(fert_data.Age.max() + 1, max_yr + 1))
     fert_rates_all = np.append(
         np.append(np.zeros(int(fert_data.Age.min()) - min_yr),
                   fert_data['Births per 1000'].values),
@@ -238,7 +233,9 @@ def get_imm_resid(totpers, min_yr, max_yr):
 
     '''
     pop_data = pd.read_csv(
-        'https://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2010-2019/nc-est2019-agesex-res.csv')
+        'https://www2.census.gov/programs-surveys/popest/'
+        + 'technical-documentation/file-layouts/2010-2019/' +
+        'nc-est2019-agesex-res.csv')
     pop_data = (
         pop_data[pop_data['SEX'] == 0][['AGE', 'POPESTIMATE2016',
                                         'POPESTIMATE2017',
@@ -385,7 +382,9 @@ def get_pop_objs(E, S, T, min_yr, max_yr, curr_year, GraphDiag=False):
     # Generate time path of the nonstationary population distribution
     omega_path_lev = np.zeros((E + S, T + S))
     pop_data = pd.read_csv(
-        'https://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2010-2019/nc-est2019-agesex-res.csv')
+        'https://www2.census.gov/programs-surveys/popest/' +
+        'technical-documentation/file-layouts/2010-2019/' +
+        'nc-est2019-agesex-res.csv')
     pop_data = (
         pop_data[pop_data['SEX'] == 0][['AGE', 'POPESTIMATE2016',
                                         'POPESTIMATE2017',

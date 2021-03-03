@@ -1,4 +1,4 @@
-from ogusa import txfunc
+from ogusa_calibrate import txfunc
 from distributed import Client, LocalCluster
 import pytest
 import pandas as pd

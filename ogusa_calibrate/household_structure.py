@@ -144,4 +144,3 @@ result65 = result65*panelFinal3
 np.save('nu18', result18)
 np.save('n1864', result1864)
 np.save('n65', result65)
-print(panel_li4)

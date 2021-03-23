@@ -7,7 +7,7 @@ import numpy as np
 from ogusa import income
 
 
-def test_artctan_func():
+def test_arctan_func():
     '''
     Test of arctan_func()
     '''

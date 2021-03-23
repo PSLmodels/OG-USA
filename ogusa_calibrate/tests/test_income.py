@@ -21,7 +21,7 @@ def test_arctan_func():
     assert np.allclose(test_vals, expected_vals)
 
 
-def test_artctan_deriv_func():
+def test_arctan_deriv_func():
     '''
     Test of arctan_deriv_func()
     '''

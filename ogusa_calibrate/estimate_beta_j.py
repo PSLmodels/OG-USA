@@ -10,6 +10,8 @@ import os
 import scipy.optimize as opt
 import pandas as pd
 import pickle
+import sys
+
 from ogusa.parameters import Specifications
 from ogusa import wealth
 from ogusa import SS
@@ -73,11 +75,9 @@ def beta_estimate(
     # initialize parametes object
     tax_func_path = os.path.join(
         "ogusa_calibrate",
-        "data",  # add ogusa above for last ditch effort
+        "data",
         "TxFuncEst_baseline_PUF.pkl",
     )
-    print(tax_func_path)
-    print(os.path.isfile(tax_func_path))
     p = Specifications(baseline=True, tax_func_path=tax_func_path)
     p.update_specifications(og_spec)
     p.get_tax_function_parameters(client, False, tax_func_path)
@@ -90,11 +90,8 @@ def beta_estimate(
     W = compute_weighting_matrix(p, optimal_weight=False)
 
     # call minimizer
-    # set bounds on beta estimates (need to be between 0 and 1)
-    bnds = np.tile(
-        np.array([0.85, 0.995]), (p.J, 1)
-    )  # Need (1e-12, 1) J times
-    # pack arguments in a tuple
+    # set reasonable bounds on beta estimates [0.85,0.995]
+    bnds = np.tile(np.array([0.85, 0.995]))
     min_args = (data_moments, W, p, client)
     # NOTE: may want to try some global optimization routing like
     # simulated annealing (aka basin hopping) or differential

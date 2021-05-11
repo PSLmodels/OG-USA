@@ -1,0 +1,641 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ogusa_calibrate.estimate_beta_j &#8212; OG-USA-Calibration</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+      <img src="../../_static/OG-USA_logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">OG-USA-Calibration</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/intro/intro.html">
+   OG-USA-Calibration
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Contributing to OG-USA-Calibration
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/contributing/contributor_guide.html">
+   Contributor Guide
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  OG-USA-Calibration API
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../content/api/public_api.html">
+   API
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/bequest_transmission.html">
+     Bequest Transmission Process Estimation Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/calibrate.html">
+     Main Calibration Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/demographics.html">
+     Demographics Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/deterministic_profiles.html">
+     Deterministic Earnings Profiles Estimation Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/estimate_beta_j.html">
+     Beta Estimation Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/get_micro_data.html">
+     Functions to Get Micro-data from Tax-Calculator
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/income.html">
+     Income Processes Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/macro_params.html">
+     Macro Parameter Estimation Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/transfer_distribution.html">
+     Government Transfer Distribution Estimation Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/txfunc.html">
+     Tax Function Estimation Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/bequest_transmission.html">
+     Bequest Transmission Process Estimation Functions
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Calibration
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/exogenous_parameters.html">
+   Exogenous Parameters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/macro.html">
+   Calibration of Macroeconomic Parameters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/demographics.html">
+   Demographics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/earnings.html">
+   Lifetime Earnings Profiles
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/tax_functions.html">
+   Tax Functions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/bequests.html">
+   Bequest Process Calibration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/UBI.html">
+   Universal Basic Income (UBI)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/matching_lwi.html">
+   Matching Labor, Wealth, and Income Moments
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  References
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/references.html">
+   References
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Citations of OG-USA-Calibration
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/citations.html">
+   Citations and use cases of OG-USA
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/PSLmodels/OG-USA-Calibration"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/PSLmodels/OG-USA-Calibration/issues/new?title=Issue%20on%20page%20%2F_modules/ogusa_calibrate/estimate_beta_j.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <h1>Source code for ogusa_calibrate.estimate_beta_j</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This script uses simulated method of moments estimator to estimate the</span>
+<span class="sd">beta_j parameters for OG-USA.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">scipy.optimize</span> <span class="k">as</span> <span class="nn">opt</span>
+<span class="kn">from</span> <span class="nn">ogusa.parameters</span> <span class="kn">import</span> <span class="n">Specifications</span>
+<span class="kn">from</span> <span class="nn">ogusa</span> <span class="kn">import</span> <span class="n">wealth</span>
+<span class="kn">from</span> <span class="nn">ogusa</span> <span class="kn">import</span> <span class="n">SS</span>
+<span class="kn">from</span> <span class="nn">ogusa.utils</span> <span class="kn">import</span> <span class="n">Inequality</span>
+
+
+<span class="c1"># Don&#39;t print output along the way of SS solution</span>
+<span class="n">SS</span><span class="o">.</span><span class="n">VERBOSE</span> <span class="o">=</span> <span class="kc">False</span>
+
+
+<div class="viewcode-block" id="beta_estimate"><a class="viewcode-back" href="../../content/api/estimate_beta_j.html#ogusa_calibrate.estimate_beta_j.beta_estimate">[docs]</a><span class="k">def</span> <span class="nf">beta_estimate</span><span class="p">(</span>
+    <span class="n">beta_initial_guesses</span><span class="p">,</span> <span class="n">og_spec</span><span class="o">=</span><span class="p">{},</span> <span class="n">two_step</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function estimates the beta_j parameters using a simulated</span>
+<span class="sd">    method of moments estimator that targets moments of the wealth</span>
+<span class="sd">    distribution.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">    beta_initial_guesses (array-like): array of initial guesses for the</span>
+<span class="sd">        beta_j parameters</span>
+<span class="sd">    og_spec (dict): any updates to default model parameters</span>
+<span class="sd">    two_step (boolean): whether to use a two-step estimator</span>
+<span class="sd">    client (Dask Client object): dask client for multiprocessing</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        beta_hat (array-like): estimates of the beta_j</span>
+<span class="sd">        beta_se (array-like): standard errors on the beta_j estimates</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># initialize parametes object</span>
+    <span class="n">tax_func_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="s2">&quot;..&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;..&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dynamic&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ogusa&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;data&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tax_functions&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;TxFuncEst_baseline_PUF.pkl&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">Specifications</span><span class="p">(</span><span class="n">baseline</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">update_specifications</span><span class="p">(</span><span class="n">og_spec</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">get_tax_function_parameters</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">tax_func_path</span><span class="p">)</span>
+
+    <span class="c1"># Compute wealth moments from the data</span>
+    <span class="n">scf</span> <span class="o">=</span> <span class="n">wealth</span><span class="o">.</span><span class="n">get_wealth_data</span><span class="p">(</span><span class="n">scf_yrs_list</span><span class="o">=</span><span class="p">[</span><span class="mi">2019</span><span class="p">],</span> <span class="n">web</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">data_moments</span> <span class="o">=</span> <span class="n">wealth</span><span class="o">.</span><span class="n">compute_wealth_moments</span><span class="p">(</span><span class="n">scf</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">lambdas</span><span class="p">)</span>
+
+    <span class="c1"># Get weighting matrix</span>
+    <span class="n">W</span> <span class="o">=</span> <span class="n">compute_weighting_matrix</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">optimal_weight</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># call minimizer</span>
+    <span class="c1"># set bounds on beta estimates (need to be between 0 and 1)</span>
+    <span class="n">bnds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1e-12</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">J</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># Need (1e-12, 1) J times</span>
+    <span class="c1"># pack arguments in a tuple</span>
+    <span class="n">min_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">data_moments</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
+    <span class="c1"># NOTE: may want to try some global optimization routing like</span>
+    <span class="c1"># simulated annealing (aka basin hopping) or differential</span>
+    <span class="c1"># evolution</span>
+    <span class="n">est_output</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span>
+        <span class="n">minstat</span><span class="p">,</span>
+        <span class="n">beta_initial_guesses</span><span class="p">,</span>
+        <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">min_args</span><span class="p">),</span>
+        <span class="n">method</span><span class="o">=</span><span class="s2">&quot;L-BFGS-B&quot;</span><span class="p">,</span>
+        <span class="n">bounds</span><span class="o">=</span><span class="n">bnds</span><span class="p">,</span>
+        <span class="n">tol</span><span class="o">=</span><span class="mf">1e-15</span><span class="p">,</span>
+        <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;maxfun&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;maxiter&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;maxls&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+    <span class="p">)</span>
+    <span class="n">beta_hat</span> <span class="o">=</span> <span class="n">est_output</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]</span>
+
+    <span class="c1"># calculate std errors</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_moments</span><span class="p">)</span>
+    <span class="n">beta_se</span><span class="p">,</span> <span class="n">VCV_params</span> <span class="o">=</span> <span class="n">compute_se</span><span class="p">(</span><span class="n">beta_hat</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="n">client</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">two_step</span><span class="p">:</span>
+        <span class="n">W</span> <span class="o">=</span> <span class="n">VCV_params</span>
+        <span class="n">min_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">data_moments</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span>
+        <span class="n">est_output</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span>
+            <span class="n">minstat</span><span class="p">,</span>
+            <span class="n">beta_initial_guesses</span><span class="p">,</span>
+            <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">min_args</span><span class="p">),</span>
+            <span class="n">method</span><span class="o">=</span><span class="s2">&quot;L-BFGS-B&quot;</span><span class="p">,</span>
+            <span class="n">bounds</span><span class="o">=</span><span class="n">bnds</span><span class="p">,</span>
+            <span class="n">tol</span><span class="o">=</span><span class="mf">1e-15</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;maxfun&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;maxiter&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;maxls&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+        <span class="p">)</span>
+        <span class="n">beta_hat</span> <span class="o">=</span> <span class="n">est_output</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]</span>
+        <span class="n">beta_se</span><span class="p">,</span> <span class="n">VCV_params</span> <span class="o">=</span> <span class="n">compute_se</span><span class="p">(</span>
+            <span class="n">beta_hat</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="n">client</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">beta_hat</span><span class="p">,</span> <span class="n">beta_se</span></div>
+
+
+<div class="viewcode-block" id="minstat"><a class="viewcode-back" href="../../content/api/estimate_beta_j.html#ogusa_calibrate.estimate_beta_j.minstat">[docs]</a><span class="k">def</span> <span class="nf">minstat</span><span class="p">(</span><span class="n">beta_guesses</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function generates the weighted sum of squared differences</span>
+<span class="sd">    between the model and data moments.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">    beta_guesses (array-like): a vector of length J with the betas</span>
+<span class="sd">    args (tuple): length 6 tuple, variables needed for minimizer</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    distance (scalar): weighted, squared deviation between data and</span>
+<span class="sd">        model moments</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># unpack args tuple</span>
+    <span class="n">data_moments</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">client</span> <span class="o">=</span> <span class="n">args</span>
+
+    <span class="c1"># Update beta in parameters object with beta guesses</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="n">beta_guesses</span>
+
+    <span class="c1"># Solve model SS</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Baseline = &quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">baseline</span><span class="p">)</span>
+    <span class="n">ss_output</span> <span class="o">=</span> <span class="n">SS</span><span class="o">.</span><span class="n">run_SS</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="n">client</span><span class="p">)</span>
+
+    <span class="c1"># Compute moments from model SS</span>
+    <span class="n">model_moments</span> <span class="o">=</span> <span class="n">calc_moments</span><span class="p">(</span><span class="n">ss_output</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+
+    <span class="c1"># distance with levels</span>
+    <span class="n">distance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">model_moments</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data_moments</span><span class="p">))</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">W</span><span class="p">),</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">model_moments</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data_moments</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DATA and MODEL DISTANCE: &quot;</span><span class="p">,</span> <span class="n">distance</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">distance</span></div>
+
+
+<div class="viewcode-block" id="calc_moments"><a class="viewcode-back" href="../../content/api/estimate_beta_j.html#ogusa_calibrate.estimate_beta_j.calc_moments">[docs]</a><span class="k">def</span> <span class="nf">calc_moments</span><span class="p">(</span><span class="n">ss_output</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function calculates moments from the SS output that correspond</span>
+<span class="sd">    to the data moments used for estimation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">    ss_output = dictionary, variables from SS of model</span>
+<span class="sd">    p (OG-USA Specifications object): model parameters</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        model_moments (array-like): Array of model moments</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Create Inequality object</span>
+    <span class="n">wealth_ineq</span> <span class="o">=</span> <span class="n">Inequality</span><span class="p">(</span>
+        <span class="n">ss_output</span><span class="p">[</span><span class="s2">&quot;bssmat_splus1&quot;</span><span class="p">],</span> <span class="n">p</span><span class="o">.</span><span class="n">omega_SS</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">lambdas</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">S</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">J</span>
+    <span class="p">)</span>
+
+    <span class="c1"># wealth moments</span>
+    <span class="c1"># moments are: bottom 25% of wealth, next 25% share of wealth</span>
+    <span class="c1">#  (25-50 pctile), next 20% share of wealth (50-70 pctile),</span>
+    <span class="c1">#  next 10% share (70-80 pctile), next 10% share (80-90 pctile),</span>
+    <span class="c1">#  next 9% share (90-99 pctile), top 1% share,</span>
+    <span class="c1"># gini coefficient, variance of log wealth</span>
+    <span class="n">model_moments</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="mi">1</span> <span class="o">-</span> <span class="n">wealth_ineq</span><span class="o">.</span><span class="n">top_share</span><span class="p">(</span><span class="mf">0.75</span><span class="p">),</span>
+            <span class="n">wealth_ineq</span><span class="o">.</span><span class="n">top_share</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span> <span class="o">-</span> <span class="n">wealth_ineq</span><span class="o">.</span><span class="n">top_share</span><span class="p">(</span><span class="mf">0.50</span><span class="p">),</span>
+            <span class="n">wealth_ineq</span><span class="o">.</span><span class="n">top_share</span><span class="p">(</span><span class="mf">0.50</span><span class="p">)</span> <span class="o">-</span> <span class="n">wealth_ineq</span><span class="o">.</span><span class="n">top_share</span><span class="p">(</span><span class="mf">0.30</span><span class="p">),</span>
+            <span class="n">wealth_ineq</span><span class="o">.</span><span class="n">top_share</span><span class="p">(</span><span class="mf">0.30</span><span class="p">)</span> <span class="o">-</span> <span class="n">wealth_ineq</span><span class="o">.</span><span class="n">top_share</span><span class="p">(</span><span class="mf">0.20</span><span class="p">),</span>
+            <span class="n">wealth_ineq</span><span class="o">.</span><span class="n">top_share</span><span class="p">(</span><span class="mf">0.20</span><span class="p">)</span> <span class="o">-</span> <span class="n">wealth_ineq</span><span class="o">.</span><span class="n">top_share</span><span class="p">(</span><span class="mf">0.10</span><span class="p">),</span>
+            <span class="n">wealth_ineq</span><span class="o">.</span><span class="n">top_share</span><span class="p">(</span><span class="mf">0.10</span><span class="p">)</span> <span class="o">-</span> <span class="n">wealth_ineq</span><span class="o">.</span><span class="n">top_share</span><span class="p">(</span><span class="mf">0.01</span><span class="p">),</span>
+            <span class="n">wealth_ineq</span><span class="o">.</span><span class="n">top_share</span><span class="p">(</span><span class="mf">0.01</span><span class="p">),</span>
+            <span class="n">wealth_ineq</span><span class="o">.</span><span class="n">gini</span><span class="p">(),</span>
+            <span class="n">wealth_ineq</span><span class="o">.</span><span class="n">var_of_logs</span><span class="p">(),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">model_moments</span></div>
+
+
+<div class="viewcode-block" id="compute_weighting_matrix"><a class="viewcode-back" href="../../content/api/estimate_beta_j.html#ogusa_calibrate.estimate_beta_j.compute_weighting_matrix">[docs]</a><span class="k">def</span> <span class="nf">compute_weighting_matrix</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">optimal_weight</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to compute the weighting matrix for the GMM estimator.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        p (OG-USA Specifications object): model parameters</span>
+<span class="sd">        optimal_weight (boolean): whether to use an optimal</span>
+<span class="sd">            weighting matrix or not</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        W (Numpy array): Weighting matrix</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># determine weighting matrix</span>
+    <span class="k">if</span> <span class="n">optimal_weight</span><span class="p">:</span>
+        <span class="c1"># This uses the inverse of the VCV matrix for the data moments</span>
+        <span class="c1"># more precisely estimated moments get more weight</span>
+        <span class="c1"># Reference: Gourieroux, Monfort, and Renault (1993,</span>
+        <span class="c1"># Journal of Applied Econometrics)</span>
+        <span class="c1"># read in SCF</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="mi">1000</span>  <span class="c1"># number of bootstrap iterations</span>
+        <span class="n">scf</span> <span class="o">=</span> <span class="n">wealth</span><span class="o">.</span><span class="n">get_wealth_data</span><span class="p">(</span>
+            <span class="n">scf_yrs_list</span><span class="o">=</span><span class="p">[</span><span class="mi">2019</span><span class="p">],</span> <span class="n">web</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="kc">None</span>
+        <span class="p">)</span>
+        <span class="n">VCV_data_moments</span> <span class="o">=</span> <span class="n">wealth</span><span class="o">.</span><span class="n">VCV_moments</span><span class="p">(</span><span class="n">scf</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">lambdas</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">J</span><span class="p">)</span>
+        <span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">VCV_data_moments</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Assumes use 2 more moments than there are parameters</span>
+        <span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">J</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">W</span></div>
+
+
+<div class="viewcode-block" id="VCV_moments"><a class="viewcode-back" href="../../content/api/estimate_beta_j.html#ogusa_calibrate.estimate_beta_j.VCV_moments">[docs]</a><span class="k">def</span> <span class="nf">VCV_moments</span><span class="p">(</span><span class="n">scf</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">bin_weights</span><span class="p">,</span> <span class="n">J</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute variance-covariance matrix for wealth moments by</span>
+<span class="sd">    bootstrapping data.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        scf (Pandas DataFrame): raw data from SCF</span>
+<span class="sd">        n (int): number of bootstrap iterations to run</span>
+<span class="sd">        bin_weights (array-like): ability weights (Jx1 array)</span>
+<span class="sd">        J (int): number of ability groups</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        VCV (Numpy array): variance-covariance matrix of wealth moments,</span>
+<span class="sd">            (J+2xJ+2) array</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">wealth_moments_boot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">J</span> <span class="o">+</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">sample</span> <span class="o">=</span> <span class="n">scf</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">scf</span><span class="o">.</span><span class="n">index</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)]</span>
+        <span class="c1"># note that wealth moments from data are in array in same order</span>
+        <span class="c1"># as model moments are computed in this module</span>
+        <span class="n">wealth_moments_boot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">wealth</span><span class="o">.</span><span class="n">compute_wealth_moments</span><span class="p">(</span>
+            <span class="n">sample</span><span class="p">,</span> <span class="n">bin_weights</span>
+        <span class="p">)</span>
+
+    <span class="n">VCV</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">wealth_moments_boot</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">VCV</span></div>
+
+
+<div class="viewcode-block" id="compute_se"><a class="viewcode-back" href="../../content/api/estimate_beta_j.html#ogusa_calibrate.estimate_beta_j.compute_se">[docs]</a><span class="k">def</span> <span class="nf">compute_se</span><span class="p">(</span><span class="n">beta_hat</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to compute standard errors for the SMM estimator.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        beta_hat (array-like): estimates of beta parameters</span>
+<span class="sd">        W (Numpy array): weighting matrix</span>
+<span class="sd">        K (int): number of moments</span>
+<span class="sd">        p (OG-USA Specifications object): model parameters</span>
+<span class="sd">        h (scalar): percentage to move parameters for numerical derivatives</span>
+<span class="sd">        client (Dask Client object): Dask client</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        beta_se (array-like): standard errors for beta estimates</span>
+<span class="sd">        VCV_params (Numpy array): VCV matrix for parameter estimates</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># compute numerical derivatives that will need for SE&#39;s</span>
+    <span class="n">model_moments_low</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">p</span><span class="o">.</span><span class="n">J</span><span class="p">,</span> <span class="n">K</span><span class="p">))</span>
+    <span class="n">model_moments_high</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">p</span><span class="o">.</span><span class="n">J</span><span class="p">,</span> <span class="n">K</span><span class="p">))</span>
+    <span class="n">beta_low</span> <span class="o">=</span> <span class="n">beta_hat</span>
+    <span class="n">beta_high</span> <span class="o">=</span> <span class="n">beta_hat</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">beta_hat</span><span class="p">)):</span>
+        <span class="c1"># compute moments with downward change in param</span>
+        <span class="n">beta_low</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">beta_hat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">h</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="n">beta_low</span>
+        <span class="n">ss_output</span> <span class="o">=</span> <span class="n">ss_output</span> <span class="o">=</span> <span class="n">SS</span><span class="o">.</span><span class="n">run_SS</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="n">client</span><span class="p">)</span>
+        <span class="n">model_moments_low</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">calc_moments</span><span class="p">(</span><span class="n">ss_output</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+        <span class="c1"># compute moments with upward change in param</span>
+        <span class="n">beta_high</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">beta_hat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">h</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="n">beta_low</span>
+        <span class="n">ss_output</span> <span class="o">=</span> <span class="n">ss_output</span> <span class="o">=</span> <span class="n">SS</span><span class="o">.</span><span class="n">run_SS</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="n">client</span><span class="p">)</span>
+        <span class="n">model_moments_high</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">calc_moments</span><span class="p">(</span><span class="n">ss_output</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+
+    <span class="n">deriv_moments</span> <span class="o">=</span> <span class="p">(</span><span class="n">model_moments_high</span> <span class="o">-</span> <span class="n">model_moments_low</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">/</span> <span class="p">(</span>
+        <span class="mi">2</span> <span class="o">*</span> <span class="n">h</span> <span class="o">*</span> <span class="n">beta_hat</span>
+    <span class="p">)</span>
+    <span class="n">VCV_params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">deriv_moments</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">W</span><span class="p">),</span> <span class="n">deriv_moments</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">beta_se</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">VCV_params</span><span class="p">))</span> <span class="o">**</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">beta_se</span><span class="p">,</span> <span class="n">VCV_params</span></div>
+</pre></div>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Jason DeBacker and Richard W. Evans<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

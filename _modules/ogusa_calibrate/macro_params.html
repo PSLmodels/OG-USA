@@ -1,0 +1,471 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ogusa_calibrate.macro_params &#8212; OG-USA-Calibration</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+      <img src="../../_static/OG-USA_logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">OG-USA-Calibration</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/intro/intro.html">
+   OG-USA-Calibration
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Contributing to OG-USA-Calibration
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/contributing/contributor_guide.html">
+   Contributor Guide
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  OG-USA-Calibration API
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../content/api/public_api.html">
+   API
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/bequest_transmission.html">
+     Bequest Transmission Process Estimation Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/calibrate.html">
+     Main Calibration Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/demographics.html">
+     Demographics Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/deterministic_profiles.html">
+     Deterministic Earnings Profiles Estimation Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/estimate_beta_j.html">
+     Beta Estimation Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/get_micro_data.html">
+     Functions to Get Micro-data from Tax-Calculator
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/income.html">
+     Income Processes Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/macro_params.html">
+     Macro Parameter Estimation Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/transfer_distribution.html">
+     Government Transfer Distribution Estimation Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/txfunc.html">
+     Tax Function Estimation Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/bequest_transmission.html">
+     Bequest Transmission Process Estimation Functions
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Calibration
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/exogenous_parameters.html">
+   Exogenous Parameters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/macro.html">
+   Calibration of Macroeconomic Parameters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/demographics.html">
+   Demographics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/earnings.html">
+   Lifetime Earnings Profiles
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/tax_functions.html">
+   Tax Functions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/bequests.html">
+   Bequest Process Calibration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/UBI.html">
+   Universal Basic Income (UBI)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/matching_lwi.html">
+   Matching Labor, Wealth, and Income Moments
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  References
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/references.html">
+   References
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Citations of OG-USA-Calibration
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/citations.html">
+   Citations and use cases of OG-USA
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/PSLmodels/OG-USA-Calibration"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/PSLmodels/OG-USA-Calibration/issues/new?title=Issue%20on%20page%20%2F_modules/ogusa_calibrate/macro_params.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <h1>Source code for ogusa_calibrate.macro_params</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module uses data from FRED to find values for parameters for the</span>
+<span class="sd">OG-USA model that rely on macro data for calibration.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># imports</span>
+<span class="kn">import</span> <span class="nn">pandas_datareader.data</span> <span class="k">as</span> <span class="nn">web</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+
+
+<div class="viewcode-block" id="get_macro_params"><a class="viewcode-back" href="../../content/api/macro_params.html#ogusa_calibrate.macro_params.get_macro_params">[docs]</a><span class="k">def</span> <span class="nf">get_macro_params</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute values of parameters that are derived from macro data</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># set beginning and end dates for data</span>
+    <span class="c1"># format is year (1940),month (1),day (1)</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1947</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>  <span class="c1"># go through today</span>
+    <span class="n">baseline_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span>
+
+    <span class="n">variable_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;GDP Per Capita&quot;</span><span class="p">:</span> <span class="s2">&quot;A939RX0Q048SBEA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Labor share&quot;</span><span class="p">:</span> <span class="s2">&quot;LABSHPUSA156NRUG&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Debt held by foreigners&quot;</span><span class="p">:</span> <span class="s2">&quot;FDHBFIN&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Debt held by public&quot;</span><span class="p">:</span> <span class="s2">&quot;FYGFDPUN&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BAA Corp Bond Rates&quot;</span><span class="p">:</span> <span class="s2">&quot;DBAA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;10 year treasury rate&quot;</span><span class="p">:</span> <span class="s2">&quot;DGS10&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Total gov transfer payments&quot;</span><span class="p">:</span> <span class="s2">&quot;B087RC1Q027SBEA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Social Security payments&quot;</span><span class="p">:</span> <span class="s2">&quot;W823RC1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Gov expenditures&quot;</span><span class="p">:</span> <span class="s2">&quot;FGEXPND&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Gov interest payments&quot;</span><span class="p">:</span> <span class="s2">&quot;A091RC1Q027SBEA&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Real GDP&quot;</span><span class="p">:</span> <span class="s2">&quot;GDPC1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Nominal GDP&quot;</span><span class="p">:</span> <span class="s2">&quot;GDP&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1"># pull series of interest using pandas_datareader</span>
+    <span class="n">fred_data</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">DataReader</span><span class="p">(</span><span class="n">variable_dict</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="s2">&quot;fred&quot;</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+    <span class="n">fred_data</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+        <span class="n">columns</span><span class="o">=</span><span class="nb">dict</span><span class="p">((</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">variable_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+
+    <span class="c1"># make sure all dollar value data are in billions</span>
+    <span class="n">fred_data</span><span class="p">[</span><span class="s2">&quot;Debt held by public&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fred_data</span><span class="p">[</span><span class="s2">&quot;Debt held by public&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">1000</span>
+
+    <span class="c1"># Separate quartely, monthly, and annual dataseries</span>
+    <span class="n">fred_data_q</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">fred_data</span><span class="p">[</span>
+            <span class="p">[</span>
+                <span class="s2">&quot;Debt held by public&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Nominal GDP&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Total gov transfer payments&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Social Security payments&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Gov expenditures&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Gov interest payments&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;GDP Per Capita&quot;</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="p">]</span>
+        <span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">&quot;Q&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="p">)</span>
+    <span class="n">fred_data_a</span> <span class="o">=</span> <span class="n">fred_data</span><span class="p">[[</span><span class="s2">&quot;Labor share&quot;</span><span class="p">]]</span>
+    <span class="n">fred_data_d</span> <span class="o">=</span> <span class="n">fred_data</span><span class="p">[[</span><span class="s2">&quot;BAA Corp Bond Rates&quot;</span><span class="p">,</span> <span class="s2">&quot;10 year treasury rate&quot;</span><span class="p">]]</span>
+
+    <span class="c1"># initialize a dictionary of parameters</span>
+    <span class="n">macro_parameters</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># print(fred_data.loc(str(baseline_date)))</span>
+    <span class="c1"># find initial_debt_ratio</span>
+    <span class="n">macro_parameters</span><span class="p">[</span><span class="s2">&quot;initial_debt_ratio&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
+        <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">&quot;Debt held by public&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">&quot;Nominal GDP&quot;</span><span class="p">]</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">baseline_date</span><span class="p">]</span>
+
+    <span class="c1"># find alpha_T</span>
+    <span class="n">macro_parameters</span><span class="p">[</span><span class="s2">&quot;alpha_T&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
+        <span class="p">(</span>
+            <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">&quot;Total gov transfer payments&quot;</span><span class="p">]</span>
+            <span class="o">-</span> <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">&quot;Social Security payments&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="o">/</span> <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">&quot;Nominal GDP&quot;</span><span class="p">]</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">baseline_date</span><span class="p">]</span>
+
+    <span class="c1"># find alpha_G</span>
+    <span class="n">macro_parameters</span><span class="p">[</span><span class="s2">&quot;alpha_G&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
+        <span class="p">(</span>
+            <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">&quot;Gov expenditures&quot;</span><span class="p">]</span>
+            <span class="o">-</span> <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">&quot;Total gov transfer payments&quot;</span><span class="p">]</span>
+            <span class="o">-</span> <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">&quot;Gov interest payments&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="o">/</span> <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">&quot;Nominal GDP&quot;</span><span class="p">]</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">baseline_date</span><span class="p">]</span>
+
+    <span class="c1"># find gamma</span>
+    <span class="n">macro_parameters</span><span class="p">[</span><span class="s2">&quot;gamma&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">fred_data_a</span><span class="p">[</span><span class="s2">&quot;Labor share&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="c1"># find g_y</span>
+    <span class="n">macro_parameters</span><span class="p">[</span><span class="s2">&quot;g_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">&quot;GDP Per Capita&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">(</span><span class="n">periods</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;Q&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="p">)</span>
+
+    <span class="c1"># # estimate r_gov_shift and r_gov_scale</span>
+    <span class="n">rate_data</span> <span class="o">=</span> <span class="n">fred_data_d</span><span class="p">[</span>
+        <span class="p">[</span><span class="s2">&quot;10 year treasury rate&quot;</span><span class="p">,</span> <span class="s2">&quot;BAA Corp Bond Rates&quot;</span><span class="p">]</span>
+    <span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+    <span class="n">rate_data</span><span class="p">[</span><span class="s2">&quot;constant&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rate_data</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
+    <span class="c1"># mod = PanelOLS(fred_data[&#39;10 year treasury rate&#39;],</span>
+    <span class="c1">#                fred_data[[&#39;constant&#39;, &#39;BAA Corp Bond Rates&#39;]])</span>
+    <span class="n">mod</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span>
+        <span class="n">rate_data</span><span class="p">[</span><span class="s2">&quot;10 year treasury rate&quot;</span><span class="p">],</span>
+        <span class="n">rate_data</span><span class="p">[[</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span> <span class="s2">&quot;BAA Corp Bond Rates&quot;</span><span class="p">]],</span>
+    <span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+    <span class="n">macro_parameters</span><span class="p">[</span><span class="s2">&quot;r_gov_shift&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;BAA Corp Bond Rates&quot;</span><span class="p">]</span>
+    <span class="n">macro_parameters</span><span class="p">[</span><span class="s2">&quot;r_gov_scale&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;constant&quot;</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">macro_parameters</span></div>
+</pre></div>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Jason DeBacker and Richard W. Evans<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

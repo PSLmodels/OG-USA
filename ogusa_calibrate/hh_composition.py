@@ -3,8 +3,6 @@ import numpy as np
 import microdf as mdf
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
-import pickle
-import gzip
 
 cps = pd.read_csv(
     "https://github.com/PSLmodels/taxdata/raw/master/data/cps.csv.gz",
@@ -22,16 +20,6 @@ cps = pd.read_csv(
     ],
 )
 
-# Load PSID.
-PSID_COLS = [
-    "head_age",
-    "spouse_age",
-    "li_group",
-    "num_children_under18",
-    "num_family",
-]
-with gzip.open("psid_lifetime_income.pkl.gz", "rb") as f:
-    psid = pickle.load(f)[PSID_COLS]
 
 # Add n65 and n1864 to CPS data NOT INCLUDING HEAD
 # (CPS already has nu18)
@@ -62,12 +50,6 @@ cps2.drop(
     axis=1,
     inplace=True,
 )
-
-# Add n65, n1864, and nu18 to PSID data NOT INCLUDING HEAD
-psid["n65"] = np.where(psid.spouse_age > 64, 1, 0)
-psid["nu18"] = psid.num_children_under18
-psid["n1864"] = psid.num_family - psid.n65 - psid.nu18 - 1
-
 
 sj = (
     cps2[cps2.age_head.between(20, 80)]

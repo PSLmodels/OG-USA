@@ -68,14 +68,14 @@ sj = (
 
 
 def smooth(x, y, frac=0.4):
-    """ Produces LOESS smoothed data.
-    """
-    return pd.Series(sm.nonparametric.lowess(y, x, frac=frac)[:, 1], index=x)
+    """Produces LOESS smoothed data."""
+    return np.maximum(
+        pd.Series(sm.nonparametric.lowess(y, x, frac=frac)[:, 1], index=x), 0
+    )
 
 
 def smooth_all(data):
-    """ Return smoothed versions of nu18, n1864, n65.
-    """
+    """Return smoothed versions of nu18, n1864, n65."""
     return data.groupby(["income_bin", "age_group"]).apply(
         lambda x: smooth(x.age_head, x.n)
     )
@@ -109,8 +109,8 @@ combined_long.n += combined_long.add_head
 
 
 def plot(data):
-    """ Produces and exports a plot of household size by age_head, with lines for each income bin.
-        The title and filename reflect the age group and whether the data is smoothed based on the first record.
+    """Produces and exports a plot of household size by age_head, with lines for each income bin.
+    The title and filename reflect the age group and whether the data is smoothed based on the first record.
     """
     age_group = data.age_group.iloc[0]
     smoothed = data.smoothed.iloc[0]

@@ -24,7 +24,7 @@ cps = pd.read_csv(
 # Add n65 and n1864 to CPS data NOT INCLUDING HEAD
 # (CPS already has nu18)
 cps["n65"] = cps.elderly_dependents + (cps.age_spouse >= 65)
-cps["n1864"] = cps.n1820 + cps.n21 - cps.n65
+cps["n1864"] = cps.n1820 + cps.n21 - cps.n65 - cps.age_head.between(18, 64)
 
 # Initialize a new empty DataFrame with cps structure,
 # and stack the version with quantiles on each.

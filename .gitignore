@@ -32,3 +32,4 @@ htmlcov/*
 envs/
 *.egg-info/
 dask-worker-space/
+.vscode/*

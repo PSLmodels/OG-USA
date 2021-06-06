@@ -3,6 +3,10 @@ import numpy as np
 import microdf as mdf
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
+import os
+
+IMAGE_PATH = "images/hh_composition"
+DATA_PATH = "data/hh_composition"
 
 cps = pd.read_csv(
     "https://github.com/PSLmodels/taxdata/raw/master/data/cps.csv.gz",
@@ -21,10 +25,11 @@ cps = pd.read_csv(
 )
 
 
-# Add n65 and n1864 to CPS data NOT INCLUDING HEAD
-# (CPS already has nu18)
-cps["n65"] = cps.elderly_dependents + (cps.age_spouse >= 65)
-cps["n1864"] = cps.n1820 + cps.n21 - cps.n65 - cps.age_head.between(18, 64)
+# Add n65 and n1864 to CPS data (nu18 already exists).
+cps["n65"] = (
+    cps.elderly_dependents + (cps.age_spouse >= 65) + (cps.age_head >= 65)
+)
+cps["n1864"] = cps.n1820 + cps.n21 - cps.n65
 
 # Initialize a new empty DataFrame with cps structure,
 # and stack the version with quantiles on each.
@@ -77,35 +82,43 @@ def smooth(x, y, frac=0.4):
 def smooth_all(data):
     """Return smoothed versions of nu18, n1864, n65."""
     return data.groupby(["income_bin", "age_group"]).apply(
-        lambda x: smooth(x.age_head, x.n)
+        lambda x: smooth(x.age_head, x.n_no_head)
+    )
+
+
+# Add the household head. NB: age_head starts at 20 so no need to do for nu18.
+def head_in_group(age_group, age_head):
+    return (
+        # n1864 and head age is between 18 and 64.
+        (age_group == "n1864")
+        & age_head.between(18, 64)
+    ) | (
+        # n65 and head age exceeds 64.
+        (age_group == "n65")
+        & (age_head > 64)
     )
 
 
 cps_long = sj.melt(
     ["age_head", "income_bin"], var_name="age_group", value_name="n"
 )
+cps_long["head_in_group"] = head_in_group(
+    cps_long.age_group, cps_long.age_head
+)
+cps_long["n_no_head"] = cps_long.n - cps_long.head_in_group
 smoothed_wide = smooth_all(cps_long).reset_index()
 smoothed_long = smoothed_wide.melt(
-    ["age_group", "income_bin"], var_name="age_head", value_name="n"
+    ["age_group", "income_bin"], var_name="age_head", value_name="n_no_head"
 )
+smoothed_long["head_in_group"] = head_in_group(
+    smoothed_long.age_group, smoothed_long.age_head
+)
+smoothed_long["n"] = smoothed_long.n_no_head + smoothed_long.head_in_group
 
 # Stack with raw.
 cps_long["smoothed"] = False
 smoothed_long["smoothed"] = True
 combined_long = pd.concat([cps_long, smoothed_long])
-
-# Add the household head. NB: age_head starts at 20 so no need to do for nu18.
-combined_long["add_head"] = (
-    # n1864 and head age between 18 and 64.
-    (
-        (combined_long.age_group == "n1864")
-        & combined_long.age_head.between(18, 64)
-    )
-    |
-    # n65 and head age exceeds 64.
-    ((combined_long.age_group == "n65") & (combined_long.age_head > 64))
-)
-combined_long.n += combined_long.add_head
 
 
 def plot(data):
@@ -115,7 +128,7 @@ def plot(data):
     age_group = data.age_group.iloc[0]
     smoothed = data.smoothed.iloc[0]
     title = "Average number of people aged "
-    fname = "../images/hh_composition/cps_" + age_group
+    fname = os.path.join(IMAGE_PATH, "cps_" + age_group)
     # Label according to age group.
     if age_group == "nu18":
         title += "0 to 17"
@@ -140,4 +153,4 @@ def plot(data):
 combined_long.groupby(["age_group", "smoothed"]).apply(plot)
 
 # Export csv.
-combined_long.to_csv("../data/hh_composition/cps.csv")
+combined_long.to_csv(os.path.join(DATA_PATH, "cps.csv"))

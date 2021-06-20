@@ -145,6 +145,8 @@ class Calibration:
         # Reorder indices of tax function and tile for all years after
         # budget window ends
         num_etr_params = dict_params["tfunc_etr_params_S"].shape[2]
+        num_mtrx_params = dict_params["tfunc_mtrx_params_S"].shape[2]
+        num_mtry_params = dict_params["tfunc_mtry_params_S"].shape[2]
         # First check to see if tax parameters that are used were
         # estimated with a budget window and ages that are as long as
         # the those implied based on the start year and model age.
@@ -202,10 +204,76 @@ class Calibration:
                     ),
                     axis=0,
                 )
+        etr_params = np.empty((p.T, p.S, num_etr_params))
+        mtrx_params = np.empty((p.T, p.S, num_mtrx_params))
+        mtry_params = np.empty((p.T, p.S, num_mtry_params))
+        etr_params[: p.BW, :, :] = np.transpose(
+            dict_params["tfunc_etr_params_S"][: p.S, : p.BW, :], axes=[1, 0, 2]
+        )
+        etr_params[p.BW :, :, :] = np.tile(
+            np.transpose(
+                dict_params["tfunc_etr_params_S"][: p.S, -1, :].reshape(
+                    p.S, 1, num_etr_params
+                ),
+                axes=[1, 0, 2],
+            ),
+            (p.T - p.BW, 1, 1),
+        )
+        mtrx_params[: p.BW, :, :] = np.transpose(
+            dict_params["tfunc_mtrx_params_S"][: p.S, : p.BW, :],
+            axes=[1, 0, 2],
+        )
+        mtrx_params[p.BW :, :, :] = np.transpose(
+            dict_params["tfunc_mtrx_params_S"][: p.S, -1, :].reshape(
+                p.S, 1, num_mtrx_params
+            ),
+            axes=[1, 0, 2],
+        )
+        mtry_params[: p.BW, :, :] = np.transpose(
+            dict_params["tfunc_mtry_params_S"][: p.S, : p.BW, :],
+            axes=[1, 0, 2],
+        )
+        mtry_params[p.BW :, :, :] = np.transpose(
+            dict_params["tfunc_mtry_params_S"][: p.S, -1, :].reshape(
+                p.S, 1, num_mtry_params
+            ),
+            axes=[1, 0, 2],
+        )
+
+        if p.constant_rates:
+            print("Using constant rates!")
+            # Make all ETRs equal the average
+            etr_params = np.zeros(etr_params.shape)
+            # set shift to average rate
+            etr_params[: p.BW, :, 10] = np.tile(
+                dict_params["tfunc_avg_etr"].reshape(p.BW, 1), (1, p.S)
+            )
+            etr_params[p.BW :, :, 10] = dict_params["tfunc_avg_etr"][-1]
+
+            # # Make all MTRx equal the average
+            mtrx_params = np.zeros(mtrx_params.shape)
+            # set shift to average rate
+            mtrx_params[: p.BW, :, 10] = np.tile(
+                dict_params["tfunc_avg_mtrx"].reshape(p.BW, 1), (1, p.S)
+            )
+            mtrx_params[p.BW :, :, 10] = dict_params["tfunc_avg_mtrx"][-1]
+
+            # # Make all MTRy equal the average
+            mtry_params = np.zeros(mtry_params.shape)
+            # set shift to average rate
+            mtry_params[: p.BW, :, 10] = np.tile(
+                dict_params["tfunc_avg_mtry"].reshape(p.BW, 1), (1, p.S)
+            )
+            mtry_params[p.BW :, :, 10] = dict_params["tfunc_avg_mtry"][-1]
+        if p.zero_taxes:
+            print("Zero taxes!")
+            etr_params = np.zeros(etr_params.shape)
+            mtrx_params = np.zeros(mtrx_params.shape)
+            mtry_params = np.zeros(mtry_params.shape)
         tax_param_dict = {
-            "etr_params": dict_params["tfunc_etr_params_S"],
-            "mtrx_params": dict_params["tfunc_mtrx_params_S"],
-            "mtry_params": dict_params["tfunc_mtry_params_S"],
+            "etr_params": etr_params,
+            "mtrx_params": mtrx_params,
+            "mtry_params": mtry_params,
             "taxcalc_version": taxcalc_version,
             "mean_income_data": mean_income_data,
             "frac_tax_payroll": frac_tax_payroll,

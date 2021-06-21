@@ -114,25 +114,31 @@ class Calibration:
         if not run_micro:
             dict_params, run_micro = self.read_tax_func_estimate(tax_func_path)
         if run_micro:
-            micro_data, taxcalc_version = get_micro_data.get_data()
+            micro_data, taxcalc_version = get_micro_data.get_data(
+                baseline=p.baseline,
+                start_year=p.start_year,
+                reform=iit_reform,
+                data=data,
+                path=p.output_base,
+                client=client,
+                num_workers=num_workers,
+            )
             dict_params = txfunc.tax_func_estimate(  # pragma: no cover
                 micro_data,
                 p.BW,
                 p.S,
                 p.starting_age,
                 p.ending_age,
-                p.baseline,
-                p.analytical_mtrs,
-                p.tax_func_type,
-                p.age_specific,
-                p.start_year,
-                iit_reform,
-                guid,
-                tax_func_path,
-                data,
-                client,
-                num_workers,
-                tax_func_path,
+                start_year=p.start_year,
+                baseline=p.baseline,
+                analytical_mtrs=p.analytical_mtrs,
+                tax_func_type=p.tax_func_type,
+                age_specific=p.age_specific,
+                reform=iit_reform,
+                data=data,
+                client=client,
+                num_workers=num_workers,
+                tax_func_path=tax_func_path,
             )
         mean_income_data = dict_params["tfunc_avginc"][0]
         frac_tax_payroll = np.append(

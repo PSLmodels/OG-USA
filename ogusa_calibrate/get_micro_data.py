@@ -12,6 +12,7 @@ import numpy as np
 import os
 import pickle
 import pkg_resources
+from ogusa import utils
 from ogusa.constants import DEFAULT_START_YEAR, TC_LAST_YEAR, PUF_START_YEAR
 
 CUR_PATH = os.path.split(os.path.abspath(__file__))[0]
@@ -152,7 +153,7 @@ def get_data(
         pkl_path = os.path.join(path, "micro_data_baseline.pkl")
     else:
         pkl_path = os.path.join(path, "micro_data_policy.pkl")
-
+    utils.mkdirs(path)
     with open(pkl_path, "wb") as f:
         pickle.dump(micro_data_dict, f)
 

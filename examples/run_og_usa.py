@@ -49,7 +49,7 @@ def main():
 
     # Run model
     start_time = time.time()
-    # runner(p, time_path=True, client=client)
+    runner(p, time_path=True, client=client)
     print("run time = ", time.time() - start_time)
 
     """
@@ -87,17 +87,24 @@ def main():
     )
     # Use calibration class to estimate reform tax functions from
     # Tax-Calculator, specifing reform for Tax-Calculator in iit_reform
-    print("Tax function type = ", p2.tax_func_type)
     c2 = Calibration(p2, iit_reform=iit_reform, estimate_tax_functions=True)
     # update tax function parameters in Specifications Object
-    updated_params = c2.get_dict()["tax_param_dict"]
+    d = c2.get_dict()
     # additional parameters to change
-    updated_params.update({"cit_rate": [0.35]})
+    updated_params = {
+        "cit_rate": [0.35],
+        "etr_params": d["etr_params"],
+        "mtrx_params": d["mtrx_params"],
+        "mtry_params": d["mtry_params"],
+        "mean_income_data": d["mean_income_data"],
+        "frac_tax_payroll": d["frac_tax_payroll"],
+    }
     p2.update_specifications(updated_params)
     # Run model
     start_time = time.time()
-    runner(p, time_path=True, client=client)
+    runner(p2, time_path=True, client=client)
     print("run time = ", time.time() - start_time)
+    client.close()
 
     """
     ------------------------------------------------------------------------
@@ -131,7 +138,6 @@ def main():
     print("Percentage changes in aggregates:", ans)
     # save percentage change output to csv file
     ans.to_csv("ogusa_example_output.csv")
-    client.close()
 
 
 if __name__ == "__main__":

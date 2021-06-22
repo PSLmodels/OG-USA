@@ -61,14 +61,20 @@ class Calibration:
         # zeta estimation
         self.zeta = bequest_transmission.get_bequest_matrix()
 
-        # earnings profiles
-        self.e = income.get_e_interp(
-            p.S, p.omega_SS, p.omega_SS_80, p.lambdas, plot=False
-        )
-
         # demographics
         self.demographic_params = demographics.get_pop_objs(
             p.E, p.S, p.T, 1, 100, p.start_year
+        )
+        # demographics for 80 period lives (needed for getting e below)
+        demog80 = demographics.get_pop_objs(20, 80, p.T, 1, 100, p.start_year)
+
+        # earnings profiles
+        self.e = income.get_e_interp(
+            p.S,
+            self.demographic_params["omega_SS"],
+            demog80["omega_SS"],
+            p.lambdas,
+            plot=False,
         )
 
     # Tax Functions
@@ -146,7 +152,6 @@ class Calibration:
             np.ones(p.T + p.S - p.BW)
             * dict_params["tfunc_frac_tax_payroll"][-1],
         )
-        taxcalc_version = dict_params["taxcalc_version"]
 
         # Reorder indices of tax function and tile for all years after
         # budget window ends

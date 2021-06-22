@@ -4,7 +4,7 @@ Tests of income.py module
 
 import pytest
 import numpy as np
-from ogusa import income
+from ogusa_calibrate import income
 
 
 def test_arctan_func():
@@ -2311,10 +2311,11 @@ abil_wgts3 = np.array(
 expected_vals3 = np.zeros((80, 10))
 expected_vals3[:, :7] = expected_vals1.copy()
 old_vals = expected_vals1[:, 6].copy()
-expected_vals3[:, 6] = old_vals * 0.458759521
-expected_vals3[:, 7] = old_vals * 0.847252448
-expected_vals3[:, 8] = old_vals * 2.713698465
-expected_vals3[:, 9] = old_vals * 18.74863983
+expected_vals3[:, 5] = expected_vals1[:, -2] * 1.25
+expected_vals3[:, 6] = old_vals * 0.458759521 * 2.75
+expected_vals3[:, 7] = old_vals * 0.847252448 * 3.5
+expected_vals3[:, 8] = old_vals * 2.713698465 * 3.5
+expected_vals3[:, 9] = old_vals * 18.74863983 * 4.0
 age_wgts = np.ones(80) * 1 / 80
 expected_vals3 = (
     expected_vals3

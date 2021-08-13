@@ -202,6 +202,8 @@ def test_get_calculator_puf_from_file():
 def test_get_data(baseline, dask_client):
     """
     Test of get_micro_data.get_data() function
+
+    Note that this test may fail if the Tax-Calculator is not v 3.2.1
     """
     expected_data = utils.safe_read_pickle(
         os.path.join(CUR_PATH, "test_io_data", "micro_data_dict_for_tests.pkl")
@@ -225,7 +227,7 @@ def test_taxcalc_advance():
     """
     Test of the get_micro_data.taxcalc_advance() function
 
-    Note that this test may fail if the Tax-Calculator is not v 3.0.0
+    Note that this test may fail if the Tax-Calculator is not v 3.2.1
     """
     expected_dict = utils.safe_read_pickle(
         os.path.join(CUR_PATH, "test_io_data", "tax_dict_for_tests.pkl")
@@ -239,6 +241,8 @@ def test_taxcalc_advance():
 def test_cap_inc_mtr():
     """
     Test of the get_micro_data.cap_inc_mtr() function
+
+    Note that this test may fail if the Tax-Calculator is not v 3.2.1
     """
     calc1 = get_micro_data.get_calculator(
         baseline=True, calculator_start_year=2028, reform={}, data="cps"

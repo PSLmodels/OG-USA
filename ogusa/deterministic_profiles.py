@@ -3,7 +3,7 @@ import pandas as pd
 import os
 import matplotlib.pyplot as plt
 from linearmodels import PanelOLS
-import ogusa  # import just for MPL style file
+import ogcore  # import just for MPL style file
 
 # Create directory if output directory does not already exist
 cur_path = os.path.split(os.path.abspath(__file__))[0]

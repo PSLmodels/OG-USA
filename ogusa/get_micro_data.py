@@ -12,7 +12,7 @@ import numpy as np
 import os
 import pickle
 import pkg_resources
-from ogusa import utils
+from ogcore import utils
 from ogusa.constants import DEFAULT_START_YEAR, TC_LAST_YEAR, PUF_START_YEAR
 
 CUR_PATH = os.path.split(os.path.abspath(__file__))[0]

@@ -7,10 +7,10 @@ beta_j parameters for OG-USA.
 import numpy as np
 import os
 import scipy.optimize as opt
-from ogusa.parameters import Specifications
+from ogcore.parameters import Specifications
 from ogusa import wealth
-from ogusa import SS
-from ogusa.utils import Inequality
+from ogcore import SS
+from ogcore.utils import Inequality
 
 
 # Don't print output along the way of SS solution

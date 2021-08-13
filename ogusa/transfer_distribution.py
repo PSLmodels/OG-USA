@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import kde
 import os
-import ogusa  # import just for MPL style file
+import ogcore  # import just for MPL style file
 
 
 # Will need to do some smoothing with a KDE when estimate the matrix...

@@ -1,16 +1,10 @@
-from ogusa_calibrate import (
-    estimate_beta_j,
-    bequest_transmission,
-    demographics,
-    macro_params,
-    transfer_distribution,
-    income,
-    get_micro_data,
-)
+from ogusa import estimate_beta_j, bequest_transmission, demographics
+from ogusa import macro_params, transfer_distribution, income
+from ogusa import get_micro_data
 import os
 import numpy as np
-from ogusa import txfunc
-from ogusa.utils import safe_read_pickle, mkdirs
+from ogcore import txfunc
+from ogcore.utils import safe_read_pickle, mkdirs
 import pkg_resources
 
 CUR_PATH = os.path.split(os.path.abspath(__file__))[0]

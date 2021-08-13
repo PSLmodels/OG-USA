@@ -37,10 +37,10 @@ try:
     import cPickle as pickle
 except ImportError:
     import pickle
-from . import wealth
-from . import labor
-from . import SS
-from . import utils
+from ogusa import wealth
+from ogusa import labor
+from ogcore import SS
+from ogcore import utils
 
 
 def chi_estimate(

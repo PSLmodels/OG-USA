@@ -9,7 +9,7 @@ For a more generic version, see income_nopoly.py.
 import numpy as np
 import scipy.optimize as opt
 import scipy.interpolate as si
-from ogusa import parameter_plots as pp
+from ogcore import parameter_plots as pp
 import os
 
 CUR_PATH = os.path.abspath(os.path.dirname(__file__))

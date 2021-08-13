@@ -1,6 +1,5 @@
-name: ogusa-calibrate-dev
+name: ogusa-dev
 channels:
-- PSLmodels
 - conda-forge
 dependencies:
 - python>=3.7.7
@@ -36,4 +35,4 @@ dependencies:
   - cs-kit
   - cs2tc
   - pandas-datareader
-  - git+https://github.com/PSLmodels/OG-USA.git
+  - git+https://github.com/PSLmodels/OG-Core.git

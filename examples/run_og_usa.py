@@ -4,12 +4,12 @@ import os
 import json
 import time
 from taxcalc import Calculator
-from ogusa_calibrate.calibrate import Calibration
-from ogusa.parameters import Specifications
-from ogusa import output_tables as ot
-from ogusa import output_plots as op
-from ogusa.execute import runner
-from ogusa.utils import safe_read_pickle
+from ogusa.calibrate import Calibration
+from ogcore.parameters import Specifications
+from ogcore import output_tables as ot
+from ogcore import output_plots as op
+from ogcore.execute import runner
+from ogcore.utils import safe_read_pickle
 
 
 def main():
@@ -31,7 +31,6 @@ def main():
     # Set up baseline parameterization
     p = Specifications(
         baseline=True,
-        client=client,
         num_workers=num_workers,
         baseline_dir=base_dir,
         output_base=base_dir,
@@ -39,11 +38,7 @@ def main():
     # Update parameters for baseline from default json file
     p.update_specifications(
         json.load(
-            open(
-                os.path.join(
-                    "..", "ogusa_calibrate", "ogusa_default_parameters.json"
-                )
-            )
+            open(os.path.join("..", "ogusa", "ogusa_default_parameters.json"))
         )
     )
 
@@ -70,7 +65,6 @@ def main():
     # create new Specifications object for reform simulation
     p2 = Specifications(
         baseline=False,
-        client=client,
         num_workers=num_workers,
         baseline_dir=base_dir,
         output_base=reform_dir,
@@ -78,16 +72,14 @@ def main():
     # Update parameters for baseline from default json file
     p2.update_specifications(
         json.load(
-            open(
-                os.path.join(
-                    "..", "ogusa_calibrate", "ogusa_default_parameters.json"
-                )
-            )
+            open(os.path.join("..", "ogusa", "ogusa_default_parameters.json"))
         )
     )
     # Use calibration class to estimate reform tax functions from
     # Tax-Calculator, specifing reform for Tax-Calculator in iit_reform
-    c2 = Calibration(p2, iit_reform=iit_reform, estimate_tax_functions=True)
+    c2 = Calibration(
+        p2, iit_reform=iit_reform, estimate_tax_functions=True, client=client
+    )
     # update tax function parameters in Specifications Object
     d = c2.get_dict()
     # additional parameters to change

@@ -1,5 +1,5 @@
 import numpy as np
-from ogusa_calibrate import demographics
+from ogusa import demographics
 
 
 def test_get_pop_objs():

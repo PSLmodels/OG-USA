@@ -93,9 +93,35 @@ def chi_estimate(
     """
 
     # unpack tuples of parameters
-    J, S, T, BW, beta, sigma, alpha, Z, delta, ltilde, nu, g_y, g_n_ss, tau_payroll, tau_bq, rho, omega_SS, lambdas, imm_rates, e, retire, mean_income_data, h_wealth, p_wealth, m_wealth, b_ellipse, upsilon = (
-        ss_params
-    )
+    (
+        J,
+        S,
+        T,
+        BW,
+        beta,
+        sigma,
+        alpha,
+        Z,
+        delta,
+        ltilde,
+        nu,
+        g_y,
+        g_n_ss,
+        tau_payroll,
+        tau_bq,
+        rho,
+        omega_SS,
+        lambdas,
+        imm_rates,
+        e,
+        retire,
+        mean_income_data,
+        h_wealth,
+        p_wealth,
+        m_wealth,
+        b_ellipse,
+        upsilon,
+    ) = ss_params
     chi_b_guess, chi_n_guess = chi_guesses
 
     flag_graphs = False
@@ -264,12 +290,44 @@ def minstat(chi_guesses, *args):
     --------------------------------------------------------------------
     """
 
-    data_moments, W, income_tax_params, ss_params, iterative_params, chi_params, baseline_dir = (
-        args
-    )
-    J, S, T, BW, beta, sigma, alpha, Z, delta, ltilde, nu, g_y, g_n_ss, tau_payroll, tau_bq, rho, omega_SS, lambdas, imm_rates, e, retire, mean_income_data, h_wealth, p_wealth, m_wealth, b_ellipse, upsilon = (
-        ss_params
-    )
+    (
+        data_moments,
+        W,
+        income_tax_params,
+        ss_params,
+        iterative_params,
+        chi_params,
+        baseline_dir,
+    ) = args
+    (
+        J,
+        S,
+        T,
+        BW,
+        beta,
+        sigma,
+        alpha,
+        Z,
+        delta,
+        ltilde,
+        nu,
+        g_y,
+        g_n_ss,
+        tau_payroll,
+        tau_bq,
+        rho,
+        omega_SS,
+        lambdas,
+        imm_rates,
+        e,
+        retire,
+        mean_income_data,
+        h_wealth,
+        p_wealth,
+        m_wealth,
+        b_ellipse,
+        upsilon,
+    ) = ss_params
     chi_b = chi_guesses[:J]
     chi_n = chi_guesses[J:]
     chi_params = (chi_b, chi_n)

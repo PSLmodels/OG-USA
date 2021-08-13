@@ -8,7 +8,7 @@ import numpy as np
 import os
 import scipy.optimize as opt
 from ogcore.parameters import Specifications
-from ogusa import wealth
+from ogcore import wealth
 from ogcore import SS
 from ogcore.utils import Inequality
 

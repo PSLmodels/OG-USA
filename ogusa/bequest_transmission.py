@@ -98,7 +98,7 @@ def get_bequest_matrix(graphs=False):
     #     x, weights=df.loc[x.index, "fam_smpl_wgt_core"])
 
     # Read in dataframe of PSID data
-    df = ogusa.utils.safe_read_pickle(
+    df = ogcore.utils.safe_read_pickle(
         os.path.join(cur_path, "data", "PSID", "psid_lifetime_income.pkl")
     )
 

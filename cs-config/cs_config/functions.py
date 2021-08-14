@@ -1,9 +1,14 @@
-import ogusa
-from ogusa.parameters import Specifications
-from ogusa.constants import REFORM_DIR, BASELINE_DIR, DEFAULT_START_YEAR
-from ogusa import output_plots as op
-from ogusa import output_tables as ot
-from ogusa import SS, TPI, utils
+from ogusa.calibrate import Calibration
+from ogcore.parameters import Specifications
+from ogusa.constants import (
+    REFORM_DIR,
+    BASELINE_DIR,
+    DEFAULT_START_YEAR,
+    TC_LAST_YEAR,
+)
+from ogcore import output_plots as op
+from ogcore import output_tables as ot
+from ogcore import SS, TPI, utils
 import os
 import io
 import pickle
@@ -70,7 +75,7 @@ class MetaParams(paramtools.Parameters):
 
 
 def get_version():
-    return "0.6.3"
+    return "0.0.0"
 
 
 def get_inputs(meta_param_dict):
@@ -78,6 +83,15 @@ def get_inputs(meta_param_dict):
     meta_params.adjust(meta_param_dict)
     # Set default OG-USA parameters
     ogusa_params = Specifications()
+    ogusa_params.update_specifications(
+        json.load(
+            open(
+                os.path.join(
+                    "..", "..", "ogusa", "ogusa_default_parameters.json"
+                )
+            )
+        )
+    )
     ogusa_params.start_year = meta_params.year
     filtered_ogusa_params = OrderedDict()
     filter_list = [
@@ -233,22 +247,43 @@ def run_model(meta_param_dict, adjustment):
         **filtered_ogusa_params,
     }
     base_params = Specifications(
-        run_micro=False,
         output_base=base_dir,
         baseline_dir=base_dir,
-        test=False,
-        time_path=False,
         baseline=True,
-        iit_reform={},
-        guid="",
-        data=data,
-        client=client,
         num_workers=num_workers,
     )
-    base_params.update_specifications(base_spec)
-    base_params.get_tax_function_parameters(
-        client, run_micro_baseline, tax_func_path=tax_func_path
+    base_params.update_specifications(
+        json.load(
+            open(
+                os.path.join(
+                    "..", "..", "ogusa", "ogusa_default_parameters.json"
+                )
+            )
+        )
     )
+    base_params.update_specifications(base_spec)
+    BW = TC_LAST_YEAR - start_year + 1
+    base_params.BW = BW
+    # Will need to figure out how to handle default tax functions here
+    # For now, estimating tax functions even for baseline
+    c_base = Calibration(
+        base_params,
+        iit_reform={},
+        estimate_tax_functions=True,
+        data=data,
+        client=client,
+    )
+    # update tax function parameters in Specifications Object
+    d_base = c_base.get_dict()
+    # additional parameters to change
+    updated_txfunc_params = {
+        "etr_params": d_base["etr_params"],
+        "mtrx_params": d_base["mtrx_params"],
+        "mtry_params": d_base["mtry_params"],
+        "mean_income_data": d_base["mean_income_data"],
+        "frac_tax_payroll": d_base["frac_tax_payroll"],
+    }
+    base_params.update_specifications(updated_txfunc_params)
     base_ss = SS.run_SS(base_params, client=client)
     utils.mkdirs(os.path.join(base_dir, "SS"))
     base_ss_dir = os.path.join(base_dir, "SS", "SS_vars.pkl")
@@ -266,19 +301,40 @@ def run_model(meta_param_dict, adjustment):
     reform_spec = base_spec
     reform_spec.update(adjustment["OG-USA Parameters"])
     reform_params = Specifications(
-        run_micro=False,
         output_base=reform_dir,
         baseline_dir=base_dir,
-        test=False,
-        time_path=time_path,
         baseline=False,
-        iit_reform=iit_mods,
-        guid="",
-        data=data,
-        client=client,
         num_workers=num_workers,
     )
+    reform_params.update_specifications(
+        json.load(
+            open(
+                os.path.join(
+                    "..", "..", "ogusa", "ogusa_default_parameters.json"
+                )
+            )
+        )
+    )
     reform_params.update_specifications(reform_spec)
+    reform_params.BW = BW
+    c_reform = Calibration(
+        reform_params,
+        iit_reform=iit_mods,
+        estimate_tax_functions=True,
+        data=data,
+        client=client,
+    )
+    # update tax function parameters in Specifications Object
+    d_reform = c_reform.get_dict()
+    # additional parameters to change
+    updated_txfunc_params = {
+        "etr_params": d_reform["etr_params"],
+        "mtrx_params": d_reform["mtrx_params"],
+        "mtry_params": d_reform["mtry_params"],
+        "mean_income_data": d_reform["mean_income_data"],
+        "frac_tax_payroll": d_reform["frac_tax_payroll"],
+    }
+    reform_params.update_specifications(updated_txfunc_params)
     reform_params.get_tax_function_parameters(client, run_micro)
     reform_ss = SS.run_SS(reform_params, client=client)
     utils.mkdirs(os.path.join(reform_dir, "SS"))

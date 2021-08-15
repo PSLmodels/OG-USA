@@ -335,7 +335,6 @@ def run_model(meta_param_dict, adjustment):
         "frac_tax_payroll": d_reform["frac_tax_payroll"],
     }
     reform_params.update_specifications(updated_txfunc_params)
-    reform_params.get_tax_function_parameters(client, run_micro)
     reform_ss = SS.run_SS(reform_params, client=client)
     utils.mkdirs(os.path.join(reform_dir, "SS"))
     reform_ss_dir = os.path.join(reform_dir, "SS", "SS_vars.pkl")

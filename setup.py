@@ -11,8 +11,8 @@ version = "0.0.0"
 config = {
     "description": "USA Calibration for OG-Core",
     "long_description": longdesc,
-    "url": "https://github.com/PSLmodels/OG-USA-Calibration/",
-    "download_url": "https://github.com/PLSmodels/OG-USA-Calibration/",
+    "url": "https://github.com/PSLmodels/OG-USA/",
+    "download_url": "https://github.com/PLSmodels/OG-USA/",
     "version": version,
     "license": "CC0 1.0 Universal public domain dedication",
     "packages": ["ogusa"],

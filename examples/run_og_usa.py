@@ -38,7 +38,11 @@ def main():
     # Update parameters for baseline from default json file
     p.update_specifications(
         json.load(
-            open(os.path.join("..", "ogusa", "ogusa_default_parameters.json"))
+            open(
+                os.path.join(
+                    CUR_DIR, "..", "ogusa", "ogusa_default_parameters.json"
+                )
+            )
         )
     )
 
@@ -72,7 +76,11 @@ def main():
     # Update parameters for baseline from default json file
     p2.update_specifications(
         json.load(
-            open(os.path.join("..", "ogusa", "ogusa_default_parameters.json"))
+            open(
+                os.path.join(
+                    CUR_DIR, "..", "ogusa", "ogusa_default_parameters.json"
+                )
+            )
         )
     )
     # Use calibration class to estimate reform tax functions from

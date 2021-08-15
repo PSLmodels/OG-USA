@@ -9,6 +9,7 @@ For a more generic version, see income_nopoly.py.
 import numpy as np
 import scipy.optimize as opt
 import scipy.interpolate as si
+import ogcore  # for matplotlib style
 from ogcore import parameter_plots as pp
 import os
 

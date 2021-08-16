@@ -26,7 +26,7 @@ def call_run_og_usa():
     roe_module.main()
 
 
-@pytest.mark.local
+@pytest.mark.full_run
 def test_run_og_usa(f=call_run_og_usa):
     p = multiprocessing.Process(target=f, name="run_og_usa", args=())
     p.start()

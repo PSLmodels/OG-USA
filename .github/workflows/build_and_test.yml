@@ -18,7 +18,7 @@ jobs:
       - name: Setup Miniconda using Python ${{ matrix.python-version }}
         uses: conda-incubator/setup-miniconda@v2
         with:
-          activate-environment: ogusa-calibrate-dev
+          activate-environment: ogusa-dev
           environment-file: environment.yml
           python-version: ${{ matrix.python-version }}
           auto-activate-base: false
@@ -42,4 +42,3 @@ jobs:
           name: codecov-umbrella
           fail_ci_if_error: true
           verbose: true
-

@@ -47,7 +47,7 @@ c = Calibration(p)
 updated_params = c.get_dict()
 p.update_specifications({'initial_debt_ratio': updated_params['initial_debt_ratio']})
 ```
-# Disclaimer:
+# Disclaimer
 The organization of this repository will be changing rapidly, but the `OG-USA/examples/run_og_usa.py` script will be kept up to date to run with the master branch of this repo.
 
 # Citing OG-USA

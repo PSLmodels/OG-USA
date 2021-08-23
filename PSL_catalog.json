@@ -15,7 +15,7 @@
     },
     "project_overview": {
         "start_header": "OG-USA",
-        "end_header": "Disclaimer",
+        "end_header": "Using/contributing to OG-USA",
         "source": "README.md",
         "type": "github_file",
         "data": null
@@ -64,7 +64,7 @@
     },
     "disclaimer": {
         "start_header": "Disclaimer",
-        "end_header": "Using/contributing to OG-USA",
+        "end_header": "Citing OG-USA",
         "source": "README.md",
         "type": "github_file",
         "data": null

@@ -30,7 +30,7 @@ parts:
   - file: content/calibration/matching_lwi
 - caption: References
   chapters:
-  - file: content/calibration/references
-- caption: Citations of OG-USA-Calibration
+  - file: content/OGUSA_references
+- caption: Citations of OG-USA
   chapters:
   - file: content/citations

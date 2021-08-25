@@ -27,10 +27,10 @@ If you have already completed the {ref}`Sec_SetupPython` and {ref}`Sec_SetupGit`
 
 5. From your command line, navigate to the directory on your computer where you would like your local repo to live.
 
-6. Create a local repo by entering at the command line the text after the $.[^commandline_note] This step creates a directory called `OG-USA` in the directory that you specified in the prior step:
+6. Create a local repo by entering at the command line the text, shown in the code blocks below after the `$` symbol.[^commandline_note] This step creates a directory called `OG-USA` in the directory that you specified in the prior step:
 
     ```
-      git clone https://github.com/[github-username]/OG-USA.git
+      $ git clone https://github.com/[github-username]/OG-USA.git
     ```
 
 7. From your command line or terminal, navigate to your local `OG-USA` directory.
@@ -39,7 +39,7 @@ If you have already completed the {ref}`Sec_SetupPython` and {ref}`Sec_SetupGit`
 
     ```
       $ cd OG-USA
-      OG-USA$ git remote add upstream https://github.com/open-source-economics/OG-USA.git
+      OG-USA$ git remote add upstream https://github.com/PSLmodels/OG-USA.git
     ```
 
 9. Create a conda environment with all of the necessary packages to

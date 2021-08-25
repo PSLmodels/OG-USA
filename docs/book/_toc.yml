@@ -1,10 +1,10 @@
 format: jb-book
 root: content/intro/intro
 parts:
-- caption: Contributing to OG-USA-Calibration
+- caption: Contributing to OG-USA
   chapters:
   - file: content/contributing/contributor_guide
-- caption: OG-USA-Calibration API
+- caption: OG-USA API
   chapters:
   - file: content/api/public_api
     sections:

@@ -3,7 +3,7 @@
 [![Codecov](https://codecov.io/gh/PSLmodels/OG-USA/branch/master/graph/badge.svg)](https://codecov.io/gh/PSLmodels/OG-USA)
 
 # OG-USA
-OG-USA is an overlapping-generations (OG) model that allows for dynamic general equilibrium analysis of fiscal policy for the United States.  OG-USA is build on the [OG-Core](https://github.com/PSLmodels/OG-Core) framework.  The model output includes changes in macroeconomic aggregates (GDP, investment, consumption), wages, interest rates, and the stream of tax revenues over time. Regularly updated documentation of the model theory--its output, and solution method--and the Python API is available at [https://pslmodels.github.io/OG-Core](https://pslmodels.github.io/OG-Core) and documentation of the specific United States calibration of the model is available at [https://pslmodels.github.io/OG-USA](https://pslmodels.github.io/OG-USA).
+OG-USA is an overlapping-generations (OG) model that allows for dynamic general equilibrium analysis of fiscal policy for the United States. OG-USA is built on the [OG-Core](https://github.com/PSLmodels/OG-Core) framework. The model output includes changes in macroeconomic aggregates (GDP, investment, consumption), wages, interest rates, and the stream of tax revenues over time. Regularly updated documentation of the model theory--its output, and solution method--and the Python API is available at [https://pslmodels.github.io/OG-Core](https://pslmodels.github.io/OG-Core) and documentation of the specific United States calibration of the model is available at [https://pslmodels.github.io/OG-USA](https://pslmodels.github.io/OG-USA).
 
 
 
@@ -24,13 +24,13 @@ OG-USA is an overlapping-generations (OG) model that allows for dynamic general 
     * This is a summary of the percentage changes in macro variables over the first ten years and in the steady-state.
   * `./examples/OG-USA-Example/OUTPUT_BASELINE/model_params.pkl`
     * Model parameters used in the baseline run
-    * See `ogcore.execute.py` for items in the dictionary object in this pickle file
+    * See [`ogcore.execute.py`](https://github.com/PSLmodels/OG-Core/blob/master/ogcore/execute.py) for items in the dictionary object in this pickle file
   * `./examples/OG-USA-Example/OUTPUT_BASELINE/SS/SS_vars.pkl`
     * Outputs from the model steady state solution under the baseline policy
-    * See `ogcore.SS.py` for what is in the dictionary object in this pickle file
+    * See [`ogcore.SS.py`](https://github.com/PSLmodels/OG-Core/blob/master/ogcore/SS.py) for what is in the dictionary object in this pickle file
   * `./examples/OG-USA-Example/OUTPUT_BASELINE/TPI/TPI_vars.pkl`
     * Outputs from the model timepath solution under the baseline policy
-    * See `ogcore.TPI.py` for what is in the dictionary object in this pickle file
+    * See [`ogcore.TPI.py`](https://github.com/PSLmodels/OG-Core/blob/master/ogcore/TPI.py) for what is in the dictionary object in this pickle file
   * An analogous set of files in the `./examples/OUTPUT_REFORM` directory, which represent objects from the simulation of the reform policy
 
 Note that, depending on your machine, a full model run (solving for the full time path equilibrium for the baseline and reform policies) can take more than two hours of compute time.
@@ -47,9 +47,16 @@ c = Calibration(p)
 updated_params = c.get_dict()
 p.update_specifications({'initial_debt_ratio': updated_params['initial_debt_ratio']})
 ```
-# Disclaimer
+## Disclaimer
 The organization of this repository will be changing rapidly, but the `OG-USA/examples/run_og_usa.py` script will be kept up to date to run with the master branch of this repo.
 
-# Citing OG-USA
+## Core Maintainers
+
+The core maintainers of the OG-Core repository are:
+
+* [Jason DeBacker](https://www.jasondebacker.com/) (GitHub handle: [jdebacker](https://github.com/jdebacker)), Associate Professor, Department of Economics, Darla Moore School of Business, University of South Carolina; President, PSL Foundation; Vice President of Research and Co-founder, Open Research Group, Inc.
+* [Richard W. Evans](https://sites.google.com/site/rickecon/) (GitHub handle: [rickecon](https://github.com/rickecon)), Advisory Board Visiting Fellow, Center for Public Finance, Baker Institute for Public Policy at Rice University; President, Open Research Group, Inc.; Director, Open Source Economics Laboratory
+
+## Citing OG-USA
 
 OG-USA (Version 0.0.0)[Source code], https://github.com/PSLmodels/OG-USA

@@ -5,10 +5,10 @@ Deterministic Earnings Profiles Estimation Functions
 
 **Deterministic Earnings Profiles Estimation Functions**
 
-ogusa_calibrate.deterministic_profiles
+ogusa.deterministic_profiles
 ------------------------------------------
 
-.. currentmodule:: ogusa_calibrate.deterministic_profiles
+.. currentmodule:: ogusa.deterministic_profiles
 
-.. automodule:: ogusa_calibrate.deterministic_profiles
+.. automodule:: ogusa.deterministic_profiles
   :members: estimate_profiles

@@ -11,7 +11,7 @@ OG-USA is an overlapping-generations (OG) model that allows for dynamic general 
 
 * Install the [Anaconda distribution](https://www.anaconda.com/distribution/) of Python
 * Clone this repository to a directory on your computer
-* From the terminal (or Conda command prompt), navigate to the directory to which you cloned this repository and run `conda env create -f environment.yml`
+* From the terminal (or Conda command prompt), navigate to the directory to which you cloned this repository and run `conda env create -f environment.yml`. The process of creating the `ogusa-dev` conda environment can take more than 20 minutes. The pip install of the `OG-Core` dependency from GitHub takes most of the time.
 * Then, `conda activate ogusa-dev`
 * Then install by `pip install -e .`
 * Navigate to `./examples`

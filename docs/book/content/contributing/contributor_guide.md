@@ -42,8 +42,9 @@ If you have already completed the {ref}`Sec_SetupPython` and {ref}`Sec_SetupGit`
       OG-USA$ git remote add upstream https://github.com/PSLmodels/OG-USA.git
     ```
 
-9. Create a conda environment with all of the necessary packages to
-   execute the source code:
+9. Create a conda environment with all of the necessary packages to execute the source code.
+The process of creating the `ogusa-dev` conda environment can take more than 20 minutes.
+The pip install of the `OG-Core` dependency from GitHub takes most of the time.
 
     ```
       OG-USA$ conda env create

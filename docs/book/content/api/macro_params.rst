@@ -8,7 +8,5 @@ Macro Parameter Estimation Functions
 ogusa.macro_params
 ------------------------------------------
 
-.. currentmodule:: ogusa.macro_params
-
 .. automodule:: ogusa.macro_params
   :members: get_macro_params

@@ -8,7 +8,5 @@ Government Transfer Distribution Estimation Functions
 ogusa.transfer_distribution
 ------------------------------------------
 
-.. currentmodule:: ogusa.transfer_distribution
-
 .. automodule:: ogusa.transfer_distribution
   :members: MVKDE, get_transfer_matrix

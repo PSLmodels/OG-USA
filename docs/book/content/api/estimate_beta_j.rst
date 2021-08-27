@@ -3,7 +3,7 @@
 Beta Estimation Functions
 =========================
 
-**Beta Estimation Functions**
+**estimate_beta_j.py modules**
 
 ogusa.estimate_beta_j
 ------------------------------------------

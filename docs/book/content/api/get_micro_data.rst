@@ -1,9 +1,9 @@
 .. _get_micro_data:
 
-Functions to Get Micro-data from Tax-Calculator
+Functions to Get Micro-data
 =================================================
 
-**Get Micro-data Functions**
+**get_micro_data.py modules**
 
 ogusa.get_micro_data
 ------------------------------------------

@@ -3,7 +3,7 @@
 Macro Parameter Estimation Functions
 ====================================
 
-**Macro Parameter Estimation Functions**
+**macro_params.py modules**
 
 ogusa.macro_params
 ------------------------------------------

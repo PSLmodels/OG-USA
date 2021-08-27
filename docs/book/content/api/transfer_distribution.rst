@@ -3,7 +3,7 @@
 Government Transfer Distribution Estimation Functions
 =====================================================
 
-**Government Transfer Distribution Estimation Functions**
+**transfer_distribution.py modules**
 
 ogusa.transfer_distribution
 ------------------------------------------

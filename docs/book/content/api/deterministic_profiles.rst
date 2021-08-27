@@ -3,7 +3,7 @@
 Deterministic Earnings Profiles Estimation Functions
 ====================================================
 
-**Deterministic Earnings Profiles Estimation Functions**
+**deterministic_profiles.py modules**
 
 ogusa.deterministic_profiles
 ------------------------------------------

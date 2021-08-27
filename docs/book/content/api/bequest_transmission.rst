@@ -3,7 +3,7 @@
 Bequest Transmission Process Estimation Functions
 =================================================
 
-**Bequest Transmission Process Estimation Functions**
+**bequest_transmission.py modules**
 
 ogusa.bequest_transmission
 ------------------------------------------

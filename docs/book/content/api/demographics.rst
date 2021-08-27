@@ -3,7 +3,7 @@
 Demographics Functions
 ========================
 
-**Demographics**
+**demographics.py modules**
 
 ogusa.demographics
 ------------------------------------------

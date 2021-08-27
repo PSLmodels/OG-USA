@@ -1,9 +1,9 @@
 .. _income:
 
-Income Processes Functions
+Income Process Functions
 =================================================
 
-**Income Processes Functions**
+**income.py modules**
 
 ogusa.income
 ------------------------------------------

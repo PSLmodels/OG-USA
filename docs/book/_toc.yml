@@ -7,17 +7,6 @@ parts:
 - caption: OG-USA API
   chapters:
   - file: content/api/public_api
-    sections:
-    - file: content/api/bequest_transmission
-    - file: content/api/calibrate
-    - file: content/api/demographics
-    - file: content/api/deterministic_profiles
-    - file: content/api/estimate_beta_j
-    - file: content/api/get_micro_data
-    - file: content/api/income
-    - file: content/api/macro_params
-    - file: content/api/transfer_distribution
-    - file: content/api/txfunc
 - caption: Calibration
   chapters:
   - file: content/calibration/exogenous_parameters

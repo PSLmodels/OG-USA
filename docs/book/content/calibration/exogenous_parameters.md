@@ -11,7 +11,6 @@ kernelspec:
   name: ogusa-dev
 ---
 
-(glue)=
 (Chap_Exog)=
 # Exogenous Parameters
 

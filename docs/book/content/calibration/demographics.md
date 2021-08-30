@@ -11,8 +11,6 @@ kernelspec:
   name: ogusa-dev
 ---
 
-(glue)=
-
 (Chap_Demog)=
 # Demographics
 

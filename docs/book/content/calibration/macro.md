@@ -5,7 +5,7 @@
 
 ### Elasticity of labor supply
 
-As we discuss in Chapter {ref}`Chap_House`, we use the elliptical disutility of labor function developed by {cite}`EvansPhillips:2017`.  We then fit the parameters of the elliptical utility function to match the marginal disutility from a constant Frisch elasticity function.  `OG-USA` users enter the constant Frisch elasticity as a parameter.  {cite}`Peterman:2016` finds a range of Frisch elasticities estimated from microeconomic and macroeconomic data.  These range from 0 to 4.  Peterman makes the case that in lifecycle models with out an extensive margin for employment, such as `OG-USA`, the  Frisch elasticity should be higher.  We take a default value of 0.4 from {cite}`Altonji:1986`.
+As discussed in the [OG-Core household theory documentation](https://pslmodels.github.io/OG-Core/content/theory/households.html), we use the elliptical disutility of labor function developed by {cite}`EvansPhillips:2017`.  We then fit the parameters of the elliptical utility function to match the marginal disutility from a constant Frisch elasticity function.  `OG-USA` users enter the constant Frisch elasticity as a parameter.  {cite}`Peterman:2016` finds a range of Frisch elasticities estimated from microeconomic and macroeconomic data.  These range from 0 to 4.  Peterman makes the case that in lifecycle models with out an extensive margin for employment, such as `OG-USA`, the  Frisch elasticity should be higher.  We take a default value of 0.4 from {cite}`Altonji:1986`.
 
 ### Intertemporal elasticity of substitution
 
@@ -22,7 +22,7 @@ As the default rate of labor augmenting technological change, $g_y$, we use a va
 
 ## Aggregate Production Function and Capital Accumulation
 
-Chapter {ref}`Chap_Firms` outlines the constant returns to scale, constant elasticity of substitution production function of the representative firm.  This function has two parameters; the elasticity of substitution and capital's share of output.
+The [OG-Core firm theory documentation](https://pslmodels.github.io/OG-Core/content/theory/firms.html) outlines the constant returns to scale, constant elasticity of substitution production function of the representative firm.  This function has two parameters; the elasticity of substitution and capital's share of output.
 
 ### Elasticity of substitution
 

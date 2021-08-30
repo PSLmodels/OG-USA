@@ -8,7 +8,7 @@ jupytext:
 kernelspec:
   display_name: Python 3
   language: python
-  name: ogusa-calibrate-dev
+  name: ogusa-dev
 ---
 
 (glue)=

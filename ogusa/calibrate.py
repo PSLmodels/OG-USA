@@ -93,14 +93,17 @@ class Calibration:
         """
         Reads pickle file of tax function parameters or estimates the
         parameters from microsimulation model output.
+
         Args:
             client (Dask client object): client
             run_micro (bool): whether to estimate parameters from
                 microsimulation model
             tax_func_path (string): path where find or save tax
                 function parameter estimates
+
         Returns:
             None
+
         """
         # set paths if none given
         if tax_func_path is None:
@@ -297,13 +300,16 @@ class Calibration:
         """
         This function reads in tax function parameters from pickle
         files.
+
         Args:
             tax_func_path (str): path to pickle with tax function
                 parameter estimates
+
         Returns:
             dict_params (dict): dictionary containing arrays of tax
                 function parameters
             run_micro (bool): whether to estimate tax function parameters
+
         """
         flag = 0
         if os.path.exists(tax_func_path):

@@ -8,10 +8,8 @@ jupytext:
 kernelspec:
   display_name: Python 3
   language: python
-  name: ogusa-calibrate-dev
+  name: ogusa-dev
 ---
-
-(glue)=
 
 (Chap_LfEarn)=
 # Lifetime Earnings Profiles
@@ -21,7 +19,7 @@ Among households in `OG-USA`, we model both age heterogeneity and within-age abi
 Differences among workers' productivity in terms of ability is one of the key dimensions of heterogeneity to model in a micro-founded macroeconomy. In this chapter, we characterize this heterogeneity as deterministic lifetime productivity paths to which new cohorts of agents in the model are randomly assigned. In `OG-USA`, households' labor income comes from the equilibrium wage and the agent's endogenous quantity of labor supply. In this section, we augment the labor income expression with an individual productivity $e_{j,s}$, where $j$ is the index of the ability type or path of the individual and $s$ is the age of the individual with that ability path.
 
 ```{math}
-:label: EqTaxCalcLabInc
+:label: EqLaborIncome
   \text{labor income:}\quad x_{j,s,t}\equiv w_t e_{j,s}n_{j,s,t} \quad\forall j,t \quad\text{and}\quad E+1\leq s\leq E+S
 ```
 

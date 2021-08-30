@@ -26,11 +26,11 @@ def beta_estimate(
     distribution.
 
     Args:
-    beta_initial_guesses (array-like): array of initial guesses for the
-        beta_j parameters
-    og_spec (dict): any updates to default model parameters
-    two_step (boolean): whether to use a two-step estimator
-    client (Dask Client object): dask client for multiprocessing
+        beta_initial_guesses (array-like): array of initial guesses for the
+            beta_j parameters
+        og_spec (dict): any updates to default model parameters
+        two_step (boolean): whether to use a two-step estimator
+        client (Dask Client object): dask client for multiprocessing
 
     Returns:
         beta_hat (array-like): estimates of the beta_j
@@ -108,12 +108,12 @@ def minstat(beta_guesses, *args):
     between the model and data moments.
 
     Args:
-    beta_guesses (array-like): a vector of length J with the betas
-    args (tuple): length 6 tuple, variables needed for minimizer
+        beta_guesses (array-like): a vector of length J with the betas
+        args (tuple): length 6 tuple, variables needed for minimizer
 
     Returns:
-    distance (scalar): weighted, squared deviation between data and
-        model moments
+        distance (scalar): weighted, squared deviation between data and
+            model moments
 
     """
     # unpack args tuple
@@ -146,8 +146,8 @@ def calc_moments(ss_output, p):
     to the data moments used for estimation.
 
     Args:
-    ss_output = dictionary, variables from SS of model
-    p (OG-USA Specifications object): model parameters
+        ss_output = dictionary, variables from SS of model
+        p (OG-USA Specifications object): model parameters
 
     Returns:
         model_moments (array-like): Array of model moments

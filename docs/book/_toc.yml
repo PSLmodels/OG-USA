@@ -1,23 +1,12 @@
 format: jb-book
 root: content/intro/intro
 parts:
-- caption: Contributing to OG-USA-Calibration
+- caption: Contributing to OG-USA
   chapters:
   - file: content/contributing/contributor_guide
-- caption: OG-USA-Calibration API
+- caption: OG-USA API
   chapters:
   - file: content/api/public_api
-    sections:
-    - file: content/api/bequest_transmission
-    - file: content/api/calibrate
-    - file: content/api/demographics
-    - file: content/api/deterministic_profiles
-    - file: content/api/estimate_beta_j
-    - file: content/api/get_micro_data
-    - file: content/api/income
-    - file: content/api/macro_params
-    - file: content/api/transfer_distribution
-    - file: content/api/txfunc
 - caption: Calibration
   chapters:
   - file: content/calibration/exogenous_parameters
@@ -30,7 +19,7 @@ parts:
   - file: content/calibration/matching_lwi
 - caption: References
   chapters:
-  - file: content/calibration/references
-- caption: Citations of OG-USA-Calibration
+  - file: content/OGUSA_references
+- caption: Citations of OG-USA
   chapters:
   - file: content/citations

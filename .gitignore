@@ -1,4 +1,8 @@
 *.pyc
+MANIFEST
+build/*
+dist/*
+*.cache/
 .coverage
 .coveragerc
 htmlcov/*
@@ -31,4 +35,11 @@ htmlcov/*
 */OUTPUT/*
 envs/
 *.egg-info/
-dask-worker-space/
+*dask-worker-space*
+.ipynb_checkpoints*
+*/__pycache__/*
+docs/book/_build/*
+docs/build*
+examples/OG-USA_example_plots/*
+examples/ogusa_example_output.csv
+examples/OG-USA-Example/*

@@ -1,6 +1,6 @@
 ####################################################
 # Book settings
-title                    : OG-USA-Calibration
+title                    : OG-USA
 author                   : Jason DeBacker and Richard W. Evans
 copyright                : '2021'
 logo                     : '..//OG-USA_logo.png'
@@ -40,7 +40,7 @@ launch_buttons:
 ####################################################
 # Information about where the book exists on the web
 repository:
-  url                    : https://github.com/PSLmodels/OG-USA-Calibration
+  url                    : https://github.com/PSLmodels/OG-USA
   path_to_book           : 'book'
 
 #######################################################################################
@@ -58,4 +58,5 @@ latex:
   latex_documents:
     targetname           : book.tex
 bibtex_bibfiles:
-   - OGUSA_references.bib
+  - OGUSA_references.bib
+  - citations.bib

@@ -3,12 +3,10 @@
 Deterministic Earnings Profiles Estimation Functions
 ====================================================
 
-**Deterministic Earnings Profiles Estimation Functions**
+**deterministic_profiles.py modules**
 
-ogusa_calibrate.deterministic_profiles
+ogusa.deterministic_profiles
 ------------------------------------------
 
-.. currentmodule:: ogusa_calibrate.deterministic_profiles
-
-.. automodule:: ogusa_calibrate.deterministic_profiles
+.. automodule:: ogusa.deterministic_profiles
   :members: estimate_profiles

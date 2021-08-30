@@ -3,12 +3,12 @@
 Main Calibration Functions
 =================================================
 
-**Main Calibration Functions**
+**calibrate.py classes, methods, and modules**
 
-ogusa_calibrate.calibrate
+ogusa.calibrate
 ------------------------------------------
 
-.. currentmodule:: ogusa_calibrate.calibrate
+.. currentmodule:: ogusa.calibrate
 
-.. automodule:: Calibrate
+.. autoclass:: Calibration
   :members: get_tax_function_parameters, read_tax_func_estimate, get_dict

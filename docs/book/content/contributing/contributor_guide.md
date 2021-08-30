@@ -27,10 +27,10 @@ If you have already completed the {ref}`Sec_SetupPython` and {ref}`Sec_SetupGit`
 
 5. From your command line, navigate to the directory on your computer where you would like your local repo to live.
 
-6. Create a local repo by entering at the command line the text after the $.[^commandline_note] This step creates a directory called `OG-USA` in the directory that you specified in the prior step:
+6. Create a local repo by entering at the command line the text, shown in the code blocks below after the `$` symbol.[^commandline_note] This step creates a directory called `OG-USA` in the directory that you specified in the prior step:
 
     ```
-      git clone https://github.com/[github-username]/OG-USA.git
+      $ git clone https://github.com/[github-username]/OG-USA.git
     ```
 
 7. From your command line or terminal, navigate to your local `OG-USA` directory.
@@ -39,11 +39,12 @@ If you have already completed the {ref}`Sec_SetupPython` and {ref}`Sec_SetupGit`
 
     ```
       $ cd OG-USA
-      OG-USA$ git remote add upstream https://github.com/open-source-economics/OG-USA.git
+      OG-USA$ git remote add upstream https://github.com/PSLmodels/OG-USA.git
     ```
 
-9. Create a conda environment with all of the necessary packages to
-   execute the source code:
+9. Create a conda environment with all of the necessary packages to execute the source code.
+The process of creating the `ogusa-dev` conda environment can take more than 20 minutes.
+The pip install of the `OG-Core` dependency from GitHub takes most of the time.
 
     ```
       OG-USA$ conda env create
@@ -54,6 +55,12 @@ If you have already completed the {ref}`Sec_SetupPython` and {ref}`Sec_SetupGit`
 
     ```
       OG-USA$ conda activate ogusa-dev
+    ```
+
+11. Once the environment is activated, install the `ogusa` package in the `ogusa-dev` environment with all its modules by executing the following `pip install` command.
+
+    ```
+      (ogusa-dev) OG-USA$ pip install -e .
     ```
 
 If you have made it this far, you've successfully made a remote copy (a
@@ -86,19 +93,19 @@ The following text describes a typical workflow for changing
 `OG-USA`.  Different workflows may be necessary in some
 situations, in which case other contributors are here to help.
 
-1. Before you edit the OG-USA source code on your machine,
+1. Before you edit the `OG-USA` source code on your machine,
    make sure you have the latest version of the central OG-USA
    repository by executing the following **four** Git commands:
 
    a. Tell Git to switch to the master branch in your local repo.
-      Navigate to your local OG-USA directory and enter the
+      Navigate to your local `OG-USA` directory and enter the
       following text at the command line:
 
     ```
         OG-USA$ git checkout master
     ```
 
-   b. Download all of the content from the central OG-USA repo:
+   b. Download all of the content from the central `OG-USA` repo:
     ```
         OG-USA$ git fetch upstream
     ```
@@ -162,6 +169,6 @@ situations, in which case other contributors are here to help.
 (Sec_ContribFootnotes)=
 ## Footnotes
 
-[^recent_python]:The most recent version of Python from Anaconda is Python 3.8. `OG-USA` is currently tested to run on Python 3.7 through 3.9.
+[^recent_python]:The most recent version of Python from Anaconda is Python 3.9. `OG-USA` is currently tested to run on Python 3.8 and 3.9.
 
 [^commandline_note]:The dollar sign is the end of the command prompt on a Mac. If you are using the Windows operating system, this is usually the right angle bracket (>). No matter the symbol, you don't need to type it (or anything to its left, which shows the current working directory) at the command line before you enter a command; the prompt symbol and preceding characters should already be there.

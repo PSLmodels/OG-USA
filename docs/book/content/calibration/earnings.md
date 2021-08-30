@@ -8,10 +8,8 @@ jupytext:
 kernelspec:
   display_name: Python 3
   language: python
-  name: ogusa-calibrate-dev
+  name: ogusa-dev
 ---
-
-(glue)=
 
 (Chap_LfEarn)=
 # Lifetime Earnings Profiles
@@ -21,7 +19,7 @@ Among households in `OG-USA`, we model both age heterogeneity and within-age abi
 Differences among workers' productivity in terms of ability is one of the key dimensions of heterogeneity to model in a micro-founded macroeconomy. In this chapter, we characterize this heterogeneity as deterministic lifetime productivity paths to which new cohorts of agents in the model are randomly assigned. In `OG-USA`, households' labor income comes from the equilibrium wage and the agent's endogenous quantity of labor supply. In this section, we augment the labor income expression with an individual productivity $e_{j,s}$, where $j$ is the index of the ability type or path of the individual and $s$ is the age of the individual with that ability path.
 
 ```{math}
-:label: EqTaxCalcLabInc
+:label: EqLaborIncome
   \text{labor income:}\quad x_{j,s,t}\equiv w_t e_{j,s}n_{j,s,t} \quad\forall j,t \quad\text{and}\quad E+1\leq s\leq E+S
 ```
 
@@ -57,9 +55,10 @@ Exogenous life cycle income ability paths $\log(e_{j,s})$ with $S=80$ and $J=7$
 -->
 
 
-Figure {numref}`FigLogAbil` shows a calibration for $J=7$ deterministic lifetime ability paths $e_{j,s}$ corresponding to labor income percentiles $\boldsymbol{\lambda}=[0.25, 0.25, 0.20, 0.10, 0.10, 0.09, 0.01]$. Because there are few individuals above age 80 in the data, {cite}`DeBackerEtAl:2017` extrapolate these estimates for model ages 80-100 using an arctan function.
+{numref}`Figure %s <FigLogAbil>` shows a calibration for $J=7$ deterministic lifetime ability paths $e_{j,s}$ corresponding to labor income percentiles $\boldsymbol{\lambda}=[0.25, 0.25, 0.20, 0.10, 0.10, 0.09, 0.01]$. Because there are few individuals above age 80 in the data, {cite}`DeBackerEtAl:2017` extrapolate these estimates for model ages 80-100 using an arctan function.
 
 We calibrate the model such that each lifetime income group has a different life-cycle profile of earnings. Since the distribution on income and wealth are key aspects of our model, we calibrate these processes so that we can represent earners in the top 1 percent of the distribution of lifetime income. It is income and wealth attributable to these households that has shown the greatest growth in recent decades (see, for example, {cite}`PikettySaez:2003`). In order to have observations on the earnings of those at very top of the distribution that are not subject to top-coding we use data from the Internal Revenue Services's (IRS) Statistics of Income program (SOI).
+
 
 (SecLFEarnCWHS)=
 ## Continuous Work History Sample
@@ -301,7 +300,7 @@ We calibrate the model such that each lifetime income group has a different life
     ln(w_{j,t}) = \alpha_{j} + \beta_{1}age_{j,t} + \beta_{2}age_{j,t}^{2} + \beta_{3}*age_{j,t}^{3} + \varepsilon_{j,t}
   ```
 
-  The estimated parameters from equation {eq}`EqWage_profile` are given in {numref}`TabWage_profiles`. The life-cycle earnings profiles implied by these parameters are plotted in {numref}`FigLogAbil`. Note that there are few individuals above age 80 in the data. To extrapolate these estimates for model ages 80-100, we use an arctan function of the following form:
+  The estimated parameters from equation {eq}`EqWage_profile` are given in {numref}`TabWage_profiles`. The life-cycle earnings profiles implied by these parameters are plotted in {numref}`Figure %s <FigLogAbil>`. Note that there are few individuals above age 80 in the data. To extrapolate these estimates for model ages 80-100, we use an arctan function of the following form:
   ```{math}
   :label: EqLfEarnArctan
       y = \left(\frac{-a}{\pi}\right)*arctan(bx+c)+\frac{a}{2}

@@ -1,10 +1,9 @@
 """
-------------------------------------------------------------------------
+-----------------------------------------------------------------
 Functions for created the matrix of ability levels, e.  This can
 only be used for looking at the 25, 50, 70, 80, 90, 99, and 100th
 percentiles, as it uses fitted polynomials to those percentiles.
-For a more generic version, see income_nopoly.py.
-------------------------------------------------------------------------
+-----------------------------------------------------------------
 """
 import numpy as np
 import scipy.optimize as opt
@@ -30,7 +29,7 @@ def arctan_func(xvals, a, b, c):
         b (scalar): curvature parameter for arctan function
         c (scalar): shift parameter for arctan function
 
-    RETURNS:
+    Returns:
         yvals (Numpy array): predicted values (output) of arctan
             function
 
@@ -54,7 +53,7 @@ def arctan_deriv_func(xvals, a, b, c):
         b (scalar): curvature parameter for arctan function
         c (scalar): shift parameter for arctan function
 
-    RETURNS:
+    Returns:
         yvals (Numpy array): predicted values (output) of arctan
             derivative function
 

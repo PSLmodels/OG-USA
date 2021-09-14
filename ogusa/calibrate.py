@@ -9,8 +9,8 @@ import pkg_resources
 import matplotlib.pyplot as plt
 
 style_file = os.path.join(
-    "https://github.com/PSLmodels/OG-Core/blob/master/ogcore/"
-    + "OGcorePlots.mplstyle"
+    "https://raw.githubusercontent.com/PSLmodels/OG-Core/master/ogcore"
+    + "/OGcorePlots.mplstyle"
 )
 plt.style.use(style_file)
 

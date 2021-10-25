@@ -109,20 +109,7 @@ def read_cbo_forecast():
         nrows=131,
     )
     df.rename(columns={"Unnamed: 1": "variable"}, inplace=True)
-    df.drop(
-        columns=[
-            "Unnamed: 0",
-            "Unnamed: 2",
-            "Units",
-            "Unnamed: 19",
-            "Unnamed: 20",
-            "Unnamed: 21",
-            "Unnamed: 22",
-            "Unnamed: 23",
-            "Unnamed: 24",
-        ],
-        inplace=True,
-    )
+    df.drop(columns=["Unnamed: 0", "Unnamed: 2", "Units"], inplace=True)
     # Note that real values come second (after nominal values)
     df.drop_duplicates(subset="variable", keep="last", inplace=True)
     df3 = df[~pd.isnull(df.variable)]

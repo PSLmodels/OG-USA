@@ -87,10 +87,7 @@ def read_cbo_forecast():
         columns={"Unnamed: 0": "variable", "Actual, \n2020": 2020},
         inplace=True,
     )
-    df.drop(
-        columns=["Unnamed: 15", "Unnamed: 16", "2026.1", "2031.1"],
-        inplace=True,
-    )
+    df.drop(columns=["2026.1", "2031.1"], inplace=True)
     df1 = df[~((pd.isnull(df.variable)) | (df.variable == "Other"))]
 
     df = pd.read_excel(

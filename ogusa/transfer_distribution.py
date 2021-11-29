@@ -3,8 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import kde
 import os
-import ogcore  # import just for MPL style file
 
+CURDIR = os.path.split(os.path.abspath(__file__))[0]
 
 # Will need to do some smoothing with a KDE when estimate the matrix...
 def MVKDE(S, J, proportion_matrix, filename=None, plot=False, bandwidth=0.25):
@@ -82,13 +82,13 @@ def get_transfer_matrix(graphs=False):
     government transfers by age and lifetime income group.
     """
     # Create directory if output directory does not already exist
-    cur_path = os.path.split(os.path.abspath(__file__))[0]
+    CURDIR = os.path.split(os.path.abspath(__file__))[0]
     output_fldr = "csv_output_files"
-    output_dir = os.path.join(cur_path, output_fldr)
+    output_dir = os.path.join(CURDIR, output_fldr)
     if not os.access(output_dir, os.F_OK):
         os.makedirs(output_dir)
     image_fldr = "images"
-    image_dir = os.path.join(cur_path, image_fldr)
+    image_dir = os.path.join(CURDIR, image_fldr)
     if not os.access(image_dir, os.F_OK):
         os.makedirs(image_dir)
 
@@ -97,8 +97,11 @@ def get_transfer_matrix(graphs=False):
     #     x, weights=df.loc[x.index, "fam_smpl_wgt_core"])
 
     # Read in dataframe of PSID data
-    df = ogcore.utils.safe_read_pickle(
-        os.path.join(cur_path, "data", "PSID", "psid_lifetime_income.pkl")
+    # df = ogcore.utils.safe_read_pickle(
+    #     os.path.join(CURDIR, "data", "PSID", "psid_lifetime_income.pkl")
+    # )
+    df = pd.read_csv(
+        os.path.join(CURDIR, "data", "PSID", "psid_lifetime_income.csv")
     )
 
     # Do some tabs with data file...

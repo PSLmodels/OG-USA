@@ -1,18 +1,11 @@
 from ogusa import estimate_beta_j, bequest_transmission, demographics
 from ogusa import macro_params, transfer_distribution, income
-from ogusa import get_micro_data
+from ogusa import get_micro_data, psid_data_setup
 import os
 import numpy as np
 from ogcore import txfunc
 from ogcore.utils import safe_read_pickle, mkdirs
 import pkg_resources
-import matplotlib.pyplot as plt
-
-style_file = os.path.join(
-    "https://raw.githubusercontent.com/PSLmodels/OG-Core/master/ogcore"
-    + "/OGcorePlots.mplstyle"
-)
-plt.style.use(style_file)
 
 CUR_PATH = os.path.split(os.path.abspath(__file__))[0]
 
@@ -55,6 +48,9 @@ class Calibration:
 
         # Macro estimation
         self.macro_params = macro_params.get_macro_params()
+
+        # prepare data for eta and zeta estimation
+        psid_data_setup.prep_data()
 
         # eta estimation
         self.eta = transfer_distribution.get_transfer_matrix()
@@ -133,6 +129,7 @@ class Calibration:
                 client=client,
                 num_workers=num_workers,
             )
+            p.BW = len(micro_data)
             dict_params = txfunc.tax_func_estimate(  # pragma: no cover
                 micro_data,
                 p.BW,

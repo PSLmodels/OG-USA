@@ -38,7 +38,7 @@ def beta_estimate(
 
     """
 
-    # initialize parametes object
+    # initialize parameters object
     tax_func_path = os.path.join(
         "..",
         "..",

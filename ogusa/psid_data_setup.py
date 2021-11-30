@@ -435,9 +435,8 @@ def prep_data(data="psid1968to2015.RData"):
 
     # Compute lifetime income for each filer
     int_rate = 0.04  # assumed interest rate to compute NPV of lifetime income
-    time_endow = (
-        4000
-    )  # assumed time endowment - set at 4000 hours !!! May want
+    time_endow = 4000
+    # assumed time endowment - set at 4000 hours !!! May want
     # to change this to be different for single households than married !!!
     df_w_fit["time_wage"] = np.exp(df_w_fit["ln_fillin_wage"]) * time_endow
     df_w_fit["lifetime_inc"] = df_w_fit["time_wage"] * (

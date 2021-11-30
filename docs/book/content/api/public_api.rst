@@ -19,4 +19,5 @@ There is also a link to the source code for each documented member.
    get_micro_data
    income
    macro_params
+   psid_data_setup
    transfer_distribution

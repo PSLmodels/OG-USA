@@ -1,20 +1,11 @@
 from ogusa import estimate_beta_j, bequest_transmission, demographics
 from ogusa import macro_params, transfer_distribution, income
-from ogusa import get_micro_data
+from ogusa import get_micro_data, psid_data_setup
 import os
 import numpy as np
 from ogcore import txfunc
 from ogcore.utils import safe_read_pickle, mkdirs
 import pkg_resources
-import matplotlib.pyplot as plt
-
-style_file = os.path.join(
-    "https://raw.githubusercontent.com/PSLmodels/OG-Core/master/ogcore"
-    + "/OGcorePlots.mplstyle"
-)
-plt.style.use(style_file)
-
-CUR_PATH = os.path.split(os.path.abspath(__file__))[0]
 
 
 class Calibration:
@@ -55,6 +46,9 @@ class Calibration:
 
         # Macro estimation
         self.macro_params = macro_params.get_macro_params()
+
+        # prepare data for eta and zeta estimation
+        psid_data_setup.prep_data()
 
         # eta estimation
         self.eta = transfer_distribution.get_transfer_matrix()
@@ -109,11 +103,11 @@ class Calibration:
         if tax_func_path is None:
             if p.baseline:
                 pckl = "TxFuncEst_baseline{}.pkl".format(guid)
-                tax_func_path = os.path.join(CUR_PATH, pckl)
+                tax_func_path = os.path.join(p.output_base, pckl)
                 print("Using baseline tax parameters from ", tax_func_path)
             else:
                 pckl = "TxFuncEst_policy{}.pkl".format(guid)
-                tax_func_path = os.path.join(CUR_PATH, pckl)
+                tax_func_path = os.path.join(p.output_base, pckl)
                 print(
                     "Using reform policy tax parameters from ", tax_func_path
                 )
@@ -133,6 +127,7 @@ class Calibration:
                 client=client,
                 num_workers=num_workers,
             )
+            p.BW = len(micro_data)
             dict_params = txfunc.tax_func_estimate(  # pragma: no cover
                 micro_data,
                 p.BW,
@@ -345,9 +340,11 @@ class Calibration:
             try:
                 if p.BW != dict_params["BW"]:
                     print(
-                        "Model budget window length is not "
-                        + "consistent with tax function parameter "
-                        + "estimates"
+                        "Model budget window length is "
+                        + str(p.BW)
+                        + "but the tax function parameter "
+                        + "estimates have a budget window length of "
+                        + str(dict_params["BW"])
                     )
                     flag = 1
             except KeyError:

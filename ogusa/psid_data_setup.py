@@ -29,7 +29,6 @@ def prep_data(data="psid1968to2015.RData"):
     # Read data from R into pandas dataframe
     r["load"](os.path.join(CURDIR, "data", "PSID", data))
     raw_df = r("psid_df")
-    print("RAW DF columns = ", raw_df.keys())
 
     # Create unique identifier for each household
     # note that will define a new household if head or spouse changes

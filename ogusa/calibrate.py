@@ -7,8 +7,6 @@ from ogcore import txfunc
 from ogcore.utils import safe_read_pickle, mkdirs
 import pkg_resources
 
-CUR_PATH = os.path.split(os.path.abspath(__file__))[0]
-
 
 class Calibration:
     """OG-USA calibration class"""
@@ -105,11 +103,11 @@ class Calibration:
         if tax_func_path is None:
             if p.baseline:
                 pckl = "TxFuncEst_baseline{}.pkl".format(guid)
-                tax_func_path = os.path.join(CUR_PATH, pckl)
+                tax_func_path = os.path.join(p.output_base, pckl)
                 print("Using baseline tax parameters from ", tax_func_path)
             else:
                 pckl = "TxFuncEst_policy{}.pkl".format(guid)
-                tax_func_path = os.path.join(CUR_PATH, pckl)
+                tax_func_path = os.path.join(p.output_base, pckl)
                 print(
                     "Using reform policy tax parameters from ", tax_func_path
                 )
@@ -342,9 +340,11 @@ class Calibration:
             try:
                 if p.BW != dict_params["BW"]:
                     print(
-                        "Model budget window length is not "
-                        + "consistent with tax function parameter "
-                        + "estimates"
+                        "Model budget window length is "
+                        + str(p.BW)
+                        + "but the tax function parameter "
+                        + "estimates have a budget window length of "
+                        + str(dict_params["BW"])
                     )
                     flag = 1
             except KeyError:

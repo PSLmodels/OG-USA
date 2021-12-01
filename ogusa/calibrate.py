@@ -39,6 +39,17 @@ class Calibration:
                 run_micro=True,
                 tax_func_path=tax_func_path,
             )
+        elif not estimate_tax_functions and tax_func_path != None:
+            self.tax_function_params = self.get_tax_function_parameters(
+                p,
+                iit_reform,
+                guid,
+                data,
+                client,
+                num_workers,
+                run_micro=False,
+                tax_func_path=tax_func_path,
+            )
         if estimate_beta:
             self.beta_j = estimate_beta_j.beta_estimate(self)
         # if estimate_chi_n:

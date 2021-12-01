@@ -52,10 +52,8 @@ def main():
     # c2 = Calibration(
     #     p, estimate_tax_functions=True, client=client
     # )
-    tax_func_path = os.path.join(base_dir, 'TxFuncEst_baseline.pkl')
-    c2 = Calibration(
-        p, tax_func_path=tax_func_path, client=client
-    )
+    tax_func_path = os.path.join(base_dir, "TxFuncEst_baseline.pkl")
+    c2 = Calibration(p, tax_func_path=tax_func_path, client=client)
     # update tax function parameters in Specifications Object
     d = c2.get_dict()
     # additional parameters to change in baseline different from default values
@@ -80,14 +78,16 @@ def main():
     client.close()
 
     # create plots D/Y
-    base_tpi = safe_read_pickle(os.path.join(base_dir, 'TPI', 'TPI_vars.pkl'))
-    base_params = safe_read_pickle(os.path.join(base_dir, 'model_params.pkl'))
-    D_Y_base_path = os.path.join(base_dir_images, 'DebtGDPratio.png')
-    op.plot_gdp_ratio(base_tpi, base_params,
-                      num_years_to_plot=int(base_params.tG1 + 10),
-                      vertical_line_years=[base_params.start_year +
-                                           base_params.tG1],
-                      path=D_Y_base_path)
+    base_tpi = safe_read_pickle(os.path.join(base_dir, "TPI", "TPI_vars.pkl"))
+    base_params = safe_read_pickle(os.path.join(base_dir, "model_params.pkl"))
+    D_Y_base_path = os.path.join(base_dir_images, "DebtGDPratio.png")
+    op.plot_gdp_ratio(
+        base_tpi,
+        base_params,
+        num_years_to_plot=int(base_params.tG1 + 10),
+        vertical_line_years=[base_params.start_year + base_params.tG1],
+        path=D_Y_base_path,
+    )
 
 
 if __name__ == "__main__":

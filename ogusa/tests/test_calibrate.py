@@ -1,11 +1,10 @@
 """
-Tests of income.py module
+Tests of calibrate.py module
 """
 
 import pytest
 import numpy as np
 import os
-import json
 import ogcore
 from ogusa.calibrate import Calibration
 

@@ -2,14 +2,10 @@ import multiprocessing
 from distributed import Client, LocalCluster
 import pytest
 import os
+import json
 from ogusa.calibrate import Calibration
 from ogcore.parameters import Specifications
-from taxcalc import Calculator
 
-# from ogusa.constants import CPS_START_YEAR, PUF_START_YEAR, TC_LAST_YEAR
-# from ogusa import get_micro_data
-# from ogcore import utils
-# from taxcalc import GrowFactors
 
 NUM_WORKERS = min(multiprocessing.cpu_count(), 7)
 # get path to puf if puf.csv in ogusa/ directory
@@ -35,10 +31,11 @@ p1 = Specifications(
 )
 # Update parameters for baseline from default json file
 baseline_url = (
-    "github://PSLmodels:OG-USA@master/ogusa/ogusa_default_parameters.json"
+    "https://raw.githubusercontent.com/PSLmodels/OG-USA/master/ogusa/"
+    + "ogusa_default_parameters.json"
 )
-baseline_json = Calculator.read_json_param_objects(baseline_url, None)
-p1.update_specifications(baseline_json)
+# baseline_json = Calculator.read_json_param_objects(baseline_url, None)
+p1.update_specifications(json.load(baseline_url))
 
 
 @pytest.mark.full_run

@@ -11,9 +11,9 @@ from ogusa.calibrate import Calibration
 CUR_PATH = os.path.abspath(os.path.dirname(__file__))
 
 
-def test_calibrate():
-    p = ogcore.Specifications()
-    _ = Calibration(p)
+# def test_calibrate():
+#     p = ogcore.Specifications()
+#     _ = Calibration(p)
 
 
 # def test_read_tax_func_estimate_error():
@@ -39,9 +39,9 @@ def test_calibrate():
 #     assert isinstance(dict_params["tfunc_etr_params_S"], np.ndarray)
 
 
-def test_get_dict():
-    p = ogcore.Specifications()
-    c = Calibration(p)
-    c_dict = c.get_dict()
+# def test_get_dict():
+#     p = ogcore.Specifications()
+#     c = Calibration(p)
+#     c_dict = c.get_dict()
 
-    assert isinstance(c_dict, dict)
+#     assert isinstance(c_dict, dict)

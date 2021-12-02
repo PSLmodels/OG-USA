@@ -30,12 +30,10 @@ p1 = Specifications(
     output_base=CUR_PATH,
 )
 # Update parameters for baseline from default json file
-baseline_url = (
-    "https://raw.githubusercontent.com/PSLmodels/OG-USA/master/ogusa/"
-    + "ogusa_default_parameters.json"
+default_params_path = os.path.join(
+    CUR_PATH, "..", "ogusa_default_parameters.json"
 )
-# baseline_json = Calculator.read_json_param_objects(baseline_url, None)
-p1.update_specifications(json.load(baseline_url))
+p1.update_specifications(json.load(open(default_params_path)))
 
 
 @pytest.mark.full_run

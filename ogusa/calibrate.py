@@ -2,6 +2,7 @@ from ogusa import estimate_beta_j, bequest_transmission, demographics
 from ogusa import macro_params, transfer_distribution, income
 from ogusa import get_micro_data, psid_data_setup
 import os
+import pickle
 import numpy as np
 from ogcore import txfunc
 from ogcore.utils import safe_read_pickle, mkdirs
@@ -160,6 +161,9 @@ class Calibration:
                 tax_func_path=tax_func_path,
             )
             dict_params["taxcalc_version"] = taxcalc_version
+            if tax_func_path:
+                with open(tax_func_path, "wb") as f:
+                    pickle.dump(dict_params, f)
         mean_income_data = dict_params["tfunc_avginc"][0]
         frac_tax_payroll = np.append(
             dict_params["tfunc_frac_tax_payroll"],

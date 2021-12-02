@@ -96,6 +96,7 @@ def get_calculator(
 def get_data(
     baseline=False,
     start_year=DEFAULT_START_YEAR,
+    BW=10,
     reform={},
     data=None,
     path=CUR_PATH,
@@ -129,7 +130,7 @@ def get_data(
     """
     # Compute MTRs and taxes or each year, but not beyond TC_LAST_YEAR
     lazy_values = []
-    for year in range(start_year, TC_LAST_YEAR + 1):
+    for year in range(start_year, start_year + BW):
         lazy_values.append(
             delayed(taxcalc_advance)(baseline, start_year, reform, data, year)
         )

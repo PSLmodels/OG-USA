@@ -161,9 +161,8 @@ class Calibration:
                 tax_func_path=tax_func_path,
             )
             dict_params["taxcalc_version"] = taxcalc_version
-            if tax_func_path:
-                with open(tax_func_path, "wb") as f:
-                    pickle.dump(dict_params, f)
+            with open(tax_func_path, "wb") as f:
+                pickle.dump(dict_params, f)
         mean_income_data = dict_params["tfunc_avginc"][0]
         frac_tax_payroll = np.append(
             dict_params["tfunc_frac_tax_payroll"],

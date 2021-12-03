@@ -14,6 +14,7 @@ def test_prep_data():
     _ = psid_data_setup.prep_data()
 
 
+@pytest.mark.local
 def test_num_obs_total():
     """
     Check that number of obs in final data equals what in psid
@@ -28,6 +29,7 @@ def test_num_obs_total():
         assert False
 
 
+@pytest.mark.local
 def test_indicator_vars():
     """
     Check that every observation has a group and decile and that

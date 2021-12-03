@@ -156,7 +156,7 @@ def test_get_calculator_exception():
         )
 
 
-@pytest.mark.full_run
+@pytest.mark.local
 def test_get_calculator_puf():
     iit_reform = {
         "II_rt1": {2017: 0.09},
@@ -177,7 +177,7 @@ def test_get_calculator_puf():
     assert calc.current_year == 2013
 
 
-@pytest.mark.full_run
+@pytest.mark.local
 def test_get_calculator_puf_from_file():
     iit_reform = {
         "II_rt1": {2017: 0.09},
@@ -237,7 +237,7 @@ def test_taxcalc_advance():
         assert np.allclose(expected_dict[k], v, equal_nan=True)
 
 
-@pytest.mark.full_run
+@pytest.mark.local
 def test_cap_inc_mtr():
     """
     Test of the get_micro_data.cap_inc_mtr() function

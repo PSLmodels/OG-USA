@@ -1,6 +1,7 @@
 import multiprocessing
 from distributed import Client, LocalCluster
 import pytest
+import numpy as np
 import os
 import json
 from ogusa.calibrate import Calibration
@@ -83,3 +84,39 @@ def test_no_tfunc_path(p1, dask_client):
         "frac_tax_payroll",
     ]
     assert set(tfunc_obj_list).issubset(list(c1.tax_function_params.keys()))
+
+
+def test_calibrate():
+    p = Specifications()
+    _ = Calibration(p)
+
+
+def test_read_tax_func_estimate_error():
+    with pytest.raises(RuntimeError):
+        p = Specifications()
+        tax_func_path = os.path.join(
+            CUR_PATH, "test_io_data", "TxFuncEst_policy.pkl"
+        )
+        c = Calibration(p)
+        _, _ = c.read_tax_func_estimate(p, tax_func_path)
+
+
+def test_read_tax_func_estimate():
+    p = Specifications()
+    p.BW = 11
+    tax_func_path = os.path.join(
+        CUR_PATH, "test_io_data", "TxFuncEst_policy.pkl"
+    )
+    c = Calibration(p)
+    dict_params, _ = c.read_tax_func_estimate(p, tax_func_path)
+    print("Dict keys = ", dict_params.keys())
+
+    assert isinstance(dict_params["tfunc_etr_params_S"], np.ndarray)
+
+
+def test_get_dict():
+    p = Specifications()
+    c = Calibration(p)
+    c_dict = c.get_dict()
+
+    assert isinstance(c_dict, dict)

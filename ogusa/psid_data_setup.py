@@ -1,31 +1,37 @@
 import numpy as np
 import pandas as pd
 import os
-import math
 import pickle
 from pandas_datareader import data as web
 import datetime
 from linearmodels import PanelOLS
 from rpy2.robjects import r
 from rpy2.robjects import pandas2ri
+from ogusa.constants import PSID_NOMINAL_VARS, PSID_CONSTANT_VARS
 
 pandas2ri.activate()
 pd.options.mode.chained_assignment = "raise"
 
 CURDIR = os.path.split(os.path.abspath(__file__))[0]
 
-"""
-This script takes PSID data created from psid_download.R and:
-1) Creates variables at the "tax filing unit" (equal to family unit in
-   PSID since there is no info on the filing status chosen).
-2) Selects a sample of observations to work with (e.g., dropping very
-   old, very low income, etc.).
-3) Computes a measure of lifetime income and places each household into
-   a lifetime income percentile group
-"""
-
 
 def prep_data(data="psid1968to2015.RData"):
+    """
+    This script takes PSID data created from psid_download.R and:
+    1) Creates variables at the "tax filing unit" (equal to family
+        unit in PSID since there is no info on the filing status chosen).
+    2) Selects a sample of observations to work with (e.g., dropping
+        very old, very low income, etc.).
+    3) Computes a measure of lifetime income and places each household
+        into a lifetime income percentile group
+
+    Args:
+        data (str): path to RData file with PSID data
+
+    Returns:
+        panel_li (Pandas DataFrame): household level data with lifetime
+            income groups defined
+    """
     # Read data from R into pandas dataframe
     r["load"](os.path.join(CURDIR, "data", "PSID", data))
     raw_df = r("psid_df")
@@ -72,6 +78,9 @@ def prep_data(data="psid1968to2015.RData"):
         "spouse_id"
     ].fillna(0)
 
+    # clean up files no longer need
+    del raw_df, head_df, spouse_df
+
     # Fix ages to increment by one (or two) between survey waves.  They do
     # not always do this because the survey may be asked as different times
     # of year
@@ -83,6 +92,9 @@ def prep_data(data="psid1968to2015.RData"):
     psid_df = psid_df.merge(min_year_df, on="hh_id", how="left")
     psid_df.sort_values(by=["hh_id", "year"], inplace=True)
     psid_df["age"] = psid_df["year"] - psid_df["min_year"] + psid_df["min_age"]
+
+    # clean up
+    del min_age_df, min_year_df
 
     # Deflate nominal variables
     # because surveys ask about prior year
@@ -100,7 +112,7 @@ def prep_data(data="psid1968to2015.RData"):
 
     # set beginning and end dates for data
     start = datetime.datetime(1968, 1, 1)
-    end = datetime.datetime(2015, 1, 1)
+    end = datetime.datetime.today()
     # pull series of interest using pandas_datareader
     fred_data = web.DataReader(["CPIAUCSL"], "fred", start, end)
     # Make data annual by averaging over months in year
@@ -109,62 +121,15 @@ def prep_data(data="psid1968to2015.RData"):
     psid_df2 = psid_df.merge(fred_data, how="left", on="year_data")
     psid_df = psid_df2
     cpi_2010 = fred_data.loc[datetime.datetime(2010, 12, 31), "CPIAUCSL"]
-    nominal_vars = [
-        "head_labor_inc",
-        "spouse_labor_inc",
-        "head_whether_receive_afdc_prior_year",
-        "spouse_whether_receive_afdc_prior_year",
-        "head_ssi_prior_year",
-        "spouse_ssi_prior_year",
-        "other_familyunit_ssi_prior_year",
-        "head_other_welfare_prior_year",
-        "spouse_other_welfare_prior_year",
-        "other_familyunit_other_welfare_prior_year",
-        "head_unemp_inc_prior_year",
-        "spouse_unemp_inc_prior_year",
-        "other_familyunit_unemp_inc_prior_year",
-        "head_workers_comp_prior_year",
-        "spouse_workers_comp_prior_year",
-        "other_familyunit_workers_comp_prior_year",
-        "head_vet_pen_prior_year",
-        "spouse_vet_pen_prior_year",
-        "other_familyunit_vet_pen_prior_year",
-        "head_spouse_taxable_inc",
-        "other_familyunit_taxable_inc",
-        "head_spouse_tax_table",
-        "food_out_expend",
-        "food_in_expend",
-        "other_familyunit_asset_inc",
-        "head_dividend_inc",
-        "spouse_dividend_inc",
-        "head_interest_inc",
-        "spouse_interest_inc",
-        "head_rent_inc",
-        "spouse_rent_inc",
-        "family_total_inc",
-        "head_and_spouse_transfer_income",
-        "other_familyunit_transfer_income",
-        "head_socsec_income",
-        "spouse_socsec_income",
-        "other_familyunit_socsec_income",
-        "head_noncorp_bus_asset_income",
-        "spouse_noncorp_bus_asset_income",
-        "head_noncorp_bus_labor_income",
-        "spouse_noncorp_bus_labor_income",
-        "noncorp_businc",
-        "net_wealth",
-        "inheritance",
-        "value_inheritance_1st",
-        "value_inheritance_2nd",
-        "value_inheritance_3rd",
-    ]
-    for item in nominal_vars:
+
+    for item in PSID_NOMINAL_VARS:
         psid_df[item] = (psid_df[item] * cpi_2010) / psid_df["CPIAUCSL"]
-    # remove intermediate dataframes
-    del raw_df, spouse_df, head_df, fred_data, psid_df2
+
+    # clean up
+    del fred_data, psid_df2
 
     # Fill in  missing values with zeros
-    psid_df[nominal_vars] = psid_df[nominal_vars].fillna(0)
+    psid_df[PSID_NOMINAL_VARS] = psid_df[PSID_NOMINAL_VARS].fillna(0)
     psid_df[["head_annual_hours", "spouse_annual_hours"]] = psid_df[
         ["head_annual_hours", "spouse_annual_hours"]
     ].fillna(0)
@@ -217,24 +182,24 @@ def prep_data(data="psid1968to2015.RData"):
         + " & earnhours_hh > 200",
         inplace=True,
     )
-    # Indicator for obs beign from PSID not interpolated value
+    # Indicator for obs being from PSID not interpolated value
     # used to make drops later
     psid_df.sort_values(by=["hh_id", "year"], inplace=True)
-    psid_df[
-        [
-            "head_id",
-            "spouse_id",
-            "hh_id",
-            "head_age",
-            "age",
-            "spouse_age",
-            "ID1968",
-            "year",
-            "interview_number",
-            "head_marital_status",
-            "marital_status",
-        ]
-    ].to_csv("psid_to_check.csv")
+    # psid_df[
+    #     [
+    #         "head_id",
+    #         "spouse_id",
+    #         "hh_id",
+    #         "head_age",
+    #         "age",
+    #         "spouse_age",
+    #         "ID1968",
+    #         "year",
+    #         "interview_number",
+    #         "head_marital_status",
+    #         "marital_status",
+    #     ]
+    # ].to_csv("psid_to_check.csv")
     # The next several lines try to identify and then drop from the sample
     # hh_ids that report more than one type of marital status
     # there are 179 of these, 26 are men who report being married and not at
@@ -277,7 +242,16 @@ def prep_data(data="psid1968to2015.RData"):
     )
     num_obs_psid = psid_df.shape[0]
     psid_df.sort_values(by=["hh_id", "year"], inplace=True)
-    test_psid_df = psid_df.copy()
+
+    # clean up
+    del (
+        merged_df_to_list,
+        hhid_to_drop,
+        marriedmale_df,
+        marriedfemale_df,
+        singlemale_df,
+        singlefemale_df,
+    )
 
     # "fill in" observations - so have observation for each household
     # from age 20-80
@@ -293,18 +267,7 @@ def prep_data(data="psid1968to2015.RData"):
     )
     # Backfill and then forward fill variables that are constant over time
     # within hhid
-    constant_vars = [
-        "head_race",
-        "head_gender",
-        "singlemale",
-        "singlefemale",
-        "marriedmalehead",
-        "marriedfemalehead",
-        "ID1968",
-        "pernum",
-    ]
-    rebalanced2 = rebalanced_data
-    for item in constant_vars:
+    for item in PSID_CONSTANT_VARS:
         rebalanced_data[item] = rebalanced_data.groupby("hh_id")[item].fillna(
             method="bfill"
         )
@@ -333,6 +296,9 @@ def prep_data(data="psid1968to2015.RData"):
         rebalanced_data["max"] + rebalanced_data["counter"]
     )
 
+    # clean up
+    del max_df, balanced_panel
+
     ### Check that there are 61 obs for each hh_id
 
     # create additional variables for first stage regressions
@@ -351,6 +317,9 @@ def prep_data(data="psid1968to2015.RData"):
     df["age_sfemale3"] = df["age3"] * df["singlefemale"]
     df["age_mmale3"] = df["age3"] * df["marriedmalehead"]
     df["age_mfemale3"] = df["age3"] * df["marriedfemalehead"]
+
+    # clean up
+    del rebalanced_data
 
     # run regressions to impute wages for years not observed in sample
     df.set_index(["hh_id", "year"], inplace=True)
@@ -398,8 +367,8 @@ def prep_data(data="psid1968to2015.RData"):
             entity_effects=True,
         )
         res = mod.fit(cov_type="clustered", cluster_entity=True)
-        print("Summary for ", list_of_statuses[i])
-        print(res.summary)
+        # print("Summary for ", list_of_statuses[i])
+        # print(res.summary)
         # Save model results to dictionary
         first_stage_model_results[list_of_statuses[i]] = [
             res.params["age"],
@@ -428,9 +397,9 @@ def prep_data(data="psid1968to2015.RData"):
         )
     )
     df_w_fit.rename(columns={"predictions": "ln_fillin_wage"}, inplace=True)
-    print(
-        "Descritpion of data coming out of estimation: ", df_w_fit.describe()
-    )
+    # print(
+    #     "Descritpion of data coming out of estimation: ", df_w_fit.describe()
+    # )
     # Seems to be the same as going into estimation
 
     # Compute lifetime income for each filer
@@ -464,13 +433,19 @@ def prep_data(data="psid1968to2015.RData"):
     df_fit2 = df_w_fit.join(
         li_df, how="left", on=["hh_id"], lsuffix="_x", rsuffix="_y"
     )
-    # Drop of from balanced panel that were not in original panel
+    # Drop from balanced panel those that were not in original panel
     df_fit2["in_psid"].fillna(False, inplace=True)
     panel_li = (df_fit2[df_fit2["in_psid"]]).copy()
 
     # Save dictionary of regression results
     pickle.dump(
-        first_stage_model_results, open("first_stage_reg_results.pkl", "wb")
+        first_stage_model_results,
+        open(
+            os.path.join(
+                CURDIR, "data", "PSID", "first_stage_reg_results.pkl"
+            ),
+            "wb",
+        ),
     )
 
     # Save dataframe
@@ -479,33 +454,4 @@ def prep_data(data="psid1968to2015.RData"):
         os.path.join(CURDIR, "data", "PSID", "psid_lifetime_income.csv")
     )
 
-    # Do some checks on the data
-    # Check that number of obs in final data equals what in psid after
-    # sample selection
-    if panel_li.shape[0] != num_obs_psid:
-        print("Number of observations in final data set is not right")
-        print("Obs in PSID after selection = ", num_obs_psid)
-        print("Obs in final panel = ", panel_li.shape[0])
-        assert False
-
-    # Check that have at least 1000 obs in each year
-    panel_li.sort_values(by=["hh_id", "year"], inplace=True)
-    var_list = nominal_vars + constant_vars
-    for item in var_list:
-        print("Checking ", item)
-        try:
-            assert np.allclose(panel_li[item], test_psid_df[item], atol=1e-5)
-        except TypeError:
-            print("Had to skip ", item)
-
-    # check everyone has a group and decile and that fraction in each is
-    # correct. Note that can't check the latter with final unbalanced panel.
-    print("Checking counts of percentile groupings: ")
-    for item in cats_10 + cats_pct:
-        assert panel_li[item].count() == panel_li.shape[0]
-    print("Checking percentile groupings: ")
-    for d in cats_10:
-        assert math.isclose(li_df[d].mean(), 0.1, rel_tol=0.03)
-    for i, g in enumerate(cats_pct):
-        percent_in_g = groups[i + 1] - groups[i]
-        assert math.isclose(li_df[g].mean(), percent_in_g, rel_tol=0.03)
+    return panel_li

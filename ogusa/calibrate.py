@@ -59,9 +59,6 @@ class Calibration:
         # Macro estimation
         self.macro_params = macro_params.get_macro_params()
 
-        # prepare data for eta and zeta estimation
-        psid_data_setup.prep_data()
-
         # eta estimation
         self.eta = transfer_distribution.get_transfer_matrix()
 

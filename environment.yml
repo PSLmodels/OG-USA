@@ -4,7 +4,7 @@ channels:
 dependencies:
 - python>=3.7.7
 - mkl>=2020.2
-- numpy
+- numpy<=1.21.2
 - psutil
 - scipy>=1.5.0
 - pandas>=1.2.5

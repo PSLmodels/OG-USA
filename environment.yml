@@ -35,4 +35,4 @@ dependencies:
   - cs-kit
   - cs2tc
   - pandas-datareader
-  - git+https://github.com/PSLmodels/OG-Core.git
+  - ogcore

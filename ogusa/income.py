@@ -112,9 +112,9 @@ def arc_error(abc_vals, params):
     a, b, c = abc_vals
     first_point, coef1, coef2, coef3, abil_deprec = params
     error1 = first_point - arctan_func(80, a, b, c)
-    if (3 * coef3 * 80 ** 2 + 2 * coef2 * 80 + coef1) < 0:
+    if (3 * coef3 * 80**2 + 2 * coef2 * 80 + coef1) < 0:
         error2 = (
-            3 * coef3 * 80 ** 2 + 2 * coef2 * 80 + coef1
+            3 * coef3 * 80**2 + 2 * coef2 * 80 + coef1
         ) * first_point - arctan_deriv_func(80, a, b, c)
     else:
         error2 = -0.02 * first_point - arctan_deriv_func(80, a, b, c)
@@ -406,8 +406,8 @@ def get_e_orig(age_wgts, abil_wgts, plot=False):
     log_abil_paths = (
         const
         + (one * ages_short)
-        + (two * (ages_short ** 2))
-        + (three * (ages_short ** 3))
+        + (two * (ages_short**2))
+        + (three * (ages_short**3))
     )
     abil_paths = np.exp(log_abil_paths)
     e_orig = np.zeros((80, 7))

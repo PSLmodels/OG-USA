@@ -107,8 +107,8 @@ def estimate_profiles(graphs=False):
             earn_profile = (
                 model_results[group][0]
                 + model_results[group][2] * age_vec
-                + model_results[group][4] * age_vec ** 2
-                + model_results[group][6] * age_vec ** 3
+                + model_results[group][4] * age_vec**2
+                + model_results[group][6] * age_vec**3
             )
             plt.plot(age_vec, earn_profile, label=group)
         plt.title(

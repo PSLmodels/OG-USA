@@ -389,13 +389,14 @@ def prep_data(data="psid1968to2015.RData"):
             data.join(fit_values, how="left", on=["hh_id", "year"])
         )
 
-    df_w_fit = list_of_dfs_with_fitted_vals[0].append(
-        list_of_dfs_with_fitted_vals[1].append(
-            list_of_dfs_with_fitted_vals[2].append(
-                list_of_dfs_with_fitted_vals[3]
-            )
-        )
-    )
+    df_w_fit = pd.concat(list_of_dfs_with_fitted_vals)
+    # list_of_dfs_with_fitted_vals[0].append(
+    #     list_of_dfs_with_fitted_vals[1].append(
+    #         list_of_dfs_with_fitted_vals[2].append(
+    #             list_of_dfs_with_fitted_vals[3]
+    #         )
+    #     )
+    # )
     df_w_fit.rename(columns={"predictions": "ln_fillin_wage"}, inplace=True)
     # print(
     #     "Descritpion of data coming out of estimation: ", df_w_fit.describe()
@@ -450,6 +451,10 @@ def prep_data(data="psid1968to2015.RData"):
 
     # Save dataframe
     # pickle.dump(panel_li, open("psid_lifetime_income.pkl", "wb"))
+    panel_li.loc["li_group"] = panel_li["li_group"].astype("category")
+    panel_li.loc["li_decile"] = panel_li["li_decile"].astype("category")
+    panel_li.dropna(axis=0, how="all", inplace=True)
+    print(panel_li.keys())
     panel_li.to_csv(
         os.path.join(CURDIR, "data", "PSID", "psid_lifetime_income.csv")
     )

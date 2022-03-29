@@ -38,11 +38,11 @@ def test_indicator_vars():
     final unbalanced panel.
     """
     panel_li = psid_data_setup.prep_data()
-    groups = [0.0, 0.25, 0.5, 0.7, 0.8, 0.9, 0.99, 1.0]
     cats_pct = ["0-25", "26-50", "51-70", "71-80", "81-90", "91-99", "100"]
     cats_10 = ["D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10"]
     print("Checking counts of percentile groupings: ")
     for item in cats_10 + cats_pct:
+        print(panel_li[item].count(), panel_li.shape[0])
         assert panel_li[item].count() == panel_li.shape[0]
     # NOTE: the following doesn't work with the unbalanced panel
     # print("Checking percentile groupings: ")

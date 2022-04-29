@@ -23,7 +23,7 @@ If you have already completed the {ref}`Sec_SetupPython` and {ref}`Sec_SetupGit`
 
 3. Tell Git to remember your GitHub password by following steps 1-4 on [password setup](https://help.github.com/articles/caching-your-github-password-in-git/).
 
-4. Sign in to GitHub and create your own [remote](https://help.github.com/articles/github-glossary/#remote) [repository](https://help.github.com/articles/github-glossary/#repository) (repo) of `OG-USA` by clicking [Fork](https://help.github.com/articles/github-glossary/#fork) in the upper right corner of the [OG-USA GitHub page](https://github.com/PSLmodels/OG-USA). Select your username when asked "Where should we fork this repository?"
+4. Sign in to GitHub and create your own [remote](https://help.github.com/articles/github-glossary/#remote) [repository](https://help.github.com/articles/github-glossary/#repository) (repo) of `OG-USA` by clicking [Fork](https://help.github.com/articles/github-glossary/#fork) in the upper right corner of the [OG-USA GitHub repository page](https://github.com/PSLmodels/OG-USA). Select your username when asked "Where should we fork this repository?"
 
 5. From your command line, navigate to the directory on your computer where you would like your local repo to live.
 
@@ -43,8 +43,7 @@ If you have already completed the {ref}`Sec_SetupPython` and {ref}`Sec_SetupGit`
     ```
 
 9. Create a conda environment with all of the necessary packages to execute the source code.
-The process of creating the `ogusa-dev` conda environment can take more than 20 minutes.
-The pip install of the `OG-Core` dependency from GitHub takes most of the time.
+The process of creating the `ogusa-dev` conda environment can take up to 10 minutes. The pip install of the `OG-Core` dependency from [pypi.org](https://pypi.org/project/ogcore/).
 
     ```
       OG-USA$ conda env create
@@ -72,7 +71,7 @@ local repo. As a new contributor, you will push your changes from your
 local repo to your remote repo when you're ready to share that work
 with the team.
 
-Don't be alarmed if the above paragraph is confusing. The following
+Don't be alarmed if the above paragraphs are confusing. The following
 section introduces some standard Git practices and guides you through
 the contribution process.
 
@@ -119,18 +118,14 @@ situations, in which case other contributors are here to help.
     ```
         OG-USA$ git push origin master
     ```
-2. Create a new [branch](https://help.github.com/articles/github-glossary/#branch) on your local machine. Think of your
-   branches as a way to organize your projects. If you want to work on
-   this documentation, for example, create a separate branch for that
-   work. If you want to change an element of the OG-USA model, create
-   a different branch for that project:
+2. Create a new [branch](https://help.github.com/articles/github-glossary/#branch) on your local machine. Think of your branches as a way to organize your projects. If you want to work on this documentation, for example, create a separate branch for that work. If you want to change an element of the OG-USA model, create a different branch for that project:
     ```
      OG-USA$ git checkout -b [new-branch-name]
     ```
 3. As you make changes, frequently check that your changes do not
-   introduce bugs or degrade the accuracy of the OG-USA. To do
+   introduce bugs or degrade the accuracy of the `OG-USA`. To do
    this, run the following command from the command line from inside
-   the OG-USA/ogusa directory:
+   the `/OG-USA/ogusa/` directory:
     ```
      OG-USA/ogusa$  pytest -m "not needs_puf and not regression"
     ```

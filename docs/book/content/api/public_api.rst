@@ -1,6 +1,6 @@
 API
 =========================
-The source code for `OG-USA` is located in the `OG-USA/ogusa` directory tree.
+The source code for `OG-USA` is located in the `/OG-USA/ogusa/` directory tree.
 
 Here we provide a high-level view of the API of the `OG-USA` package, with links
 to the source code. This high-level view is organized around the modules that

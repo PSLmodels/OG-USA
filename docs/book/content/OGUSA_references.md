@@ -1,5 +1,5 @@
 # References
 
 ```{bibliography} ../OGUSA_references.bib
-:style: plain
+:style: alpha
 ```

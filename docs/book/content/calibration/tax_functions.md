@@ -290,8 +290,11 @@ The second difficulty in modeling realistic tax and incentive detail is the need
 
   However, this distribution function $\eta_{j,s,t}$ could also be modified to more accurately reflect the way transfers are distributed in the United States.
 
-[^taxcalc_note]:`Tax-Calculator` is available through an open source repository [https://github.com/PSLmodels/Tax-Calculator](https://github.com/PSLmodels/Tax-Calculator) as well as through a web application [Tax-Brain](https://compute.studio/PSLmodels/Tax-Brain/), hosted by [Compute.Studio](https://about.compute.studio/). Documentation for `Tax-Calculator` is available at [https://taxcalc.pslmodels.org/](https://taxcalc.pslmodels.org/).
+(SecTaxfootnotes)=
+## Footnotes
 
-[^interpolation_note]: We use two criterion to determine whether the function should be interpolated. First, we require a minimum number of observations of filers of that age and in that tax year. Second, we require that that sum of squared errors meet a predefined threshold.
+  [^taxcalc_note]:`Tax-Calculator` is available through an open source repository [https://github.com/PSLmodels/Tax-Calculator](https://github.com/PSLmodels/Tax-Calculator) as well as through a web application [Tax-Brain](https://compute.studio/PSLmodels/Tax-Brain/), hosted by [Compute.Studio](https://about.compute.studio/). Documentation for `Tax-Calculator` is available at [https://taxcalc.pslmodels.org/](https://taxcalc.pslmodels.org/).
 
-[^param_note]: We assume that whatever parameters the tax functions have in year 10 persist forever.
+  [^interpolation_note]: We use two criterion to determine whether the function should be interpolated. First, we require a minimum number of observations of filers of that age and in that tax year. Second, we require that that sum of squared errors meet a predefined threshold.
+
+  [^param_note]: We assume that whatever parameters the tax functions have in year 10 persist forever.

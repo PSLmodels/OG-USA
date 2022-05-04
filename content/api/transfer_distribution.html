@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Government Transfer Distribution Estimation Functions &#8212; OG-USA-Calibration</title>
+    <title>Government Transfer Distribution Estimation Functions &#8212; OG-USA</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet" />
-  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -22,8 +22,8 @@
       
 
     
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
@@ -31,30 +31,35 @@
     <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/togglebutton.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
-    <script >
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Tax Function Estimation Functions" href="txfunc.html" />
-    <link rel="prev" title="Macro Parameter Estimation Functions" href="macro_params.html" />
+    <link rel="next" title="Utilities Functions" href="utils.html" />
+    <link rel="prev" title="PSID Data Preparation" href="psid_data_setup.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -71,27 +76,31 @@
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
       <img src="../../_static/OG-USA_logo.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">OG-USA-Calibration</h1>
+      <h1 class="site-logo" id="site-title">OG-USA</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../intro/intro.html">
-   OG-USA-Calibration
+   OG-USA
   </a>
  </li>
 </ul>
-<p class="caption">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Contributing to OG-USA-Calibration
+  Contributing to OG-USA
  </span>
 </p>
 <ul class="nav bd-sidenav">
@@ -101,9 +110,9 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  OG-USA-Calibration API
+  OG-USA API
  </span>
 </p>
 <ul class="current nav bd-sidenav">
@@ -144,17 +153,22 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="get_micro_data.html">
-     Functions to Get Micro-data from Tax-Calculator
+     Functions to Get Micro-data
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="income.html">
-     Income Processes Functions
+     Income Process Functions
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="macro_params.html">
      Macro Parameter Estimation Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="psid_data_setup.html">
+     PSID Data Preparation
     </a>
    </li>
    <li class="toctree-l2 current active">
@@ -163,19 +177,14 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="txfunc.html">
-     Tax Function Estimation Functions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="bequest_transmission.html">
-     Bequest Transmission Process Estimation Functions
+    <a class="reference internal" href="utils.html">
+     Utilities Functions
     </a>
    </li>
   </ul>
  </li>
 </ul>
-<p class="caption">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Calibration
  </span>
@@ -222,21 +231,21 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   References
  </span>
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../calibration/references.html">
+  <a class="reference internal" href="../OGUSA_references.html">
    References
   </a>
  </li>
 </ul>
-<p class="caption">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Citations of OG-USA-Calibration
+  Citations of OG-USA
  </span>
 </p>
 <ul class="nav bd-sidenav">
@@ -291,7 +300,7 @@
                 data-placement="left">.rst</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -302,11 +311,11 @@
         aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
     <div class="dropdown-buttons sourcebuttons">
         <a class="repository-button"
-            href="https://github.com/PSLmodels/OG-USA-Calibration"><button type="button" class="btn btn-secondary topbarbtn"
+            href="https://github.com/PSLmodels/OG-USA"><button type="button" class="btn btn-secondary topbarbtn"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/PSLmodels/OG-USA-Calibration/issues/new?title=Issue%20on%20page%20%2Fcontent/api/transfer_distribution.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/PSLmodels/OG-USA/issues/new?title=Issue%20on%20page%20%2Fcontent/api/transfer_distribution.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -325,16 +334,16 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
             </div>
-            <nav id="bd-toc-nav">
+            <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#module-ogusa_calibrate.transfer_distribution">
-   ogusa_calibrate.transfer_distribution
+  <a class="reference internal nav-link" href="#module-ogusa.transfer_distribution">
+   ogusa.transfer_distribution
   </a>
  </li>
 </ul>
@@ -345,17 +354,40 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Government Transfer Distribution Estimation Functions</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-ogusa.transfer_distribution">
+   ogusa.transfer_distribution
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <div class="section" id="government-transfer-distribution-estimation-functions">
 <span id="transfer-distribution"></span><h1>Government Transfer Distribution Estimation Functions<a class="headerlink" href="#government-transfer-distribution-estimation-functions" title="Permalink to this headline">¶</a></h1>
-<p><strong>Government Transfer Distribution Estimation Functions</strong></p>
-<div class="section" id="module-ogusa_calibrate.transfer_distribution">
-<span id="ogusa-calibrate-transfer-distribution"></span><h2>ogusa_calibrate.transfer_distribution<a class="headerlink" href="#module-ogusa_calibrate.transfer_distribution" title="Permalink to this headline">¶</a></h2>
+<p><strong>transfer_distribution.py modules</strong></p>
+<div class="section" id="module-ogusa.transfer_distribution">
+<span id="ogusa-transfer-distribution"></span><h2>ogusa.transfer_distribution<a class="headerlink" href="#module-ogusa.transfer_distribution" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt id="ogusa_calibrate.transfer_distribution.MVKDE">
-<code class="sig-prename descclassname"><span class="pre">ogusa_calibrate.transfer_distribution.</span></code><code class="sig-name descname"><span class="pre">MVKDE</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">S</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">J</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proportion_matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ogusa_calibrate/transfer_distribution.html#MVKDE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ogusa_calibrate.transfer_distribution.MVKDE" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ogusa.transfer_distribution.MVKDE">
+<span class="sig-prename descclassname"><span class="pre">ogusa.transfer_distribution.</span></span><span class="sig-name descname"><span class="pre">MVKDE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">S</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">J</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proportion_matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ogusa/transfer_distribution.html#MVKDE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ogusa.transfer_distribution.MVKDE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a Multivariate Kernel Density Estimator and returns a
 matrix representing a probability distribution according to given
 age categories, and ability type categories.</p>
@@ -389,8 +421,8 @@ going to each (s,j)</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ogusa_calibrate.transfer_distribution.get_transfer_matrix">
-<code class="sig-prename descclassname"><span class="pre">ogusa_calibrate.transfer_distribution.</span></code><code class="sig-name descname"><span class="pre">get_transfer_matrix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graphs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ogusa_calibrate/transfer_distribution.html#get_transfer_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ogusa_calibrate.transfer_distribution.get_transfer_matrix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ogusa.transfer_distribution.get_transfer_matrix">
+<span class="sig-prename descclassname"><span class="pre">ogusa.transfer_distribution.</span></span><span class="sig-name descname"><span class="pre">get_transfer_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graphs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ogusa/transfer_distribution.html#get_transfer_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ogusa.transfer_distribution.get_transfer_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute SxJ matrix representing the distribution of aggregate
 government transfers by age and lifetime income group.</p>
 </dd></dl>
@@ -420,34 +452,42 @@ government transfers by age and lifetime income group.</p>
 
               </div>
               
-        
-        <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="macro_params.html" title="previous page">Macro Parameter Estimation Functions</a>
-    <a class='right-next' id="next-link" href="txfunc.html" title="next page">Tax Function Estimation Functions</a>
-
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="psid_data_setup.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">PSID Data Preparation</p>
         </div>
-        
+    </a>
+    <a class='right-next' id="next-link" href="utils.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Utilities Functions</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
-    <div class="container">
-      <p>
-        
-          By Jason DeBacker and Richard W. Evans<br/>
-        
-            &copy; Copyright 2021.<br/>
-      </p>
-    </div>
-  </footer>
+    <footer class="footer">
+  <p>
+    
+      By Jason DeBacker and Richard W. Evans<br/>
+    
+        &copy; Copyright 2022.<br/>
+  </p>
+</footer>
 </main>
 
 
       </div>
     </div>
   
-  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>

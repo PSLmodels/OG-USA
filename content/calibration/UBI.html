@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Universal Basic Income (UBI) &#8212; OG-USA-Calibration</title>
+    <title>Universal Basic Income (UBI) &#8212; OG-USA</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet" />
-  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -22,8 +22,8 @@
       
 
     
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
@@ -31,32 +31,37 @@
     <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/togglebutton.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
-    <script >
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Matching Labor, Wealth, and Income Moments" href="matching_lwi.html" />
     <link rel="prev" title="Bequest Process Calibration" href="bequests.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -73,27 +78,31 @@
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
       <img src="../../_static/OG-USA_logo.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">OG-USA-Calibration</h1>
+      <h1 class="site-logo" id="site-title">OG-USA</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../intro/intro.html">
-   OG-USA-Calibration
+   OG-USA
   </a>
  </li>
 </ul>
-<p class="caption">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Contributing to OG-USA-Calibration
+  Contributing to OG-USA
  </span>
 </p>
 <ul class="nav bd-sidenav">
@@ -103,9 +112,9 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  OG-USA-Calibration API
+  OG-USA API
  </span>
 </p>
 <ul class="nav bd-sidenav">
@@ -146,12 +155,12 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../api/get_micro_data.html">
-     Functions to Get Micro-data from Tax-Calculator
+     Functions to Get Micro-data
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../api/income.html">
-     Income Processes Functions
+     Income Process Functions
     </a>
    </li>
    <li class="toctree-l2">
@@ -160,24 +169,24 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="../api/psid_data_setup.html">
+     PSID Data Preparation
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../api/transfer_distribution.html">
      Government Transfer Distribution Estimation Functions
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../api/txfunc.html">
-     Tax Function Estimation Functions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../api/bequest_transmission.html">
-     Bequest Transmission Process Estimation Functions
+    <a class="reference internal" href="../api/utils.html">
+     Utilities Functions
     </a>
    </li>
   </ul>
  </li>
 </ul>
-<p class="caption">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Calibration
  </span>
@@ -224,21 +233,21 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   References
  </span>
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="references.html">
+  <a class="reference internal" href="../OGUSA_references.html">
    References
   </a>
  </li>
 </ul>
-<p class="caption">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Citations of OG-USA-Calibration
+  Citations of OG-USA
  </span>
 </p>
 <ul class="nav bd-sidenav">
@@ -293,7 +302,7 @@
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -304,11 +313,11 @@
         aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
     <div class="dropdown-buttons sourcebuttons">
         <a class="repository-button"
-            href="https://github.com/PSLmodels/OG-USA-Calibration"><button type="button" class="btn btn-secondary topbarbtn"
+            href="https://github.com/PSLmodels/OG-USA"><button type="button" class="btn btn-secondary topbarbtn"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/PSLmodels/OG-USA-Calibration/issues/new?title=Issue%20on%20page%20%2Fcontent/calibration/UBI.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/PSLmodels/OG-USA/issues/new?title=Issue%20on%20page%20%2Fcontent/calibration/UBI.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -327,12 +336,12 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
             </div>
-            <nav id="bd-toc-nav">
+            <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#calculating-ubi">
@@ -362,24 +371,61 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Universal Basic Income (UBI)</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#calculating-ubi">
+   Calculating UBI
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ubi-specification-not-adjusted-for-economic-growth">
+   UBI specification not adjusted for economic growth
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ubi-specification-adjusted-for-economic-growth">
+   UBI specification adjusted for economic growth
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#footnotes">
+   Footnotes
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
-  <div class="section" id="universal-basic-income-ubi">
+  <div class="tex2jax_ignore mathjax_ignore section" id="universal-basic-income-ubi">
 <span id="chap-ubi"></span><h1>Universal Basic Income (UBI)<a class="headerlink" href="#universal-basic-income-ubi" title="Permalink to this headline">¶</a></h1>
 <p>[TODO: This section is far along but needs to be updated.]</p>
-<p>We have included the modeling of a universal basic income (UBI) policy directly in the theory and code for <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code>. We calculate the time series of a UBI matrix <span class="math notranslate nohighlight">\(ubi_{j,s,t}\)</span> representing the UBI transfer to every household with head of household age <span class="math notranslate nohighlight">\(s\)</span>, lifetime income group <span class="math notranslate nohighlight">\(j\)</span>, in period <span class="math notranslate nohighlight">\(t\)</span>. We calculate the time series of this matrix from five parameters and some household composition data that we impose upon the existing demographics of <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code>.</p>
+<p>We have included the modeling of a universal basic income (UBI) policy directly in the theory and code for [<code class="docutils literal notranslate"><span class="pre">OG-Core</span></code>] on which dependency the <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> is based. UBI shows up in the household budget constraint <a class="reference internal" href="tax_functions.html#equation-eqhhbc">(17)</a>, and is described in the <a class="reference external" href="https://pslmodels.github.io/OG-Core/content/theory/households.html#budget-constraint">Budget Constraint</a> section of the Households chapter of the <code class="docutils literal notranslate"><span class="pre">OG-Core</span></code> documentation. We calculate the time series of a UBI matrix <span class="math notranslate nohighlight">\(ubi_{j,s,t}\)</span> representing the UBI transfer to every household with head of household age <span class="math notranslate nohighlight">\(s\)</span>, lifetime income group <span class="math notranslate nohighlight">\(j\)</span>, in period <span class="math notranslate nohighlight">\(t\)</span>. We calculate the time series of this matrix from five parameters and some household composition data that we impose upon the existing demographics of <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code>.</p>
 <div class="section" id="calculating-ubi">
 <span id="secubicalc"></span><h2>Calculating UBI<a class="headerlink" href="#calculating-ubi" title="Permalink to this headline">¶</a></h2>
-<p>We calculate the time series of UBI household transfers in model units <span class="math notranslate nohighlight">\(ubi_{j,s,t)}\)</span> and the time series of total UBI expenditures in model units <span class="math notranslate nohighlight">\(UBI_t\)</span> from five parameters described in the <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> API (<code class="docutils literal notranslate"><span class="pre">ubi_growthadj</span></code>, <code class="docutils literal notranslate"><span class="pre">ubi_nom_017</span></code>, <code class="docutils literal notranslate"><span class="pre">ubi_nom_1820</span></code>, <code class="docutils literal notranslate"><span class="pre">ubi_nom_2164</span></code>, <code class="docutils literal notranslate"><span class="pre">ubi_nom_65p</span></code>, and <code class="docutils literal notranslate"><span class="pre">ubi_nom_max</span></code>) interfaced with the <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> demographic dynamics over lifetime income groups <span class="math notranslate nohighlight">\(j\)</span> and ages <span class="math notranslate nohighlight">\(s\)</span>, and multiplied by household composition matrices from the <a class="reference external" href="https://github.com/PSLmodels/OG-USA-Calibration">OG-USA-calibration</a> repository.</p>
-<p>From the <a class="reference external" href="https://github.com/PSLmodels/OG-USA-Calibration">OG-USA-calibration</a> repository, we have four <span class="math notranslate nohighlight">\(S\times J\)</span> matrices <code class="docutils literal notranslate"><span class="pre">ubi_num_017_mat</span></code><span class="math notranslate nohighlight">\(_{j,s}\)</span>, <code class="docutils literal notranslate"><span class="pre">ubi_num_1820_mat</span></code><span class="math notranslate nohighlight">\(_{j,s}\)</span>, <code class="docutils literal notranslate"><span class="pre">ubi_num_2164_mat</span></code><span class="math notranslate nohighlight">\(_{j,s}\)</span>, and <code class="docutils literal notranslate"><span class="pre">ubi_num_65p_mat</span></code><span class="math notranslate nohighlight">\(_{j,s}\)</span> representing the number of children under age 0-17, number of adults ages 18-20, the number of adults between ages 21 and 64, and the number of seniors age 65 and over, respectively, by lifetime ability group <span class="math notranslate nohighlight">\(j\)</span> and age <span class="math notranslate nohighlight">\(s\)</span> of head of household. Because our demographic age data match up well with head-of-household data from other datasets, we do not have to adjust the values in these matrices.<a class="footnote-reference brackets" href="#hoh-age-dist-note" id="id1">1</a></p>
-<p>Now we can solve for the dollar-valued (as opposed to model-unit-valued) UBI transfer to each household in the first period <span class="math notranslate nohighlight">\(ubi^{\$}_{j,s,t=0}\)</span> in the following way. Let the parameter <code class="docutils literal notranslate"><span class="pre">ubi_nom_017</span></code> be the dollar value of the UBI transfer to each household per dependent child age 17 and under. Let the parameter <code class="docutils literal notranslate"><span class="pre">ubi_nom_1820</span></code> be the dollar value of the UBI transfer to each household per dependent child between the ages of 18 and 20. Let <code class="docutils literal notranslate"><span class="pre">ubi_nom_2164</span></code> and <code class="docutils literal notranslate"><span class="pre">ubi_nom_65p</span></code> be the dollar value of UBI transfer to each household per adult between ages 21 and 64 and per senior 65 and over, respectively. And let <code class="docutils literal notranslate"><span class="pre">ubi_nom_max</span></code> be the maximum UBI benefit per household.</p>
+<p>We calculate the time series of UBI household transfers in model units <span class="math notranslate nohighlight">\(ubi_{j,s,t)}\)</span> and the time series of total UBI expenditures in model units <span class="math notranslate nohighlight">\(UBI_t\)</span> from five parameters described in the <a class="reference external" href="https://github.com/PSLmodels/OG-USA/blob/master/ogusa/ogusa_default_parameters.json"><code class="docutils literal notranslate"><span class="pre">ogusa_default_parameters.json</span></code></a> file (<code class="docutils literal notranslate"><span class="pre">ubi_growthadj</span></code>, <code class="docutils literal notranslate"><span class="pre">ubi_nom_017</span></code>, <code class="docutils literal notranslate"><span class="pre">ubi_nom_1864</span></code>, <code class="docutils literal notranslate"><span class="pre">ubi_nom_65p</span></code>, and <code class="docutils literal notranslate"><span class="pre">ubi_nom_max</span></code>) interfaced with the <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> demographic dynamics over lifetime income groups <span class="math notranslate nohighlight">\(j\)</span> and ages <span class="math notranslate nohighlight">\(s\)</span>, and multiplied by household composition matrices from the <code class="docutils literal notranslate"><span class="pre">Calibrate</span></code> class of the <code class="docutils literal notranslate"><span class="pre">OG-USA/ogusa/calibrate.py</span></code> module in the repository.</p>
+<p>From the <a class="reference external" href="https://github.com/PSLmodels/OG-USA">OG-USA</a> repository, we have four <span class="math notranslate nohighlight">\(S\times J\)</span> matrices <code class="docutils literal notranslate"><span class="pre">ubi_num_017_mat</span></code><span class="math notranslate nohighlight">\(_{j,s}\)</span>, <code class="docutils literal notranslate"><span class="pre">ubi_num_1864_mat</span></code><span class="math notranslate nohighlight">\(_{j,s}\)</span>, and <code class="docutils literal notranslate"><span class="pre">ubi_num_65p_mat</span></code><span class="math notranslate nohighlight">\(_{j,s}\)</span> representing the number of children under age 0-17, number of adults ages 18-64, and the number of seniors age 65 and over, respectively, by lifetime ability group <span class="math notranslate nohighlight">\(j\)</span> and age <span class="math notranslate nohighlight">\(s\)</span> of head of household. Because our demographic age data match up well with head-of-household data from other datasets, we do not have to adjust the values in these matrices.<a class="footnote-reference brackets" href="#hoh-age-dist-note" id="id1">1</a></p>
+<p>Now we can solve for the dollar-valued (as opposed to model-unit-valued) UBI transfer to each household in the first period <span class="math notranslate nohighlight">\(ubi^{\$}_{j,s,t=0}\)</span> in the following way. Let the parameter <code class="docutils literal notranslate"><span class="pre">ubi_nom_017</span></code> be the dollar value of the UBI transfer to each household per dependent child age 17 and under. Let the parameter <code class="docutils literal notranslate"><span class="pre">ubi_nom_1864</span></code> be the dollar value of the UBI transfer to each household per adult between the ages of 18 and 64. Let <code class="docutils literal notranslate"><span class="pre">ubi_nom_65p</span></code> be the dollar value of UBI transfer to each household per senior 65 and over. And let <code class="docutils literal notranslate"><span class="pre">ubi_nom_max</span></code> be the maximum UBI benefit per household.</p>
 <div class="math notranslate nohighlight" id="equation-equbiubi-dol-jst0">
-<span class="eqno">(28)<a class="headerlink" href="#equation-equbiubi-dol-jst0" title="Permalink to this equation">¶</a></span>\[\begin{split}  \begin{split}
+<span class="eqno">(29)<a class="headerlink" href="#equation-equbiubi-dol-jst0" title="Permalink to this equation">¶</a></span>\[\begin{split}  \begin{split}
     ubi^{\$}_{j,s,t=0} = \min\Bigl(&amp;\texttt{ubi_nom_max}, \\
     &amp;\texttt{ubi_nom_017} * \texttt{ubi_num_017_mat}_{j,s} + \\
-    &amp;\texttt{ubi_nom_1820} * \texttt{ubi_num_1820_mat}_{j,s} + \\
-    &amp;\texttt{ubi_nom_2164} * \texttt{ubi_num_2164_mat}_{j,s} + \\
+    &amp;\texttt{ubi_nom_1864} * \texttt{ubi_num_1864_mat}_{j,s} + \\
     &amp;\texttt{ubi_nom_65p} * \texttt{ubi_num_65p_mat}_{j,s}\Bigr) \quad\forall j,s
   \end{split}\end{split}\]</div>
 <p>The rest of the time periods of the household UBI transfer and the respective steady-states are determined by whether the UBI is growth adjusted or not as given in the <code class="docutils literal notranslate"><span class="pre">ubi_growthadj</span></code> Boolean parameter. The following two sections cover these two cases.</p>
@@ -388,10 +434,10 @@
 <span id="secubi-nongrowthadj"></span><h2>UBI specification not adjusted for economic growth<a class="headerlink" href="#ubi-specification-not-adjusted-for-economic-growth" title="Permalink to this headline">¶</a></h2>
 <p>A non-growth adjusted UBI (<code class="docutils literal notranslate"><span class="pre">ubi_growthadj</span> <span class="pre">=</span> <span class="pre">False</span></code>) is one in which the initial nonstationary dollar-valued <span class="math notranslate nohighlight">\(t=0\)</span> UBI matrix <span class="math notranslate nohighlight">\(ubi^{\$}_{j,s,t=0}\)</span> does not grow, while the economy’s long-run growth rate is <span class="math notranslate nohighlight">\(g_y\)</span> for the most common parameterization where the long-run growth rate is positive <span class="math notranslate nohighlight">\(g_y&gt;0\)</span>.</p>
 <div class="math notranslate nohighlight" id="equation-equbiubi-dol-nongrwadj-jst">
-<span class="eqno">(29)<a class="headerlink" href="#equation-equbiubi-dol-nongrwadj-jst" title="Permalink to this equation">¶</a></span>\[  ubi^{\$}_{j,s,t} = ubi^{\$}_{j,s,t=0} \quad\forall j,s,t\]</div>
-<p>As described in Chapter <span class="xref std std-ref">Chap_Stnrz</span>, the stationarized UBI transfer to each household <span class="math notranslate nohighlight">\(\hat{ubi}_{j,s,t}\)</span> is the nonstationary transfer divided by the growth rate since the initial period. When the long-run economic growth rate is positive <span class="math notranslate nohighlight">\(g_y&gt;0\)</span> and the UBI specification is not growth-adjusted the steady-state stationary UBI household transfer is zero <span class="math notranslate nohighlight">\(\overline{ubi}_{j,s}=0\)</span> for all lifetime income groups <span class="math notranslate nohighlight">\(j\)</span> and ages <span class="math notranslate nohighlight">\(s\)</span> as time periods <span class="math notranslate nohighlight">\(t\)</span> go to infinity. However, to simplify, we assume in this case that the stationarized steady-state UBI transfer matrix to households is the stationarized value of that matrix in period <span class="math notranslate nohighlight">\(T\)</span>.</p>
+<span class="eqno">(30)<a class="headerlink" href="#equation-equbiubi-dol-nongrwadj-jst" title="Permalink to this equation">¶</a></span>\[  ubi^{\$}_{j,s,t} = ubi^{\$}_{j,s,t=0} \quad\forall j,s,t\]</div>
+<p>As described in the <a class="reference external" href="https://pslmodels.github.io/OG-Core/content/theory/stationarization.html">OG-Core chapter on stationarization</a>, the stationarized UBI transfer to each household <span class="math notranslate nohighlight">\(\hat{ubi}_{j,s,t}\)</span> is the nonstationary transfer divided by the growth rate since the initial period. When the long-run economic growth rate is positive <span class="math notranslate nohighlight">\(g_y&gt;0\)</span> and the UBI specification is not growth-adjusted the steady-state stationary UBI household transfer is zero <span class="math notranslate nohighlight">\(\overline{ubi}_{j,s}=0\)</span> for all lifetime income groups <span class="math notranslate nohighlight">\(j\)</span> and ages <span class="math notranslate nohighlight">\(s\)</span> as time periods <span class="math notranslate nohighlight">\(t\)</span> go to infinity. However, to simplify, we assume in this case that the stationarized steady-state UBI transfer matrix to households is the stationarized value of that matrix in period <span class="math notranslate nohighlight">\(T\)</span>.</p>
 <div class="math notranslate nohighlight" id="equation-equbiubi-mod-nongrwadj-ss">
-<span class="eqno">(30)<a class="headerlink" href="#equation-equbiubi-mod-nongrwadj-ss" title="Permalink to this equation">¶</a></span>\[  \overline{ubi}_{j,s} = ubi_{j,s,t=T} \quad\forall j,s\]</div>
+<span class="eqno">(31)<a class="headerlink" href="#equation-equbiubi-mod-nongrwadj-ss" title="Permalink to this equation">¶</a></span>\[  \overline{ubi}_{j,s} = ubi_{j,s,t=T} \quad\forall j,s\]</div>
 <p>Note that in non-growth-adjusted case, if <span class="math notranslate nohighlight">\(g_y&lt;0\)</span>, then the stationary value of <span class="math notranslate nohighlight">\(\hat{ubi}_{j,s,t}\)</span> is going to infinity as <span class="math notranslate nohighlight">\(t\)</span> goes to infinity. Therefore, a UBI specification must be growth adjusted for any assumed negative long run growth <span class="math notranslate nohighlight">\(g_y&lt;0\)</span>.<a class="footnote-reference brackets" href="#growthadj-note" id="id2">2</a></p>
 </div>
 <div class="section" id="ubi-specification-adjusted-for-economic-growth">
@@ -406,7 +452,7 @@
 <dd><p>DeBacker and Evans compared the <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> age demographics <span class="math notranslate nohighlight">\(\hat{\omega}_{s,t}\)</span> with the respective age demographics in Tax Policy Center’s microsimulation model and in <a class="reference external" href="https://github.com/PSLmodels/Tax-Calculator">Tax-Calculator</a>’s microsimulation model. The latter two microsimulation models’ age demographics are based on head of household tax filer age distributions, whereas <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code>’s demographics are based on the population age distribution.</p>
 </dd>
 <dt class="label" id="growthadj-note"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
-<dd><p>We impose this requirement of <code class="docutils literal notranslate"><span class="pre">ubi_growthadj</span> <span class="pre">=</span> <span class="pre">False</span></code> when <code class="docutils literal notranslate"><span class="pre">g_y_annual</span> <span class="pre">&lt;</span> <span class="pre">0</span></code> in the <a class="reference external" href="https://github.com/PSLmodels/OG-USA/blob/master/ogusa/default_parameters.json"><code class="docutils literal notranslate"><span class="pre">default_parameters.json</span></code></a> “validators” specification of the parameter.</p>
+<dd><p>We impose this requirement of <code class="docutils literal notranslate"><span class="pre">ubi_growthadj</span> <span class="pre">=</span> <span class="pre">False</span></code> when <code class="docutils literal notranslate"><span class="pre">g_y_annual</span> <span class="pre">&lt;</span> <span class="pre">0</span></code> in the <a class="reference external" href="https://github.com/PSLmodels/OG-USA/blob/master/ogusa/ogusa_default_parameters.json"><code class="docutils literal notranslate"><span class="pre">ogusa_default_parameters.json</span></code></a> “validators” specification of the parameter.</p>
 </dd>
 </dl>
 </div>
@@ -434,34 +480,42 @@
 
               </div>
               
-        
-        <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="bequests.html" title="previous page">Bequest Process Calibration</a>
-    <a class='right-next' id="next-link" href="matching_lwi.html" title="next page">Matching Labor, Wealth, and Income Moments</a>
-
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="bequests.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Bequest Process Calibration</p>
         </div>
-        
+    </a>
+    <a class='right-next' id="next-link" href="matching_lwi.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Matching Labor, Wealth, and Income Moments</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
-    <div class="container">
-      <p>
-        
-          By Jason DeBacker and Richard W. Evans<br/>
-        
-            &copy; Copyright 2021.<br/>
-      </p>
-    </div>
-  </footer>
+    <footer class="footer">
+  <p>
+    
+      By Jason DeBacker and Richard W. Evans<br/>
+    
+        &copy; Copyright 2022.<br/>
+  </p>
+</footer>
 </main>
 
 
       </div>
     </div>
   
-  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>

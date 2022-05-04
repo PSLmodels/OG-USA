@@ -1,15 +1,13 @@
 .. _income:
 
-Income Processes Functions
+Income Process Functions
 =================================================
 
-**Income Processes Functions**
+**income.py modules**
 
-ogusa_calibrate.income
+ogusa.income
 ------------------------------------------
 
-.. currentmodule:: ogusa_calibrate.income
-
-.. automodule:: ogusa_calibrate.income
+.. automodule:: ogusa.income
   :members: arctan_func, arctan_deriv_func, arc_error, arctan_fit,
     get_e_interp, get_e_orig

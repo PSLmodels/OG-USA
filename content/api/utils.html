@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Beta Estimation Functions &#8212; OG-USA</title>
+    <title>Utilities Functions &#8212; OG-USA</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -53,8 +53,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Functions to Get Micro-data" href="get_micro_data.html" />
-    <link rel="prev" title="Deterministic Earnings Profiles Estimation Functions" href="deterministic_profiles.html" />
+    <link rel="next" title="Exogenous Parameters" href="../calibration/exogenous_parameters.html" />
+    <link rel="prev" title="Government Transfer Distribution Estimation Functions" href="transfer_distribution.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -146,8 +146,8 @@ const thebe_selector_output = ".output, .cell_output"
      Deterministic Earnings Profiles Estimation Functions
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="estimate_beta_j.html">
      Beta Estimation Functions
     </a>
    </li>
@@ -176,8 +176,8 @@ const thebe_selector_output = ".output, .cell_output"
      Government Transfer Distribution Estimation Functions
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="utils.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Utilities Functions
     </a>
    </li>
@@ -295,7 +295,7 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/content/api/estimate_beta_j.rst"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/content/api/utils.rst"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.rst</button></a>
         <!-- Download PDF via print -->
@@ -315,7 +315,7 @@ const thebe_selector_output = ".output, .cell_output"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/PSLmodels/OG-USA/issues/new?title=Issue%20on%20page%20%2Fcontent/api/estimate_beta_j.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/PSLmodels/OG-USA/issues/new?title=Issue%20on%20page%20%2Fcontent/api/utils.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -342,8 +342,8 @@ const thebe_selector_output = ".output, .cell_output"
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#module-ogusa.estimate_beta_j">
-   ogusa.estimate_beta_j
+  <a class="reference internal nav-link" href="#module-ogusa.utils">
+   ogusa.utils
   </a>
  </li>
 </ul>
@@ -356,7 +356,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Beta Estimation Functions</h1>
+                <h1>Utilities Functions</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -367,8 +367,8 @@ const thebe_selector_output = ".output, .cell_output"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#module-ogusa.estimate_beta_j">
-   ogusa.estimate_beta_j
+  <a class="reference internal nav-link" href="#module-ogusa.utils">
+   ogusa.utils
   </a>
  </li>
 </ul>
@@ -380,157 +380,17 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="section" id="beta-estimation-functions">
-<span id="estimate-beta-j"></span><h1>Beta Estimation Functions<a class="headerlink" href="#beta-estimation-functions" title="Permalink to this headline">¶</a></h1>
-<p><strong>estimate_beta_j.py modules</strong></p>
-<div class="section" id="module-ogusa.estimate_beta_j">
-<span id="ogusa-estimate-beta-j"></span><h2>ogusa.estimate_beta_j<a class="headerlink" href="#module-ogusa.estimate_beta_j" title="Permalink to this headline">¶</a></h2>
-<p>This script uses simulated method of moments estimator to estimate the
-beta_j parameters for OG-USA.</p>
+  <div class="section" id="utilities-functions">
+<span id="utils"></span><h1>Utilities Functions<a class="headerlink" href="#utilities-functions" title="Permalink to this headline">¶</a></h1>
+<p><strong>utils.py classes, methods, and modules</strong></p>
+<div class="section" id="module-ogusa.utils">
+<span id="ogusa-utils"></span><h2>ogusa.utils<a class="headerlink" href="#module-ogusa.utils" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="ogusa.estimate_beta_j.VCV_moments">
-<span class="sig-prename descclassname"><span class="pre">ogusa.estimate_beta_j.</span></span><span class="sig-name descname"><span class="pre">VCV_moments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">J</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ogusa/estimate_beta_j.html#VCV_moments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ogusa.estimate_beta_j.VCV_moments" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute variance-covariance matrix for wealth moments by
-bootstrapping data.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>scf</strong> (<em>Pandas DataFrame</em>) – raw data from SCF</p></li>
-<li><p><strong>n</strong> (<em>int</em>) – number of bootstrap iterations to run</p></li>
-<li><p><strong>bin_weights</strong> (<em>array-like</em>) – ability weights (Jx1 array)</p></li>
-<li><p><strong>J</strong> (<em>int</em>) – number of ability groups</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><dl class="simple">
-<dt>variance-covariance matrix of wealth moments,</dt><dd><p>(J+2xJ+2) array</p>
-</dd>
-</dl>
-</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>VCV (Numpy array)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="ogusa.estimate_beta_j.beta_estimate">
-<span class="sig-prename descclassname"><span class="pre">ogusa.estimate_beta_j.</span></span><span class="sig-name descname"><span class="pre">beta_estimate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beta_initial_guesses</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">og_spec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">two_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ogusa/estimate_beta_j.html#beta_estimate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ogusa.estimate_beta_j.beta_estimate" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function estimates the beta_j parameters using a simulated
-method of moments estimator that targets moments of the wealth
-distribution.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>beta_initial_guesses</strong> (<em>array-like</em>) – array of initial guesses for the
-beta_j parameters</p></li>
-<li><p><strong>og_spec</strong> (<em>dict</em>) – any updates to default model parameters</p></li>
-<li><p><strong>two_step</strong> (<em>boolean</em>) – whether to use a two-step estimator</p></li>
-<li><p><strong>client</strong> (<em>Dask Client object</em>) – dask client for multiprocessing</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>estimates of the beta_j
-beta_se (array-like): standard errors on the beta_j estimates</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>beta_hat (array-like)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="ogusa.estimate_beta_j.calc_moments">
-<span class="sig-prename descclassname"><span class="pre">ogusa.estimate_beta_j.</span></span><span class="sig-name descname"><span class="pre">calc_moments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ss_output</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ogusa/estimate_beta_j.html#calc_moments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ogusa.estimate_beta_j.calc_moments" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function calculates moments from the SS output that correspond
-to the data moments used for estimation.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dictionary</strong> (<em>ss_output =</em>) – </p></li>
-<li><p><strong>model</strong> (<em>variables from SS of</em>) – </p></li>
-<li><p><strong>p</strong> (<em>OG-USA Specifications object</em>) – model parameters</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Array of model moments</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>model_moments (array-like)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="ogusa.estimate_beta_j.compute_se">
-<span class="sig-prename descclassname"><span class="pre">ogusa.estimate_beta_j.</span></span><span class="sig-name descname"><span class="pre">compute_se</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beta_hat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">W</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ogusa/estimate_beta_j.html#compute_se"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ogusa.estimate_beta_j.compute_se" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to compute standard errors for the SMM estimator.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>beta_hat</strong> (<em>array-like</em>) – estimates of beta parameters</p></li>
-<li><p><strong>W</strong> (<em>Numpy array</em>) – weighting matrix</p></li>
-<li><p><strong>K</strong> (<em>int</em>) – number of moments</p></li>
-<li><p><strong>p</strong> (<em>OG-USA Specifications object</em>) – model parameters</p></li>
-<li><p><strong>h</strong> (<em>scalar</em>) – percentage to move parameters for numerical derivatives</p></li>
-<li><p><strong>client</strong> (<em>Dask Client object</em>) – Dask client</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>standard errors for beta estimates
-VCV_params (Numpy array): VCV matrix for parameter estimates</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>beta_se (array-like)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="ogusa.estimate_beta_j.compute_weighting_matrix">
-<span class="sig-prename descclassname"><span class="pre">ogusa.estimate_beta_j.</span></span><span class="sig-name descname"><span class="pre">compute_weighting_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimal_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ogusa/estimate_beta_j.html#compute_weighting_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ogusa.estimate_beta_j.compute_weighting_matrix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to compute the weighting matrix for the GMM estimator.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>OG-USA Specifications object</em>) – model parameters</p></li>
-<li><p><strong>optimal_weight</strong> (<em>boolean</em>) – whether to use an optimal
-weighting matrix or not</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Weighting matrix</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>W (Numpy array)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="ogusa.estimate_beta_j.minstat">
-<span class="sig-prename descclassname"><span class="pre">ogusa.estimate_beta_j.</span></span><span class="sig-name descname"><span class="pre">minstat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beta_guesses</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ogusa/estimate_beta_j.html#minstat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ogusa.estimate_beta_j.minstat" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function generates the weighted sum of squared differences
-between the model and data moments.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>beta_guesses</strong> (<em>array-like</em>) – a vector of length J with the betas</p></li>
-<li><p><strong>args</strong> (<em>tuple</em>) – length 6 tuple, variables needed for minimizer</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><dl class="simple">
-<dt>weighted, squared deviation between data and</dt><dd><p>model moments</p>
-</dd>
-</dl>
-</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>distance (scalar)</p>
-</dd>
-</dl>
+<dt class="sig sig-object py" id="ogusa.utils.read_cbo_forecast">
+<span class="sig-prename descclassname"><span class="pre">ogusa.utils.</span></span><span class="sig-name descname"><span class="pre">read_cbo_forecast</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ogusa/utils.html#read_cbo_forecast"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ogusa.utils.read_cbo_forecast" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function reads the CBO Long-Term Budget Projections document
+from <a class="reference external" href="https://www.cbo.gov/about/products/budget-economic-data#1">https://www.cbo.gov/about/products/budget-economic-data#1</a>
+and then formats the relevant data for use with OG-Core</p>
 </dd></dl>
 
 </div>
@@ -561,17 +421,17 @@ between the model and data moments.</p>
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="deterministic_profiles.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="transfer_distribution.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Deterministic Earnings Profiles Estimation Functions</p>
+            <p class="prev-next-title">Government Transfer Distribution Estimation Functions</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="get_micro_data.html" title="next page">
+    <a class='right-next' id="next-link" href="../calibration/exogenous_parameters.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Functions to Get Micro-data</p>
+        <p class="prev-next-title">Exogenous Parameters</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

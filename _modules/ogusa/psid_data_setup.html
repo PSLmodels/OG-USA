@@ -1,0 +1,829 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ogusa.psid_data_setup &#8212; OG-USA</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/OG-USA_logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">OG-USA</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/intro/intro.html">
+   OG-USA
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Contributing to OG-USA
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/contributing/contributor_guide.html">
+   Contributor Guide
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  OG-USA API
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../content/api/public_api.html">
+   API
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/bequest_transmission.html">
+     Bequest Transmission Process Estimation Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/calibrate.html">
+     Main Calibration Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/demographics.html">
+     Demographics Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/deterministic_profiles.html">
+     Deterministic Earnings Profiles Estimation Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/estimate_beta_j.html">
+     Beta Estimation Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/get_micro_data.html">
+     Functions to Get Micro-data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/income.html">
+     Income Process Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/macro_params.html">
+     Macro Parameter Estimation Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/psid_data_setup.html">
+     PSID Data Preparation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/transfer_distribution.html">
+     Government Transfer Distribution Estimation Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/utils.html">
+     Utilities Functions
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Calibration
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/exogenous_parameters.html">
+   Exogenous Parameters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/macro.html">
+   Calibration of Macroeconomic Parameters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/demographics.html">
+   Demographics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/earnings.html">
+   Lifetime Earnings Profiles
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/tax_functions.html">
+   Tax Functions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/bequests.html">
+   Bequest Process Calibration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/UBI.html">
+   Universal Basic Income (UBI)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/matching_lwi.html">
+   Matching Labor, Wealth, and Income Moments
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  References
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/OGUSA_references.html">
+   References
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Citations of OG-USA
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/citations.html">
+   Citations and use cases of OG-USA
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/PSLmodels/OG-USA"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/PSLmodels/OG-USA/issues/new?title=Issue%20on%20page%20%2F_modules/ogusa/psid_data_setup.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <h1>Source code for ogusa.psid_data_setup</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">from</span> <span class="nn">pandas_datareader</span> <span class="kn">import</span> <span class="n">data</span> <span class="k">as</span> <span class="n">web</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">linearmodels</span> <span class="kn">import</span> <span class="n">PanelOLS</span>
+<span class="kn">from</span> <span class="nn">rpy2.robjects</span> <span class="kn">import</span> <span class="n">r</span>
+<span class="kn">from</span> <span class="nn">rpy2.robjects</span> <span class="kn">import</span> <span class="n">pandas2ri</span>
+<span class="kn">from</span> <span class="nn">ogusa.constants</span> <span class="kn">import</span> <span class="n">PSID_NOMINAL_VARS</span><span class="p">,</span> <span class="n">PSID_CONSTANT_VARS</span>
+
+<span class="n">pandas2ri</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">chained_assignment</span> <span class="o">=</span> <span class="s2">&quot;raise&quot;</span>
+
+<span class="n">CURDIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="prep_data"><a class="viewcode-back" href="../../content/api/psid_data_setup.html#ogusa.psid_data_setup.prep_data">[docs]</a><span class="k">def</span> <span class="nf">prep_data</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s2">&quot;psid1968to2015.RData&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This script takes PSID data created from psid_download.R and:</span>
+<span class="sd">    1) Creates variables at the &quot;tax filing unit&quot; (equal to family</span>
+<span class="sd">        unit in PSID since there is no info on the filing status chosen).</span>
+<span class="sd">    2) Selects a sample of observations to work with (e.g., dropping</span>
+<span class="sd">        very old, very low income, etc.).</span>
+<span class="sd">    3) Computes a measure of lifetime income and places each household</span>
+<span class="sd">        into a lifetime income percentile group</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data (str): path to RData file with PSID data</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        panel_li (Pandas DataFrame): household level data with lifetime</span>
+<span class="sd">            income groups defined</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Read data from R into pandas dataframe</span>
+    <span class="n">r</span><span class="p">[</span><span class="s2">&quot;load&quot;</span><span class="p">](</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CURDIR</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;PSID&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">))</span>
+    <span class="n">raw_df</span> <span class="o">=</span> <span class="n">r</span><span class="p">(</span><span class="s2">&quot;psid_df&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Create unique identifier for each household</span>
+    <span class="c1"># note that will define a new household if head or spouse changes</span>
+    <span class="c1"># keep only current heads</span>
+    <span class="c1"># before 1983, head is relation.head == 1, 1983+ head is given by</span>
+    <span class="c1"># relation.head == 10</span>
+
+    <span class="c1"># Select just those in the SRC sample, which is representative of the</span>
+    <span class="c1"># population and so will not require the use of sampling weights</span>
+    <span class="c1"># SRC sample families have 1968 family interview numbers less than 3000</span>
+    <span class="n">raw_df</span> <span class="o">=</span> <span class="n">raw_df</span><span class="p">[</span><span class="n">raw_df</span><span class="p">[</span><span class="s2">&quot;ID1968&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">3000</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="n">raw_df</span><span class="p">[</span><span class="s2">&quot;relation.head&quot;</span><span class="p">][</span>
+        <span class="p">(</span><span class="n">raw_df</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1983</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">raw_df</span><span class="p">[</span><span class="s2">&quot;relation.head&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">raw_df</span><span class="p">[</span><span class="s2">&quot;relation.head&quot;</span><span class="p">][</span>
+        <span class="p">(</span><span class="n">raw_df</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1983</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">raw_df</span><span class="p">[</span><span class="s2">&quot;relation.head&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">head_df</span> <span class="o">=</span> <span class="n">raw_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+        <span class="n">raw_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span>
+            <span class="p">(</span><span class="n">raw_df</span><span class="p">[</span><span class="s2">&quot;relation.head&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">10</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">raw_df</span><span class="p">[</span><span class="s2">&quot;sequence&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">],</span>
+        <span class="p">:,</span>
+    <span class="p">]</span>
+    <span class="n">head_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;head_id&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># keep legal spouse or long term partners</span>
+    <span class="n">spouse_df</span> <span class="o">=</span> <span class="n">raw_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+        <span class="n">raw_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span>
+            <span class="p">(</span><span class="n">raw_df</span><span class="p">[</span><span class="s2">&quot;relation.head&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">20</span><span class="p">)</span>
+            <span class="o">&amp;</span> <span class="p">(</span><span class="n">raw_df</span><span class="p">[</span><span class="s2">&quot;relation.head&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">22</span><span class="p">)</span>
+            <span class="o">&amp;</span> <span class="p">(</span><span class="n">raw_df</span><span class="p">[</span><span class="s2">&quot;sequence&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;pid&quot;</span><span class="p">,</span> <span class="s2">&quot;ID1968&quot;</span><span class="p">,</span> <span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;interview_number&quot;</span><span class="p">],</span>
+    <span class="p">]</span>
+    <span class="n">spouse_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;spouse_id&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">psid_df</span> <span class="o">=</span> <span class="n">head_df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+        <span class="n">spouse_df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ID1968&quot;</span><span class="p">,</span> <span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;interview_number&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="c1"># create unique household id for combination of head and a specific spouse</span>
+    <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;hh_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;head_id&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1000000</span><span class="p">)</span> <span class="o">+</span> <span class="n">psid_df</span><span class="p">[</span>
+        <span class="s2">&quot;spouse_id&quot;</span>
+    <span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># clean up files no longer need</span>
+    <span class="k">del</span> <span class="n">raw_df</span><span class="p">,</span> <span class="n">head_df</span><span class="p">,</span> <span class="n">spouse_df</span>
+
+    <span class="c1"># Fix ages to increment by one (or two) between survey waves.  They do</span>
+    <span class="c1"># not always do this because the survey may be asked as different times</span>
+    <span class="c1"># of year</span>
+    <span class="n">min_age_df</span> <span class="o">=</span> <span class="n">psid_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;hh_id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">&quot;min&quot;</span><span class="p">])[</span><span class="s2">&quot;head_age&quot;</span><span class="p">]</span>
+    <span class="n">min_age_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;min&quot;</span><span class="p">:</span> <span class="s2">&quot;min_age&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">min_year_df</span> <span class="o">=</span> <span class="n">psid_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;hh_id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">&quot;min&quot;</span><span class="p">])[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span>
+    <span class="n">min_year_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;min&quot;</span><span class="p">:</span> <span class="s2">&quot;min_year&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">psid_df</span> <span class="o">=</span> <span class="n">psid_df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">min_age_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;hh_id&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+    <span class="n">psid_df</span> <span class="o">=</span> <span class="n">psid_df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">min_year_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;hh_id&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+    <span class="n">psid_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;hh_id&quot;</span><span class="p">,</span> <span class="s2">&quot;year&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;min_year&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;min_age&quot;</span><span class="p">]</span>
+
+    <span class="c1"># clean up</span>
+    <span class="k">del</span> <span class="n">min_age_df</span><span class="p">,</span> <span class="n">min_year_df</span>
+
+    <span class="c1"># Deflate nominal variables</span>
+    <span class="c1"># because surveys ask about prior year</span>
+    <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;year_data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+
+    <span class="c1"># create spouse labor income, since not consistent variable name</span>
+    <span class="c1"># across time</span>
+    <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;spouse_labor_inc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;spouse_labor_inc_pre1993&quot;</span><span class="p">]</span>
+        <span class="o">+</span> <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;spouse_labor_inc_post1993&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">psid_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1993</span><span class="p">,</span> <span class="s2">&quot;spouse_labor_inc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">psid_df</span><span class="p">[</span>
+        <span class="s2">&quot;spouse_labor_inc_post1993&quot;</span>
+    <span class="p">]</span>
+
+    <span class="c1"># set beginning and end dates for data</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1968</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+    <span class="c1"># pull series of interest using pandas_datareader</span>
+    <span class="n">fred_data</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">DataReader</span><span class="p">([</span><span class="s2">&quot;CPIAUCSL&quot;</span><span class="p">],</span> <span class="s2">&quot;fred&quot;</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+    <span class="c1"># Make data annual by averaging over months in year</span>
+    <span class="n">fred_data</span> <span class="o">=</span> <span class="n">fred_data</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">fred_data</span><span class="p">[</span><span class="s2">&quot;year_data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fred_data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">year</span>
+    <span class="n">psid_df2</span> <span class="o">=</span> <span class="n">psid_df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">fred_data</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;year_data&quot;</span><span class="p">)</span>
+    <span class="n">psid_df</span> <span class="o">=</span> <span class="n">psid_df2</span>
+    <span class="n">cpi_2010</span> <span class="o">=</span> <span class="n">fred_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="s2">&quot;CPIAUCSL&quot;</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">PSID_NOMINAL_VARS</span><span class="p">:</span>
+        <span class="n">psid_df</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">psid_df</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">*</span> <span class="n">cpi_2010</span><span class="p">)</span> <span class="o">/</span> <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;CPIAUCSL&quot;</span><span class="p">]</span>
+
+    <span class="c1"># clean up</span>
+    <span class="k">del</span> <span class="n">fred_data</span><span class="p">,</span> <span class="n">psid_df2</span>
+
+    <span class="c1"># Fill in  missing values with zeros</span>
+    <span class="n">psid_df</span><span class="p">[</span><span class="n">PSID_NOMINAL_VARS</span><span class="p">]</span> <span class="o">=</span> <span class="n">psid_df</span><span class="p">[</span><span class="n">PSID_NOMINAL_VARS</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">psid_df</span><span class="p">[[</span><span class="s2">&quot;head_annual_hours&quot;</span><span class="p">,</span> <span class="s2">&quot;spouse_annual_hours&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">psid_df</span><span class="p">[</span>
+        <span class="p">[</span><span class="s2">&quot;head_annual_hours&quot;</span><span class="p">,</span> <span class="s2">&quot;spouse_annual_hours&quot;</span><span class="p">]</span>
+    <span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># Construct family (&quot;filing unit&quot;) level variables</span>
+    <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;incwage_hh&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;head_labor_inc&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;spouse_labor_inc&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;earninc_hh&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;incwage_hh&quot;</span><span class="p">]</span>
+        <span class="o">+</span> <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;head_noncorp_bus_labor_income&quot;</span><span class="p">]</span>
+        <span class="o">+</span> <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;spouse_noncorp_bus_labor_income&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;businc_hh&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;head_noncorp_bus_labor_income&quot;</span><span class="p">]</span>
+        <span class="o">+</span> <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;spouse_noncorp_bus_labor_income&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="c1"># note that PSID doesn&#39;t separate hours towards employed and business</span>
+    <span class="c1"># work</span>
+    <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;earnhours_hh&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;head_annual_hours&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;spouse_annual_hours&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;wage_rate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;incwage_hh&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;earnhours_hh&quot;</span><span class="p">]</span>
+    <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;earn_rate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;earninc_hh&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;earnhours_hh&quot;</span><span class="p">]</span>
+    <span class="k">with</span> <span class="n">np</span><span class="o">.</span><span class="n">errstate</span><span class="p">(</span><span class="n">divide</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">):</span>
+        <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;ln_wage_rate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;wage_rate&quot;</span><span class="p">])</span>
+        <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;ln_earn_rate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;earn_rate&quot;</span><span class="p">])</span>
+    <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;singlemale&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;head_gender&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span>
+        <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;marital_status&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span>
+    <span class="p">)</span>
+    <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;singlefemale&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;head_gender&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span>
+        <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;marital_status&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span>
+    <span class="p">)</span>
+    <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;marriedmalehead&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;head_gender&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span>
+        <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;marital_status&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="p">)</span>
+    <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;marriedfemalehead&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;head_gender&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span>
+        <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;marital_status&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="p">)</span>
+    <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;married&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;marital_status&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+    <span class="c1"># sample selection</span>
+    <span class="c1"># drop very young, very old, those with very low earnings, and any</span>
+    <span class="c1"># outliers with very high earnings, those working at least 200 hrs</span>
+    <span class="c1"># should check to see if we want to drop any particular years... (e.g.,</span>
+    <span class="c1"># I think some data is missing before 1970)</span>
+    <span class="n">psid_df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
+        <span class="s2">&quot;age &gt;= 20 &amp; age &lt;= 80 &amp; incwage_hh &gt;= 5&quot;</span>
+        <span class="o">+</span> <span class="s2">&quot; &amp; wage_rate &gt;= 5 &amp; wage_rate &lt;= 25000&quot;</span>
+        <span class="o">+</span> <span class="s2">&quot; &amp; earnhours_hh &gt; 200&quot;</span><span class="p">,</span>
+        <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># Indicator for obs being from PSID not interpolated value</span>
+    <span class="c1"># used to make drops later</span>
+    <span class="n">psid_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;hh_id&quot;</span><span class="p">,</span> <span class="s2">&quot;year&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># psid_df[</span>
+    <span class="c1">#     [</span>
+    <span class="c1">#         &quot;head_id&quot;,</span>
+    <span class="c1">#         &quot;spouse_id&quot;,</span>
+    <span class="c1">#         &quot;hh_id&quot;,</span>
+    <span class="c1">#         &quot;head_age&quot;,</span>
+    <span class="c1">#         &quot;age&quot;,</span>
+    <span class="c1">#         &quot;spouse_age&quot;,</span>
+    <span class="c1">#         &quot;ID1968&quot;,</span>
+    <span class="c1">#         &quot;year&quot;,</span>
+    <span class="c1">#         &quot;interview_number&quot;,</span>
+    <span class="c1">#         &quot;head_marital_status&quot;,</span>
+    <span class="c1">#         &quot;marital_status&quot;,</span>
+    <span class="c1">#     ]</span>
+    <span class="c1"># ].to_csv(&quot;psid_to_check.csv&quot;)</span>
+    <span class="c1"># The next several lines try to identify and then drop from the sample</span>
+    <span class="c1"># hh_ids that report more than one type of marital status</span>
+    <span class="c1"># there are 179 of these, 26 are men who report being married and not at</span>
+    <span class="c1"># different times, even when a spouse id is not present</span>
+    <span class="n">marriedmale_df</span> <span class="o">=</span> <span class="n">psid_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;hh_id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">&quot;max&quot;</span><span class="p">])[</span><span class="s2">&quot;marriedmalehead&quot;</span><span class="p">]</span>
+    <span class="n">singlemale_df</span> <span class="o">=</span> <span class="n">psid_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;hh_id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">&quot;max&quot;</span><span class="p">])[</span><span class="s2">&quot;singlemale&quot;</span><span class="p">]</span>
+    <span class="n">marriedfemale_df</span> <span class="o">=</span> <span class="n">psid_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;hh_id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">&quot;max&quot;</span><span class="p">])[</span>
+        <span class="s2">&quot;marriedfemalehead&quot;</span>
+    <span class="p">]</span>
+    <span class="n">singlefemale_df</span> <span class="o">=</span> <span class="n">psid_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;hh_id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">&quot;max&quot;</span><span class="p">])[</span><span class="s2">&quot;singlefemale&quot;</span><span class="p">]</span>
+    <span class="n">marriedmale_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;max&quot;</span><span class="p">:</span> <span class="s2">&quot;m_marriedmalehead&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">singlemale_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;max&quot;</span><span class="p">:</span> <span class="s2">&quot;m_singlemale&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">marriedfemale_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+        <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;max&quot;</span><span class="p">:</span> <span class="s2">&quot;m_marriedfemalehead&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="n">singlefemale_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;max&quot;</span><span class="p">:</span> <span class="s2">&quot;m_singlefemale&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">merged_df</span> <span class="o">=</span> <span class="n">marriedmale_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">singlemale_df</span><span class="p">,</span> <span class="n">marriedfemale_df</span><span class="p">,</span> <span class="n">singlefemale_df</span><span class="p">],</span>
+        <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">,</span>
+        <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">merged_df</span><span class="p">[</span><span class="s2">&quot;sum_status&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">merged_df</span><span class="p">[</span><span class="s2">&quot;m_singlemale&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">merged_df</span><span class="p">[</span><span class="s2">&quot;m_singlefemale&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">merged_df</span><span class="p">[</span><span class="s2">&quot;m_marriedfemalehead&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">merged_df</span><span class="p">[</span><span class="s2">&quot;m_marriedmalehead&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">merged_df_to_list</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="n">merged_df</span><span class="p">[</span><span class="s2">&quot;sum_status&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">merged_df_to_list</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;hh_id_two_statuses.csv&quot;</span><span class="p">)</span>
+    <span class="n">hhid_to_drop</span> <span class="o">=</span> <span class="n">merged_df_to_list</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">hhid_to_drop</span><span class="p">[</span><span class="s2">&quot;keep&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">psid_df</span> <span class="o">=</span> <span class="n">psid_df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">hhid_to_drop</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;hh_id&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+    <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;keep&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">psid_df</span> <span class="o">=</span> <span class="n">psid_df</span><span class="p">[</span><span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;keep&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;in_psid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="c1"># print number of obs by year</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;Number of obs by year = &quot;</span><span class="p">,</span>
+        <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;hh_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">psid_df</span><span class="o">.</span><span class="n">year</span><span class="p">])</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="s2">&quot;count&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">num_obs_psid</span> <span class="o">=</span> <span class="n">psid_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">psid_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;hh_id&quot;</span><span class="p">,</span> <span class="s2">&quot;year&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># clean up</span>
+    <span class="k">del</span> <span class="p">(</span>
+        <span class="n">merged_df_to_list</span><span class="p">,</span>
+        <span class="n">hhid_to_drop</span><span class="p">,</span>
+        <span class="n">marriedmale_df</span><span class="p">,</span>
+        <span class="n">marriedfemale_df</span><span class="p">,</span>
+        <span class="n">singlemale_df</span><span class="p">,</span>
+        <span class="n">singlefemale_df</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># &quot;fill in&quot; observations - so have observation for each household</span>
+    <span class="c1"># from age 20-80</span>
+    <span class="c1"># note that do this before running regression, but that&#39;s ok since</span>
+    <span class="c1"># wages missing here so these obs don&#39;t affect regression</span>
+    <span class="n">uid</span> <span class="o">=</span> <span class="n">psid_df</span><span class="p">[</span><span class="s2">&quot;hh_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+    <span class="n">all_ages</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">81</span><span class="p">))</span>  <span class="c1"># for list of ages 20 to 80</span>
+    <span class="n">ids_full</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">x</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_ages</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">uid</span><span class="p">)])</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">ages</span> <span class="o">=</span> <span class="n">all_ages</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">uid</span><span class="p">)</span>
+    <span class="n">balanced_panel</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;hh_id&quot;</span><span class="p">:</span> <span class="n">ids_full</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="n">ages</span><span class="p">})</span>
+    <span class="n">rebalanced_data</span> <span class="o">=</span> <span class="n">balanced_panel</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+        <span class="n">psid_df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;hh_id&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="c1"># Backfill and then forward fill variables that are constant over time</span>
+    <span class="c1"># within hhid</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">PSID_CONSTANT_VARS</span><span class="p">:</span>
+        <span class="n">rebalanced_data</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">rebalanced_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;hh_id&quot;</span><span class="p">)[</span><span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span>
+            <span class="n">method</span><span class="o">=</span><span class="s2">&quot;bfill&quot;</span>
+        <span class="p">)</span>
+        <span class="n">rebalanced_data</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">rebalanced_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;hh_id&quot;</span><span class="p">)[</span><span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span>
+            <span class="n">method</span><span class="o">=</span><span class="s2">&quot;ffill&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1">### NOTE: we seem to get some cases where the marital status is not constant</span>
+    <span class="c1"># despite trying to set up the indentifcation of a household such that it</span>
+    <span class="c1"># has to be.  Why this is happening needs to be checked.</span>
+
+    <span class="c1"># Fill in year by doing a cumulative counter within each hh_id and then</span>
+    <span class="c1"># using the difference between age and this counter to infer what the</span>
+    <span class="c1"># year should be&#39;</span>
+    <span class="n">rebalanced_data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s2">&quot;hh_id&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">rebalanced_data</span><span class="p">[</span><span class="s2">&quot;counter&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rebalanced_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;hh_id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">cumcount</span><span class="p">()</span>
+    <span class="n">rebalanced_data</span><span class="p">[</span><span class="s2">&quot;diff&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">rebalanced_data</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">rebalanced_data</span><span class="p">[</span><span class="s2">&quot;counter&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">rebalanced_data</span><span class="p">[</span><span class="s2">&quot;diff&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span>
+        <span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>  <span class="c1"># because NaNs if year missing</span>
+    <span class="n">max_df</span> <span class="o">=</span> <span class="n">rebalanced_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;hh_id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">&quot;max&quot;</span><span class="p">])[</span><span class="s2">&quot;diff&quot;</span><span class="p">]</span>
+    <span class="n">rebalanced_data</span> <span class="o">=</span> <span class="n">rebalanced_data</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">max_df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;hh_id&quot;</span><span class="p">])</span>
+    <span class="n">rebalanced_data</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">rebalanced_data</span><span class="p">[</span><span class="s2">&quot;max&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">rebalanced_data</span><span class="p">[</span><span class="s2">&quot;counter&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="c1"># clean up</span>
+    <span class="k">del</span> <span class="n">max_df</span><span class="p">,</span> <span class="n">balanced_panel</span>
+
+    <span class="c1">### Check that there are 61 obs for each hh_id</span>
+
+    <span class="c1"># create additional variables for first stage regressions</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">rebalanced_data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age3&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">**</span> <span class="mi">3</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age_smale&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;singlemale&quot;</span><span class="p">]</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age_sfemale&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;singlefemale&quot;</span><span class="p">]</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age_mmale&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;marriedmalehead&quot;</span><span class="p">]</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age_mfemale&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;marriedfemalehead&quot;</span><span class="p">]</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age_smale2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age2&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;singlemale&quot;</span><span class="p">]</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age_sfemale2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age2&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;singlefemale&quot;</span><span class="p">]</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age_mmale2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age2&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;marriedmalehead&quot;</span><span class="p">]</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age_mfemale2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age2&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;marriedfemalehead&quot;</span><span class="p">]</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age_smale3&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age3&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;singlemale&quot;</span><span class="p">]</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age_sfemale3&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age3&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;singlefemale&quot;</span><span class="p">]</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age_mmale3&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age3&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;marriedmalehead&quot;</span><span class="p">]</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age_mfemale3&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;age3&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;marriedfemalehead&quot;</span><span class="p">]</span>
+
+    <span class="c1"># clean up</span>
+    <span class="k">del</span> <span class="n">rebalanced_data</span>
+
+    <span class="c1"># run regressions to impute wages for years not observed in sample</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s2">&quot;hh_id&quot;</span><span class="p">,</span> <span class="s2">&quot;year&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">list_of_statuses</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;Single Males&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Single Females&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Married, Male Head&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Married, Female Head&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="n">list_of_dfs</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;singlemale&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;singlefemale&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;marriedmalehead&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;marriedfemalehead&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
+    <span class="p">]</span>
+    <span class="n">list_of_dfs_with_fitted_vals</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">first_stage_model_results</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;Names&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;Head Age&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Head Age^2&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Head Age^3&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;R-Squared&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Observations&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Households&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;Single Males&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;Single Females&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;Married, Male Head&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;Married, Female Head&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">list_of_dfs</span><span class="p">):</span>
+        <span class="c1"># Note that including entity and time effects leads to a collinearity</span>
+        <span class="c1"># I think this is because there are some years at begin and end of</span>
+        <span class="c1"># sample with just one person</span>
+        <span class="c1"># mod = PanelOLS(data.ln_wage_rate,</span>
+        <span class="c1">#                data[[&#39;age&#39;, &#39;age2&#39;, &#39;age3&#39;]],</span>
+        <span class="c1">#                weights=data.fam_smpl_wgt_core,</span>
+        <span class="c1">#                entity_effects=True, time_effects=True)</span>
+        <span class="n">mod</span> <span class="o">=</span> <span class="n">PanelOLS</span><span class="p">(</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">ln_wage_rate</span><span class="p">,</span>
+            <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;age2&quot;</span><span class="p">,</span> <span class="s2">&quot;age3&quot;</span><span class="p">]],</span>
+            <span class="n">entity_effects</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">cov_type</span><span class="o">=</span><span class="s2">&quot;clustered&quot;</span><span class="p">,</span> <span class="n">cluster_entity</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># print(&quot;Summary for &quot;, list_of_statuses[i])</span>
+        <span class="c1"># print(res.summary)</span>
+        <span class="c1"># Save model results to dictionary</span>
+        <span class="n">first_stage_model_results</span><span class="p">[</span><span class="n">list_of_statuses</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">],</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">std_errors</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">],</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;age2&quot;</span><span class="p">],</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">std_errors</span><span class="p">[</span><span class="s2">&quot;age2&quot;</span><span class="p">],</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;age3&quot;</span><span class="p">],</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">std_errors</span><span class="p">[</span><span class="s2">&quot;age3&quot;</span><span class="p">],</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">rsquared</span><span class="p">,</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">nobs</span><span class="p">,</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">entity_info</span><span class="p">[</span><span class="s2">&quot;total&quot;</span><span class="p">],</span>
+        <span class="p">]</span>
+        <span class="n">fit_values</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">fitted</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">effects</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">missing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">fit_values</span><span class="p">[</span><span class="s2">&quot;predictions&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">fit_values</span><span class="p">[</span><span class="s2">&quot;fitted_values&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">fit_values</span><span class="p">[</span><span class="s2">&quot;estimated_effects&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">list_of_dfs_with_fitted_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fit_values</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;hh_id&quot;</span><span class="p">,</span> <span class="s2">&quot;year&quot;</span><span class="p">])</span>
+        <span class="p">)</span>
+
+    <span class="n">df_w_fit</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">list_of_dfs_with_fitted_vals</span><span class="p">)</span>
+    <span class="c1"># list_of_dfs_with_fitted_vals[0].append(</span>
+    <span class="c1">#     list_of_dfs_with_fitted_vals[1].append(</span>
+    <span class="c1">#         list_of_dfs_with_fitted_vals[2].append(</span>
+    <span class="c1">#             list_of_dfs_with_fitted_vals[3]</span>
+    <span class="c1">#         )</span>
+    <span class="c1">#     )</span>
+    <span class="c1"># )</span>
+    <span class="n">df_w_fit</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;predictions&quot;</span><span class="p">:</span> <span class="s2">&quot;ln_fillin_wage&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># print(</span>
+    <span class="c1">#     &quot;Descritpion of data coming out of estimation: &quot;, df_w_fit.describe()</span>
+    <span class="c1"># )</span>
+    <span class="c1"># Seems to be the same as going into estimation</span>
+
+    <span class="c1"># Compute lifetime income for each filer</span>
+    <span class="n">int_rate</span> <span class="o">=</span> <span class="mf">0.04</span>  <span class="c1"># assumed interest rate to compute NPV of lifetime income</span>
+    <span class="n">time_endow</span> <span class="o">=</span> <span class="mi">4000</span>
+    <span class="c1"># assumed time endowment - set at 4000 hours !!! May want</span>
+    <span class="c1"># to change this to be different for single households than married !!!</span>
+    <span class="n">df_w_fit</span><span class="p">[</span><span class="s2">&quot;time_wage&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">df_w_fit</span><span class="p">[</span><span class="s2">&quot;ln_fillin_wage&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">time_endow</span>
+    <span class="n">df_w_fit</span><span class="p">[</span><span class="s2">&quot;lifetime_inc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_w_fit</span><span class="p">[</span><span class="s2">&quot;time_wage&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span>
+        <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">int_rate</span><span class="p">))</span> <span class="o">**</span> <span class="p">(</span><span class="n">df_w_fit</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">20</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">li_df</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_w_fit</span><span class="p">[[</span><span class="s2">&quot;lifetime_inc&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;hh_id&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="c1"># find percentile in distrubtion of lifetime income</span>
+    <span class="n">li_df</span><span class="p">[</span><span class="s2">&quot;li_percentile&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">li_df</span><span class="o">.</span><span class="n">lifetime_inc</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">pct</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># Put in bins</span>
+    <span class="n">groups</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+    <span class="n">cats_pct</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;0-25&quot;</span><span class="p">,</span> <span class="s2">&quot;26-50&quot;</span><span class="p">,</span> <span class="s2">&quot;51-70&quot;</span><span class="p">,</span> <span class="s2">&quot;71-80&quot;</span><span class="p">,</span> <span class="s2">&quot;81-90&quot;</span><span class="p">,</span> <span class="s2">&quot;91-99&quot;</span><span class="p">,</span> <span class="s2">&quot;100&quot;</span><span class="p">]</span>
+    <span class="n">li_df</span> <span class="o">=</span> <span class="n">li_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">li_df</span><span class="p">[</span><span class="s2">&quot;li_percentile&quot;</span><span class="p">],</span> <span class="n">groups</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">cats_pct</span><span class="p">))</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">li_df</span><span class="p">[</span><span class="s2">&quot;li_group&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">li_df</span><span class="p">[</span><span class="s2">&quot;li_percentile&quot;</span><span class="p">],</span> <span class="n">groups</span><span class="p">)</span>
+    <span class="n">deciles</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">))</span>
+    <span class="n">cats_10</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;D1&quot;</span><span class="p">,</span> <span class="s2">&quot;D2&quot;</span><span class="p">,</span> <span class="s2">&quot;D3&quot;</span><span class="p">,</span> <span class="s2">&quot;D4&quot;</span><span class="p">,</span> <span class="s2">&quot;D5&quot;</span><span class="p">,</span> <span class="s2">&quot;D6&quot;</span><span class="p">,</span> <span class="s2">&quot;D7&quot;</span><span class="p">,</span> <span class="s2">&quot;D8&quot;</span><span class="p">,</span> <span class="s2">&quot;D9&quot;</span><span class="p">,</span> <span class="s2">&quot;D10&quot;</span><span class="p">]</span>
+    <span class="n">li_df</span> <span class="o">=</span> <span class="n">li_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">li_df</span><span class="p">[</span><span class="s2">&quot;li_percentile&quot;</span><span class="p">],</span> <span class="n">deciles</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">cats_10</span><span class="p">))</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">li_df</span><span class="p">[</span><span class="s2">&quot;li_decile&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">li_df</span><span class="p">[</span><span class="s2">&quot;li_percentile&quot;</span><span class="p">],</span> <span class="n">deciles</span><span class="p">)</span>
+
+    <span class="c1"># Merge lifetime income to panel</span>
+    <span class="n">df_w_fit</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s2">&quot;lifetime_inc&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df_fit2</span> <span class="o">=</span> <span class="n">df_w_fit</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="n">li_df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;hh_id&quot;</span><span class="p">],</span> <span class="n">lsuffix</span><span class="o">=</span><span class="s2">&quot;_x&quot;</span><span class="p">,</span> <span class="n">rsuffix</span><span class="o">=</span><span class="s2">&quot;_y&quot;</span>
+    <span class="p">)</span>
+    <span class="c1"># Drop from balanced panel those that were not in original panel</span>
+    <span class="n">df_fit2</span><span class="p">[</span><span class="s2">&quot;in_psid&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">panel_li</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_fit2</span><span class="p">[</span><span class="n">df_fit2</span><span class="p">[</span><span class="s2">&quot;in_psid&quot;</span><span class="p">]])</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1"># Save dictionary of regression results</span>
+    <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span>
+        <span class="n">first_stage_model_results</span><span class="p">,</span>
+        <span class="nb">open</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">CURDIR</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;PSID&quot;</span><span class="p">,</span> <span class="s2">&quot;first_stage_reg_results.pkl&quot;</span>
+            <span class="p">),</span>
+            <span class="s2">&quot;wb&quot;</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Save dataframe</span>
+    <span class="c1"># pickle.dump(panel_li, open(&quot;psid_lifetime_income.pkl&quot;, &quot;wb&quot;))</span>
+    <span class="n">panel_li</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;li_group&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">panel_li</span><span class="p">[</span><span class="s2">&quot;li_group&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
+    <span class="n">panel_li</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;li_decile&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">panel_li</span><span class="p">[</span><span class="s2">&quot;li_decile&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
+    <span class="n">panel_li</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">panel_li</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">panel_li</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CURDIR</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;PSID&quot;</span><span class="p">,</span> <span class="s2">&quot;psid_lifetime_income.csv&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">panel_li</span></div>
+</pre></div>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Jason DeBacker and Richard W. Evans<br/>
+    
+        &copy; Copyright 2022.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

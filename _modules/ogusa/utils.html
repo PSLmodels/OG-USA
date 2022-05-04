@@ -1,0 +1,505 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ogusa.utils &#8212; OG-USA</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/OG-USA_logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">OG-USA</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/intro/intro.html">
+   OG-USA
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Contributing to OG-USA
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/contributing/contributor_guide.html">
+   Contributor Guide
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  OG-USA API
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../content/api/public_api.html">
+   API
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/bequest_transmission.html">
+     Bequest Transmission Process Estimation Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/calibrate.html">
+     Main Calibration Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/demographics.html">
+     Demographics Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/deterministic_profiles.html">
+     Deterministic Earnings Profiles Estimation Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/estimate_beta_j.html">
+     Beta Estimation Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/get_micro_data.html">
+     Functions to Get Micro-data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/income.html">
+     Income Process Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/macro_params.html">
+     Macro Parameter Estimation Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/psid_data_setup.html">
+     PSID Data Preparation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/transfer_distribution.html">
+     Government Transfer Distribution Estimation Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/api/utils.html">
+     Utilities Functions
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Calibration
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/exogenous_parameters.html">
+   Exogenous Parameters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/macro.html">
+   Calibration of Macroeconomic Parameters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/demographics.html">
+   Demographics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/earnings.html">
+   Lifetime Earnings Profiles
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/tax_functions.html">
+   Tax Functions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/bequests.html">
+   Bequest Process Calibration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/UBI.html">
+   Universal Basic Income (UBI)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/calibration/matching_lwi.html">
+   Matching Labor, Wealth, and Income Moments
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  References
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/OGUSA_references.html">
+   References
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Citations of OG-USA
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/citations.html">
+   Citations and use cases of OG-USA
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/PSLmodels/OG-USA"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/PSLmodels/OG-USA/issues/new?title=Issue%20on%20page%20%2F_modules/ogusa/utils.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <h1>Source code for ogusa.utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+
+<div class="viewcode-block" id="read_cbo_forecast"><a class="viewcode-back" href="../../content/api/utils.html#ogusa.utils.read_cbo_forecast">[docs]</a><span class="k">def</span> <span class="nf">read_cbo_forecast</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function reads the CBO Long-Term Budget Projections document</span>
+<span class="sd">    from https://www.cbo.gov/about/products/budget-economic-data#1</span>
+<span class="sd">    and then formats the relevant data for use with OG-Core</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">CBO_LT_URL</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;https://www.cbo.gov/system/files/2020-09/51119-2020-09-ltbo_0.xlsx&quot;</span>
+    <span class="p">)</span>
+    <span class="c1"># Read in data</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span>
+        <span class="n">CBO_LT_URL</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;3. Economic Vars&quot;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">45</span>
+    <span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Unnamed: 3&quot;</span><span class="p">,</span> <span class="s2">&quot;Unnamed: 4&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span>
+        <span class="o">~</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Unnamed: 0&quot;</span><span class="p">]))</span>
+            <span class="o">&amp;</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Unnamed: 1&quot;</span><span class="p">]))</span>
+            <span class="o">&amp;</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Unnamed: 2&quot;</span><span class="p">]))</span>
+        <span class="p">)</span>
+    <span class="p">]</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;full_var_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Unnamed: 0&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Unnamed: 1&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Unnamed: 2&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">CBO_VAR_NAMES</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;Real GDP (Billions of 2019 dollars) &quot;</span><span class="p">:</span> <span class="s2">&quot;Y&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;On 10-year Treasury notes and the OASDI trust funds&quot;</span><span class="p">:</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Growth of Real Earnings per Worker&quot;</span><span class="p">:</span> <span class="s2">&quot;w_growth&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Growth of Total Hours Worked&quot;</span><span class="p">:</span> <span class="s2">&quot;L_growth&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Hours of All Persons (Nonfarm Business Sector)&quot;</span><span class="p">:</span> <span class="s2">&quot;L&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Personal Consumption Expenditures&quot;</span><span class="p">:</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Gross Private Domestic Investment&quot;</span><span class="p">:</span> <span class="s2">&quot;I_total&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Government Consumption Expenditures and Gross Investment&quot;</span><span class="p">:</span> <span class="s2">&quot;G&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Old-Age and Survivors Insurance&quot;</span><span class="p">:</span> <span class="s2">&quot;agg_pension_outlays&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Individual income taxes&quot;</span><span class="p">:</span> <span class="s2">&quot;iit_revenue&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Payroll taxes&quot;</span><span class="p">:</span> <span class="s2">&quot;payroll_tax_revenue&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Corporate income taxes&quot;</span><span class="p">:</span> <span class="s2">&quot;business_tax_revenue&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Wages and Salaries&quot;</span><span class="p">:</span> <span class="s2">&quot;wL&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;var_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;full_var_name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">CBO_VAR_NAMES</span><span class="p">)</span>
+    <span class="c1"># keep just variables of interest</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span>
+        <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Unnamed: 0&quot;</span><span class="p">,</span> <span class="s2">&quot;Unnamed: 1&quot;</span><span class="p">,</span> <span class="s2">&quot;Unnamed: 2&quot;</span><span class="p">,</span> <span class="s2">&quot;full_var_name&quot;</span><span class="p">],</span>
+        <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;var_name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">CBO_VAR_NAMES</span><span class="o">.</span><span class="n">values</span><span class="p">())]</span>
+    <span class="c1"># Keep just real interest rate (not nominal)</span>
+    <span class="c1"># Note that real interest rate comes first in table</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s2">&quot;var_name&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># reshape so that variable names down column</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span>
+        <span class="n">df</span><span class="p">,</span> <span class="n">id_vars</span><span class="o">=</span><span class="s2">&quot;var_name&quot;</span><span class="p">,</span> <span class="n">value_vars</span><span class="o">=</span><span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span> <span class="mi">2051</span><span class="p">)]</span>
+    <span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;variable&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;var_name&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">&quot;value&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;variable&quot;</span><span class="p">:</span> <span class="s2">&quot;year&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># add debt forcast</span>
+    <span class="n">df_fiscal</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span>
+        <span class="n">CBO_LT_URL</span><span class="p">,</span>
+        <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;1. Summary Extended Baseline&quot;</span><span class="p">,</span>
+        <span class="n">skiprows</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+        <span class="n">nrows</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">df_fiscal</span> <span class="o">=</span> <span class="n">df_fiscal</span><span class="p">[</span>
+        <span class="p">[</span><span class="s2">&quot;Fiscal Year&quot;</span><span class="p">,</span> <span class="s2">&quot;Revenues&quot;</span><span class="p">,</span> <span class="s2">&quot;Federal Debt Held by the Public&quot;</span><span class="p">]</span>
+    <span class="p">]</span>
+    <span class="n">df_lt</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+        <span class="n">df_fiscal</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">&quot;Fiscal Year&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span>
+    <span class="p">)</span>
+    <span class="n">df_lt</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+        <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Federal Debt Held by the Public&quot;</span><span class="p">:</span> <span class="s2">&quot;D/Y&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="n">df_lt</span><span class="p">[</span><span class="s2">&quot;D&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_lt</span><span class="p">[</span><span class="s2">&quot;Y&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">df_lt</span><span class="p">[</span><span class="s2">&quot;D/Y&quot;</span><span class="p">]</span>
+
+    <span class="n">CBO_10yr_budget_URL</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;https://www.cbo.gov/system/files/2021-02/51118-2021-02-11-&quot;</span>
+        <span class="o">+</span> <span class="s2">&quot;budgetprojections.xlsx&quot;</span>
+    <span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span>
+        <span class="n">CBO_10yr_budget_URL</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;Table 1-1&quot;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">7</span>
+    <span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+        <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Unnamed: 0&quot;</span><span class="p">:</span> <span class="s2">&quot;variable&quot;</span><span class="p">,</span> <span class="s2">&quot;Actual, </span><span class="se">\n</span><span class="s2">2020&quot;</span><span class="p">:</span> <span class="mi">2020</span><span class="p">},</span>
+        <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;2026.1&quot;</span><span class="p">,</span> <span class="s2">&quot;2031.1&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df1</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="p">((</span><span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">variable</span><span class="p">))</span> <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">variable</span> <span class="o">==</span> <span class="s2">&quot;Other&quot;</span><span class="p">))]</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span>
+        <span class="n">CBO_10yr_budget_URL</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;Table 1-3&quot;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">22</span>
+    <span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Unnamed: 0&quot;</span><span class="p">:</span> <span class="s2">&quot;variable&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;2026.1&quot;</span><span class="p">,</span> <span class="s2">&quot;2031.1&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s2">&quot;variable&quot;</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="s2">&quot;last&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df2</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">variable</span><span class="p">)]</span>
+
+    <span class="n">CBO_10yr_macro_URL</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;https://www.cbo.gov/system/files/2021-02/51135-2021-02-&quot;</span>
+        <span class="o">+</span> <span class="s2">&quot;economicprojections.xlsx&quot;</span>
+    <span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span>
+        <span class="n">CBO_10yr_macro_URL</span><span class="p">,</span>
+        <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;2. Calendar Year&quot;</span><span class="p">,</span>
+        <span class="n">skiprows</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+        <span class="n">nrows</span><span class="o">=</span><span class="mi">131</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Unnamed: 1&quot;</span><span class="p">:</span> <span class="s2">&quot;variable&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Unnamed: 0&quot;</span><span class="p">,</span> <span class="s2">&quot;Unnamed: 2&quot;</span><span class="p">,</span> <span class="s2">&quot;Units&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># Note that real values come second (after nominal values)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s2">&quot;variable&quot;</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="s2">&quot;last&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df3</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">variable</span><span class="p">)]</span>
+    <span class="n">df_st</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="n">df3</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="n">df_st</span><span class="p">[</span><span class="s2">&quot;var_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_st</span><span class="p">[</span><span class="s2">&quot;variable&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">CBO_VAR_NAMES</span><span class="p">)</span>
+    <span class="n">df_st</span> <span class="o">=</span> <span class="n">df_st</span><span class="p">[</span><span class="o">~</span><span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">df_st</span><span class="o">.</span><span class="n">var_name</span><span class="p">)]</span>
+    <span class="n">df_st</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;variable&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># reshape so each row a year</span>
+    <span class="n">df_st</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span>
+        <span class="n">df_st</span><span class="p">,</span> <span class="n">id_vars</span><span class="o">=</span><span class="s2">&quot;var_name&quot;</span><span class="p">,</span> <span class="n">value_vars</span><span class="o">=</span><span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2017</span><span class="p">,</span> <span class="mi">2031</span><span class="p">)]</span>
+    <span class="p">)</span>
+    <span class="n">df_st</span> <span class="o">=</span> <span class="n">df_st</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span>
+        <span class="n">index</span><span class="o">=</span><span class="s2">&quot;variable&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;var_name&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">&quot;value&quot;</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">df_st</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;variable&quot;</span><span class="p">:</span> <span class="s2">&quot;year&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># merge with long term data</span>
+    <span class="n">df_cbo</span> <span class="o">=</span> <span class="n">df_lt</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+        <span class="n">df_st</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="n">suffixes</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;_lt&quot;</span><span class="p">,</span> <span class="s2">&quot;_st&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="c1"># replace * with 0</span>
+    <span class="n">df_cbo</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">to_replace</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df_cbo</span></div>
+</pre></div>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Jason DeBacker and Richard W. Evans<br/>
+    
+        &copy; Copyright 2022.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

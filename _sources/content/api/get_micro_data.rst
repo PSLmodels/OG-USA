@@ -1,14 +1,12 @@
 .. _get_micro_data:
 
-Functions to Get Micro-data from Tax-Calculator
+Functions to Get Micro-data
 =================================================
 
-**Get Micro-data Functions**
+**get_micro_data.py modules**
 
-ogusa_calibrate.get_micro_data
+ogusa.get_micro_data
 ------------------------------------------
 
-.. currentmodule:: ogusa_calibrate.get_micro_data
-
-.. automodule:: ogusa_calibrate.get_micro_data
+.. automodule:: ogusa.get_micro_data
   :members: get_calculator, get_data, taxcalc_advance, cap_inc_mtr

@@ -1713,7 +1713,7 @@
     "maxiter": 250,
     "mindist_SS": 1e-09,
     "mindist_TPI": 1e-05,
-    "initial_guess_r_SS": 0.0648,
+    "initial_guess_r_SS": 0.04,
     "initial_guess_TR_SS": 0.057,
     "initial_guess_factor_SS": 139355.154,
     "omega": [

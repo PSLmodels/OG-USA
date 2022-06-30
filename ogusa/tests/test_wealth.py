@@ -5,7 +5,7 @@ Tests of wealth.py module
 # import pytest
 import pandas as pd
 import numpy as np
-from ogcore import wealth
+from ogusa import wealth
 
 
 def test_get_wealth_data():

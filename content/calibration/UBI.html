@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Universal Basic Income (UBI) &#8212; OG-USA</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet">
-  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +20,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -39,12 +37,13 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
@@ -64,7 +63,21 @@ const thebe_selector_output = ".output, .cell_output"
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -73,9 +86,10 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -93,14 +107,15 @@ const thebe_selector_output = ".output, .cell_output"
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../intro/intro.html">
-   OG-USA
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro/intro.html">
+                    OG-USA
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Contributing to OG-USA
  </span>
@@ -259,90 +274,180 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/content/calibration/UBI.md"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/PSLmodels/OG-USA"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/PSLmodels/OG-USA/issues/new?title=Issue%20on%20page%20%2Fcontent/calibration/UBI.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/PSLmodels/OG-USA"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/PSLmodels/OG-USA/issues/new?title=Issue%20on%20page%20%2Fcontent/calibration/UBI.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/content/calibration/UBI.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#calculating-ubi">
    Calculating UBI
@@ -365,12 +470,11 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Universal Basic Income (UBI)</h1>
@@ -409,43 +513,44 @@ const thebe_selector_output = ".output, .cell_output"
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="universal-basic-income-ubi">
-<span id="chap-ubi"></span><h1>Universal Basic Income (UBI)<a class="headerlink" href="#universal-basic-income-ubi" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="universal-basic-income-ubi">
+<span id="chap-ubi"></span><h1>Universal Basic Income (UBI)<a class="headerlink" href="#universal-basic-income-ubi" title="Permalink to this headline">#</a></h1>
 <p>[TODO: This section is far along but needs to be updated.]</p>
 <p>We have included the modeling of a universal basic income (UBI) policy directly in the theory and code for [<code class="docutils literal notranslate"><span class="pre">OG-Core</span></code>] on which dependency the <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> is based. UBI shows up in the household budget constraint <a class="reference internal" href="tax_functions.html#equation-eqhhbc">(17)</a>, and is described in the <a class="reference external" href="https://pslmodels.github.io/OG-Core/content/theory/households.html#budget-constraint">Budget Constraint</a> section of the Households chapter of the <code class="docutils literal notranslate"><span class="pre">OG-Core</span></code> documentation. We calculate the time series of a UBI matrix <span class="math notranslate nohighlight">\(ubi_{j,s,t}\)</span> representing the UBI transfer to every household with head of household age <span class="math notranslate nohighlight">\(s\)</span>, lifetime income group <span class="math notranslate nohighlight">\(j\)</span>, in period <span class="math notranslate nohighlight">\(t\)</span>. We calculate the time series of this matrix from five parameters and some household composition data that we impose upon the existing demographics of <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code>.</p>
-<div class="section" id="calculating-ubi">
-<span id="secubicalc"></span><h2>Calculating UBI<a class="headerlink" href="#calculating-ubi" title="Permalink to this headline">¶</a></h2>
+<section id="calculating-ubi">
+<span id="secubicalc"></span><h2>Calculating UBI<a class="headerlink" href="#calculating-ubi" title="Permalink to this headline">#</a></h2>
 <p>We calculate the time series of UBI household transfers in model units <span class="math notranslate nohighlight">\(ubi_{j,s,t)}\)</span> and the time series of total UBI expenditures in model units <span class="math notranslate nohighlight">\(UBI_t\)</span> from five parameters described in the <a class="reference external" href="https://github.com/PSLmodels/OG-USA/blob/master/ogusa/ogusa_default_parameters.json"><code class="docutils literal notranslate"><span class="pre">ogusa_default_parameters.json</span></code></a> file (<code class="docutils literal notranslate"><span class="pre">ubi_growthadj</span></code>, <code class="docutils literal notranslate"><span class="pre">ubi_nom_017</span></code>, <code class="docutils literal notranslate"><span class="pre">ubi_nom_1864</span></code>, <code class="docutils literal notranslate"><span class="pre">ubi_nom_65p</span></code>, and <code class="docutils literal notranslate"><span class="pre">ubi_nom_max</span></code>) interfaced with the <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> demographic dynamics over lifetime income groups <span class="math notranslate nohighlight">\(j\)</span> and ages <span class="math notranslate nohighlight">\(s\)</span>, and multiplied by household composition matrices from the <code class="docutils literal notranslate"><span class="pre">Calibrate</span></code> class of the <code class="docutils literal notranslate"><span class="pre">OG-USA/ogusa/calibrate.py</span></code> module in the repository.</p>
 <p>From the <a class="reference external" href="https://github.com/PSLmodels/OG-USA">OG-USA</a> repository, we have four <span class="math notranslate nohighlight">\(S\times J\)</span> matrices <code class="docutils literal notranslate"><span class="pre">ubi_num_017_mat</span></code><span class="math notranslate nohighlight">\(_{j,s}\)</span>, <code class="docutils literal notranslate"><span class="pre">ubi_num_1864_mat</span></code><span class="math notranslate nohighlight">\(_{j,s}\)</span>, and <code class="docutils literal notranslate"><span class="pre">ubi_num_65p_mat</span></code><span class="math notranslate nohighlight">\(_{j,s}\)</span> representing the number of children under age 0-17, number of adults ages 18-64, and the number of seniors age 65 and over, respectively, by lifetime ability group <span class="math notranslate nohighlight">\(j\)</span> and age <span class="math notranslate nohighlight">\(s\)</span> of head of household. Because our demographic age data match up well with head-of-household data from other datasets, we do not have to adjust the values in these matrices.<a class="footnote-reference brackets" href="#hoh-age-dist-note" id="id1">1</a></p>
 <p>Now we can solve for the dollar-valued (as opposed to model-unit-valued) UBI transfer to each household in the first period <span class="math notranslate nohighlight">\(ubi^{\$}_{j,s,t=0}\)</span> in the following way. Let the parameter <code class="docutils literal notranslate"><span class="pre">ubi_nom_017</span></code> be the dollar value of the UBI transfer to each household per dependent child age 17 and under. Let the parameter <code class="docutils literal notranslate"><span class="pre">ubi_nom_1864</span></code> be the dollar value of the UBI transfer to each household per adult between the ages of 18 and 64. Let <code class="docutils literal notranslate"><span class="pre">ubi_nom_65p</span></code> be the dollar value of UBI transfer to each household per senior 65 and over. And let <code class="docutils literal notranslate"><span class="pre">ubi_nom_max</span></code> be the maximum UBI benefit per household.</p>
 <div class="math notranslate nohighlight" id="equation-equbiubi-dol-jst0">
-<span class="eqno">(29)<a class="headerlink" href="#equation-equbiubi-dol-jst0" title="Permalink to this equation">¶</a></span>\[\begin{split}  \begin{split}
+<span class="eqno">(29)<a class="headerlink" href="#equation-equbiubi-dol-jst0" title="Permalink to this equation">#</a></span>\[\begin{split}  \begin{split}
     ubi^{\$}_{j,s,t=0} = \min\Bigl(&amp;\texttt{ubi_nom_max}, \\
     &amp;\texttt{ubi_nom_017} * \texttt{ubi_num_017_mat}_{j,s} + \\
     &amp;\texttt{ubi_nom_1864} * \texttt{ubi_num_1864_mat}_{j,s} + \\
     &amp;\texttt{ubi_nom_65p} * \texttt{ubi_num_65p_mat}_{j,s}\Bigr) \quad\forall j,s
   \end{split}\end{split}\]</div>
 <p>The rest of the time periods of the household UBI transfer and the respective steady-states are determined by whether the UBI is growth adjusted or not as given in the <code class="docutils literal notranslate"><span class="pre">ubi_growthadj</span></code> Boolean parameter. The following two sections cover these two cases.</p>
-</div>
-<div class="section" id="ubi-specification-not-adjusted-for-economic-growth">
-<span id="secubi-nongrowthadj"></span><h2>UBI specification not adjusted for economic growth<a class="headerlink" href="#ubi-specification-not-adjusted-for-economic-growth" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="ubi-specification-not-adjusted-for-economic-growth">
+<span id="secubi-nongrowthadj"></span><h2>UBI specification not adjusted for economic growth<a class="headerlink" href="#ubi-specification-not-adjusted-for-economic-growth" title="Permalink to this headline">#</a></h2>
 <p>A non-growth adjusted UBI (<code class="docutils literal notranslate"><span class="pre">ubi_growthadj</span> <span class="pre">=</span> <span class="pre">False</span></code>) is one in which the initial nonstationary dollar-valued <span class="math notranslate nohighlight">\(t=0\)</span> UBI matrix <span class="math notranslate nohighlight">\(ubi^{\$}_{j,s,t=0}\)</span> does not grow, while the economy’s long-run growth rate is <span class="math notranslate nohighlight">\(g_y\)</span> for the most common parameterization where the long-run growth rate is positive <span class="math notranslate nohighlight">\(g_y&gt;0\)</span>.</p>
 <div class="math notranslate nohighlight" id="equation-equbiubi-dol-nongrwadj-jst">
-<span class="eqno">(30)<a class="headerlink" href="#equation-equbiubi-dol-nongrwadj-jst" title="Permalink to this equation">¶</a></span>\[  ubi^{\$}_{j,s,t} = ubi^{\$}_{j,s,t=0} \quad\forall j,s,t\]</div>
+<span class="eqno">(30)<a class="headerlink" href="#equation-equbiubi-dol-nongrwadj-jst" title="Permalink to this equation">#</a></span>\[  ubi^{\$}_{j,s,t} = ubi^{\$}_{j,s,t=0} \quad\forall j,s,t\]</div>
 <p>As described in the <a class="reference external" href="https://pslmodels.github.io/OG-Core/content/theory/stationarization.html">OG-Core chapter on stationarization</a>, the stationarized UBI transfer to each household <span class="math notranslate nohighlight">\(\hat{ubi}_{j,s,t}\)</span> is the nonstationary transfer divided by the growth rate since the initial period. When the long-run economic growth rate is positive <span class="math notranslate nohighlight">\(g_y&gt;0\)</span> and the UBI specification is not growth-adjusted the steady-state stationary UBI household transfer is zero <span class="math notranslate nohighlight">\(\overline{ubi}_{j,s}=0\)</span> for all lifetime income groups <span class="math notranslate nohighlight">\(j\)</span> and ages <span class="math notranslate nohighlight">\(s\)</span> as time periods <span class="math notranslate nohighlight">\(t\)</span> go to infinity. However, to simplify, we assume in this case that the stationarized steady-state UBI transfer matrix to households is the stationarized value of that matrix in period <span class="math notranslate nohighlight">\(T\)</span>.</p>
 <div class="math notranslate nohighlight" id="equation-equbiubi-mod-nongrwadj-ss">
-<span class="eqno">(31)<a class="headerlink" href="#equation-equbiubi-mod-nongrwadj-ss" title="Permalink to this equation">¶</a></span>\[  \overline{ubi}_{j,s} = ubi_{j,s,t=T} \quad\forall j,s\]</div>
+<span class="eqno">(31)<a class="headerlink" href="#equation-equbiubi-mod-nongrwadj-ss" title="Permalink to this equation">#</a></span>\[  \overline{ubi}_{j,s} = ubi_{j,s,t=T} \quad\forall j,s\]</div>
 <p>Note that in non-growth-adjusted case, if <span class="math notranslate nohighlight">\(g_y&lt;0\)</span>, then the stationary value of <span class="math notranslate nohighlight">\(\hat{ubi}_{j,s,t}\)</span> is going to infinity as <span class="math notranslate nohighlight">\(t\)</span> goes to infinity. Therefore, a UBI specification must be growth adjusted for any assumed negative long run growth <span class="math notranslate nohighlight">\(g_y&lt;0\)</span>.<a class="footnote-reference brackets" href="#growthadj-note" id="id2">2</a></p>
-</div>
-<div class="section" id="ubi-specification-adjusted-for-economic-growth">
-<span id="secubi-growthadj"></span><h2>UBI specification adjusted for economic growth<a class="headerlink" href="#ubi-specification-adjusted-for-economic-growth" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="ubi-specification-adjusted-for-economic-growth">
+<span id="secubi-growthadj"></span><h2>UBI specification adjusted for economic growth<a class="headerlink" href="#ubi-specification-adjusted-for-economic-growth" title="Permalink to this headline">#</a></h2>
 <p>Put description of growth-adjusted specification here.</p>
-</div>
-<div class="section" id="footnotes">
-<span id="secubifootnotes"></span><h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="footnotes">
+<span id="secubifootnotes"></span><h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">#</a></h2>
 <hr class="footnotes docutils" />
 <dl class="footnote brackets">
 <dt class="label" id="hoh-age-dist-note"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
@@ -455,8 +560,8 @@ const thebe_selector_output = ".output, .cell_output"
 <dd><p>We impose this requirement of <code class="docutils literal notranslate"><span class="pre">ubi_growthadj</span> <span class="pre">=</span> <span class="pre">False</span></code> when <code class="docutils literal notranslate"><span class="pre">g_y_annual</span> <span class="pre">&lt;</span> <span class="pre">0</span></code> in the <a class="reference external" href="https://github.com/PSLmodels/OG-USA/blob/master/ogusa/ogusa_default_parameters.json"><code class="docutils literal notranslate"><span class="pre">ogusa_default_parameters.json</span></code></a> “validators” specification of the parameter.</p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -480,9 +585,11 @@ const thebe_selector_output = ".output, .cell_output"
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="bequests.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -498,24 +605,28 @@ const thebe_selector_output = ".output, .cell_output"
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Jason DeBacker and Richard W. Evans<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Jason DeBacker and Richard W. Evans<br/>
-    
-        &copy; Copyright 2022.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

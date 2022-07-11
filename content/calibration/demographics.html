@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Demographics &#8212; OG-USA</title>
     
-  <link href="../../_static/css/theme.css" rel="stylesheet">
-  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +20,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -39,12 +37,13 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
@@ -64,7 +63,21 @@ const thebe_selector_output = ".output, .cell_output"
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -73,9 +86,10 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -93,14 +107,15 @@ const thebe_selector_output = ".output, .cell_output"
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../intro/intro.html">
-   OG-USA
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro/intro.html">
+                    OG-USA
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Contributing to OG-USA
  </span>
@@ -259,110 +274,226 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        <a class="dropdown-buttons"
-            href="../../_sources/content/calibration/demographics.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/content/calibration/demographics.md"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/PSLmodels/OG-USA"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/PSLmodels/OG-USA/issues/new?title=Issue%20on%20page%20%2Fcontent/calibration/demographics.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/PSLmodels/OG-USA/master?urlpath=tree/book/content/calibration/demographics.md"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/PSLmodels/OG-USA/master?urlpath=tree/book/content/calibration/demographics.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/PSLmodels/OG-USA"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/PSLmodels/OG-USA/issues/new?title=Issue%20on%20page%20%2Fcontent/calibration/demographics.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/content/calibration/demographics.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download notebook file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="../../_sources/content/calibration/demographics.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#fertility-rates">
    Fertility rates
@@ -385,12 +516,11 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Demographics</h1>
@@ -429,45 +559,50 @@ const thebe_selector_output = ".output, .cell_output"
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="demographics">
-<span id="chap-demog"></span><h1>Demographics<a class="headerlink" href="#demographics" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="demographics">
+<span id="chap-demog"></span><h1>Demographics<a class="headerlink" href="#demographics" title="Permalink to this headline">#</a></h1>
 <p>We start the <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> section on modeling the household with a description of the demographics of the model. <span class="bibtex" id="id1">[Nishiyama:2015]</span> and <span class="bibtex" id="id2">[DeBackerEtAl:2019]</span> have recently shown that demographic dynamics are likely the biggest influence on macroeconomic time series, exhibiting more influence than fiscal variables or household preference parameters.</p>
 <p>In this chapter, we characterize the equations and parameters that govern the transition dynamics of the population distribution by age. In <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code>, we take the approach of taking mortality rates and fertility rates from outside estimates. But we estimate our immigration rates as residuals using the mortality rates, fertility rates, and at least two consecutive periods of population distribution data. This approach makes sense if one modeling a country in which in one is not confident in the immigration rate data. If the country has good immigration data, then the immigration residual approach we describe below can be skipped.</p>
 <p>We define <span class="math notranslate nohighlight">\(\omega_{s,t}\)</span> as the number of households of age <span class="math notranslate nohighlight">\(s\)</span> alive at time <span class="math notranslate nohighlight">\(t\)</span>. A measure <span class="math notranslate nohighlight">\(\omega_{1,t}\)</span> of households is born in each period <span class="math notranslate nohighlight">\(t\)</span> and live for up to <span class="math notranslate nohighlight">\(E+S\)</span> periods, with <span class="math notranslate nohighlight">\(S\geq 4\)</span>.<a class="footnote-reference brackets" href="#calibage-note" id="id3">1</a> Households are termed ``youth’’, and do not participate in market activity during ages <span class="math notranslate nohighlight">\(1\leq s\leq E\)</span>. The households enter the workforce and economy in period <span class="math notranslate nohighlight">\(E+1\)</span> and remain in the workforce until they unexpectedly die or live until age <span class="math notranslate nohighlight">\(s=E+S\)</span>. We model the population with households age <span class="math notranslate nohighlight">\(s\leq E\)</span> outside of the workforce and economy in order most closely match the empirical population dynamics.</p>
 <p>The population of agents of each age in each period <span class="math notranslate nohighlight">\(\omega_{s,t}\)</span> evolves according to the following function,</p>
 <div class="math notranslate nohighlight" id="equation-eqpoplawofmotion">
-<span class="eqno">(1)<a class="headerlink" href="#equation-eqpoplawofmotion" title="Permalink to this equation">¶</a></span>\[\begin{split}    \omega_{1,t+1} &amp;= (1 - \rho_0)\sum_{s=1}^{E+S} f_s\omega_{s,t} + i_1\omega_{1,t}\quad\forall t \\
+<span class="eqno">(1)<a class="headerlink" href="#equation-eqpoplawofmotion" title="Permalink to this equation">#</a></span>\[\begin{split}    \omega_{1,t+1} &amp;= (1 - \rho_0)\sum_{s=1}^{E+S} f_s\omega_{s,t} + i_1\omega_{1,t}\quad\forall t \\
     \omega_{s+1,t+1} &amp;= (1 - \rho_s)\omega_{s,t} + i_{s+1}\omega_{s+1,t}\quad\forall t\quad\text{and}\quad 1\leq s \leq E+S-1\end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(f_s\geq 0\)</span> is an age-specific fertility rate, <span class="math notranslate nohighlight">\(i_s\)</span> is an age-specific net immigration rate, <span class="math notranslate nohighlight">\(\rho_s\)</span> is an age-specific mortality hazard rate, and <span class="math notranslate nohighlight">\(\rho_0\)</span> is an infant mortality rate.<a class="footnote-reference brackets" href="#houseprob-note" id="id4">2</a> The total population in the economy <span class="math notranslate nohighlight">\(N_t\)</span> at any period is simply the sum of households in the economy, the population growth rate in any period <span class="math notranslate nohighlight">\(t\)</span> from the previous period <span class="math notranslate nohighlight">\(t-1\)</span> is <span class="math notranslate nohighlight">\(g_{n,t}\)</span>, <span class="math notranslate nohighlight">\(\tilde{N}_t\)</span> is the working age population, and <span class="math notranslate nohighlight">\(\tilde{g}_{n,t}\)</span> is the working age population growth rate in any period <span class="math notranslate nohighlight">\(t\)</span> from the previous period <span class="math notranslate nohighlight">\(t-1\)</span>.</p>
 <div class="math notranslate nohighlight" id="equation-eqpopn">
-<span class="eqno">(2)<a class="headerlink" href="#equation-eqpopn" title="Permalink to this equation">¶</a></span>\[  N_t\equiv\sum_{s=1}^{E+S} \omega_{s,t} \quad\forall t\]</div>
+<span class="eqno">(2)<a class="headerlink" href="#equation-eqpopn" title="Permalink to this equation">#</a></span>\[  N_t\equiv\sum_{s=1}^{E+S} \omega_{s,t} \quad\forall t\]</div>
 <div class="math notranslate nohighlight" id="equation-eqpopgrowth">
-<span class="eqno">(3)<a class="headerlink" href="#equation-eqpopgrowth" title="Permalink to this equation">¶</a></span>\[  g_{n,t+1} \equiv \frac{N_{t+1}}{N_t} - 1 \quad\forall t\]</div>
+<span class="eqno">(3)<a class="headerlink" href="#equation-eqpopgrowth" title="Permalink to this equation">#</a></span>\[  g_{n,t+1} \equiv \frac{N_{t+1}}{N_t} - 1 \quad\forall t\]</div>
 <div class="math notranslate nohighlight" id="equation-eqpopntil">
-<span class="eqno">(4)<a class="headerlink" href="#equation-eqpopntil" title="Permalink to this equation">¶</a></span>\[  \tilde{N}_t\equiv\sum_{s=E+1}^{E+S} \omega_{s,t} \quad\forall t\]</div>
+<span class="eqno">(4)<a class="headerlink" href="#equation-eqpopntil" title="Permalink to this equation">#</a></span>\[  \tilde{N}_t\equiv\sum_{s=E+1}^{E+S} \omega_{s,t} \quad\forall t\]</div>
 <div class="math notranslate nohighlight" id="equation-eqpopgrowthtil">
-<span class="eqno">(5)<a class="headerlink" href="#equation-eqpopgrowthtil" title="Permalink to this equation">¶</a></span>\[  \tilde{g}_{n,t+1} \equiv \frac{\tilde{N}_{t+1}}{\tilde{N}_t} - 1 \quad\forall t\]</div>
+<span class="eqno">(5)<a class="headerlink" href="#equation-eqpopgrowthtil" title="Permalink to this equation">#</a></span>\[  \tilde{g}_{n,t+1} \equiv \frac{\tilde{N}_{t+1}}{\tilde{N}_t} - 1 \quad\forall t\]</div>
 <p>We discuss the approach to estimating fertility rates <span class="math notranslate nohighlight">\(f_s\)</span>, mortality rates <span class="math notranslate nohighlight">\(\rho_s\)</span>, and immigration rates <span class="math notranslate nohighlight">\(i_s\)</span> in Sections <a class="reference internal" href="#secdemogfert"><span class="std std-ref">Fertility rates</span></a>, <a class="reference internal" href="#secdemogmort"><span class="std std-ref">Mortality rates</span></a>, and <a class="reference internal" href="#secdemogimm"><span class="std std-ref">Immigration rates</span></a>.</p>
-<div class="section" id="fertility-rates">
-<span id="secdemogfert"></span><h2>Fertility rates<a class="headerlink" href="#fertility-rates" title="Permalink to this headline">¶</a></h2>
+<section id="fertility-rates">
+<span id="secdemogfert"></span><h2>Fertility rates<a class="headerlink" href="#fertility-rates" title="Permalink to this headline">#</a></h2>
 <p>In <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code>, we assume that the fertility rates for each age cohort <span class="math notranslate nohighlight">\(f_s\)</span> are constant across time. However, this assumption is conceptually straightforward to relax. Our data for U.S. fertility rates by age come from <span class="bibtex" id="id5">[MartinEtAl:2015]</span> National Vital Statistics Report, which is final fertility rate data for 2013. <a class="reference internal" href="#figfertrates"><span class="std std-numref">Figure 1</span></a> shows the fertility-rate data and the estimated average fertility rates for <span class="math notranslate nohighlight">\(E+S=100\)</span>.</p>
-<div class="figure align-default" id="figfertrates">
+<figure class="align-default" id="figfertrates">
 <a class="reference internal image-reference" href="../../_images/fert_rates.png"><img alt="../../_images/fert_rates.png" src="../../_images/fert_rates.png" style="height: 500px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 1 </span><span class="caption-text">Fertility rates by age (<span class="math notranslate nohighlight">\(f_s\)</span>) for <span class="math notranslate nohighlight">\(E+S=100\)</span></span><a class="headerlink" href="#figfertrates" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Fertility rates by age (<span class="math notranslate nohighlight">\(f_s\)</span>) for <span class="math notranslate nohighlight">\(E+S=100\)</span></span><a class="headerlink" href="#figfertrates" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>The large blue circles are the 2013 U.S. fertility rate data from <span class="bibtex" id="id6">[MartinEtAl:2015]</span>. These are 9 fertility rates [0.3, 12.3, 47.1, 80.7, 105.5, 98.0, 49.3, 10.4, 0.8] that correspond to the midpoint ages of the following age (in years) bins [10-14, 15-17, 18-19, 20-24, 25-29, 30-34, 35-39, 40-44, 45-49]. In order to get our cubic spline interpolating function to fit better at the endpoints we added to fertility rates of zero to ages 9 and 10, and we added two fertility rates of zero to ages 55 and 56. The blue line in <a class="reference internal" href="#figfertrates"><span class="std std-numref">Figure 1</span></a> shows the cubic spline interpolated function of the data.</p>
 <p>The red diamonds in <a class="reference internal" href="#figfertrates"><span class="std std-numref">Figure 1</span></a> are the average fertility rate in age bins spanning households born at the beginning of period 1 (time = 0) and dying at the end of their 100th year. Let the total number of model years that a household lives be <span class="math notranslate nohighlight">\(E+S\leq 100\)</span>. Then the span from the beginning of period 1 (the beginning of year 0) to the end of period 100 (the end of year 99) is divided up into <span class="math notranslate nohighlight">\(E+S\)</span> bins of equal length. We calculate the average fertility rate in each of the <span class="math notranslate nohighlight">\(E+S\)</span> model-period bins as the average population-weighted fertility rate in that span. The red diamonds in <a class="reference internal" href="#figfertrates"><span class="std std-numref">Figure 1</span></a> are the average fertility rates displayed at the midpoint in each of the <span class="math notranslate nohighlight">\(E+S\)</span> model-period bins.</p>
-</div>
-<div class="section" id="mortality-rates">
-<span id="secdemogmort"></span><h2>Mortality rates<a class="headerlink" href="#mortality-rates" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="mortality-rates">
+<span id="secdemogmort"></span><h2>Mortality rates<a class="headerlink" href="#mortality-rates" title="Permalink to this headline">#</a></h2>
 <p>The mortality rates in our model <span class="math notranslate nohighlight">\(\rho_s\)</span> are a one-period hazard rate and represent the probability of dying within one year, given that an household is alive at the beginning of period <span class="math notranslate nohighlight">\(s\)</span>. We assume that the mortality rates for each age cohort <span class="math notranslate nohighlight">\(\rho_s\)</span> are constant across time. The infant mortality rate of <span class="math notranslate nohighlight">\(\rho_0=0.00587\)</span> comes from the 2015 U.S. CIA World Factbook. Our data for U.S. mortality rates by age come from the Actuarial Life Tables of the U.S. Social Security Administration <span class="bibtex" id="id7">[SocSec:2015]</span>, from which the most recent mortality rate data is for 2011. <a class="reference internal" href="#figmortrates"><span class="std std-numref">Figure 2</span></a> shows the mortality rate data and the corresponding model-period mortality rates for <span class="math notranslate nohighlight">\(E+S=100\)</span>.</p>
-<div class="figure align-default" id="figmortrates">
+<figure class="align-default" id="figmortrates">
 <a class="reference internal image-reference" href="../../_images/mort_rates.png"><img alt="../../_images/mort_rates.png" src="../../_images/mort_rates.png" style="height: 500px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 2 </span><span class="caption-text">Mortality rates by age (<span class="math notranslate nohighlight">\(\rho_s\)</span>) for <span class="math notranslate nohighlight">\(E+S=100\)</span></span><a class="headerlink" href="#figmortrates" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Mortality rates by age (<span class="math notranslate nohighlight">\(\rho_s\)</span>) for <span class="math notranslate nohighlight">\(E+S=100\)</span></span><a class="headerlink" href="#figmortrates" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
   <!-- +++
   ```{code-cell} ogusa-dev
   :tags: [hide-cell]
@@ -487,17 +622,19 @@ const thebe_selector_output = ".output, .cell_output"
   ```
   -->
 <p>The mortality rates in <a class="reference internal" href="#figmortrates"><span class="std std-numref">Figure 2</span></a> are a population-weighted average of the male and female mortality rates reported in <span class="bibtex" id="id8">[SocSec:2015]</span>. <a class="reference internal" href="#figmortrates"><span class="std std-numref">Figure 2</span></a> also shows that the data provide mortality rates for ages up to 111-years-old. We truncate the maximum age in years in our model to 100-years old. In addition, we constrain the mortality rate to be 1.0 or 100 percent at the maximum age of 100.</p>
-</div>
-<div class="section" id="immigration-rates">
-<span id="secdemogimm"></span><h2>Immigration rates<a class="headerlink" href="#immigration-rates" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="immigration-rates">
+<span id="secdemogimm"></span><h2>Immigration rates<a class="headerlink" href="#immigration-rates" title="Permalink to this headline">#</a></h2>
 <p>Because of the difficulty in getting accurate immigration rate data by age, we estimate the immigration rates by age in our model <span class="math notranslate nohighlight">\(i_s\)</span> as the average residual that reconciles the current-period population distribution with next period’s population distribution given fertility rates <span class="math notranslate nohighlight">\(f_s\)</span> and mortality rates <span class="math notranslate nohighlight">\(\rho_s\)</span>. Solving equations <a class="reference internal" href="#equation-eqpoplawofmotion">(1)</a> for the immigration rate <span class="math notranslate nohighlight">\(i_s\)</span> gives the following characterization of the immigration rates in given population levels in any two consecutive periods <span class="math notranslate nohighlight">\(\omega_{s,t}\)</span> and <span class="math notranslate nohighlight">\(\omega_{s,t+1}\)</span> and the fertility rates <span class="math notranslate nohighlight">\(f_s\)</span> and mortality rates <span class="math notranslate nohighlight">\(\rho_s\)</span>.</p>
 <div class="math notranslate nohighlight" id="equation-eqpopimmrates">
-<span class="eqno">(6)<a class="headerlink" href="#equation-eqpopimmrates" title="Permalink to this equation">¶</a></span>\[\begin{split}    i_1 &amp;= \frac{\omega_{1,t+1} - (1 - \rho_0)\sum_{s=1}^{E+S}f_s\omega_{s,t}}{\omega_{1,t}}\quad\forall t \\
+<span class="eqno">(6)<a class="headerlink" href="#equation-eqpopimmrates" title="Permalink to this equation">#</a></span>\[\begin{split}    i_1 &amp;= \frac{\omega_{1,t+1} - (1 - \rho_0)\sum_{s=1}^{E+S}f_s\omega_{s,t}}{\omega_{1,t}}\quad\forall t \\
     i_{s+1} &amp;= \frac{\omega_{s+1,t+1} - (1 - \rho_s)\omega_{s,t}}{\omega_{s+1,t}}\qquad\qquad\forall t\quad\text{and}\quad 1\leq s \leq E+S-1\end{split}\]</div>
-<div class="figure align-default" id="figimmrates">
+<figure class="align-default" id="figimmrates">
 <a class="reference internal image-reference" href="../../_images/imm_rates_orig.png"><img alt="../../_images/imm_rates_orig.png" src="../../_images/imm_rates_orig.png" style="height: 500px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">Immigration rates by age (<span class="math notranslate nohighlight">\(i_s\)</span>), residual, <span class="math notranslate nohighlight">\(E+S=100\)</span></span><a class="headerlink" href="#figimmrates" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Immigration rates by age (<span class="math notranslate nohighlight">\(i_s\)</span>), residual, <span class="math notranslate nohighlight">\(E+S=100\)</span></span><a class="headerlink" href="#figimmrates" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
   <!-- +++
   ```{code-cell} ogusa-dev
   :tags: [hide-cell]
@@ -518,15 +655,15 @@ const thebe_selector_output = ".output, .cell_output"
   -->
 <p>We calculate our immigration rates for three different consecutive-year-periods of population distribution data (2010 through 2013). Our four years of population distribution by age data come from <span class="bibtex" id="id9">[Census:2015]</span>. The immigration rates <span class="math notranslate nohighlight">\(i_s\)</span> that we use in our model are the the residuals described in <a class="reference internal" href="#equation-eqpopimmrates">(6)</a> averaged across the three periods. <a class="reference internal" href="#figimmrates"><span class="std std-numref">Figure 3</span></a> shows the estimated immigration rates for <span class="math notranslate nohighlight">\(E+S=100\)</span> and given the fertility rates from Section <a class="reference internal" href="#secdemogfert"><span class="std std-ref">Fertility rates</span></a> and the mortality rates from Section <a class="reference internal" href="#secdemogmort"><span class="std std-ref">Mortality rates</span></a>.</p>
 <p>At the end of Section <a class="reference internal" href="#secdemogpopsstp"><span class="std std-ref">Population steady-state and transition path</span></a>, we describe a small adjustment that we make to the immigration rates after a certain number of periods in order to make computation of the transition path equilibrium of the model compute more robustly.</p>
-</div>
-<div class="section" id="population-steady-state-and-transition-path">
-<span id="secdemogpopsstp"></span><h2>Population steady-state and transition path<a class="headerlink" href="#population-steady-state-and-transition-path" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="population-steady-state-and-transition-path">
+<span id="secdemogpopsstp"></span><h2>Population steady-state and transition path<a class="headerlink" href="#population-steady-state-and-transition-path" title="Permalink to this headline">#</a></h2>
 <p>This model requires information about mortality rates <span class="math notranslate nohighlight">\(\rho_s\)</span> in order to solve for the household’s problem each period. It also requires the steady-state stationary population distribution <span class="math notranslate nohighlight">\(\bar{\omega}_{s}\)</span> and population growth rate <span class="math notranslate nohighlight">\(\bar{g}_n\)</span> as well as the full transition path of the stationary population distribution <span class="math notranslate nohighlight">\(\hat{\omega}_{s,t}\)</span> and population grow rate <span class="math notranslate nohighlight">\(\tilde{g}_{n,t}\)</span> from the current state to the steady-state. To solve for the steady-state and the transition path of the stationary population distribution, we write the stationary population dynamic equations <a class="reference internal" href="#equation-eqpoplawofmotionstat">(7)</a> and their matrix representation <a class="reference internal" href="#equation-eqpoplomstatmat">(8)</a>.</p>
 <div class="math notranslate nohighlight" id="equation-eqpoplawofmotionstat">
-<span class="eqno">(7)<a class="headerlink" href="#equation-eqpoplawofmotionstat" title="Permalink to this equation">¶</a></span>\[\begin{split}    \hat{\omega}_{1,t+1} &amp;= \frac{(1-\rho_0)\sum_{s=1}^{E+S} f_s\hat{\omega}_{s,t} + i_1\hat{\omega}_{1,t}}{1+\tilde{g}_{n,t+1}}\quad\forall t \\
+<span class="eqno">(7)<a class="headerlink" href="#equation-eqpoplawofmotionstat" title="Permalink to this equation">#</a></span>\[\begin{split}    \hat{\omega}_{1,t+1} &amp;= \frac{(1-\rho_0)\sum_{s=1}^{E+S} f_s\hat{\omega}_{s,t} + i_1\hat{\omega}_{1,t}}{1+\tilde{g}_{n,t+1}}\quad\forall t \\
     \hat{\omega}_{s+1,t+1} &amp;= \frac{(1 - \rho_s)\hat{\omega}_{s,t} + i_{s+1}\hat{\omega}_{s+1,t}}{1+\tilde{g}_{n,t+1}}\qquad\quad\:\forall t\quad\text{and}\quad 1\leq s \leq E+S-1\end{split}\]</div>
 <div class="math notranslate nohighlight" id="equation-eqpoplomstatmat">
-<span class="eqno">(8)<a class="headerlink" href="#equation-eqpoplomstatmat" title="Permalink to this equation">¶</a></span>\[\begin{split}    &amp; \begin{bmatrix}
+<span class="eqno">(8)<a class="headerlink" href="#equation-eqpoplomstatmat" title="Permalink to this equation">#</a></span>\[\begin{split}    &amp; \begin{bmatrix}
       \hat{\omega}_{1,t+1} \\ \hat{\omega}_{2,t+1} \\ \hat{\omega}_{2,t+1} \\ \vdots \\ \hat{\omega}_{E+S-1,t+1} \\ \hat{\omega}_{E+S,t+1}
     \end{bmatrix}= \frac{1}{1 + g_{n,t+1}} \times ... \\
     &amp; \begin{bmatrix}
@@ -542,10 +679,10 @@ const thebe_selector_output = ".output, .cell_output"
     \end{bmatrix}\end{split}\]</div>
 <p>We can write system <a class="reference internal" href="#equation-eqpoplomstatmat">(8)</a> more simply in the following way.</p>
 <div class="math notranslate nohighlight" id="equation-eqpoplomstatmat2">
-<span class="eqno">(9)<a class="headerlink" href="#equation-eqpoplomstatmat2" title="Permalink to this equation">¶</a></span>\[  \boldsymbol{\hat{\omega}}_{t+1} = \frac{1}{1+g_{n,t+1}}\boldsymbol{\Omega}\boldsymbol{\hat{\omega}}_t \quad\forall t\]</div>
+<span class="eqno">(9)<a class="headerlink" href="#equation-eqpoplomstatmat2" title="Permalink to this equation">#</a></span>\[  \boldsymbol{\hat{\omega}}_{t+1} = \frac{1}{1+g_{n,t+1}}\boldsymbol{\Omega}\boldsymbol{\hat{\omega}}_t \quad\forall t\]</div>
 <p>The stationary steady-state population distribution <span class="math notranslate nohighlight">\(\boldsymbol{\bar{\omega}}\)</span> is the eigenvector <span class="math notranslate nohighlight">\(\boldsymbol{\omega}\)</span> with eigenvalue <span class="math notranslate nohighlight">\((1+\bar{g}_n)\)</span> of the matrix <span class="math notranslate nohighlight">\(\boldsymbol{\Omega}\)</span> that satisfies the following version of <a class="reference internal" href="#equation-eqpoplomstatmat2">(9)</a>.</p>
 <div class="math notranslate nohighlight" id="equation-eqpoplomss">
-<span class="eqno">(10)<a class="headerlink" href="#equation-eqpoplomss" title="Permalink to this equation">¶</a></span>\[  (1+\bar{g}_n)\boldsymbol{\bar{\omega}} = \boldsymbol{\Omega}\boldsymbol{\bar{\omega}}\]</div>
+<span class="eqno">(10)<a class="headerlink" href="#equation-eqpoplomss" title="Permalink to this equation">#</a></span>\[  (1+\bar{g}_n)\boldsymbol{\bar{\omega}} = \boldsymbol{\Omega}\boldsymbol{\bar{\omega}}\]</div>
 <div class="tip admonition">
 <p class="admonition-title">Proposition</p>
 <p>If the age <span class="math notranslate nohighlight">\(s=1\)</span> immigration rate is <span class="math notranslate nohighlight">\(i_1&gt;-(1-\rho_0)f_1\)</span> and the other immigration rates are strictly positive <span class="math notranslate nohighlight">\(i_s&gt;0\)</span> for all <span class="math notranslate nohighlight">\(s\geq 2\)</span> such that all elements of <span class="math notranslate nohighlight">\(\boldsymbol{\Omega}\)</span> are nonnegative, then there exists a unique positive real eigenvector <span class="math notranslate nohighlight">\(\boldsymbol{\bar{\omega}}\)</span> of the matrix <span class="math notranslate nohighlight">\(\boldsymbol{\Omega}\)</span>, and it is a stable equilibrium.</p>
@@ -602,24 +739,32 @@ First, note that the matrix <span class="math notranslate nohighlight">\(\boldsy
 </div>
 <p>For a full treatment and proof of the Perron-Frobenius Theorem, see <span class="bibtex" id="id10">[Suzumura:1983]</span>. Because the population growth process is exogenous to the model, we calibrate it to annual age data for age years <span class="math notranslate nohighlight">\(s=1\)</span> to <span class="math notranslate nohighlight">\(s=100\)</span>.</p>
 <p><a class="reference internal" href="#figorigvsfixsspop"><span class="std std-numref">Figure 4</span></a> shows the steady-state population distribution <span class="math notranslate nohighlight">\(\boldsymbol{\bar{\omega}}\)</span> and the population distribution after 120 periods <span class="math notranslate nohighlight">\(\boldsymbol{\hat{\omega}}_{120}\)</span>. Although the two distributions look very close to each other, they are not exactly the same.</p>
-<div class="figure align-default" id="figorigvsfixsspop">
+<figure class="align-default" id="figorigvsfixsspop">
 <a class="reference internal image-reference" href="../../_images/OrigVsFixSSpop.png"><img alt="../../_images/OrigVsFixSSpop.png" src="../../_images/OrigVsFixSSpop.png" style="height: 500px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Theoretical steady-state population distribution vs. population distribution at period <span class="math notranslate nohighlight">\(t=120\)</span></span><a class="headerlink" href="#figorigvsfixsspop" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Theoretical steady-state population distribution vs. population distribution at period <span class="math notranslate nohighlight">\(t=120\)</span></span><a class="headerlink" href="#figorigvsfixsspop" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>Further, we find that the maximum absolute difference between the population levels <span class="math notranslate nohighlight">\(\hat{\omega}_{s,t}\)</span> and <span class="math notranslate nohighlight">\(\hat{\omega}_{s,t+1}\)</span> was <span class="math notranslate nohighlight">\(1.3852\times 10^{-5}\)</span> after 160 periods. That is to say, that after 160 periods, given the estimated mortality, fertility, and immigration rates, the population has not achieved its steady state. For convergence in our solution method over a reasonable time horizon, we want the population to reach a stationary distribution after <span class="math notranslate nohighlight">\(T\)</span> periods. To do this, we artificially impose that the population distribution in period <span class="math notranslate nohighlight">\(t=120\)</span> is the steady-state. As can be seen from <a class="reference internal" href="#figorigvsfixsspop"><span class="std std-numref">Figure 4</span></a>, this assumption is not very restrictive. <a class="reference internal" href="#figimmratechg"><span class="std std-numref">Figure 5</span></a> shows the change in immigration rates that would make the period <span class="math notranslate nohighlight">\(t=120\)</span> population distribution equal be the steady-state. The maximum absolute difference between any two corresponding immigration rates in <a class="reference internal" href="#figimmratechg"><span class="std std-numref">Figure 5</span></a> is 0.0028.</p>
-<div class="figure align-default" id="figimmratechg">
+<figure class="align-default" id="figimmratechg">
 <a class="reference internal image-reference" href="../../_images/OrigVsAdjImm.png"><img alt="../../_images/OrigVsAdjImm.png" src="../../_images/OrigVsAdjImm.png" style="height: 500px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">Original immigration rates vs. adjusted immigration rates to make fixed steady-state population distribution</span><a class="headerlink" href="#figimmratechg" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Original immigration rates vs. adjusted immigration rates to make fixed steady-state population distribution</span><a class="headerlink" href="#figimmratechg" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>The most recent year of population data come from <span class="bibtex" id="id11">[Census:2015]</span> population estimates for both sexes for 2013. We those data and use the population transition matrix <a class="reference internal" href="#equation-eqpoplomstatmat2">(9)</a> to age it to the current model year of 2015. We then use <a class="reference internal" href="#equation-eqpoplomstatmat2">(9)</a> to generate the transition path of the population distribution over the time period of the model. <a class="reference internal" href="#figpopdistpath"><span class="std std-numref">Figure 6</span></a> shows the progression from the 2013 population data to the fixed steady-state at period <span class="math notranslate nohighlight">\(t=120\)</span>. The time path of the growth rate of the economically active population <span class="math notranslate nohighlight">\(\tilde{g}_{n,t}\)</span> is shown in <a class="reference internal" href="#figpopdistpath"><span class="std std-numref">Figure 6</span></a>.</p>
-<div class="figure align-default" id="figpopdistpath">
+<figure class="align-default" id="figpopdistpath">
 <a class="reference internal image-reference" href="../../_images/PopDistPath.png"><img alt="../../_images/PopDistPath.png" src="../../_images/PopDistPath.png" style="height: 500px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 6 </span><span class="caption-text">Exogenous stationary population distribution at periods along transition path</span><a class="headerlink" href="#figpopdistpath" title="Permalink to this image">¶</a></p>
-</div>
-<div class="figure align-default" id="figgrowthpath">
+<figcaption>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Exogenous stationary population distribution at periods along transition path</span><a class="headerlink" href="#figpopdistpath" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="figgrowthpath">
 <a class="reference internal image-reference" href="../../_images/GrowthPath.png"><img alt="../../_images/GrowthPath.png" src="../../_images/GrowthPath.png" style="height: 500px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 7 </span><span class="caption-text">Time path of the population growth rate <span class="math notranslate nohighlight">\(\tilde{g}_{n,t}\)</span></span><a class="headerlink" href="#figgrowthpath" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">Time path of the population growth rate <span class="math notranslate nohighlight">\(\tilde{g}_{n,t}\)</span></span><a class="headerlink" href="#figgrowthpath" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <hr class="footnotes docutils" />
 <dl class="footnote brackets">
 <dt class="label" id="calibage-note"><span class="brackets"><a class="fn-backref" href="#id3">1</a></span></dt>
@@ -629,8 +774,8 @@ First, note that the matrix <span class="math notranslate nohighlight">\(\boldsy
 <dd><p>The parameter <span class="math notranslate nohighlight">\(\rho_s\)</span> is the probability that a household of age <span class="math notranslate nohighlight">\(s\)</span> dies before age <span class="math notranslate nohighlight">\(s+1\)</span>.</p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -654,9 +799,11 @@ First, note that the matrix <span class="math notranslate nohighlight">\(\boldsy
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="macro.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -672,24 +819,28 @@ First, note that the matrix <span class="math notranslate nohighlight">\(\boldsy
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Jason DeBacker and Richard W. Evans<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Jason DeBacker and Richard W. Evans<br/>
-    
-        &copy; Copyright 2022.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

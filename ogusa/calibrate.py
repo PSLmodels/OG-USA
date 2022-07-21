@@ -113,7 +113,9 @@ class Calibration:
         # If run_micro is false, check to see if parameters file exists
         # and if it is consistent with Specifications instance
         if not run_micro:
-            dict_params, run_micro = self.read_tax_func_estimate(p, tax_func_path)
+            dict_params, run_micro = self.read_tax_func_estimate(
+                p, tax_func_path
+            )
         if run_micro:
             micro_data, _ = get_micro_data.get_data(
                 baseline=p.baseline,

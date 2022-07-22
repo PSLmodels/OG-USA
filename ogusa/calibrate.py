@@ -113,9 +113,11 @@ class Calibration:
         # If run_micro is false, check to see if parameters file exists
         # and if it is consistent with Specifications instance
         if not run_micro:
-            dict_params, run_micro = self.read_tax_func_estimate(tax_func_path)
+            dict_params, run_micro = self.read_tax_func_estimate(
+                p, tax_func_path
+            )
         if run_micro:
-            micro_data, taxcalc_version = get_micro_data.get_data(
+            micro_data, _ = get_micro_data.get_data(
                 baseline=p.baseline,
                 start_year=p.start_year,
                 reform=iit_reform,
@@ -281,7 +283,6 @@ class Calibration:
             "etr_params": etr_params,
             "mtrx_params": mtrx_params,
             "mtry_params": mtry_params,
-            "taxcalc_version": taxcalc_version,
             "mean_income_data": mean_income_data,
             "frac_tax_payroll": frac_tax_payroll,
         }
@@ -308,23 +309,6 @@ class Calibration:
             print("Tax Function Path Exists")
             dict_params = safe_read_pickle(tax_func_path)
             # check to see if tax_functions compatible
-            current_taxcalc = pkg_resources.get_distribution("taxcalc").version
-            try:
-                if current_taxcalc != dict_params["tax_calc_version"]:
-                    print(
-                        "WARNING: Tax function parameters estimated"
-                        + " from Tax Calculator version that is not "
-                        + " the one currently installed on this machine."
-                    )
-                    print(
-                        "Current TC version is ",
-                        current_taxcalc,
-                        ", Estimated tax functions from version ",
-                        dict_params.get("tax_calc_version", None),
-                    )
-                    flag = 1
-            except KeyError:
-                pass
             try:
                 if p.start_year != dict_params["start_year"]:
                     print(
@@ -339,7 +323,7 @@ class Calibration:
                     print(
                         "Model budget window length is "
                         + str(p.BW)
-                        + "but the tax function parameter "
+                        + " but the tax function parameter "
                         + "estimates have a budget window length of "
                         + str(dict_params["BW"])
                     )

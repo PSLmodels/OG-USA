@@ -20,7 +20,7 @@
     href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
@@ -36,7 +36,7 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -515,9 +515,11 @@ title="Open an issue"
         <span class="c1"># If run_micro is false, check to see if parameters file exists</span>
         <span class="c1"># and if it is consistent with Specifications instance</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">run_micro</span><span class="p">:</span>
-            <span class="n">dict_params</span><span class="p">,</span> <span class="n">run_micro</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_tax_func_estimate</span><span class="p">(</span><span class="n">tax_func_path</span><span class="p">)</span>
+            <span class="n">dict_params</span><span class="p">,</span> <span class="n">run_micro</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_tax_func_estimate</span><span class="p">(</span>
+                <span class="n">p</span><span class="p">,</span> <span class="n">tax_func_path</span>
+            <span class="p">)</span>
         <span class="k">if</span> <span class="n">run_micro</span><span class="p">:</span>
-            <span class="n">micro_data</span><span class="p">,</span> <span class="n">taxcalc_version</span> <span class="o">=</span> <span class="n">get_micro_data</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span>
+            <span class="n">micro_data</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_micro_data</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span>
                 <span class="n">baseline</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">baseline</span><span class="p">,</span>
                 <span class="n">start_year</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">start_year</span><span class="p">,</span>
                 <span class="n">reform</span><span class="o">=</span><span class="n">iit_reform</span><span class="p">,</span>
@@ -683,7 +685,6 @@ title="Open an issue"
             <span class="s2">&quot;etr_params&quot;</span><span class="p">:</span> <span class="n">etr_params</span><span class="p">,</span>
             <span class="s2">&quot;mtrx_params&quot;</span><span class="p">:</span> <span class="n">mtrx_params</span><span class="p">,</span>
             <span class="s2">&quot;mtry_params&quot;</span><span class="p">:</span> <span class="n">mtry_params</span><span class="p">,</span>
-            <span class="s2">&quot;taxcalc_version&quot;</span><span class="p">:</span> <span class="n">taxcalc_version</span><span class="p">,</span>
             <span class="s2">&quot;mean_income_data&quot;</span><span class="p">:</span> <span class="n">mean_income_data</span><span class="p">,</span>
             <span class="s2">&quot;frac_tax_payroll&quot;</span><span class="p">:</span> <span class="n">frac_tax_payroll</span><span class="p">,</span>
         <span class="p">}</span>
@@ -710,23 +711,6 @@ title="Open an issue"
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tax Function Path Exists&quot;</span><span class="p">)</span>
             <span class="n">dict_params</span> <span class="o">=</span> <span class="n">safe_read_pickle</span><span class="p">(</span><span class="n">tax_func_path</span><span class="p">)</span>
             <span class="c1"># check to see if tax_functions compatible</span>
-            <span class="n">current_taxcalc</span> <span class="o">=</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">get_distribution</span><span class="p">(</span><span class="s2">&quot;taxcalc&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">version</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">current_taxcalc</span> <span class="o">!=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">&quot;tax_calc_version&quot;</span><span class="p">]:</span>
-                    <span class="nb">print</span><span class="p">(</span>
-                        <span class="s2">&quot;WARNING: Tax function parameters estimated&quot;</span>
-                        <span class="o">+</span> <span class="s2">&quot; from Tax Calculator version that is not &quot;</span>
-                        <span class="o">+</span> <span class="s2">&quot; the one currently installed on this machine.&quot;</span>
-                    <span class="p">)</span>
-                    <span class="nb">print</span><span class="p">(</span>
-                        <span class="s2">&quot;Current TC version is &quot;</span><span class="p">,</span>
-                        <span class="n">current_taxcalc</span><span class="p">,</span>
-                        <span class="s2">&quot;, Estimated tax functions from version &quot;</span><span class="p">,</span>
-                        <span class="n">dict_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tax_calc_version&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
-                    <span class="p">)</span>
-                    <span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span>
-            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-                <span class="k">pass</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">start_year</span> <span class="o">!=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">&quot;start_year&quot;</span><span class="p">]:</span>
                     <span class="nb">print</span><span class="p">(</span>
@@ -741,7 +725,7 @@ title="Open an issue"
                     <span class="nb">print</span><span class="p">(</span>
                         <span class="s2">&quot;Model budget window length is &quot;</span>
                         <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">BW</span><span class="p">)</span>
-                        <span class="o">+</span> <span class="s2">&quot;but the tax function parameter &quot;</span>
+                        <span class="o">+</span> <span class="s2">&quot; but the tax function parameter &quot;</span>
                         <span class="o">+</span> <span class="s2">&quot;estimates have a budget window length of &quot;</span>
                         <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">dict_params</span><span class="p">[</span><span class="s2">&quot;BW&quot;</span><span class="p">])</span>
                     <span class="p">)</span>

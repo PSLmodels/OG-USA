@@ -23,6 +23,7 @@ jobs:
       - name: Build
         shell: bash -l {0}
         run: |
+          conda env create
           pip install -e .
           pip install pytest-cov
           pip install pytest-pycodestyle

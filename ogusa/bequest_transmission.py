@@ -68,7 +68,7 @@ def MVKDE(S, J, proportion_matrix, filename=None, plot=False, bandwidth=0.25):
     estimator_scaled = estimator / float(np.sum(estimator))
     if plot:
         fig = plt.figure()
-        ax = fig.add_subplot(projection='3d')
+        ax = fig.add_subplot(projection="3d")
         ax.plot_surface(agei, incomei, estimator_scaled, rstride=5)
         ax.set_xlabel("Age")
         ax.set_ylabel("Ability Types")

@@ -103,7 +103,7 @@ def MVKDE(
     estimator_scaled = estimator / float(np.sum(estimator))
     if plot == True:
         fig = plt.figure()
-        ax = fig.add_subplot(projection='3d')
+        ax = fig.add_subplot(projection="3d")
         ax.plot_surface(agei, incomei, estimator_scaled, rstride=5)
         ax.set_xlabel("Age")
         ax.set_ylabel("Ability Types")
@@ -412,7 +412,7 @@ def init_wealth(Kbar, omega0, lambda0, wealth_dist, scale_tol):
 def age_income_plot(networth_range, age_range, proportion_matrix, year):
     X, Y = np.meshgrid(networth_range, age_range)
     fig = plt.figure()
-    ax = fig.add_subplot(projection='3d')
+    ax = fig.add_subplot(projection="3d")
     ax.plot_surface(X, Y, proportion_matrix, rstride=5)
     ax.set_xlabel("Ability Types")
     ax.set_ylabel("Age")

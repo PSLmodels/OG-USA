@@ -24,5 +24,6 @@ jobs:
           pip install jupyter-book
           pip install sphinxcontrib-bibtex==1.0.0
           pip install -e .
+          python -m ipykernel install --user --name=ogusa-dev
           cd docs
           jb build ./book

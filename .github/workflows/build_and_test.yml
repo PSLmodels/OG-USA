@@ -24,6 +24,7 @@ jobs:
         shell: bash -l {0}
         run: |
           conda env create
+          conda activate ogusa-dev
           pip install -e .
           pip install pytest-cov
           pip install pytest-pycodestyle

@@ -3,16 +3,16 @@ channels:
 - conda-forge
 dependencies:
 - python>=3.7.7
-- numpy
-- psutil
-- scipy>=1.5.0
-- pandas>=1.2.5
-- matplotlib
-- dask>=2.30.0
-- dask-core>=2.30.0
-- distributed>=2.30.1
-- paramtools>=0.15.0
-- taxcalc>=3.0.0
+# - numpy
+# - psutil
+# - scipy>=1.5.0
+# - pandas>=1.2.5
+# - matplotlib
+# - dask>=2.30.0
+# - dask-core>=2.30.0
+# - distributed>=2.30.1
+# - paramtools>=0.15.0
+# - taxcalc>=3.0.0
 # - sphinx>=3.5.4
 # - sphinx-book-theme>=0.1.3
 # - pip
@@ -30,8 +30,8 @@ dependencies:
 # - rpy2
 # - black
 - pip:
-  - jupyter-book>=0.9.1
+  # - jupyter-book>=0.9.1
   # - cs-kit
   # - cs2tc
-  - pandas-datareader
+  # - pandas-datareader
   - ogcore

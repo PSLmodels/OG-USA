@@ -24,7 +24,6 @@ class Calibration:
         client=None,
         num_workers=1,
     ):
-
         self.estimate_tax_functions = estimate_tax_functions
         self.estimate_beta = estimate_beta
         self.estimate_chi_n = estimate_chi_n

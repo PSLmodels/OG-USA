@@ -6,6 +6,7 @@ import os
 
 CURDIR = os.path.split(os.path.abspath(__file__))[0]
 
+
 # Will need to do some smoothing with a KDE when estimate the matrix...
 def MVKDE(S, J, proportion_matrix, filename=None, plot=False, bandwidth=0.25):
     """

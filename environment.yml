@@ -13,22 +13,22 @@ dependencies:
 - distributed>=2.30.1
 - paramtools>=0.15.0
 - taxcalc>=3.0.0
-- sphinx>=3.5.4
-- sphinx-book-theme>=0.1.3
-- pip
-- pytest>=6.0
-- pytest-pep8
-- pytest-xdist
-- pycodestyle
-- pylint
-- coverage
-- requests
-- xlwt
-- openpyxl
-- statsmodels
-- linearmodels
-- rpy2
-- black
+# - sphinx>=3.5.4
+# - sphinx-book-theme>=0.1.3
+# - pip
+# - pytest>=6.0
+# - pytest-pep8
+# - pytest-xdist
+# - pycodestyle
+# - pylint
+# - coverage
+# - requests
+# - xlwt
+# - openpyxl
+# - statsmodels
+# - linearmodels
+# - rpy2
+# - black
 - pip:
   - jupyter-book>=0.9.1
   # - cs-kit

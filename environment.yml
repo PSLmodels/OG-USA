@@ -11,7 +11,7 @@ dependencies:
 - dask>=2.30.0
 - dask-core>=2.30.0
 - distributed>=2.30.1
-# - paramtools>=0.15.0
+- paramtools>=0.15.0
 # - taxcalc>=3.0.0
 # - sphinx>=3.5.4
 # - sphinx-book-theme>=0.1.3

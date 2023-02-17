@@ -24,10 +24,10 @@ dependencies:
 # - coverage
 # - requests
 # - xlwt
-- openpyxl
-- statsmodels
-- linearmodels
-- rpy2
+# - openpyxl
+# - statsmodels
+# - linearmodels
+# - rpy2
 - black
 - pip:
   # - jupyter-book>=0.9.1

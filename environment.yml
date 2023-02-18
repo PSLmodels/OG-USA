@@ -13,9 +13,9 @@ dependencies:
 - distributed>=2.30.1
 - paramtools>=0.15.0
 - taxcalc>=3.0.0
-# - sphinx>=3.5.4
-# - sphinx-book-theme>=0.1.3
-# - pip
+- sphinx>=3.5.4
+- sphinx-book-theme>=0.1.3
+- pip
 # - pytest>=6.0
 # - pytest-pep8
 # - pytest-xdist

@@ -21,8 +21,8 @@ dependencies:
 - pytest-xdist
 - pycodestyle
 - pylint
-# - coverage
-# - requests
+- coverage
+- requests
 # - xlwt
 # - openpyxl
 # - statsmodels

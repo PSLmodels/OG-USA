@@ -25,7 +25,7 @@ dependencies:
 - requests
 - xlwt
 - openpyxl
-# - statsmodels
+- statsmodels
 # - linearmodels
 # - rpy2
 - black

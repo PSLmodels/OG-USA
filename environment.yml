@@ -23,7 +23,7 @@ dependencies:
 - pylint
 - coverage
 - requests
-# - xlwt
+- xlwt
 # - openpyxl
 # - statsmodels
 # - linearmodels

@@ -31,7 +31,7 @@ dependencies:
 - black
 - pip:
   - jupyter-book>=0.9.1
-  # - cs-kit
-  # - cs2tc
+  - cs-kit
+  - cs2tc
   - pandas-datareader
   - ogcore

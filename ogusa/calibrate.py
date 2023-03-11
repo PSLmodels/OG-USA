@@ -28,6 +28,10 @@ class Calibration:
         self.estimate_beta = estimate_beta
         self.estimate_chi_n = estimate_chi_n
         if estimate_tax_functions:
+            if tax_func_path != None:
+                run_micro = False
+            else:
+                run_micro = True
             self.tax_function_params = self.get_tax_function_parameters(
                 p,
                 iit_reform,
@@ -35,7 +39,7 @@ class Calibration:
                 data,
                 client,
                 num_workers,
-                run_micro=True,
+                run_micro=run_micro,
                 tax_func_path=tax_func_path,
             )
         if estimate_beta:
@@ -260,6 +264,7 @@ class Calibration:
             except KeyError:
                 pass
             try:
+                p.BW = dict_params["BW"]  # QUICK FIX
                 if p.BW != dict_params["BW"]:
                     print(
                         "Model budget window length is "

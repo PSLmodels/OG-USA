@@ -18,7 +18,17 @@ config = {
     "packages": ["ogusa"],
     "include_package_data": True,
     "name": "ogusa",
-    "install_requires": [],
+    "install_requires": [
+        "psutil",
+        "scipy>=1.7.1",
+        "pandas>=1.2.5",
+        "ogcore",
+        "matplotlib",
+        "dask>=2.30.0",
+        "distributed>=2.30.1",
+        "paramtools>=0.15.0",
+        "requests",
+    ],
     "package_data": {"ogusa": ["data/PSID/*"]},
     "classifiers": [
         "Development Status :: 2 - Pre-Alpha",

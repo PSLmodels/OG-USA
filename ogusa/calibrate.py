@@ -28,7 +28,7 @@ class Calibration:
         self.estimate_beta = estimate_beta
         self.estimate_chi_n = estimate_chi_n
         if estimate_tax_functions:
-            if tax_func_path != None:
+            if tax_func_path is not None:
                 run_micro = False
             else:
                 run_micro = True

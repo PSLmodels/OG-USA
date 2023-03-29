@@ -34,7 +34,7 @@ config = {
         "openpyxl",
         "statsmodels",
         "linearmodels",
-        "ogcore"
+        "ogcore",
     ],
     "package_data": {"ogusa": ["data/PSID/*"]},
     "classifiers": [

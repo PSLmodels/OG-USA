@@ -103,7 +103,7 @@ def get_wealth_data(
     num_yrs = len(scf_yrs_list)
     if num_yrs >= 2:
         for year in scf_yrs_list[1:]:
-            df_scf = df_scf.append(scf_dict[str(year)], ignore_index=True)
+            df_scf = pd.concat([df_scf, scf_dict[str(year)]], ignore_index=True)
 
     return df_scf
 

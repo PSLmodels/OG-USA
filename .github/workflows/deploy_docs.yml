@@ -16,6 +16,7 @@ jobs:
       - name: Setup Miniconda
         uses: conda-incubator/setup-miniconda@v2
         with:
+          miniforge-variant: Mambaforge
           activate-environment: ogusa-dev
           environment-file: environment.yml
           python-version: 3.7

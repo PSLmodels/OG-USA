@@ -30,6 +30,7 @@ config = {
         "taxcalc>=3.0.0",
         "requests",
         "rpy2",
+        "pandas-datareader",
         "xlwt",
         "openpyxl",
         "statsmodels",

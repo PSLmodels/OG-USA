@@ -23,13 +23,13 @@ dependencies:
 - coverage
 - requests
 - xlwt
-- openpyxl>=3.1.2
 - statsmodels
 - linearmodels
 - rpy2
 - black
 - pip:
   - jupyter-book>=0.9.1
+  - openpyxl>=3.1.2
   - cs-kit
   - cs2tc
   - pandas-datareader

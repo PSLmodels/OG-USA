@@ -32,7 +32,7 @@ config = {
         "rpy2",
         "pandas-datareader",
         "xlwt",
-        "openpyxl",
+        "openpyxl>=3.1.2",
         "statsmodels",
         "linearmodels",
         "ogcore",

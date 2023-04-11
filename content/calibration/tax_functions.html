@@ -1,48 +1,59 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Tax Functions &#8212; OG-USA</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -52,61 +63,93 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/calibration/tax_functions';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Bequest Process Calibration" href="bequests.html" />
     <link rel="prev" title="Lifetime Earnings Profiles" href="earnings.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../../index.html">
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro/intro.html">
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../../_static/OG-USA_logo.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">OG-USA</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../../_static/OG-USA_logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/OG-USA_logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -115,454 +158,261 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Contributing to OG-USA
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contributing to OG-USA</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../contributing/contributor_guide.html">
-   Contributor Guide
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/contributor_guide.html">Contributor Guide</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  OG-USA API
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">OG-USA API</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../api/public_api.html">
-   API
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../api/bequest_transmission.html">
-     Bequest Transmission Process Estimation Functions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../api/calibrate.html">
-     Main Calibration Functions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../api/demographics.html">
-     Demographics Functions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../api/deterministic_profiles.html">
-     Deterministic Earnings Profiles Estimation Functions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../api/estimate_beta_j.html">
-     Beta Estimation Functions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../api/get_micro_data.html">
-     Functions to Get Micro-data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../api/income.html">
-     Income Process Functions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../api/macro_params.html">
-     Macro Parameter Estimation Functions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../api/psid_data_setup.html">
-     PSID Data Preparation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../api/transfer_distribution.html">
-     Government Transfer Distribution Estimation Functions
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../api/utils.html">
-     Utilities Functions
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../api/public_api.html">API</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/bequest_transmission.html">Bequest Transmission Process Estimation Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/calibrate.html">Main Calibration Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/demographics.html">Demographics Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/deterministic_profiles.html">Deterministic Earnings Profiles Estimation Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/estimate_beta_j.html">Beta Estimation Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/get_micro_data.html">Functions to Get Micro-data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/income.html">Income Process Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/macro_params.html">Macro Parameter Estimation Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/psid_data_setup.html">PSID Data Preparation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/transfer_distribution.html">Government Transfer Distribution Estimation Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/utils.html">Utilities Functions</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Calibration
- </span>
-</p>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Calibration</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="exogenous_parameters.html">
-   Exogenous Parameters
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="macro.html">
-   Calibration of Macroeconomic Parameters
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="demographics.html">
-   Demographics
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="earnings.html">
-   Lifetime Earnings Profiles
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Tax Functions
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="bequests.html">
-   Bequest Process Calibration
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="UBI.html">
-   Universal Basic Income (UBI)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="matching_lwi.html">
-   Matching Labor, Wealth, and Income Moments
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="exogenous_parameters.html">Exogenous Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="macro.html">Calibration of Macroeconomic Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demographics.html">Demographics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="earnings.html">Lifetime Earnings Profiles</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Tax Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bequests.html">Bequest Process Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UBI.html">Universal Basic Income (UBI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matching_lwi.html">Matching Labor, Wealth, and Income Moments</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  References
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../OGUSA_references.html">
-   References
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../OGUSA_references.html">References</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Citations of OG-USA
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Citations of OG-USA</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../citations.html">
-   Citations and use cases of OG-USA
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../citations.html">Citations and use cases of OG-USA</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/PSLmodels/OG-USA" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/PSLmodels/OG-USA/issues/new?title=Issue%20on%20page%20%2Fcontent/calibration/tax_functions.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
 
 
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
 
 
 
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/content/calibration/tax_functions.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
   </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/PSLmodels/OG-USA"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/PSLmodels/OG-USA/issues/new?title=Issue%20on%20page%20%2Fcontent/calibration/tax_functions.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../../_sources/content/calibration/tax_functions.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.md</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#effective-and-marginal-tax-rates">
-   Effective and Marginal Tax Rates
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#microeconomic-data">
-   Microeconomic Data
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#fitting-tax-functions">
-   Fitting Tax Functions
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#default-tax-functional-form">
-     Default Tax Functional Form
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#alternative-functional-forms">
-     Alternative Functional Forms
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#factor-transforming-income-units">
-   Factor Transforming Income Units
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#household-transfers">
-   Household Transfers
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#footnotes">
-   Footnotes
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Tax Functions</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#effective-and-marginal-tax-rates">
-   Effective and Marginal Tax Rates
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#microeconomic-data">
-   Microeconomic Data
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#fitting-tax-functions">
-   Fitting Tax Functions
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#default-tax-functional-form">
-     Default Tax Functional Form
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#alternative-functional-forms">
-     Alternative Functional Forms
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#factor-transforming-income-units">
-   Factor Transforming Income Units
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#household-transfers">
-   Household Transfers
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#footnotes">
-   Footnotes
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Tax Functions</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#effective-and-marginal-tax-rates">Effective and Marginal Tax Rates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#microeconomic-data">Microeconomic Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-tax-functions">Fitting Tax Functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-tax-functional-form">Default Tax Functional Form</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alternative-functional-forms">Alternative Functional Forms</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#factor-transforming-income-units">Factor Transforming Income Units</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#household-transfers">Household Transfers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="tax-functions">
-<span id="chap-taxcalc"></span><h1>Tax Functions<a class="headerlink" href="#tax-functions" title="Permalink to this headline">#</a></h1>
+<span id="chap-taxcalc"></span><h1>Tax Functions<a class="headerlink" href="#tax-functions" title="Permalink to this heading">#</a></h1>
 <p>The government is not an optimizing agent in <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code>. The government levies taxes on households, provides transfers to households, levies taxes on firms, spends resources on public goods, and makes rule-based adjustments to stabilize the economy in the long-run. The government can run budget deficits or surpluses in a given year and must, therefore, be able to accumulate debt or savings.</p>
 <p>The government sector influences households through two terms in the household budget constraint <a class="reference internal" href="#equation-eqhhbc">(17)</a>—government transfers <span class="math notranslate nohighlight">\(TR_{t}\)</span> and through the total tax liability function <span class="math notranslate nohighlight">\(T_{s,t}\)</span>, which can be decomposed into the effective tax rate times total income <a class="reference internal" href="#equation-eqtaxcalcliabetr2">(20)</a>. In this chapter, we detail the household tax component of government activity <span class="math notranslate nohighlight">\(T_{s,t}\)</span> in <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code>, along with our method of incorporating detailed microsimulation data into a dynamic general equilibrium model.</p>
 <div class="math notranslate nohighlight" id="equation-eqhhbc">
@@ -571,9 +421,9 @@ title="Print to PDF"
   &amp;\quad\forall j,t\quad\text{and}\quad s\geq E+1 \quad\text{where}\quad b_{j,E+1,t}=0\quad\forall j,t\end{split}\]</div>
 <p>Incorporating realistic tax and incentive detail into a general equilibrium model is notoriously difficult for two reasons. First, it is impossible in a dynamic general equilibrium model to capture all of the dimensions of heterogeneity on which the real-world tax rate depends. For example, a household’s tax liability in reality depends on filing status, number of dependents, many types of income, and some characteristics correlated with age. A good heterogeneous agent DGE model tries to capture the most important dimensions of heterogeneity, and necessarily neglects the other dimensions.</p>
 <p>The second difficulty in modeling realistic tax and incentive detail is the need for good microeconomic data on the individuals who make up the economy from which to simulate behavioral responses and corresponding tax liabilities and tax rates.</p>
-<p><code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> follows the method of <span class="bibtex" id="id1">[DeBackerEtAl:2019]</span> of generating detailed tax data on effective tax rates and marginal tax rates for a sample of tax filers along with their respective income and demographic characteristics and then using that data to estimate parametric tax functions that can be incorporated into <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> follows the method of <span id="id1">[<a class="reference internal" href="../OGUSA_references.html#id25" title="Jason DeBacker, Richard W. Evans, and Kerk L. Phillips. Integrating microsimulation models of tax policy into a dge macroeconomic model. Public Finance Review, 47(2):207-275, March 2019.">DeBacker <em>et al.</em>, 2019</a>]</span> of generating detailed tax data on effective tax rates and marginal tax rates for a sample of tax filers along with their respective income and demographic characteristics and then using that data to estimate parametric tax functions that can be incorporated into <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code>.</p>
 <section id="effective-and-marginal-tax-rates">
-<span id="sectaxcalcratetheory"></span><h2>Effective and Marginal Tax Rates<a class="headerlink" href="#effective-and-marginal-tax-rates" title="Permalink to this headline">#</a></h2>
+<span id="sectaxcalcratetheory"></span><h2>Effective and Marginal Tax Rates<a class="headerlink" href="#effective-and-marginal-tax-rates" title="Permalink to this heading">#</a></h2>
 <p>Before going into more detail regarding how we handle these two difficulties in <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code>, we need to define some functions and make some notation. For notational simplicity, we will use the variable <span class="math notranslate nohighlight">\(x\)</span> to summarize labor income, and we will use the variable <span class="math notranslate nohighlight">\(y\)</span> to summarize capital income.</p>
 <div class="math notranslate nohighlight" id="equation-eqtaxcalclabinc">
 <span class="eqno">(18)<a class="headerlink" href="#equation-eqtaxcalclabinc" title="Permalink to this equation">#</a></span>\[  x_{j,s,t} \equiv w_{t}e_{j,s}n_{j,s,t} \quad\forall j, t \quad\text{and}\quad E+1\leq s\leq E+S\]</div>
@@ -595,8 +445,8 @@ title="Print to PDF"
 <span class="eqno">(24)<a class="headerlink" href="#equation-eqmtry-derive" title="Permalink to this equation">#</a></span>\[  \frac{\partial T_{s,t}}{\partial b_{j,s,t}} = \frac{\partial T_{s,t}}{\partial r_{hh,t}b_{j,s,t}}\frac{\partial r_{hh,t}b_{j,s,t}}{\partial b_{j,s,t}} = \frac{\partial T_{s,t}}{\partial r_{hh,t}b_{j,s,t}}r_{hh,t} = \tau^{mtry}_{s,t}r_{hh,t}\]</div>
 </section>
 <section id="microeconomic-data">
-<span id="sectaxcalcmicro"></span><h2>Microeconomic Data<a class="headerlink" href="#microeconomic-data" title="Permalink to this headline">#</a></h2>
-<p>For <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code>, we use an open source microsimulation model called <code class="docutils literal notranslate"><span class="pre">Tax-Calculator</span></code> that uses microeconomic data on U.S. households from the Internal Revenue Service (IRS) Statistics of Income (SOI) Public Use File (PUF).<a class="footnote-reference brackets" href="#taxcalc-note" id="id2">1</a>  For users that have not paid for access to the Public Use File (PUF), <code class="docutils literal notranslate"><span class="pre">Tax-Calculator</span></code> has an option to use a CPS matched dataset that is publicly available free of charge that has the same general properties as the PUF.</p>
+<span id="sectaxcalcmicro"></span><h2>Microeconomic Data<a class="headerlink" href="#microeconomic-data" title="Permalink to this heading">#</a></h2>
+<p>For <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code>, we use an open source microsimulation model called <code class="docutils literal notranslate"><span class="pre">Tax-Calculator</span></code> that uses microeconomic data on U.S. households from the Internal Revenue Service (IRS) Statistics of Income (SOI) Public Use File (PUF).<a class="footnote-reference brackets" href="#taxcalc-note" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>  For users that have not paid for access to the Public Use File (PUF), <code class="docutils literal notranslate"><span class="pre">Tax-Calculator</span></code> has an option to use a CPS matched dataset that is publicly available free of charge that has the same general properties as the PUF.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Tax-Calculator</span></code> starts with the underlying population microeconomic data, in which each observation is a filer with a population weight that renders the sample representative. It then processes the relevant income and demographic characteristics in order to calculate the tax liability of each individual, according to all the rich tax law of the United States tax code. <code class="docutils literal notranslate"><span class="pre">Tax-Calculator</span></code> can then calculate effective tax rates for all of these individuals, thereby creating a sample of how ETR’s are related to other variables in our <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> model, such as total income <span class="math notranslate nohighlight">\(x + y\)</span>, labor income <span class="math notranslate nohighlight">\(x\)</span>, and capital income <span class="math notranslate nohighlight">\(y\)</span>. <code class="docutils literal notranslate"><span class="pre">Tax-Calculator</span></code> can also generate marginal tax rates by adding a dollar to each filer’s income of a particular type and calculate how the filer’s tax liability changes. This is a finite difference calculation of a derivative.</p>
 <p><a class="reference internal" href="#figtaxcalcetrtotinc"><span class="std std-numref">Figure 9</span></a> shows a scatter plot of <span class="math notranslate nohighlight">\(ETR\)</span>’s for 43-year-olds in 2017 and unadjusted gross income <span class="math notranslate nohighlight">\(x + y\)</span>. It is clear that <span class="math notranslate nohighlight">\(ETR\)</span> is positively related to income. It is also clear that a significant number of filers have a negative <span class="math notranslate nohighlight">\(ETR\)</span>. We will discuss in Section <a class="reference internal" href="#sectaxcalcfuncs"><span class="std std-ref">Fitting Tax Functions</span></a> the functional form <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> uses to best capture the main characteristics of these ETR data.</p>
 <figure class="align-default" id="figtaxcalcetrtotinc">
@@ -614,11 +464,11 @@ title="Print to PDF"
 </figure>
 </section>
 <section id="fitting-tax-functions">
-<span id="sectaxcalcfuncs"></span><h2>Fitting Tax Functions<a class="headerlink" href="#fitting-tax-functions" title="Permalink to this headline">#</a></h2>
+<span id="sectaxcalcfuncs"></span><h2>Fitting Tax Functions<a class="headerlink" href="#fitting-tax-functions" title="Permalink to this heading">#</a></h2>
 <p>In looking at the 2D scatter plot on effective tax rates as a function of total income in <a class="reference internal" href="#figtaxcalcetrtotinc"><span class="std std-numref">Figure 9</span></a> and the 3D scatter plots of <span class="math notranslate nohighlight">\(ETR\)</span>, <span class="math notranslate nohighlight">\(MTRx\)</span>, and <span class="math notranslate nohighlight">\(MTRy\)</span> in <a class="reference internal" href="#figtaxcalc3dtaxrates"><span class="std std-numref">Figure 10</span></a>, it is clear that all of these rates exhibit negative exponential or logistic shape. This empirical regularity allows us to make an important and nonrestrictive assumption. We can fit parametric tax rate functions to these data that are constrained to be monotonically increasing in labor income and capital income. This assumption of monotonicity is computationally important as it preserves a convex budget set for each household, which is important for being able to solve many household lifetime problems over a large number of periods.</p>
 <section id="default-tax-functional-form">
-<span id="sectaxcalcfuncs-dep"></span><h3>Default Tax Functional Form<a class="headerlink" href="#default-tax-functional-form" title="Permalink to this headline">#</a></h3>
-<p>For the default option, <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> follows the approach of <span class="bibtex" id="id3">[DeBackerEtAl:2019]</span> in using the following functional form to estimate tax functions for each age <span class="math notranslate nohighlight">\(s=E+1, E+2, ... E+S\)</span> in each time period <span class="math notranslate nohighlight">\(t\)</span>. This option can be manually selected by setting the parameter <code class="docutils literal notranslate"><span class="pre">tax_func_type=&quot;DEP&quot;</span></code>. Alternative specifications are outlined in Section <a class="reference internal" href="#sectaxcalcfuncs-alt"><span class="std std-ref">Alternative Functional Forms</span></a> below. Equation <a class="reference internal" href="#equation-eqtaxcalctaxfuncform">(25)</a> is written as a generic tax rate, but we use this same functional form for <span class="math notranslate nohighlight">\(ETR\)</span>’s, <span class="math notranslate nohighlight">\(MTRx\)</span>’s, and <span class="math notranslate nohighlight">\(MTRy\)</span>’s.</p>
+<span id="sectaxcalcfuncs-dep"></span><h3>Default Tax Functional Form<a class="headerlink" href="#default-tax-functional-form" title="Permalink to this heading">#</a></h3>
+<p>For the default option, <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> follows the approach of <span id="id3">[<a class="reference internal" href="../OGUSA_references.html#id25" title="Jason DeBacker, Richard W. Evans, and Kerk L. Phillips. Integrating microsimulation models of tax policy into a dge macroeconomic model. Public Finance Review, 47(2):207-275, March 2019.">DeBacker <em>et al.</em>, 2019</a>]</span> in using the following functional form to estimate tax functions for each age <span class="math notranslate nohighlight">\(s=E+1, E+2, ... E+S\)</span> in each time period <span class="math notranslate nohighlight">\(t\)</span>. This option can be manually selected by setting the parameter <code class="docutils literal notranslate"><span class="pre">tax_func_type=&quot;DEP&quot;</span></code>. Alternative specifications are outlined in Section <a class="reference internal" href="#sectaxcalcfuncs-alt"><span class="std std-ref">Alternative Functional Forms</span></a> below. Equation <a class="reference internal" href="#equation-eqtaxcalctaxfuncform">(25)</a> is written as a generic tax rate, but we use this same functional form for <span class="math notranslate nohighlight">\(ETR\)</span>’s, <span class="math notranslate nohighlight">\(MTRx\)</span>’s, and <span class="math notranslate nohighlight">\(MTRy\)</span>’s.</p>
 <div class="math notranslate nohighlight" id="equation-eqtaxcalctaxfuncform">
 <span class="eqno">(25)<a class="headerlink" href="#equation-eqtaxcalctaxfuncform" title="Permalink to this equation">#</a></span>\[\begin{split}  \tau(x,y) = &amp;\Bigl[\tau(x) + shift_x\Bigr]^\phi\Bigl[\tau(y) + shift_y\Bigr]^{1-\phi} + shift \\
   &amp;\text{where}\quad \tau(x) \equiv (max_x - min_x)\left(\frac{Ax^2 + Bx}{Ax^2 + Bx + 1}\right) + min_x \\
@@ -632,10 +482,6 @@ title="Print to PDF"
 <p>This functional form for tax rates delivers flexible parametric functions that can fit the tax rate data shown in <a class="reference internal" href="#figtaxcalc3dtaxrates"><span class="std std-numref">Figure 10</span></a> as well as a wide variety of policy reforms. Further, these functional forms are monotonically increasing in both labor income <span class="math notranslate nohighlight">\(x\)</span> and capital income <span class="math notranslate nohighlight">\(y\)</span>. This characteristic of monotonicity in <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> is essential for guaranteeing convex budget sets and thus uniqueness of solutions to the household Euler equations. The assumption of monotonicity does not appear to be a strong one when viewing the the tax rate data shown in <a class="reference internal" href="#figtaxcalc3dtaxrates"><span class="std std-numref">Figure 10</span></a>. While it does limit the potential tax systems to which one could apply our methodology, tax policies that do not satisfy this assumption would result in non-convex budget sets and thus require non-standard DGE model solutions methods and would not guarantee a unique equilibrium. The 12 parameters of our tax rate functional form from <a class="reference internal" href="#equation-eqtaxcalctaxfuncform">(25)</a> are summarized in <a class="reference internal" href="#tabtaxcalctfuncparams"><span class="std std-numref">Table 6</span></a>.</p>
 <table class="table" id="tabtaxcalctfuncparams">
 <caption><span class="caption-number">Table 6 </span><span class="caption-text"><strong>Description of tax rate function <span class="math notranslate nohighlight">\(\tau(x,y)\)</span> parameters.</strong></span><a class="headerlink" href="#tabtaxcalctfuncparams" title="Permalink to this table">#</a></caption>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Symbol</p></th>
 <th class="head"><p>Description</p></th>
@@ -688,12 +534,6 @@ title="Print to PDF"
 </figure>
 <table class="table" id="tabtaxcalcest42">
 <caption><span class="caption-number">Table 7 </span><span class="caption-text"><strong>Estimated baseline current law tax rate function for <span class="math notranslate nohighlight">\(\tau_{s,t}(x,y)\)</span> parameters for <span class="math notranslate nohighlight">\(s=42\)</span>, <span class="math notranslate nohighlight">\(t=2017\)</span>.</strong></span><a class="headerlink" href="#tabtaxcalcest42" title="Permalink to this table">#</a></caption>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Parameter</p></th>
 <th class="head"><p><span class="math notranslate nohighlight">\(ETR\)</span></p></th>
@@ -780,27 +620,27 @@ title="Print to PDF"
 <span class="eqno">(26)<a class="headerlink" href="#equation-eqtaxcalcthetawssq" title="Permalink to this equation">#</a></span>\[\begin{split}    \boldsymbol{\hat{\theta}}_{s,t} = \tilde{\boldsymbol{\theta}}_{s,t}:\quad &amp;\min_{\tilde{\boldsymbol{\theta}}_{s,t}}\sum_{i=1}^{N} \Bigl[\tau_{i}-\tau_{s,t}\bigl(x_i,y_i|\tilde{\boldsymbol{\theta}}_{s,t},\bar{\boldsymbol{\theta}}_{s,t}\bigr)\Bigr]^{2} w_i, \\
     &amp;\qquad\text{subject to}\quad A, B, C, D &gt; 0 \quad\text{and}\quad \phi\in[0,1]\end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\tau_{i}\)</span> is the tax rate for observation <span class="math notranslate nohighlight">\(i\)</span> from the microsimulation output, <span class="math notranslate nohighlight">\(\tau_{s,t}(x_i,y_i|\tilde{\boldsymbol{\theta}}_{s,t},\bar{\boldsymbol{\theta}}_{s,t})\)</span> is the predicted tax rate for filing-unit <span class="math notranslate nohighlight">\(i\)</span> with <span class="math notranslate nohighlight">\(x_{i}\)</span> labor income and <span class="math notranslate nohighlight">\(y_{i}\)</span> capital income given parameters <span class="math notranslate nohighlight">\(\boldsymbol{\theta}_{s,t}\)</span>, and <span class="math notranslate nohighlight">\(w_{i}\)</span> is the CPS sampling weight of this observation. The number <span class="math notranslate nohighlight">\(N\)</span> is the total number of observations from the microsimulation output for age <span class="math notranslate nohighlight">\(s\)</span> and year <span class="math notranslate nohighlight">\(t\)</span>. <a class="reference internal" href="#figtaxcalc3dvspred"><span class="std std-numref">Figure 11</span></a> shows the typical fit of an estimated tax function <span class="math notranslate nohighlight">\(\tau_{s,t}\bigl(x,y|\hat{\boldsymbol{\theta}}_{s,t}\bigr)\)</span> to the data. The data in <a class="reference internal" href="#figtaxcalc3dvspred"><span class="std std-numref">Figure 11</span></a> are the same age <span class="math notranslate nohighlight">\(s=42\)</span> and year <span class="math notranslate nohighlight">\(t=2017\)</span> as the data <a class="reference internal" href="#figtaxcalc3dtaxrates"><span class="std std-numref">Figure 10</span></a>.</p>
-<p>The underlying data can limit the number of tax functions that can be estimated. For example, we use the age of the primary filer from the PUF-CPS match to be equivalent to the age of the DGE model household. The DGE model we use allows for individuals up to age 100, however the data contain few primary filers with age above age 80. Because we cannot reliably estimate tax functions for <span class="math notranslate nohighlight">\(s&gt;80\)</span>, we apply the tax function estimates for 80 year-olds to those with model ages 81 to 100. In the case certain ages below age 80 have too few observations to enable precise estimation of the model parameters, we use a linear interpolation method to find the values for those ages <span class="math notranslate nohighlight">\(21\leq s &lt;80\)</span> that cannot be precisely estimated. <a class="footnote-reference brackets" href="#interpolation-note" id="id4">2</a></p>
-<p>In <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code>, we estimate the 12-parameter functional form <a class="reference internal" href="#equation-eqtaxcalctaxfuncform">(25)</a> using weighted nonlinear least squares to fit an effective tax rate function <span class="math notranslate nohighlight">\((\tau^{etr}_{s,t})\)</span>, a marginal tax rate of labor income function <span class="math notranslate nohighlight">\((\tau^{mtrx}_{s,t})\)</span>, and a marginal tax rate of capital income function <span class="math notranslate nohighlight">\((\tau^{mtry}_{s,t})\)</span> for each age <span class="math notranslate nohighlight">\(E+1\leq s\leq E+S\)</span> and each of the first 10 years from the current period. <a class="footnote-reference brackets" href="#param-note" id="id5">3</a> That means we have to perform 2,400 estimations of 12 parameters each. <a class="reference internal" href="#figtaxcalc3dvspred"><span class="std std-numref">Figure 11</span></a> shows the predicted surfaces for <span class="math notranslate nohighlight">\(\tau^{etr}_{s=42,t=2017}\)</span>, <span class="math notranslate nohighlight">\(\tau^{mtrx}_{s=42,t=2017}\)</span>, and <span class="math notranslate nohighlight">\(\tau^{mtry}_{s=42,t=2017}\)</span> along with the underlying scatter plot data from which those functions were estimated. <a class="reference internal" href="#tabtaxcalcest42"><span class="std std-numref">Table 7</span></a> shows the estimated values of those functional forms.</p>
+<p>The underlying data can limit the number of tax functions that can be estimated. For example, we use the age of the primary filer from the PUF-CPS match to be equivalent to the age of the DGE model household. The DGE model we use allows for individuals up to age 100, however the data contain few primary filers with age above age 80. Because we cannot reliably estimate tax functions for <span class="math notranslate nohighlight">\(s&gt;80\)</span>, we apply the tax function estimates for 80 year-olds to those with model ages 81 to 100. In the case certain ages below age 80 have too few observations to enable precise estimation of the model parameters, we use a linear interpolation method to find the values for those ages <span class="math notranslate nohighlight">\(21\leq s &lt;80\)</span> that cannot be precisely estimated. <a class="footnote-reference brackets" href="#interpolation-note" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p>
+<p>In <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code>, we estimate the 12-parameter functional form <a class="reference internal" href="#equation-eqtaxcalctaxfuncform">(25)</a> using weighted nonlinear least squares to fit an effective tax rate function <span class="math notranslate nohighlight">\((\tau^{etr}_{s,t})\)</span>, a marginal tax rate of labor income function <span class="math notranslate nohighlight">\((\tau^{mtrx}_{s,t})\)</span>, and a marginal tax rate of capital income function <span class="math notranslate nohighlight">\((\tau^{mtry}_{s,t})\)</span> for each age <span class="math notranslate nohighlight">\(E+1\leq s\leq E+S\)</span> and each of the first 10 years from the current period. <a class="footnote-reference brackets" href="#param-note" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> That means we have to perform 2,400 estimations of 12 parameters each. <a class="reference internal" href="#figtaxcalc3dvspred"><span class="std std-numref">Figure 11</span></a> shows the predicted surfaces for <span class="math notranslate nohighlight">\(\tau^{etr}_{s=42,t=2017}\)</span>, <span class="math notranslate nohighlight">\(\tau^{mtrx}_{s=42,t=2017}\)</span>, and <span class="math notranslate nohighlight">\(\tau^{mtry}_{s=42,t=2017}\)</span> along with the underlying scatter plot data from which those functions were estimated. <a class="reference internal" href="#tabtaxcalcest42"><span class="std std-numref">Table 7</span></a> shows the estimated values of those functional forms.</p>
 <p>The full set of estimated values are calculated using the <a class="reference external" href="https://github.com/PSLmodels/OG-USA/blob/master/ogusa/calibrate.py#L82"><code class="docutils literal notranslate"><span class="pre">get_tax_function_parameters</span></code></a> method of the <a class="reference external" href="https://github.com/PSLmodels/OG-USA/blob/master/ogusa/calibrate.py#L20"><code class="docutils literal notranslate"><span class="pre">Calibration</span></code></a> class  of the <a class="reference external" href="https://github.com/PSLmodels/OG-USA/blob/master/ogusa/calibrate.py#L20"><code class="docutils literal notranslate"><span class="pre">OG-USA/ogusa/calibrate.py</span></code></a> module. And the estimated baseline values are stored in the <a class="reference external" href="https://github.com/PSLmodels/OG-USA/blob/master/ogusa/ogusa_default_parameters.json"><code class="docutils literal notranslate"><span class="pre">ogusa_default_parameters.json</span></code></a> file.</p>
 </section>
 <section id="alternative-functional-forms">
-<span id="sectaxcalcfuncs-alt"></span><h3>Alternative Functional Forms<a class="headerlink" href="#alternative-functional-forms" title="Permalink to this headline">#</a></h3>
-<p>In addition to the default option using tax functions of the form developed by <span class="bibtex" id="id6">[DeBackerEtAl:2019]</span>, <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> also allows users to specify alternative tax functions.  Three alternatives are offered:</p>
-<ol>
-<li><p>Functions as in <span class="bibtex" id="id7">[DeBackerEtAl:2019]</span>, but where <span class="math notranslate nohighlight">\(\tau^{etr}_{s,t}\)</span>, <span class="math notranslate nohighlight">\(\tau^{mtrx}_{s,t}\)</span>, and <span class="math notranslate nohighlight">\(\tau^{mtry}_{s,t}\)</span> are functions of total income (i.e., <span class="math notranslate nohighlight">\(x+y\)</span>) and not labor and capital income separately.  Users can select this option by setting the parameter <code class="docutils literal notranslate"><span class="pre">tax_func_type=&quot;DEP_totalinc&quot;</span></code>.</p></li>
-<li><p>Functions of the Gouveia and Strauss form <span class="bibtex" id="id8">[GouveiaStrauss:1994]</span>:</p>
+<span id="sectaxcalcfuncs-alt"></span><h3>Alternative Functional Forms<a class="headerlink" href="#alternative-functional-forms" title="Permalink to this heading">#</a></h3>
+<p>In addition to the default option using tax functions of the form developed by <span id="id6">[<a class="reference internal" href="../OGUSA_references.html#id25" title="Jason DeBacker, Richard W. Evans, and Kerk L. Phillips. Integrating microsimulation models of tax policy into a dge macroeconomic model. Public Finance Review, 47(2):207-275, March 2019.">DeBacker <em>et al.</em>, 2019</a>]</span>, <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> also allows users to specify alternative tax functions.  Three alternatives are offered:</p>
+<ol class="arabic">
+<li><p>Functions as in <span id="id7">[<a class="reference internal" href="../OGUSA_references.html#id25" title="Jason DeBacker, Richard W. Evans, and Kerk L. Phillips. Integrating microsimulation models of tax policy into a dge macroeconomic model. Public Finance Review, 47(2):207-275, March 2019.">DeBacker <em>et al.</em>, 2019</a>]</span>, but where <span class="math notranslate nohighlight">\(\tau^{etr}_{s,t}\)</span>, <span class="math notranslate nohighlight">\(\tau^{mtrx}_{s,t}\)</span>, and <span class="math notranslate nohighlight">\(\tau^{mtry}_{s,t}\)</span> are functions of total income (i.e., <span class="math notranslate nohighlight">\(x+y\)</span>) and not labor and capital income separately.  Users can select this option by setting the parameter <code class="docutils literal notranslate"><span class="pre">tax_func_type=&quot;DEP_totalinc&quot;</span></code>.</p></li>
+<li><p>Functions of the Gouveia and Strauss form <span id="id8">[<a class="reference internal" href="../OGUSA_references.html#id34" title="Miguel Gouveia and Robert P. Strauss. Effective federal individual tax functions: an exploratory empirical analysis. National Tax Journal, 47(2):317-39, June 1994.">Gouveia and Strauss, 1994</a>]</span>:</p>
 <div class="math notranslate nohighlight">
 \[  \tau = \phi_{0}(1 - (x+y)^{(\phi_{1}-1)}((x+y)^{-\phi1} + \phi_{2})^{(-1 - \phi_{1})/\phi_{1}})\]</div>
 <p>Users can select this option by setting the parameter <code class="docutils literal notranslate"><span class="pre">tax_func_type=&quot;GS&quot;</span></code>.  The three parameters of this function (<span class="math notranslate nohighlight">\(\phi_{0}, \phi_{1}, \phi_{2}\)</span>) are estimated using the weighted sum of squares estimated described in Equation <a class="reference internal" href="#equation-eqtaxcalcthetawssq">(26)</a>.</p>
 </li>
 <li><p>Linear tax functions (i.e., <span class="math notranslate nohighlight">\(\tau =\)</span> a constant).  Users can select this option by setting the parameter <code class="docutils literal notranslate"><span class="pre">tax_func_type=&quot;linear&quot;</span></code>.  The constant rate is found by taking the weighted average of the appropriate tax rate (effective tax rate, marginal tax rate on labor income, marginal tax rate on labor income) for each age and year, where the values are weighted by sampling weights and income.</p></li>
 </ol>
-<p>Among all of these tax functional forms, users can set the <code class="docutils literal notranslate"><span class="pre">age_specific</span></code> parameter to <code class="docutils literal notranslate"><span class="pre">False</span></code> if they wish to have one function for all ages <span class="math notranslate nohighlight">\(s\)</span>.  In addition, for the functions based on <span class="bibtex" id="id9">[DeBackerEtAl:2019]</span> (<code class="docutils literal notranslate"><span class="pre">tax_func_type=&quot;DEP&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">tax_func_type=&quot;DEP_totinc&quot;</span></code>), one can set <code class="docutils literal notranslate"><span class="pre">analytical_mtrs=True</span></code> if they wish to have the <span class="math notranslate nohighlight">\(\tau^{mtrx}_{s,t}\)</span> and <span class="math notranslate nohighlight">\(\tau^{mtry}_{s,t}\)</span> derived from the <span class="math notranslate nohighlight">\(\tau^{etr}_{s,t}\)</span> functions.  This provides theoretical consistency, but reduced fit of the functions (see <span class="bibtex" id="id10">[DeBackerEtAl:2019]</span> for more details).</p>
+<p>Among all of these tax functional forms, users can set the <code class="docutils literal notranslate"><span class="pre">age_specific</span></code> parameter to <code class="docutils literal notranslate"><span class="pre">False</span></code> if they wish to have one function for all ages <span class="math notranslate nohighlight">\(s\)</span>.  In addition, for the functions based on <span id="id9">[<a class="reference internal" href="../OGUSA_references.html#id25" title="Jason DeBacker, Richard W. Evans, and Kerk L. Phillips. Integrating microsimulation models of tax policy into a dge macroeconomic model. Public Finance Review, 47(2):207-275, March 2019.">DeBacker <em>et al.</em>, 2019</a>]</span> (<code class="docutils literal notranslate"><span class="pre">tax_func_type=&quot;DEP&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">tax_func_type=&quot;DEP_totinc&quot;</span></code>), one can set <code class="docutils literal notranslate"><span class="pre">analytical_mtrs=True</span></code> if they wish to have the <span class="math notranslate nohighlight">\(\tau^{mtrx}_{s,t}\)</span> and <span class="math notranslate nohighlight">\(\tau^{mtry}_{s,t}\)</span> derived from the <span class="math notranslate nohighlight">\(\tau^{etr}_{s,t}\)</span> functions.  This provides theoretical consistency, but reduced fit of the functions (see <span id="id10">[<a class="reference internal" href="../OGUSA_references.html#id25" title="Jason DeBacker, Richard W. Evans, and Kerk L. Phillips. Integrating microsimulation models of tax policy into a dge macroeconomic model. Public Finance Review, 47(2):207-275, March 2019.">DeBacker <em>et al.</em>, 2019</a>]</span> for more details).</p>
 </section>
 </section>
 <section id="factor-transforming-income-units">
-<span id="sectaxcalcfactor"></span><h2>Factor Transforming Income Units<a class="headerlink" href="#factor-transforming-income-units" title="Permalink to this headline">#</a></h2>
+<span id="sectaxcalcfactor"></span><h2>Factor Transforming Income Units<a class="headerlink" href="#factor-transforming-income-units" title="Permalink to this heading">#</a></h2>
 <p>The tax functions <span class="math notranslate nohighlight">\(\tau^{etr}_{s,t}\)</span>, <span class="math notranslate nohighlight">\(\tau^{mtrx}_{s,t}\)</span>, and <span class="math notranslate nohighlight">\(\tau^{mtry}_{s,t}\)</span> are estimated based on current U.S. tax filer reported incomes in dollars. However, the consumption units of the <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> model are not in the same units as the real-world U.S. incomes data. For this reason, we have to transform the income by a <span class="math notranslate nohighlight">\(factor\)</span> so that it is in the same units as the income data on which the tax functions were estimated.</p>
 <p>The tax rate functions are each functions of capital income and labor income <span class="math notranslate nohighlight">\(\tau(x,y)\)</span>. In order to make the tax functions return accurate tax rates associated with the correct levels of income, we multiply the model income <span class="math notranslate nohighlight">\(x^m\)</span> and <span class="math notranslate nohighlight">\(y^m\)</span> by a <span class="math notranslate nohighlight">\(factor\)</span> so that they are in the same units as the real-world U.S. income data <span class="math notranslate nohighlight">\(\tau(factor\times x^m, factor\times y^m)\)</span>. We define the <span class="math notranslate nohighlight">\(factor\)</span> such that average steady-state household total income in the model times the <span class="math notranslate nohighlight">\(factor\)</span> equals the U.S. data average total income.</p>
 <div class="math notranslate nohighlight" id="equation-eqtaxcalcfactor">
@@ -808,26 +648,27 @@ title="Print to PDF"
 <p>We do not know the steady-state wage, interest rate, household labor supply, and savings <em>ex ante</em>. So the income <span class="math notranslate nohighlight">\(factor\)</span> is an endogenous variable in the steady-state equilibrium computational solution. We hold the factor constant throughout the nonsteady-state equilibrium solution.</p>
 </section>
 <section id="household-transfers">
-<span id="sectaxcalctfers"></span><h2>Household Transfers<a class="headerlink" href="#household-transfers" title="Permalink to this headline">#</a></h2>
+<span id="sectaxcalctfers"></span><h2>Household Transfers<a class="headerlink" href="#household-transfers" title="Permalink to this heading">#</a></h2>
 <p>Total transfers to households by the government in a given period <span class="math notranslate nohighlight">\(t\)</span> is <span class="math notranslate nohighlight">\(TR_t\)</span>. The percent of those transfers given to all households of age <span class="math notranslate nohighlight">\(s\)</span> and lifetime income group <span class="math notranslate nohighlight">\(j\)</span> is <span class="math notranslate nohighlight">\(\eta_{j,s}\)</span> such that <span class="math notranslate nohighlight">\(\sum_{s=E+1}^{E+S}\sum_{j=1}^J\eta_{j,s,t}=1\)</span>. <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> currently has the transfer distribution function set to distribute transfers uniformly among the population.</p>
 <div class="math notranslate nohighlight" id="equation-eqtaxcalcetajs">
 <span class="eqno">(28)<a class="headerlink" href="#equation-eqtaxcalcetajs" title="Permalink to this equation">#</a></span>\[  \eta_{j,s,t} = \frac{\lambda_j\omega_{s,t}}{\tilde{N}_t} \quad\forall j,t \quad\text{and}\quad E+1\leq s\leq E+S\]</div>
 <p>However, this distribution function <span class="math notranslate nohighlight">\(\eta_{j,s,t}\)</span> could also be modified to more accurately reflect the way transfers are distributed in the United States.</p>
 </section>
 <section id="footnotes">
-<span id="sectaxfootnotes"></span><h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">#</a></h2>
+<span id="sectaxfootnotes"></span><h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">#</a></h2>
 <hr class="footnotes docutils" />
-<dl class="footnote brackets">
-<dt class="label" id="taxcalc-note"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
-<dd><p><code class="docutils literal notranslate"><span class="pre">Tax-Calculator</span></code> is available through an open source repository <a class="reference external" href="https://github.com/PSLmodels/Tax-Calculator">https://github.com/PSLmodels/Tax-Calculator</a> as well as through a web application <a class="reference external" href="https://compute.studio/PSLmodels/Tax-Brain/">Tax-Brain</a>, hosted by <a class="reference external" href="https://about.compute.studio/">Compute.Studio</a>. Documentation for <code class="docutils literal notranslate"><span class="pre">Tax-Calculator</span></code> is available at <a class="reference external" href="https://taxcalc.pslmodels.org/">https://taxcalc.pslmodels.org/</a>.</p>
-</dd>
-<dt class="label" id="interpolation-note"><span class="brackets"><a class="fn-backref" href="#id4">2</a></span></dt>
-<dd><p>We use two criterion to determine whether the function should be interpolated. First, we require a minimum number of observations of filers of that age and in that tax year. Second, we require that that sum of squared errors meet a predefined threshold.</p>
-</dd>
-<dt class="label" id="param-note"><span class="brackets"><a class="fn-backref" href="#id5">3</a></span></dt>
-<dd><p>We assume that whatever parameters the tax functions have in year 10 persist forever.</p>
-</dd>
-</dl>
+<aside class="footnote brackets" id="taxcalc-note" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
+<p><code class="docutils literal notranslate"><span class="pre">Tax-Calculator</span></code> is available through an open source repository <a class="github reference external" href="https://github.com/PSLmodels/Tax-Calculator">PSLmodels/Tax-Calculator</a> as well as through a web application <a class="reference external" href="https://compute.studio/PSLmodels/Tax-Brain/">Tax-Brain</a>, hosted by <a class="reference external" href="https://about.compute.studio/">Compute.Studio</a>. Documentation for <code class="docutils literal notranslate"><span class="pre">Tax-Calculator</span></code> is available at <a class="reference external" href="https://taxcalc.pslmodels.org/">https://taxcalc.pslmodels.org/</a>.</p>
+</aside>
+<aside class="footnote brackets" id="interpolation-note" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">2</a><span class="fn-bracket">]</span></span>
+<p>We use two criterion to determine whether the function should be interpolated. First, we require a minimum number of observations of filers of that age and in that tax year. Second, we require that that sum of squared errors meet a predefined threshold.</p>
+</aside>
+<aside class="footnote brackets" id="param-note" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">3</a><span class="fn-bracket">]</span></span>
+<p>We assume that whatever parameters the tax functions have in year 10 persist forever.</p>
+</aside>
 </section>
 </section>
 
@@ -843,7 +684,7 @@ title="Print to PDF"
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./content/calibration"
         },
         predefinedOutput: true
@@ -851,50 +692,114 @@ title="Print to PDF"
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="earnings.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Lifetime Earnings Profiles</p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="earnings.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lifetime Earnings Profiles</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="bequests.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="bequests.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Bequest Process Calibration</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By Jason DeBacker and Richard W. Evans<br/>
-  
-      &copy; Copyright 2022.<br/>
-</p>
-        </footer>
-    </div>
-    
-</div>
-
-
       </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#effective-and-marginal-tax-rates">Effective and Marginal Tax Rates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#microeconomic-data">Microeconomic Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-tax-functions">Fitting Tax Functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-tax-functional-form">Default Tax Functional Form</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alternative-functional-forms">Alternative Functional Forms</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#factor-transforming-income-units">Factor Transforming Income Units</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#household-transfers">Household Transfers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#footnotes">Footnotes</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jason DeBacker and Richard W. Evans
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

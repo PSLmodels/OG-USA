@@ -113,9 +113,10 @@ def read_cbo_forecast():
     # Note that real values come second (after nominal values)
     df.drop_duplicates(subset="variable", keep="last", inplace=True)
     df3 = df[~pd.isnull(df.variable)]
-    df_st = df1.append(df2, sort=False, ignore_index=True).append(
-        df3, sort=False, ignore_index=True
-    )
+    df_st = pd.concat([df1, df2, df3], sort=False, ignore_index=True)
+    # df_st = df1.append(df2, sort=False, ignore_index=True).append(
+    #     df3, sort=False, ignore_index=True
+    # )
     df_st["var_name"] = df_st["variable"].replace(CBO_VAR_NAMES)
     df_st = df_st[~pd.isnull(df_st.var_name)]
     df_st.drop(columns=["variable"], inplace=True)

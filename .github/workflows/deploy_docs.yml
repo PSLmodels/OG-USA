@@ -9,13 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2  # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
+        uses: actions/checkout@v3
         with:
           persist-credentials: false
 
       - name: Setup Miniconda
         uses: conda-incubator/setup-miniconda@v2
         with:
+          miniforge-variant: Mambaforge
           activate-environment: ogusa-dev
           environment-file: environment.yml
           python-version: 3.7
@@ -25,8 +26,9 @@ jobs:
         shell: bash -l {0}
         run: |
           pip install jupyter-book
-          pip install sphinxcontrib-bibtex==1.0.0
+          pip install sphinxcontrib-bibtex
           pip install -e .
+          python -m ipykernel install --user --name=ogusa-dev
           cd docs
           jb build ./book
 

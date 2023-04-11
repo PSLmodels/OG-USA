@@ -184,7 +184,7 @@ def labor_data_graphs(weighted, S, J, output_dir):
     )
 
     fig10 = plt.figure()
-    ax10 = fig10.gca(projection="3d")
+    ax10 = fig10.add_subplot(projection="3d")
     ax10.plot_surface(X, Y, lab_mat_basic.T, rstride=1, cstride=2, cmap=cmap2)
     ax10.set_xlabel(r"age-$s$")
     ax10.set_ylabel(r"ability type -$j$")

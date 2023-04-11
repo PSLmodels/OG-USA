@@ -2,15 +2,13 @@ name: ogusa-dev
 channels:
 - conda-forge
 dependencies:
-- python>=3.7.7, <=3.9.12  # This restriction can be removed as soon as these packages support Python 3.10
-- mkl>=2020.2
-- numpy<=1.21.2  # This restriction can be removed as soon as Numba supports NumPy 1.22
+- python>=3.7.7
+- numpy
 - psutil
 - scipy>=1.5.0
 - pandas>=1.2.5
 - matplotlib
 - dask>=2.30.0
-- dask-core>=2.30.0
 - distributed>=2.30.1
 - paramtools>=0.15.0
 - taxcalc>=3.0.0
@@ -25,13 +23,13 @@ dependencies:
 - coverage
 - requests
 - xlwt
-- openpyxl
 - statsmodels
 - linearmodels
 - rpy2
 - black
 - pip:
   - jupyter-book>=0.9.1
+  - openpyxl>=3.1.2
   - cs-kit
   - cs2tc
   - pandas-datareader

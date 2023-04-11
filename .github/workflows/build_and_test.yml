@@ -1,4 +1,4 @@
-name: Build and test [Python 3.7, 3.8, 3.9]
+name: Build and test [Python 3.8, 3.9]
 
 on: [push, pull_request]
 
@@ -7,25 +7,25 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.7, 3.8, 3.9]
+        python-version: [3.8, 3.9]
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           persist-credentials: false
 
-      - name: Setup Miniconda using Python ${{ matrix.python-version }}
-        uses: conda-incubator/setup-miniconda@v2
+      - name: Setup Python
+        uses: actions/setup-python@v4
         with:
-          activate-environment: ogusa-dev
-          environment-file: environment.yml
           python-version: ${{ matrix.python-version }}
-          auto-activate-base: false
 
       - name: Build
         shell: bash -l {0}
         run: |
+          conda init bash
+          conda env create
+          conda activate ogusa-dev
           pip install -e .
           pip install pytest-cov
           pip install pytest-pycodestyle

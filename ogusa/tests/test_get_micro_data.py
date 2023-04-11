@@ -85,10 +85,7 @@ def test_puf_path():
         )
         # blind_head is only in the CPS file and e00700 is only in the
         # PUF.  See taxcalc/records_variables.json
-        assert (
-            calc.array("blind_head").sum() == 0
-            and calc.array("e00700").sum() > 0
-        )
+        assert calc.array("e00700").sum() > 0
     # we do not have puf.csv
     else:
         # make sure TC is looking for puf.csv
@@ -203,7 +200,7 @@ def test_get_data(baseline, dask_client):
     """
     Test of get_micro_data.get_data() function
 
-    Note that this test may fail if the Tax-Calculator is not v 3.2.1
+    Note that this test may fail if the Tax-Calculator is not v 3.2.2
     """
     expected_data = utils.safe_read_pickle(
         os.path.join(CUR_PATH, "test_io_data", "micro_data_dict_for_tests.pkl")

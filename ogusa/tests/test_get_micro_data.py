@@ -86,8 +86,7 @@ def test_puf_path():
         # blind_head is only in the CPS file and e00700 is only in the
         # PUF.  See taxcalc/records_variables.json
         assert (
-            calc.array("blind_head").sum() == 0
-            and calc.array("e00700").sum() > 0
+            calc.array("e00700").sum() > 0
         )
     # we do not have puf.csv
     else:

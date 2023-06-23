@@ -47,13 +47,13 @@ def main():
     )
     p.age_specific = False
     p.tax_func_type = "GS"
-    c1 = Calibration(
-        p, iit_reform={}, estimate_tax_functions=True, client=client
-    )
-    # Run model
-    start_time = time.time()
-    runner(p, time_path=True, client=client)
-    print("run time = ", time.time() - start_time)
+    # c1 = Calibration(
+    #     p, iit_reform={}, estimate_tax_functions=True, client=client
+    # )
+    # # Run model
+    # start_time = time.time()
+    # runner(p, time_path=True, client=client)
+    # print("run time = ", time.time() - start_time)
 
     """
     ------------------------------------------------------------------------
@@ -96,7 +96,7 @@ def main():
     d = c2.get_dict()
     # additional parameters to change
     updated_params = {
-        "cit_rate": [0.35],
+        "cit_rate": [[0.35]],
         "etr_params": d["etr_params"],
         "mtrx_params": d["mtrx_params"],
         "mtry_params": d["mtry_params"],

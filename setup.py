@@ -17,12 +17,7 @@ setuptools.setup(
         "Issue Tracker": "https://github.com/PSLmodels/OG-USA/issues",
     },
     packages=["ogusa"],
-    package_data={
-        "ogusa": [
-            "ogusa_default_parameters.json",
-            "data/PSID/*"
-        ]
-    },
+    package_data={"ogusa": ["ogusa_default_parameters.json", "data/PSID/*"]},
     include_packages=True,
     python_requires=">=3.7.7, <3.11",
     install_requires=[
@@ -42,7 +37,7 @@ setuptools.setup(
         "openpyxl>=3.1.2",
         "statsmodels",
         "linearmodels",
-        "ogcore"
+        "ogcore",
     ],
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",

@@ -87,6 +87,8 @@ def main():
             )
         )
     )
+    p2.age_specific = False
+    p2.tax_func_type = "GS"
     # Use calibration class to estimate reform tax functions from
     # Tax-Calculator, specifing reform for Tax-Calculator in iit_reform
     c2 = Calibration(
@@ -96,7 +98,7 @@ def main():
     d = c2.get_dict()
     # additional parameters to change
     updated_params = {
-        "cit_rate": [0.35],
+        "cit_rate": [[0.35]],
         "etr_params": d["etr_params"],
         "mtrx_params": d["mtrx_params"],
         "mtry_params": d["mtry_params"],

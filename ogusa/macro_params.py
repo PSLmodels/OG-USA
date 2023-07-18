@@ -20,7 +20,7 @@ def get_macro_params():
     # format is year (1940),month (1),day (1)
     start = datetime.datetime(1947, 1, 1)
     end = datetime.date.today()  # go through today
-    baseline_date = datetime.datetime(2019, 3, 31)
+    baseline_date = datetime.datetime(2023, 3, 31)
 
     variable_dict = {
         "GDP Per Capita": "A939RX0Q048SBEA",
@@ -32,6 +32,7 @@ def get_macro_params():
         "Total gov transfer payments": "B087RC1Q027SBEA",
         "Social Security payments": "W823RC1",
         "Gov expenditures": "FGEXPND",
+        "Gov investment": "A782RC1Q027SBEA",
         "Gov interest payments": "A091RC1Q027SBEA",
         "Real GDP": "GDPC1",
         "Nominal GDP": "GDP",
@@ -55,6 +56,7 @@ def get_macro_params():
                 "Total gov transfer payments",
                 "Social Security payments",
                 "Gov expenditures",
+                "Gov investment",
                 "Gov interest payments",
                 "GDP Per Capita",
             ]
@@ -89,8 +91,15 @@ def get_macro_params():
             fred_data_q["Gov expenditures"]
             - fred_data_q["Total gov transfer payments"]
             - fred_data_q["Gov interest payments"]
+            - fred_data_q["Gov investment"]
+            - fred_data_q["Social Security payments"]
         )
         / fred_data_q["Nominal GDP"]
+    ).loc[baseline_date]
+
+    # find alpha_I
+    macro_parameters["alpha_I"] = pd.Series(
+        fred_data_q["Gov investment"] / fred_data_q["Nominal GDP"]
     ).loc[baseline_date]
 
     # find gamma
@@ -102,18 +111,24 @@ def get_macro_params():
     )
 
     # # estimate r_gov_shift and r_gov_scale
-    rate_data = fred_data_d[
+    rate_data = (fred_data_d[
         ["10 year treasury rate", "BAA Corp Bond Rates"]
-    ].dropna()
+    ].dropna()[-50:]) / 100  # divide by 100 bc data in percentage points
     rate_data["constant"] = np.ones(len(rate_data.index))
-    # mod = PanelOLS(fred_data['10 year treasury rate'],
-    #                fred_data[['constant', 'BAA Corp Bond Rates']])
     mod = sm.OLS(
         rate_data["10 year treasury rate"],
         rate_data[["constant", "BAA Corp Bond Rates"]],
     )
     res = mod.fit()
-    macro_parameters["r_gov_shift"] = res.params["BAA Corp Bond Rates"]
-    macro_parameters["r_gov_scale"] = res.params["constant"]
+    macro_parameters["r_gov_scale"] = res.params["BAA Corp Bond Rates"]
+    macro_parameters["r_gov_shift"] = res.params["constant"] * -1
+    import matplotlib.pyplot as plt
+    x = np.linspace(0, 0.2, 100)
+    y = -1 * macro_parameters["r_gov_shift"] + macro_parameters["r_gov_scale"] * x
+    plt.plot(x, y, label = "r_gov")
+    plt.plot(x, x, label = "r")
+    plt.legend()
+    plt.show()
+
 
     return macro_parameters

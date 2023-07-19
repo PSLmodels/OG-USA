@@ -122,13 +122,5 @@ def get_macro_params():
     res = mod.fit()
     macro_parameters["r_gov_scale"] = res.params["BAA Corp Bond Rates"]
     macro_parameters["r_gov_shift"] = res.params["constant"] * -1
-    import matplotlib.pyplot as plt
-    x = np.linspace(0, 0.2, 100)
-    y = -1 * macro_parameters["r_gov_shift"] + macro_parameters["r_gov_scale"] * x
-    plt.plot(x, y, label = "r_gov")
-    plt.plot(x, x, label = "r")
-    plt.legend()
-    plt.show()
-
 
     return macro_parameters

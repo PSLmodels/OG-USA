@@ -51,10 +51,10 @@ class Calibration:
         self.macro_params = macro_params.get_macro_params()
 
         # eta estimation
-        self.eta = transfer_distribution.get_transfer_matrix()
+        self.eta = transfer_distribution.get_transfer_matrix(p.J, p.lambdas)
 
         # zeta estimation
-        self.zeta = bequest_transmission.get_bequest_matrix()
+        self.zeta = bequest_transmission.get_bequest_matrix(p.J, p.lambdas)
 
         # demographics
         self.demographic_params = demographics.get_pop_objs(

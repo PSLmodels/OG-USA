@@ -45,11 +45,23 @@ def main():
             )
         )
     )
-    p.age_specific = False
-    p.tax_func_type = "GS"
-    c1 = Calibration(
-        p, iit_reform={}, estimate_tax_functions=True, client=client
-    )
+    # c1 = Calibration(
+    #     p, iit_reform={}, estimate_tax_functions=True, client=client
+    # )
+    # # tax_func_path = os.path.join(CUR_DIR, base_dir, "TxFuncEst_baseline.pkl")
+    # # c1 = Calibration(
+    # #     p, iit_reform={}, estimate_tax_functions=True, tax_func_path=tax_func_path, client=client
+    # # )
+    # d = c1.get_dict()
+    # # additional parameters to change
+    # updated_params = {
+    #     "etr_params": d["etr_params"],
+    #     "mtrx_params": d["mtrx_params"],
+    #     "mtry_params": d["mtry_params"],
+    #     "mean_income_data": d["mean_income_data"],
+    #     "frac_tax_payroll": d["frac_tax_payroll"],
+    # }
+    # p.update_specifications(updated_params)
     # Run model
     start_time = time.time()
     runner(p, time_path=True, client=client)

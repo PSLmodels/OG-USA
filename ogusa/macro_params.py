@@ -111,9 +111,11 @@ def get_macro_params():
     )
 
     # # estimate r_gov_shift and r_gov_scale
-    rate_data = (fred_data_d[
-        ["10 year treasury rate", "BAA Corp Bond Rates"]
-    ].dropna()[-50:]) / 100  # divide by 100 bc data in percentage points
+    rate_data = (
+        fred_data_d[["10 year treasury rate", "BAA Corp Bond Rates"]].dropna()[
+            -50:
+        ]
+    ) / 100  # divide by 100 bc data in percentage points
     rate_data["constant"] = np.ones(len(rate_data.index))
     mod = sm.OLS(
         rate_data["10 year treasury rate"],

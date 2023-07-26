@@ -143,9 +143,15 @@ def read_cbo_forecast():
 
 
 # Will need to do some smoothing with a KDE when estimate the matrix...
-def MVKDE(S, J, proportion_matrix,
-          zaxis_label="Received proportion of total transfers",
-          filename=None, plot=False, bandwidth=0.25):
+def MVKDE(
+    S,
+    J,
+    proportion_matrix,
+    zaxis_label="Received proportion of total transfers",
+    filename=None,
+    plot=False,
+    bandwidth=0.25,
+):
     """
     Generates a Multivariate Kernel Density Estimator and returns a
     matrix representing a probability distribution according to given

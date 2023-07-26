@@ -31,7 +31,10 @@ Define functions
 
 
 def get_un_data(
-    variable_code, country_id=UN_COUNTRY_CODE, start_year=START_YEAR, end_year=END_YEAR
+    variable_code,
+    country_id=UN_COUNTRY_CODE,
+    start_year=START_YEAR,
+    end_year=END_YEAR,
 ):
     """
     This function retrieves data from the United Nations Data Portal API
@@ -276,7 +279,7 @@ def get_imm_rates(totpers=100, min_age=0, max_age=100):
 
     """
     # Read UN data
-    num_years = 4 # note that code below only uses four years, in future, this should be more flexbile
+    num_years = 4  # note that code below only uses four years, in future, this should be more flexbile
     start_year = START_YEAR - num_years
     end_year = start_year + num_years - 1
     df = get_un_data("47", start_year=start_year, end_year=end_year)

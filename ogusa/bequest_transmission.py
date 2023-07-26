@@ -8,9 +8,8 @@ CURDIR = os.path.split(os.path.abspath(__file__))[0]
 
 
 def get_bequest_matrix(
-        J=7,
-        lambdas=np.array([0.25, 0.25, 0.2, 0.1, 0.1, 0.09, 0.01]),
-        graphs=True):
+    J=7, lambdas=np.array([0.25, 0.25, 0.2, 0.1, 0.1, 0.09, 0.01]), graphs=True
+):
     """
     Returns S x J matrix representing the fraction of aggregate
     bequests that go to each household by age and lifetime income group.
@@ -64,20 +63,24 @@ def get_bequest_matrix(
 
         # Fraction of inheritances in a year by age
         # line plot
-        df[df["year_data"] >= 1988].groupby("age").mean(numeric_only=True).plot(y="net_wealth")
+        df[df["year_data"] >= 1988].groupby("age").mean(
+            numeric_only=True
+        ).plot(y="net_wealth")
         plt.savefig(os.path.join(image_dir, "net_wealth_age.png"))
-        df[df["year_data"] >= 1988].groupby("age").mean(numeric_only=True).plot(y="inheritance")
+        df[df["year_data"] >= 1988].groupby("age").mean(
+            numeric_only=True
+        ).plot(y="inheritance")
         plt.savefig(os.path.join(image_dir, "inheritance_age.png"))
 
         # Inheritances by lifetime income group
         # bar plot
-        df[df["year_data"] >= 1988].groupby("li_group").mean(numeric_only=True).plot.bar(
-            y="net_wealth"
-        )
+        df[df["year_data"] >= 1988].groupby("li_group").mean(
+            numeric_only=True
+        ).plot.bar(y="net_wealth")
         plt.savefig(os.path.join(image_dir, "net_wealth_li.png"))
-        df[df["year_data"] >= 1988].groupby("li_group").mean(numeric_only=True).plot.bar(
-            y="inheritance"
-        )
+        df[df["year_data"] >= 1988].groupby("li_group").mean(
+            numeric_only=True
+        ).plot.bar(y="inheritance")
         plt.savefig(os.path.join(image_dir, "inheritance_li.png"))
 
         # lifecycle plots with line for each ability type
@@ -122,10 +125,16 @@ def get_bequest_matrix(
         bandwidth=0.5,
     )
 
-    if (J == 10) and np.array_equal(np.squeeze(lambdas[:6]), np.array([0.25, 0.25, 0.2, 0.1, 0.1, 0.09])):
+    if (J == 10) and np.array_equal(
+        np.squeeze(lambdas[:6]), np.array([0.25, 0.25, 0.2, 0.1, 0.1, 0.09])
+    ):
         kde_matrix_new = np.zeros((80, J))
         kde_matrix_new[:, :6] = kde_matrix[:, :6]
-        kde_matrix_new[:, 6:] = kde_matrix[:, 6:].sum(axis=1).reshape(80,1) * np.tile(np.reshape(lambdas[6:], (1, 4)), (80, 1)) / lambdas[6:].sum()
+        kde_matrix_new[:, 6:] = (
+            kde_matrix[:, 6:].sum(axis=1).reshape(80, 1)
+            * np.tile(np.reshape(lambdas[6:], (1, 4)), (80, 1))
+            / lambdas[6:].sum()
+        )
         kde_matrix = kde_matrix_new
 
     np.savetxt(

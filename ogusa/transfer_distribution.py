@@ -8,9 +8,8 @@ CURDIR = os.path.split(os.path.abspath(__file__))[0]
 
 
 def get_transfer_matrix(
-        J=7,
-        lambdas=np.array([0.25, 0.25, 0.2, 0.1, 0.1, 0.09, 0.01]),
-        graphs=True):
+    J=7, lambdas=np.array([0.25, 0.25, 0.2, 0.1, 0.1, 0.09, 0.01]), graphs=True
+):
     """
     Compute SxJ matrix representing the distribution of aggregate
     government transfers by age and lifetime income group.
@@ -56,7 +55,9 @@ def get_transfer_matrix(
 
     if graphs:
         # Total total_transfers by year
-        df.groupby("year_data").mean(numeric_only=True).plot(y="total_transfers")
+        df.groupby("year_data").mean(numeric_only=True).plot(
+            y="total_transfers"
+        )
         plt.savefig(os.path.join(image_dir, "total_transfers_year.png"))
         df.groupby("year_data").mean(numeric_only=True).plot(y="sum_transfers")
         plt.savefig(os.path.join(image_dir, "sum_transfers_year.png"))
@@ -67,16 +68,16 @@ def get_transfer_matrix(
 
         # Fraction of total_transfers in a year by age
         # line plot
-        df[df["year_data"] >= 1988].groupby("age").mean(numeric_only=True).plot(
-            y="total_transfers"
-        )
+        df[df["year_data"] >= 1988].groupby("age").mean(
+            numeric_only=True
+        ).plot(y="total_transfers")
         plt.savefig(os.path.join(image_dir, "total_transfers_age.png"))
 
         # total_transfers by lifetime income group
         # bar plot
-        df[df["year_data"] >= 1988].groupby("li_group").mean(numeric_only=True).plot.bar(
-            y="total_transfers"
-        )
+        df[df["year_data"] >= 1988].groupby("li_group").mean(
+            numeric_only=True
+        ).plot.bar(y="total_transfers")
         plt.savefig(os.path.join(image_dir, "total_transfers_li.png"))
 
         # lifecycle plots with line for each ability type
@@ -108,9 +109,7 @@ def get_transfer_matrix(
     )
     # replace NaN with zero
     transfers_matrix.fillna(value=0, inplace=True)
-    transfers_matrix = (
-        transfers_matrix / transfers_matrix.sum().sum()
-    )
+    transfers_matrix = transfers_matrix / transfers_matrix.sum().sum()
     # total_transfers_matrix.to_csv(os.path.join(
     #     output_dir, 'transfer_matrix.csv'))
 
@@ -124,10 +123,16 @@ def get_transfer_matrix(
         bandwidth=0.5,
     )
 
-    if (J == 10) and np.array_equal(np.squeeze(lambdas[:6]), np.array([0.25, 0.25, 0.2, 0.1, 0.1, 0.09])):
+    if (J == 10) and np.array_equal(
+        np.squeeze(lambdas[:6]), np.array([0.25, 0.25, 0.2, 0.1, 0.1, 0.09])
+    ):
         kde_matrix_new = np.zeros((80, J))
         kde_matrix_new[:, :6] = kde_matrix[:, :6]
-        kde_matrix_new[:, 6:] = kde_matrix[:, 6:].sum(axis=1).reshape(80,1) * np.tile(np.reshape(lambdas[6:], (1, 4)), (80, 1)) / lambdas[6:].sum()
+        kde_matrix_new[:, 6:] = (
+            kde_matrix[:, 6:].sum(axis=1).reshape(80, 1)
+            * np.tile(np.reshape(lambdas[6:], (1, 4)), (80, 1))
+            / lambdas[6:].sum()
+        )
         kde_matrix = kde_matrix_new
 
     np.savetxt(

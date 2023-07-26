@@ -2,7 +2,7 @@ name: ogusa-dev
 channels:
 - conda-forge
 dependencies:
-- python>=3.7.7
+- python>=3.7.7, <3.11
 - numpy
 - psutil
 - scipy>=1.5.0

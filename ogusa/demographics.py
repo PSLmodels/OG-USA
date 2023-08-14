@@ -69,9 +69,6 @@ def get_un_data(
     # pd.json_normalize flattens the JSON to accommodate nested lists
     # within the JSON structure
     df = pd.json_normalize(j["data"])
-    print(df.keys())
-    print(df.ageLabel.unique)
-    print(df)
 
     # Loop until there are new pages with data
     while j["nextPage"] is not None:
@@ -143,12 +140,12 @@ def get_fert(totpers=100, min_age=0, max_age=100, graph=False):
     plt.xlabel(r"Age $s$")
     plt.ylabel(r"Fertility rate")
     plt.legend(loc="upper left")
-    plt.text(
-        -5,
-        -0.2,
-        "Source: United Nations Population Prospects.",
-        fontsize=9,
-    )
+    # plt.text(
+    #     -5,
+    #     -0.2,
+    #     "Source: United Nations Population Prospects.",
+    #     fontsize=9,
+    # )
     plt.tight_layout(rect=(0, 0.03, 1, 1))
     output_path = os.path.join(output_dir, "fert_rates")
     plt.savefig(output_path)

@@ -1,24 +1,26 @@
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
+import setuptools
 
-with open("README.md") as f:
-    longdesc = f.read()
+with open("README.md", "r", encoding="utf-8") as fh:
+    longdesc = fh.read()
 
-version = "0.0.0"
-
-config = {
-    "description": "USA Calibration for OG-Core",
-    "long_description": longdesc,
-    "url": "https://github.com/PSLmodels/OG-USA/",
-    "download_url": "https://github.com/PLSmodels/OG-USA/",
-    "version": version,
-    "license": "CC0 1.0 Universal public domain dedication",
-    "packages": ["ogusa"],
-    "include_package_data": True,
-    "name": "ogusa",
-    "install_requires": [
+setuptools.setup(
+    name="ogusa",
+    version="0.1.0",
+    author="Jason DeBacker and Richard W. Evans",
+    license="CC0 1.0 Universal (CC0 1.0) Public Domain Dedication",
+    description="USA calibration for OG-Core",
+    long_description_content_type="text/markdown",
+    long_description=longdesc,
+    url="https://github.com/PSLmodels/OG-USA/",
+    download_url="https://github.com/PSLmodels/OG-USA/",
+    project_urls={
+        "Issue Tracker": "https://github.com/PSLmodels/OG-USA/issues",
+    },
+    packages=["ogusa"],
+    package_data={"ogusa": ["ogusa_default_parameters.json", "data/PSID/*"]},
+    include_packages=True,
+    python_requires=">=3.7.7, <3.11",
+    install_requires=[
         "numpy",
         "psutil",
         "scipy>=1.5.0",
@@ -29,7 +31,7 @@ config = {
         "paramtools>=0.15.0",
         "taxcalc>=3.0.0",
         "requests",
-        "rpy2",
+        "rpy2<=3.5.11",
         "pandas-datareader",
         "xlwt",
         "openpyxl>=3.1.2",
@@ -37,8 +39,7 @@ config = {
         "linearmodels",
         "ogcore",
     ],
-    "package_data": {"ogusa": ["data/PSID/*"]},
-    "classifiers": [
+    classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Intended Audience :: Developers",
         "Natural Language :: English",
@@ -49,9 +50,8 @@ config = {
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
-    "tests_require": ["pytest"],
-}
-
-setup(**config)
+    tests_require=["pytest"],
+)

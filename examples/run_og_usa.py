@@ -82,6 +82,8 @@ def main():
             )
         )
     )
+    p2.age_specific = False
+    p2.tax_func_type = "GS"
     # Use calibration class to estimate reform tax functions from
     # Tax-Calculator, specifying reform for Tax-Calculator in iit_reform
     c2 = Calibration(

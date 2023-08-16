@@ -207,7 +207,7 @@ def test_get_data(baseline, dask_client):
     )
     test_data, _ = get_micro_data.get_data(
         baseline=baseline,
-        start_year=2030,
+        start_year=2031,
         reform={},
         data="cps",
         client=dask_client,

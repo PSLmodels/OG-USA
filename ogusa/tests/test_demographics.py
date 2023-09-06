@@ -12,7 +12,7 @@ def test_get_pop_objs():
     T = int(round(4.0 * S))
     start_year = 2019
 
-    pop_dict = demographics.get_pop_objs(E, S, T, 1, 100, start_year, False)
+    pop_dict = demographics.get_pop_objs(E, S, T, 1, 100, start_year - 1, start_year, False)
 
     assert np.allclose(pop_dict["omega_SS"], pop_dict["omega"][-1, :])
 
@@ -26,7 +26,7 @@ def test_pop_smooth():
     T = int(round(4.0 * S))
     start_year = 2019
 
-    pop_dict = demographics.get_pop_objs(E, S, T, 1, 100, start_year, False)
+    pop_dict = demographics.get_pop_objs(E, S, T, 1, 100, start_year - 1, start_year, False)
 
     assert np.any(
         np.absolute(pop_dict["omega"][:-1, :] - pop_dict["omega"][1:, :])
@@ -46,7 +46,7 @@ def test_imm_smooth():
     T = int(round(4.0 * S))
     start_year = 2019
 
-    pop_dict = demographics.get_pop_objs(E, S, T, 1, 100, start_year, False)
+    pop_dict = demographics.get_pop_objs(E, S, T, 1, 100, start_year - 1, start_year, False)
 
     assert np.any(
         np.absolute(
@@ -81,7 +81,7 @@ def test_infant_mort():
     mort_rates, infmort_rate = demographics.get_mort(100, 0, 100, graph=False)
     # check that infant mortality equals rate hardcoded into
     # demographics.py
-    assert infmort_rate == 0.00566
+    assert infmort_rate == 0.00491958
 
 
 def test_pop_rebin():
@@ -94,10 +94,10 @@ def test_pop_rebin():
     assert rebinned_data.shape[0] == totpers_new
 
 
-def test_get_imm_resid():
+def test_get_imm_rates():
     """
     Test of function to solve for immigration rates from population data
     """
     S = 100
-    imm_rates = demographics.get_imm_resid(S, 0, 100)
+    imm_rates = demographics.get_imm_rates(S, 0, 100)
     assert imm_rates.shape[0] == S

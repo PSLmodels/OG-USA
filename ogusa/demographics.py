@@ -6,11 +6,11 @@ model
 """
 # Import packages
 import os
-import requests
 import numpy as np
 import scipy.optimize as opt
 import pandas as pd
 import matplotlib.pyplot as plt
+from ogusa.utils import get_legacy_session
 from ogcore import parameter_plots as pp
 
 START_YEAR = 2023
@@ -62,34 +62,41 @@ def get_un_data(
     )
 
     # get data from url
-    response = requests.get(target)
-    # Converts call into JSON
-    j = response.json()
-    # Convert JSON into a pandas DataFrame.
-    # pd.json_normalize flattens the JSON to accommodate nested lists
-    # within the JSON structure
-    df = pd.json_normalize(j["data"])
-
-    # Loop until there are new pages with data
-    while j["nextPage"] is not None:
-        # Reset the target to the next page
-        target = j["nextPage"]
-        # call the API for the next page
-        response = requests.get(target)
-        # Convert response to JSON format
+    response = get_legacy_session().get(target)
+    # Check if the request was successful before processing
+    if response.status_code == 200:
+        # Converts call into JSON
         j = response.json()
-        # Store the next page in a data frame
-        df_temp = pd.json_normalize(j["data"])
-        # Append next page to the data frame
-        df = pd.concat([df, df_temp])
-    # keep just what is needed from data
-    df = df[df.variant == "Median"]
-    df = df[df.sex == "Both sexes"][["timeLabel", "ageLabel", "value"]]
-    df.rename({"timeLabel": "year", "ageLabel": "age"}, axis=1, inplace=True)
-    df.loc[df.age == "100+", "age"] = 100
-    df.age = df.age.astype(int)
-    df.year = df.year.astype(int)
-    df = df[df.age <= 100]
+        # Convert JSON into a pandas DataFrame.
+        # pd.json_normalize flattens the JSON to accommodate nested lists
+        # within the JSON structure
+        df = pd.json_normalize(j["data"])
+        # Loop until there are new pages with data
+        while j["nextPage"] is not None:
+            # Reset the target to the next page
+            target = j["nextPage"]
+            # call the API for the next page
+            response = get_legacy_session().get(target)
+            # Convert response to JSON format
+            j = response.json()
+            # Store the next page in a data frame
+            df_temp = pd.json_normalize(j["data"])
+            # Append next page to the data frame
+            df = pd.concat([df, df_temp])
+        # keep just what is needed from data
+        df = df[df.variant == "Median"]
+        df = df[df.sex == "Both sexes"][["timeLabel", "ageLabel", "value"]]
+        df.rename({"timeLabel": "year", "ageLabel": "age"},
+                  axis=1, inplace=True)
+        df.loc[df.age == "100+", "age"] = 100
+        df.age = df.age.astype(int)
+        df.year = df.year.astype(int)
+        df = df[df.age <= 100]
+    else:
+        print(
+            f"Failed to retrieve population data. HTTP status code: {response.status_code}"
+        )
+        assert False
 
     return df
 
@@ -427,6 +434,7 @@ def get_pop_objs(
                 path, length T + S
 
     """
+    print("Model year = ", model_year, " Data year = ", data_year)
     assert model_year >= 2011 and model_year <= 2100
     assert data_year >= 2011 and data_year <= 2100
     # need data year to be before model year to get omega_S_preTP

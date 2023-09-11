@@ -50,6 +50,10 @@ def get_un_data(
     Returns:
         df (Pandas DataFrame): DataFrame of UN data
     """
+    print("variable_code = ", variable_code)
+    print("country_id = ", country_id)
+    print("start_year = ", start_year)
+    print("end_year = ", end_year)
     target = (
         "https://population.un.org/dataportalapi/api/v1/data/indicators/"
         + variable_code
@@ -120,6 +124,9 @@ def get_fert(
         min_age (int): age in years at which agents are born, >= 0
         max_age (int): age in years at which agents die with certainty,
             >= 4
+        country_id (str): country id for UN data
+        start_year (int): start year for UN data
+        end_year (int): end year for UN data
         graph (bool): =True if want graphical output
 
     Returns:
@@ -129,7 +136,7 @@ def get_fert(
     """
     # Read UN data
     df = get_un_data(
-        "68", start_year=start_year, end_year=end_year, country_id=country_id
+        "68", country_id=country_id, start_year=start_year, end_year=end_year
     )
     # put in vector
     fert_rates = df.value.values
@@ -176,9 +183,9 @@ def get_mort(
     totpers=100,
     min_age=0,
     max_age=100,
+    country_id=UN_COUNTRY_CODE,
     start_year=START_YEAR,
     end_year=END_YEAR,
-    country_id=UN_COUNTRY_CODE,
     graph=True,
 ):
     """
@@ -190,6 +197,9 @@ def get_mort(
         min_age (int): age in years at which agents are born, >= 0
         max_age (int): age in years at which agents die with certainty,
             >= 4
+        country_id (str): country id for UN data
+        start_year (int): start year for UN data
+        end_year (int): end year for UN data
         graph (bool): =True if want graphical output
 
     Returns:
@@ -200,7 +210,7 @@ def get_mort(
     """
     # Read UN data
     df = get_un_data(
-        "80", start_year=start_year, end_year=end_year, country_id=country_id
+        "80", country_id=country_id, start_year=start_year, end_year=end_year
     )
     # put in vector
     mort_rates_data = df.value.values
@@ -303,6 +313,9 @@ def get_imm_rates(
         min_age (int): age in years at which agents are born, >= 0
         max_age (int): age in years at which agents die with certainty,
             >= 4
+        country_id (str): country id for UN data
+        start_year (int): start year for UN data
+        end_year (int): end year for UN data
         graph (bool): =True if want graphical output
 
     Returns:
@@ -457,6 +470,7 @@ def get_pop_objs(
             >= 4
         model_year (int): current year for which analysis will begin,
             >= 2016
+        country_id (str): country id for UN data
         GraphDiag (bool): =True if want graphical output and printed
                 diagnostics
 

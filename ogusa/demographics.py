@@ -86,8 +86,9 @@ def get_un_data(
         # keep just what is needed from data
         df = df[df.variant == "Median"]
         df = df[df.sex == "Both sexes"][["timeLabel", "ageLabel", "value"]]
-        df.rename({"timeLabel": "year", "ageLabel": "age"},
-                  axis=1, inplace=True)
+        df.rename(
+            {"timeLabel": "year", "ageLabel": "age"}, axis=1, inplace=True
+        )
         df.loc[df.age == "100+", "age"] = 100
         df.age = df.age.astype(int)
         df.year = df.year.astype(int)
@@ -101,8 +102,15 @@ def get_un_data(
     return df
 
 
-def get_fert(totpers=100, min_age=0, max_age=100, country_id=UN_COUNTRY_CODE, start_year=START_YEAR,
-    end_year=END_YEAR, graph=False):
+def get_fert(
+    totpers=100,
+    min_age=0,
+    max_age=100,
+    country_id=UN_COUNTRY_CODE,
+    start_year=START_YEAR,
+    end_year=END_YEAR,
+    graph=False,
+):
     """
     This function generates a vector of fertility rates by model period
     age that corresponds to the fertility rate data by age in years.
@@ -120,7 +128,9 @@ def get_fert(totpers=100, min_age=0, max_age=100, country_id=UN_COUNTRY_CODE, st
 
     """
     # Read UN data
-    df = get_un_data("68", start_year=start_year, end_year=end_year,country_id=country_id)
+    df = get_un_data(
+        "68", start_year=start_year, end_year=end_year, country_id=country_id
+    )
     # put in vector
     fert_rates = df.value.values
     # fill in with zeros for ages  < 15 and > 49
@@ -162,8 +172,15 @@ def get_fert(totpers=100, min_age=0, max_age=100, country_id=UN_COUNTRY_CODE, st
     return fert_rates
 
 
-def get_mort(totpers=100, min_age=0, max_age=100, start_year=START_YEAR,
-    end_year=END_YEAR, country_id=UN_COUNTRY_CODE, graph=True):
+def get_mort(
+    totpers=100,
+    min_age=0,
+    max_age=100,
+    start_year=START_YEAR,
+    end_year=END_YEAR,
+    country_id=UN_COUNTRY_CODE,
+    graph=True,
+):
     """
     This function generates a vector of mortality rates by model period
     age.
@@ -182,8 +199,9 @@ def get_mort(totpers=100, min_age=0, max_age=100, start_year=START_YEAR,
 
     """
     # Read UN data
-    df = get_un_data("80", start_year=start_year,
-    end_year=end_year,country_id=country_id)
+    df = get_un_data(
+        "80", start_year=start_year, end_year=end_year, country_id=country_id
+    )
     # put in vector
     mort_rates_data = df.value.values
     # In UN data, mortality rates for 0 year olds are the infant
@@ -266,8 +284,14 @@ def pop_rebin(curr_pop_dist, totpers_new):
     return curr_pop_new
 
 
-def get_imm_rates(totpers=100, min_age=0, max_age=100, country_id=UN_COUNTRY_CODE, start_year=START_YEAR,
-    end_year=END_YEAR):
+def get_imm_rates(
+    totpers=100,
+    min_age=0,
+    max_age=100,
+    country_id=UN_COUNTRY_CODE,
+    start_year=START_YEAR,
+    end_year=END_YEAR,
+):
     """
     Calculate immigration rates by age as a residual given population
     levels in different periods, then output average calculated
@@ -288,9 +312,18 @@ def get_imm_rates(totpers=100, min_age=0, max_age=100, country_id=UN_COUNTRY_COD
     """
     # Read UN data
     num_years = 4  # note that code below only uses four years, in future, this should be more flexbile
-    imm_start_year = start_year - num_years  # year to start finding residual imm rate
-    imm_end_year = start_year + num_years - 1  # last year to find residual imm rate
-    df = get_un_data("47", country_id=country_id, start_year=imm_start_year, end_year=imm_end_year)
+    imm_start_year = (
+        start_year - num_years
+    )  # year to start finding residual imm rate
+    imm_end_year = (
+        start_year + num_years - 1
+    )  # last year to find residual imm rate
+    df = get_un_data(
+        "47",
+        country_id=country_id,
+        start_year=imm_start_year,
+        end_year=imm_end_year,
+    )
 
     # separate pop dist by year and put into dictionary of arrays
     pop_dict = {}
@@ -309,8 +342,12 @@ def get_imm_rates(totpers=100, min_age=0, max_age=100, country_id=UN_COUNTRY_COD
         pop_list.append(pop_dict[t][0])
     pop11vec = np.array(pop_list[:-1])
     pop21vec = np.array(pop_list[1:])
-    fert_rates = get_fert(totpers, min_age, max_age, country_id, start_year, end_year, False)
-    mort_rates, infmort_rate = get_mort(totpers, min_age, max_age, country_id, start_year, end_year, False)
+    fert_rates = get_fert(
+        totpers, min_age, max_age, country_id, start_year, end_year, False
+    )
+    mort_rates, infmort_rate = get_mort(
+        totpers, min_age, max_age, country_id, start_year, end_year, False
+    )
     newbornvec = np.dot(
         fert_rates, np.vstack((pop_dict[0], pop_dict[1], pop_dict[2])).T
     )
@@ -447,10 +484,16 @@ def get_pop_objs(
 
     # Get fertility, mortality, and immigration rates
     # will be used to generate population distribution in future years
-    fert_rates = get_fert(E + S, min_age, max_age, country_id, data_year, data_year)
-    mort_rates, infmort_rate = get_mort(E + S, min_age, max_age, country_id, data_year, data_year)
+    fert_rates = get_fert(
+        E + S, min_age, max_age, country_id, data_year, data_year
+    )
+    mort_rates, infmort_rate = get_mort(
+        E + S, min_age, max_age, country_id, data_year, data_year
+    )
     mort_rates_S = mort_rates[-S:]
-    imm_rates_orig = get_imm_rates(E + S, min_age, max_age, country_id, data_year, data_year)
+    imm_rates_orig = get_imm_rates(
+        E + S, min_age, max_age, country_id, data_year, data_year
+    )
     OMEGA_orig = np.zeros((E + S, E + S))
     OMEGA_orig[0, :] = (1 - infmort_rate) * fert_rates + np.hstack(
         (imm_rates_orig[0], np.zeros(E + S - 1))
@@ -470,7 +513,9 @@ def get_pop_objs(
 
     # Generate time path of the nonstationary population distribution
     omega_path_lev = np.zeros((E + S, T + S))
-    pop_data = get_un_data("47", country_id=country_id, start_year=data_year, end_year=data_year)
+    pop_data = get_un_data(
+        "47", country_id=country_id, start_year=data_year, end_year=data_year
+    )
     # TODO: allow one to read in multiple years of UN forecast then
     # extrapolate from the end of that
     pop_data_sample = pop_data[

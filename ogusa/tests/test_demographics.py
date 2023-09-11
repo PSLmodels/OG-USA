@@ -12,7 +12,9 @@ def test_get_pop_objs():
     T = int(round(4.0 * S))
     start_year = 2019
 
-    pop_dict = demographics.get_pop_objs(E, S, T, 1, 100, start_year - 1, start_year, False)
+    pop_dict = demographics.get_pop_objs(
+        E, S, T, 1, 100, start_year - 1, start_year, False
+    )
 
     assert np.allclose(pop_dict["omega_SS"], pop_dict["omega"][-1, :])
 
@@ -26,7 +28,9 @@ def test_pop_smooth():
     T = int(round(4.0 * S))
     start_year = 2019
 
-    pop_dict = demographics.get_pop_objs(E, S, T, 1, 100, start_year - 1, start_year, False)
+    pop_dict = demographics.get_pop_objs(
+        E, S, T, 1, 100, start_year - 1, start_year, False
+    )
 
     assert np.any(
         np.absolute(pop_dict["omega"][:-1, :] - pop_dict["omega"][1:, :])
@@ -46,7 +50,9 @@ def test_imm_smooth():
     T = int(round(4.0 * S))
     start_year = 2019
 
-    pop_dict = demographics.get_pop_objs(E, S, T, 1, 100, start_year - 1, start_year, False)
+    pop_dict = demographics.get_pop_objs(
+        E, S, T, 1, 100, start_year - 1, start_year, False
+    )
 
     assert np.any(
         np.absolute(

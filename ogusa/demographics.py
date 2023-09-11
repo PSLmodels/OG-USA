@@ -50,10 +50,6 @@ def get_un_data(
     Returns:
         df (Pandas DataFrame): DataFrame of UN data
     """
-    print("variable_code = ", variable_code)
-    print("country_id = ", country_id)
-    print("start_year = ", start_year)
-    print("end_year = ", end_year)
     target = (
         "https://population.un.org/dataportalapi/api/v1/data/indicators/"
         + variable_code

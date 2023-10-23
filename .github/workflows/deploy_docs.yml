@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
 
@@ -29,11 +29,10 @@ jobs:
           pip install sphinxcontrib-bibtex>=2.0.0
           pip install -e .
           python -m ipykernel install --user --name=ogusa-dev
-          cd docs
-          jb build ./book
+          jb build ./docs/book
 
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+        uses: JamesIves/github-pages-deploy-action@releases/v4
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.

@@ -29,7 +29,15 @@ def test_pop_smooth():
     start_year = 2019
 
     pop_dict = demographics.get_pop_objs(
-        E, S, T, 1, 100, start_year - 1, start_year, country_id="840", GraphDiag=False
+        E,
+        S,
+        T,
+        1,
+        100,
+        start_year - 1,
+        start_year,
+        country_id="840",
+        GraphDiag=False,
     )
 
     assert np.any(

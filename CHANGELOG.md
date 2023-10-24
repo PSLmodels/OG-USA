@@ -9,8 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Updated `README.md`
-- Changed `check_black.yml` to `check_format.yml`
+- Updates `README.md`
+- Changes `check_black.yml` to `check_format.yml`
+- Updates other GH Action files: `build_and_test.yml`, `docs_check.yml`, and `deploy_docs.yml`
+- Updates `publish_to_pypi.yml`
 
 ## [0.1.0] - 2023-07-19 12:00:00
 

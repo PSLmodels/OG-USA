@@ -152,25 +152,26 @@ def get_fert(
     #     pp.plot_fert_rates(fert_rates, age_midp, totpers, min_age, max_age,
     #                        fert_rates, fert_rates, output_dir=OUTPUT_DIR)
 
-    output_dir = OUTPUT_DIR
-    # Using pyplot here until update to OG-Core mort rates plotting function
-    plt.plot(
-        np.arange(totpers),
-        fert_rates,
-    )
-    plt.xlabel(r"Age $s$")
-    plt.ylabel(r"Fertility rate")
-    plt.legend(loc="upper left")
-    # plt.text(
-    #     -5,
-    #     -0.2,
-    #     "Source: United Nations Population Prospects.",
-    #     fontsize=9,
-    # )
-    plt.tight_layout(rect=(0, 0.03, 1, 1))
-    output_path = os.path.join(output_dir, "fert_rates")
-    plt.savefig(output_path)
-    plt.close()
+    if graph:
+        output_dir = OUTPUT_DIR
+        # Using pyplot here until update to OG-Core mort rates plotting function
+        plt.plot(
+            np.arange(totpers),
+            fert_rates,
+        )
+        plt.xlabel(r"Age $s$")
+        plt.ylabel(r"Fertility rate")
+        plt.legend(loc="upper left")
+        # plt.text(
+        #     -5,
+        #     -0.2,
+        #     "Source: United Nations Population Prospects.",
+        #     fontsize=9,
+        # )
+        plt.tight_layout(rect=(0, 0.03, 1, 1))
+        output_path = os.path.join(output_dir, "fert_rates")
+        plt.savefig(output_path)
+        plt.close()
 
     return fert_rates
 
@@ -182,7 +183,7 @@ def get_mort(
     country_id=UN_COUNTRY_CODE,
     start_year=START_YEAR,
     end_year=END_YEAR,
-    graph=True,
+    graph=False,
 ):
     """
     This function generates a vector of mortality rates by model period
@@ -297,6 +298,7 @@ def get_imm_rates(
     country_id=UN_COUNTRY_CODE,
     start_year=START_YEAR,
     end_year=END_YEAR,
+    graph=False,
 ):
     """
     Calculate immigration rates by age as a residual given population
@@ -380,26 +382,27 @@ def get_imm_rates(
     # Final estimated immigration rates are the averages over 3 years
     imm_rates = imm_mat.mean(axis=0)
 
-    output_dir = OUTPUT_DIR
-    # Using pyplot here until update to OG-Core mort rates plotting function
-    plt.plot(
-        np.arange(totpers),
-        imm_rates,
-        label="Estimated",
-    )
-    plt.xlabel(r"Age $s$")
-    plt.ylabel(r"Immigration Rates")
-    plt.legend(loc="upper left")
-    plt.text(
-        -5,
-        -0.2,
-        "Source: United Nations Population Prospects.",
-        fontsize=9,
-    )
-    plt.tight_layout(rect=(0, 0.03, 1, 1))
-    output_path = os.path.join(output_dir, "imm_rates_w_un_data.png")
-    plt.savefig(output_path)
-    plt.close()
+    if graph:
+        output_dir = OUTPUT_DIR
+        # Using pyplot here until update to OG-Core mort rates plotting function
+        plt.plot(
+            np.arange(totpers),
+            imm_rates,
+            label="Estimated",
+        )
+        plt.xlabel(r"Age $s$")
+        plt.ylabel(r"Immigration Rates")
+        plt.legend(loc="upper left")
+        plt.text(
+            -5,
+            -0.2,
+            "Source: United Nations Population Prospects.",
+            fontsize=9,
+        )
+        plt.tight_layout(rect=(0, 0.03, 1, 1))
+        output_path = os.path.join(output_dir, "imm_rates_w_un_data.png")
+        plt.savefig(output_path)
+        plt.close()
 
     return imm_rates
 

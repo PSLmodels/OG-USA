@@ -162,12 +162,13 @@ def get_fert(
         plt.xlabel(r"Age $s$")
         plt.ylabel(r"Fertility rate")
         plt.legend(loc="upper left")
-        # plt.text(
-        #     -5,
-        #     -0.2,
-        #     "Source: United Nations Population Prospects.",
-        #     fontsize=9,
-        # )
+        fontdict = {"fontsize": 9}
+        plt.text(
+            -5,
+            -0.2,
+            "Source: United Nations Population Prospects.",
+            **fontdict,
+        )
         plt.tight_layout(rect=(0, 0.03, 1, 1))
         output_path = os.path.join(output_dir, "fert_rates")
         plt.savefig(output_path)
@@ -231,11 +232,12 @@ def get_mort(
         plt.xlabel(r"Age $s$")
         plt.ylabel(r"Mortality rate $\rho_{s}$")
         plt.legend(loc="upper left")
+        fontdict = {"fontsize": 9}
         plt.text(
             -5,
             -0.2,
             "Source: United Nations Population Prospects.",
-            fontsize=9,
+            **fontdict
         )
         plt.tight_layout(rect=(0, 0.03, 1, 1))
         # Save or return figure
@@ -393,11 +395,12 @@ def get_imm_rates(
         plt.xlabel(r"Age $s$")
         plt.ylabel(r"Immigration Rates")
         plt.legend(loc="upper left")
+        fontdict = {"fontsize": 9}
         plt.text(
             -5,
             -0.2,
             "Source: United Nations Population Prospects.",
-            fontsize=9,
+            **fontdict,
         )
         plt.tight_layout(rect=(0, 0.03, 1, 1))
         output_path = os.path.join(output_dir, "imm_rates_w_un_data.png")

@@ -237,7 +237,7 @@ def get_mort(
             -5,
             -0.2,
             "Source: United Nations Population Prospects.",
-            **fontdict
+            **fontdict,
         )
         plt.tight_layout(rect=(0, 0.03, 1, 1))
         # Save or return figure

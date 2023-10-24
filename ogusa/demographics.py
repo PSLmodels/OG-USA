@@ -481,8 +481,6 @@ def get_pop_objs(
             g_n_SS (scalar): steady-state population growth rate
             omega_SS (Numpy array): normalized steady-state population
                 distribution, length S
-            surv_rates (Numpy array): survival rates that correspond to
-                each model period of life, length S
             mort_rates (Numpy array): mortality rates that correspond to
                 each model period of life, length S
             g_n_path (Numpy array): population growth rates over the time
@@ -750,7 +748,7 @@ def get_pop_objs(
             output_dir=OUTPUT_DIR,
         )
 
-    # return omega_path_S, g_n_SS, omega_SSfx, survival rates,
+    # return omega_path_S, g_n_SS, omega_SSfx,
     # mort_rates_S, and g_n_path
     pop_dict = {
         "omega": omega_path_S.T,

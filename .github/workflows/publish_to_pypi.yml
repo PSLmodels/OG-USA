@@ -1,0 +1,30 @@
+name: Publish package to PyPI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    name: Publish to PyPI
+    if: github.repository == 'PSLmodels/OG-USA'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - name: Build package
+        shell: bash -l {0}
+        run: |
+          pip install wheel
+          python setup.py sdist bdist_wheel
+      - name: Publish a Python distribution to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI }}
+          skip_existing: true

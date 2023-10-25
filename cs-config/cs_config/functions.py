@@ -87,7 +87,11 @@ def get_inputs(meta_param_dict):
         json.load(
             open(
                 os.path.join(
-                    CUR_DIR, "..", "..", "ogusa", "ogusa_default_parameters.json"
+                    CUR_DIR,
+                    "..",
+                    "..",
+                    "ogusa",
+                    "ogusa_default_parameters.json",
                 )
             )
         )
@@ -256,7 +260,11 @@ def run_model(meta_param_dict, adjustment):
         json.load(
             open(
                 os.path.join(
-                    CUR_DIR, "..", "..", "ogusa", "ogusa_default_parameters.json"
+                    CUR_DIR,
+                    "..",
+                    "..",
+                    "ogusa",
+                    "ogusa_default_parameters.json",
                 )
             )
         )
@@ -310,7 +318,11 @@ def run_model(meta_param_dict, adjustment):
         json.load(
             open(
                 os.path.join(
-                    CUR_DIR, "..", "..", "ogusa", "ogusa_default_parameters.json"
+                    CUR_DIR,
+                    "..",
+                    "..",
+                    "ogusa",
+                    "ogusa_default_parameters.json",
                 )
             )
         )

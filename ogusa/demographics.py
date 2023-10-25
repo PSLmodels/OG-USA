@@ -18,7 +18,7 @@ END_YEAR = 2023
 UN_COUNTRY_CODE = "840"  # UN code for USA
 # create output director for figures
 CUR_PATH = os.path.split(os.path.abspath(__file__))[0]
-OUTPUT_DIR = os.path.join(CUR_PATH, "OUTPUT", "Demographics")
+OUTPUT_DIR = os.path.join(CUR_PATH, "..", "data", "OUTPUT", "Demographics")
 if os.access(OUTPUT_DIR, os.F_OK) is False:
     os.makedirs(OUTPUT_DIR)
 

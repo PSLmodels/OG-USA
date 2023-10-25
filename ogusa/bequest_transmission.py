@@ -18,11 +18,11 @@ def get_bequest_matrix(
     # Create directory if output directory does not already exist
     CURDIR = os.path.split(os.path.abspath(__file__))[0]
     output_fldr = "csv_output_files"
-    output_dir = os.path.join(CURDIR, output_fldr)
+    output_dir = os.path.join(CURDIR, "..", "data", output_fldr)
     if not os.access(output_dir, os.F_OK):
         os.makedirs(output_dir)
     image_fldr = "images"
-    image_dir = os.path.join(CURDIR, image_fldr)
+    image_dir = os.path.join(CURDIR, "..", "data", image_fldr)
     if not os.access(image_dir, os.F_OK):
         os.makedirs(image_dir)
 
@@ -35,7 +35,7 @@ def get_bequest_matrix(
     #     os.path.join(CURDIR, "data", "PSID", "psid_lifetime_income.pkl")
     # )
     df = pd.read_csv(
-        os.path.join(CURDIR, "data", "PSID", "psid_lifetime_income.csv")
+        os.path.join(CURDIR, "..", "data", "PSID", "psid_lifetime_income.csv")
     )
 
     # Do some tabs with data file...

@@ -7,7 +7,7 @@ import os
 # Create directory if output directory does not already exist
 cur_path = os.path.split(os.path.abspath(__file__))[0]
 output_fldr = "csv_output_files"
-output_dir = os.path.join(cur_path, output_fldr)
+output_dir = os.path.join(cur_path, "..", "data", "PSID", output_fldr)
 if not os.access(output_dir, os.F_OK):
     os.makedirs(output_dir)
 
@@ -19,7 +19,7 @@ first_stage_results = pickle.load(
 # Read in dataframe of PSID data
 df = pickle.load(
     open(
-        os.path.join(cur_path, "psid_data_files", "psid_lifetime_income.pkl"),
+        os.path.join(cur_path, "..", "data", "PSID", "psid_lifetime_income.pkl"),
         "rb",
     )
 )

@@ -34,7 +34,7 @@ def get_transfer_matrix(
     #     os.path.join(CURDIR, "data", "PSID", "psid_lifetime_income.pkl")
     # )
     df = pd.read_csv(
-        os.path.join(CURDIR, "data", "PSID", "psid_lifetime_income.csv")
+        os.path.join(CURDIR, "..", "data", "PSID", "psid_lifetime_income.csv")
     )
 
     # Do some tabs with data file...

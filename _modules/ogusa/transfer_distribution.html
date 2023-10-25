@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -37,8 +37,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
@@ -73,6 +74,15 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -133,13 +143,14 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     
     
       
     
     
-    <img src="../../_static/OG-USA_logo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../../_static/OG-USA_logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../../_static/OG-USA_logo.png" class="logo__image only-light" alt="OG-USA - Home"/>
+    <script>document.write(`<img src="../../_static/OG-USA_logo.png" class="logo__image only-dark" alt="OG-USA - Home"/>`);</script>
   
   
 </a></div>
@@ -299,10 +310,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
@@ -310,7 +321,7 @@ document.write(`
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -343,83 +354,15 @@ document.write(`
 <span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">kde</span>
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">ogusa.utils</span> <span class="kn">import</span> <span class="n">MVKDE</span>
 
 <span class="n">CURDIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
 
 
-<span class="c1"># Will need to do some smoothing with a KDE when estimate the matrix...</span>
-<div class="viewcode-block" id="MVKDE"><a class="viewcode-back" href="../../content/api/transfer_distribution.html#ogusa.transfer_distribution.MVKDE">[docs]</a><span class="k">def</span> <span class="nf">MVKDE</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">proportion_matrix</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bandwidth</span><span class="o">=</span><span class="mf">0.25</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Generates a Multivariate Kernel Density Estimator and returns a</span>
-<span class="sd">    matrix representing a probability distribution according to given</span>
-<span class="sd">    age categories, and ability type categories.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        S (scalar): the number of age groups in the model</span>
-<span class="sd">        J (scalar): the number of ability type groups in the model.</span>
-<span class="sd">        proportion_matrix (Numpy array): SxJ shaped array that</span>
-<span class="sd">            represents the proportions of the total going to each</span>
-<span class="sd">            (s,j) combination</span>
-<span class="sd">        filename (str): the file name  to save image to</span>
-<span class="sd">        plot (bool): whether or not to save a plot of the probability</span>
-<span class="sd">            distribution generated by the kde or the proportion matrix</span>
-<span class="sd">        bandwidth (scalar):  used in the smoothing of the kernel. Higher</span>
-<span class="sd">            bandwidth creates a smoother kernel.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        estimator_scaled (Numpy array): SxJ shaped array that</span>
-<span class="sd">            that represents the smoothed distribution of proportions</span>
-<span class="sd">            going to each (s,j)</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">proportion_matrix_income</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">proportion_matrix</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">proportion_matrix_age</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">proportion_matrix</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">age_probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multinomial</span><span class="p">(</span><span class="mi">70000</span><span class="p">,</span> <span class="n">proportion_matrix_age</span><span class="p">)</span>
-    <span class="n">income_probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multinomial</span><span class="p">(</span><span class="mi">70000</span><span class="p">,</span> <span class="n">proportion_matrix_income</span><span class="p">)</span>
-    <span class="n">age_frequency</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
-    <span class="n">income_frequency</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
-    <span class="n">age_mesh</span> <span class="o">=</span> <span class="nb">complex</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">S</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;j&quot;</span><span class="p">)</span>
-    <span class="n">income_mesh</span> <span class="o">=</span> <span class="nb">complex</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">J</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;j&quot;</span><span class="p">)</span>
-    <span class="n">j</span> <span class="o">=</span> <span class="mi">18</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;creating a distribution of age values&quot;&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">age_probs</span><span class="p">:</span>
-        <span class="n">listit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-        <span class="n">listit</span> <span class="o">*=</span> <span class="n">j</span>
-        <span class="n">age_frequency</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">age_frequency</span><span class="p">,</span> <span class="n">listit</span><span class="p">)</span>
-        <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
-
-    <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;creating a distribution of ability type values&quot;&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">income_probs</span><span class="p">:</span>
-        <span class="n">listit2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-        <span class="n">listit2</span> <span class="o">*=</span> <span class="n">k</span>
-        <span class="n">income_frequency</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">income_frequency</span><span class="p">,</span> <span class="n">listit2</span><span class="p">)</span>
-        <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
-
-    <span class="n">freq_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">age_frequency</span><span class="p">,</span> <span class="n">income_frequency</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
-    <span class="n">density</span> <span class="o">=</span> <span class="n">kde</span><span class="o">.</span><span class="n">gaussian_kde</span><span class="p">(</span><span class="n">freq_mat</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">bw_method</span><span class="o">=</span><span class="n">bandwidth</span><span class="p">)</span>
-    <span class="n">age_min</span><span class="p">,</span> <span class="n">income_min</span> <span class="o">=</span> <span class="n">freq_mat</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">age_max</span><span class="p">,</span> <span class="n">income_max</span> <span class="o">=</span> <span class="n">freq_mat</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">agei</span><span class="p">,</span> <span class="n">incomei</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span>
-        <span class="n">age_min</span><span class="p">:</span><span class="n">age_max</span><span class="p">:</span><span class="n">age_mesh</span><span class="p">,</span> <span class="n">income_min</span><span class="p">:</span><span class="n">income_max</span><span class="p">:</span><span class="n">income_mesh</span>
-    <span class="p">]</span>
-    <span class="n">coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">item</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="p">[</span><span class="n">agei</span><span class="p">,</span> <span class="n">incomei</span><span class="p">]])</span>
-    <span class="n">estimator</span> <span class="o">=</span> <span class="n">density</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">agei</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-    <span class="n">estimator_scaled</span> <span class="o">=</span> <span class="n">estimator</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">estimator</span><span class="p">))</span>
-    <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
-        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s2">&quot;3d&quot;</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">agei</span><span class="p">,</span> <span class="n">incomei</span><span class="p">,</span> <span class="n">estimator_scaled</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Age&quot;</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Ability Types&quot;</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s2">&quot;Received proportion of total transfers&quot;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">estimator_scaled</span></div>
-
-
-<div class="viewcode-block" id="get_transfer_matrix"><a class="viewcode-back" href="../../content/api/transfer_distribution.html#ogusa.transfer_distribution.get_transfer_matrix">[docs]</a><span class="k">def</span> <span class="nf">get_transfer_matrix</span><span class="p">(</span><span class="n">graphs</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="get_transfer_matrix"><a class="viewcode-back" href="../../content/api/transfer_distribution.html#ogusa.transfer_distribution.get_transfer_matrix">[docs]</a><span class="k">def</span> <span class="nf">get_transfer_matrix</span><span class="p">(</span>
+    <span class="n">J</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">lambdas</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.09</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">]),</span> <span class="n">graphs</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute SxJ matrix representing the distribution of aggregate</span>
 <span class="sd">    government transfers by age and lifetime income group.</span>
@@ -444,7 +387,7 @@ document.write(`
     <span class="c1">#     os.path.join(CURDIR, &quot;data&quot;, &quot;PSID&quot;, &quot;psid_lifetime_income.pkl&quot;)</span>
     <span class="c1"># )</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CURDIR</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;PSID&quot;</span><span class="p">,</span> <span class="s2">&quot;psid_lifetime_income.csv&quot;</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CURDIR</span><span class="p">,</span> <span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;PSID&quot;</span><span class="p">,</span> <span class="s2">&quot;psid_lifetime_income.csv&quot;</span><span class="p">)</span>
     <span class="p">)</span>
 
     <span class="c1"># Do some tabs with data file...</span>
@@ -454,8 +397,8 @@ document.write(`
     <span class="p">)</span>
 
     <span class="n">df</span><span class="p">[</span><span class="s2">&quot;sum_transfers&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;other_familyunit_ssi_prior_year&quot;</span><span class="p">]</span>
-        <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;head_other_welfare_prior_year&quot;</span><span class="p">]</span>
+        <span class="c1"># df[&quot;other_familyunit_ssi_prior_year&quot;] # don&#39;t include SSI since OG-USA models separately</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;head_other_welfare_prior_year&quot;</span><span class="p">]</span>
         <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;spouse_other_welfare_prior_year&quot;</span><span class="p">]</span>
         <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;other_familyunit_other_welfare_prior_year&quot;</span><span class="p">]</span>
         <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;head_unemp_inc_prior_year&quot;</span><span class="p">]</span>
@@ -465,26 +408,29 @@ document.write(`
 
     <span class="k">if</span> <span class="n">graphs</span><span class="p">:</span>
         <span class="c1"># Total total_transfers by year</span>
-        <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;year_data&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;total_transfers&quot;</span><span class="p">)</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;year_data&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">y</span><span class="o">=</span><span class="s2">&quot;total_transfers&quot;</span>
+        <span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">image_dir</span><span class="p">,</span> <span class="s2">&quot;total_transfers_year.png&quot;</span><span class="p">))</span>
-        <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;year_data&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;sum_transfers&quot;</span><span class="p">)</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;year_data&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;sum_transfers&quot;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">image_dir</span><span class="p">,</span> <span class="s2">&quot;sum_transfers_year.png&quot;</span><span class="p">))</span>
         <span class="c1"># note that the sum of transfer categories is much lower than the</span>
-        <span class="c1"># tranfers variable.  The transfers variable goes more to high income</span>
+        <span class="c1"># &quot;total transfers&quot; variable.  The transfers variable goes more to high income</span>
         <span class="c1"># and old, even though it says it excludes social security</span>
+        <span class="c1"># because of this, we&#39;ll use the &quot;sum transfers&quot; variable</span>
 
         <span class="c1"># Fraction of total_transfers in a year by age</span>
         <span class="c1"># line plot</span>
-        <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;year_data&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1988</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;age&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-            <span class="n">y</span><span class="o">=</span><span class="s2">&quot;total_transfers&quot;</span>
-        <span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;year_data&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1988</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;age&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
+            <span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;total_transfers&quot;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">image_dir</span><span class="p">,</span> <span class="s2">&quot;total_transfers_age.png&quot;</span><span class="p">))</span>
 
         <span class="c1"># total_transfers by lifetime income group</span>
         <span class="c1"># bar plot</span>
-        <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;year_data&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1988</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;li_group&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
-            <span class="n">y</span><span class="o">=</span><span class="s2">&quot;total_transfers&quot;</span>
-        <span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;year_data&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1988</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;li_group&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
+            <span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;total_transfers&quot;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">image_dir</span><span class="p">,</span> <span class="s2">&quot;total_transfers_li.png&quot;</span><span class="p">))</span>
 
         <span class="c1"># lifecycle plots with line for each ability type</span>
@@ -506,19 +452,17 @@ document.write(`
         <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">image_dir</span><span class="p">,</span> <span class="s2">&quot;sum_transfers_age_li.png&quot;</span><span class="p">))</span>
 
-    <span class="c1"># Matrix Fraction of total_transfers in a year by age and lifetime_inc</span>
-    <span class="n">total_transfers_matrix</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
+    <span class="c1"># Matrix Fraction of sum_transfers in a year by age and lifetime_inc</span>
+    <span class="n">transfers_matrix</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
         <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;year_data&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1988</span><span class="p">],</span>
-        <span class="n">values</span><span class="o">=</span><span class="s2">&quot;total_transfers&quot;</span><span class="p">,</span>
+        <span class="n">values</span><span class="o">=</span><span class="s2">&quot;sum_transfers&quot;</span><span class="p">,</span>
         <span class="n">index</span><span class="o">=</span><span class="s2">&quot;age&quot;</span><span class="p">,</span>
         <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;li_group&quot;</span><span class="p">,</span>
         <span class="n">aggfunc</span><span class="o">=</span><span class="s2">&quot;sum&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="c1"># replace NaN with zero</span>
-    <span class="n">total_transfers_matrix</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">total_transfers_matrix</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">total_transfers_matrix</span> <span class="o">/</span> <span class="n">total_transfers_matrix</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-    <span class="p">)</span>
+    <span class="n">transfers_matrix</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">transfers_matrix</span> <span class="o">=</span> <span class="n">transfers_matrix</span> <span class="o">/</span> <span class="n">transfers_matrix</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
     <span class="c1"># total_transfers_matrix.to_csv(os.path.join(</span>
     <span class="c1">#     output_dir, &#39;transfer_matrix.csv&#39;))</span>
 
@@ -526,13 +470,26 @@ document.write(`
     <span class="n">kde_matrix</span> <span class="o">=</span> <span class="n">MVKDE</span><span class="p">(</span>
         <span class="mi">80</span><span class="p">,</span>
         <span class="mi">7</span><span class="p">,</span>
-        <span class="n">total_transfers_matrix</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span>
-        <span class="n">filename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">image_dir</span><span class="p">,</span> <span class="s2">&quot;total_transfers_kde.png&quot;</span><span class="p">),</span>
+        <span class="n">transfers_matrix</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span>
+        <span class="n">filename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">image_dir</span><span class="p">,</span> <span class="s2">&quot;sum_transfers_kde.png&quot;</span><span class="p">),</span>
         <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">bandwidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
     <span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">J</span> <span class="o">==</span> <span class="mi">10</span><span class="p">)</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">lambdas</span><span class="p">[:</span><span class="mi">6</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.09</span><span class="p">])</span>
+    <span class="p">):</span>
+        <span class="n">kde_matrix_new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">80</span><span class="p">,</span> <span class="n">J</span><span class="p">))</span>
+        <span class="n">kde_matrix_new</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="n">kde_matrix</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">6</span><span class="p">]</span>
+        <span class="n">kde_matrix_new</span><span class="p">[:,</span> <span class="mi">6</span><span class="p">:]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">kde_matrix</span><span class="p">[:,</span> <span class="mi">6</span><span class="p">:]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">lambdas</span><span class="p">[</span><span class="mi">6</span><span class="p">:],</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)),</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="o">/</span> <span class="n">lambdas</span><span class="p">[</span><span class="mi">6</span><span class="p">:]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">kde_matrix</span> <span class="o">=</span> <span class="n">kde_matrix_new</span>
+
     <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="s2">&quot;total_transfers_kde.csv&quot;</span><span class="p">),</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="s2">&quot;sum_transfers_kde.csv&quot;</span><span class="p">),</span>
         <span class="n">kde_matrix</span><span class="p">,</span>
         <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span>
     <span class="p">)</span>
@@ -545,16 +502,12 @@ document.write(`
 
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -603,8 +556,8 @@ By Jason DeBacker and Richard W. Evans
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.1.1] - 2023-10-23 16:00:00
+## [0.1.1] - 2023-10-25 17:00:00
 
 ### Added
 
@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changes `check_black.yml` to `check_format.yml`
 - Updates other GH Action files: `build_and_test.yml`, `docs_check.yml`, and `deploy_docs.yml`
 - Updates `publish_to_pypi.yml`
+- Adds changes from PRs [#73](https://github.com/PSLmodels/OG-USA/pull/73) and [#67](https://github.com/PSLmodels/OG-USA/pull/67)
 
 ## [0.1.0] - 2023-07-19 12:00:00
 

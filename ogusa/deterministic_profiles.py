@@ -8,7 +8,7 @@ import ogcore  # import just for MPL style file
 # Create directory if output directory does not already exist
 cur_path = os.path.split(os.path.abspath(__file__))[0]
 output_fldr = "csv_output_files"
-output_dir = os.path.join(cur_path, output_fldr)
+output_dir = os.path.join(cur_path, "..", "data", output_fldr)
 if not os.access(output_dir, os.F_OK):
     os.makedirs(output_dir)
 
@@ -28,7 +28,9 @@ def estimate_profiles(graphs=False):
     """
     # Read in dataframe of PSID data
     df = ogcore.utils.safe_read_pickle(
-        os.path.join(cur_path, "data", "PSID", "psid_lifetime_income.pkl")
+        os.path.join(
+            cur_path, "..", "data", "PSID", "psid_lifetime_income.pkl"
+        )
     )
 
     model_results = {

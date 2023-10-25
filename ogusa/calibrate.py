@@ -51,17 +51,19 @@ class Calibration:
         self.macro_params = macro_params.get_macro_params()
 
         # eta estimation
-        self.eta = transfer_distribution.get_transfer_matrix()
+        self.eta = transfer_distribution.get_transfer_matrix(p.J, p.lambdas)
 
         # zeta estimation
-        self.zeta = bequest_transmission.get_bequest_matrix()
+        self.zeta = bequest_transmission.get_bequest_matrix(p.J, p.lambdas)
 
         # demographics
         self.demographic_params = demographics.get_pop_objs(
-            p.E, p.S, p.T, 1, 100, p.start_year
+            p.E, p.S, p.T, 1, 100, p.start_year - 1, p.start_year
         )
         # demographics for 80 period lives (needed for getting e below)
-        demog80 = demographics.get_pop_objs(20, 80, p.T, 1, 100, p.start_year)
+        demog80 = demographics.get_pop_objs(
+            20, 80, p.T, 1, 100, p.start_year - 1, p.start_year
+        )
 
         # earnings profiles
         self.e = income.get_e_interp(

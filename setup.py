@@ -19,7 +19,7 @@ setuptools.setup(
     packages=["ogusa"],
     package_data={"ogusa": ["ogusa_default_parameters.json", "data/PSID/*"]},
     include_packages=True,
-    python_requires=">=3.7.7, <3.11",
+    python_requires=">=3.7.7",
     install_requires=[
         "numpy",
         "psutil",
@@ -51,6 +51,7 @@ setuptools.setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
     tests_require=["pytest"],

@@ -42,13 +42,15 @@ from ogusa import labor
 from ogcore import SS
 from ogcore import utils
 
+CUR_PATH = os.path.split(os.path.abspath(__file__))[0]
+
 
 def chi_estimate(
     income_tax_params,
     ss_params,
     iterative_params,
     chi_guesses,
-    baseline_dir="./OUTPUT",
+    baseline_dir=os.path.join(CUR_PATH, "..", "data", "OUTPUT"),
 ):
     """
     --------------------------------------------------------------------
@@ -257,7 +259,7 @@ def chi_estimate(
         np.dot(np.dot(deriv_moments.T, W), deriv_moments)
     )
     std_errors_chi = (np.diag(VCV_params)) ** (1 / 2.0)
-    sd_dir = os.path.join(baseline_dir, "Calibration/chi_std_errors.pkl")
+    sd_dir = os.path.join(baseline_dir, "Calibration", "chi_std_errors.pkl")
     with open(sd_dir, "wb") as f:
         pickle.dump(std_errors_chi, f)
 

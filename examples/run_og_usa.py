@@ -45,11 +45,18 @@ def main():
             )
         )
     )
-    p.age_specific = False
     p.tax_func_type = "GS"
-    c1 = Calibration(
-        p, iit_reform={}, estimate_tax_functions=True, client=client
-    )
+    c = Calibration(p, estimate_tax_functions=True, client=client)
+    d = c.get_dict()
+    # # additional parameters to change
+    updated_params = {
+        "etr_params": d["etr_params"],
+        "mtrx_params": d["mtrx_params"],
+        "mtry_params": d["mtry_params"],
+        "mean_income_data": d["mean_income_data"],
+        "frac_tax_payroll": d["frac_tax_payroll"],
+    }
+    p.update_specifications(updated_params)
     # Run model
     start_time = time.time()
     runner(p, time_path=True, client=client)
@@ -87,16 +94,15 @@ def main():
             )
         )
     )
-    p2.age_specific = False
     p2.tax_func_type = "GS"
     # Use calibration class to estimate reform tax functions from
-    # Tax-Calculator, specifing reform for Tax-Calculator in iit_reform
+    # Tax-Calculator, specifying reform for Tax-Calculator in iit_reform
     c2 = Calibration(
         p2, iit_reform=iit_reform, estimate_tax_functions=True, client=client
     )
     # update tax function parameters in Specifications Object
     d = c2.get_dict()
-    # additional parameters to change
+    # # additional parameters to change
     updated_params = {
         "cit_rate": [[0.35]],
         "etr_params": d["etr_params"],

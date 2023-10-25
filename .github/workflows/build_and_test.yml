@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
@@ -12,21 +12,23 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
 
-      - name: Setup Python
-        uses: actions/setup-python@v4
+      - name: Setup Miniconda using Python ${{ matrix.python-version }}
+        uses: conda-incubator/setup-miniconda@v2
         with:
+          miniforge-variant: Mambaforge
+          auto-update-conda: true
+          activate-environment: ogusa-dev
+          environment-file: environment.yml
           python-version: ${{ matrix.python-version }}
+          auto-activate-base: false
 
       - name: Build
         shell: bash -l {0}
         run: |
-          conda init bash
-          conda env create
-          conda activate ogusa-dev
           pip install -e .
           pip install pytest-cov
           pip install pytest-pycodestyle

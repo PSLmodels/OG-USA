@@ -33,7 +33,7 @@ def prep_data(data="psid1968to2015.RData"):
             income groups defined
     """
     # Read data from R into pandas dataframe
-    r["load"](os.path.join(CURDIR, "data", "PSID", data))
+    r["load"](os.path.join(CURDIR, "..", "data", "PSID", data))
     raw_df = r("psid_df")
 
     # Create unique identifier for each household
@@ -443,7 +443,7 @@ def prep_data(data="psid1968to2015.RData"):
         first_stage_model_results,
         open(
             os.path.join(
-                CURDIR, "data", "PSID", "first_stage_reg_results.pkl"
+                CURDIR, "..", "data", "PSID", "first_stage_reg_results.pkl"
             ),
             "wb",
         ),
@@ -456,7 +456,7 @@ def prep_data(data="psid1968to2015.RData"):
     panel_li.dropna(axis=0, how="all", inplace=True)
     print(panel_li.keys())
     panel_li.to_csv(
-        os.path.join(CURDIR, "data", "PSID", "psid_lifetime_income.csv")
+        os.path.join(CURDIR, "..", "data", "PSID", "psid_lifetime_income.csv")
     )
 
     return panel_li

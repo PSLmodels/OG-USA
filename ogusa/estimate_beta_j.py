@@ -16,6 +16,8 @@ from ogcore.utils import Inequality
 # Don't print output along the way of SS solution
 SS.VERBOSE = False
 
+CUR_PATH = os.path.split(os.path.abspath(__file__))[0]
+
 
 def beta_estimate(
     beta_initial_guesses, og_spec={}, two_step=False, client=None
@@ -40,10 +42,8 @@ def beta_estimate(
 
     # initialize parameters object
     tax_func_path = os.path.join(
+        CUR_PATH,
         "..",
-        "..",
-        "dynamic",
-        "ogusa",
         "data",
         "tax_functions",
         "TxFuncEst_baseline_PUF.pkl",

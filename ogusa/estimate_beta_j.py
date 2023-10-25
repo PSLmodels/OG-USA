@@ -42,7 +42,8 @@ def beta_estimate(
 
     # initialize parameters object
     tax_func_path = os.path.join(
-        CUR_PATH, "..",
+        CUR_PATH,
+        "..",
         "data",
         "tax_functions",
         "TxFuncEst_baseline_PUF.pkl",

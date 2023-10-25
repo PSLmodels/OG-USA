@@ -28,7 +28,9 @@ def estimate_profiles(graphs=False):
     """
     # Read in dataframe of PSID data
     df = ogcore.utils.safe_read_pickle(
-        os.path.join(cur_path, "..", "data", "PSID", "psid_lifetime_income.pkl")
+        os.path.join(
+            cur_path, "..", "data", "PSID", "psid_lifetime_income.pkl"
+        )
     )
 
     model_results = {

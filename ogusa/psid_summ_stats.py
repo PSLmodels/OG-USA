@@ -19,7 +19,9 @@ first_stage_results = pickle.load(
 # Read in dataframe of PSID data
 df = pickle.load(
     open(
-        os.path.join(cur_path, "..", "data", "PSID", "psid_lifetime_income.pkl"),
+        os.path.join(
+            cur_path, "..", "data", "PSID", "psid_lifetime_income.pkl"
+        ),
         "rb",
     )
 )

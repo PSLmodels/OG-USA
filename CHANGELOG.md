@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Simple update of version in `setup.py` and `cs-config/cs_config/functions.py` to make sure that the `publish_to_pypi.yml` GitHub Action works
+- Removes Python 3.9 tests from `build_and_test.yml` to see if that allows the tests to run on all three operating system platforms.
 
 ## [0.1.1] - 2023-10-25 17:00:00
 

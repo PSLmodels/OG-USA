@@ -5,12 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.1.2] - 2023-10-26 14:00:00
+## [0.1.2] - 2023-10-26 15:00:00
 
 ### Added
 
 - Simple update of version in `setup.py` and `cs-config/cs_config/functions.py` to make sure that the `publish_to_pypi.yml` GitHub Action works
-- Removes Python 3.9 tests from `build_and_test.yml` to see if that allows the tests to run on all three operating system platforms.
+- Removes Windows OS tests from `build_and_test.yml`, which are not working right now for some reason.
 
 ## [0.1.1] - 2023-10-25 17:00:00
 

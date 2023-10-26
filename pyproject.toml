@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
 # Configuration for Black.
 
 # NOTE: you have to use single-quoted strings in TOML for regular expressions.
@@ -7,5 +11,5 @@
 
 [tool.black]
 line-length = 79
-target-version = ['py36', 'py37', 'py38']
+target-version = ["py39", "py310", "py311"]
 include = '\.pyi?$'

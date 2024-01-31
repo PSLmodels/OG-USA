@@ -1,6 +1,7 @@
 """
 Functions used to help OG-USA configure to COMP
 """
+
 try:
     import boto3
 except ImportError:

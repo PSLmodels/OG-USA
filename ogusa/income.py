@@ -5,6 +5,7 @@ only be used for looking at the 25, 50, 70, 80, 90, 99, and 100th
 percentiles, as it uses fitted polynomials to those percentiles.
 -----------------------------------------------------------------
 """
+
 import numpy as np
 import scipy.optimize as opt
 import scipy.interpolate as si

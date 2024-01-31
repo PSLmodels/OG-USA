@@ -3,7 +3,6 @@ This script uses simulated method of moments estimator to estimate the
 beta_j parameters for OG-USA.
 """
 
-
 import numpy as np
 import os
 import scipy.optimize as opt

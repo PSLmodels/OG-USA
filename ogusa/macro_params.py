@@ -107,7 +107,9 @@ def get_macro_params():
 
     # find g_y
     macro_parameters["g_y"] = (
-        fred_data_q["GDP Per Capita"].pct_change(periods=4, freq="Q").mean()
+        fred_data_q["GDP Per Capita"]
+        .pct_change(periods=4, freq="Q", fill_method="pad")
+        .mean()
     )
 
     # # estimate r_gov_shift and r_gov_scale

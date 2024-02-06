@@ -14,8 +14,8 @@ from ogcore.utils import safe_read_pickle
 
 def main():
     # Define parameters to use for multiprocessing
-    client = Client()
     num_workers = min(multiprocessing.cpu_count(), 7)
+    client = Client(n_workers=num_workers)
     print("Number of workers = ", num_workers)
 
     # Directories to save data

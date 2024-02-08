@@ -52,18 +52,10 @@
     <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../../_static/design-tabs.js?v=36754332"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../../_static/sphinx-thebe.js?v=afe5de03"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/ogusa/calibrate';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -372,12 +364,12 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for ogusa.calibrate</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">ogusa</span> <span class="kn">import</span> <span class="n">estimate_beta_j</span><span class="p">,</span> <span class="n">bequest_transmission</span><span class="p">,</span> <span class="n">demographics</span>
+<span></span><span class="kn">from</span> <span class="nn">ogusa</span> <span class="kn">import</span> <span class="n">estimate_beta_j</span><span class="p">,</span> <span class="n">bequest_transmission</span>
 <span class="kn">from</span> <span class="nn">ogusa</span> <span class="kn">import</span> <span class="n">macro_params</span><span class="p">,</span> <span class="n">transfer_distribution</span><span class="p">,</span> <span class="n">income</span>
 <span class="kn">from</span> <span class="nn">ogusa</span> <span class="kn">import</span> <span class="n">get_micro_data</span><span class="p">,</span> <span class="n">psid_data_setup</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">ogcore</span> <span class="kn">import</span> <span class="n">txfunc</span>
+<span class="kn">from</span> <span class="nn">ogcore</span> <span class="kn">import</span> <span class="n">txfunc</span><span class="p">,</span> <span class="n">demographics</span>
 <span class="kn">from</span> <span class="nn">ogcore.utils</span> <span class="kn">import</span> <span class="n">safe_read_pickle</span><span class="p">,</span> <span class="n">mkdirs</span>
 <span class="kn">import</span> <span class="nn">pkg_resources</span>
 
@@ -434,11 +426,24 @@ document.write(`
 
         <span class="c1"># demographics</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">demographic_params</span> <span class="o">=</span> <span class="n">demographics</span><span class="o">.</span><span class="n">get_pop_objs</span><span class="p">(</span>
-            <span class="n">p</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">S</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">start_year</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">start_year</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">E</span><span class="p">,</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">S</span><span class="p">,</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+            <span class="mi">0</span><span class="p">,</span>
+            <span class="mi">99</span><span class="p">,</span>
+            <span class="n">initial_data_year</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">start_year</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">final_data_year</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">start_year</span><span class="p">,</span>
         <span class="p">)</span>
+
         <span class="c1"># demographics for 80 period lives (needed for getting e below)</span>
         <span class="n">demog80</span> <span class="o">=</span> <span class="n">demographics</span><span class="o">.</span><span class="n">get_pop_objs</span><span class="p">(</span>
-            <span class="mi">20</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">start_year</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">start_year</span>
+            <span class="mi">20</span><span class="p">,</span>
+            <span class="mi">80</span><span class="p">,</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+            <span class="mi">0</span><span class="p">,</span>
+            <span class="mi">99</span><span class="p">,</span>
+            <span class="n">initial_data_year</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">start_year</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">final_data_year</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">start_year</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="c1"># earnings profiles</span>

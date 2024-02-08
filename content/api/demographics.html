@@ -53,18 +53,10 @@
     <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../../_static/design-tabs.js?v=36754332"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../../_static/sphinx-thebe.js?v=afe5de03"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/api/demographics';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -418,14 +410,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-ogusa.demographics">ogusa.demographics</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ogusa.demographics.get_fert"><code class="docutils literal notranslate"><span class="pre">get_fert()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ogusa.demographics.get_mort"><code class="docutils literal notranslate"><span class="pre">get_mort()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ogusa.demographics.get_pop_objs"><code class="docutils literal notranslate"><span class="pre">get_pop_objs()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ogusa.demographics.immsolve"><code class="docutils literal notranslate"><span class="pre">immsolve()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ogusa.demographics.pop_rebin"><code class="docutils literal notranslate"><span class="pre">pop_rebin()</span></code></a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ogusa-demographics">ogusa.demographics</a></li>
 </ul>
             </nav>
         </div>
@@ -440,182 +425,8 @@ document.write(`
   <section id="demographics-functions">
 <span id="demographics"></span><h1>Demographics Functions<a class="headerlink" href="#demographics-functions" title="Link to this heading">#</a></h1>
 <p><strong>demographics.py modules</strong></p>
-<section id="module-ogusa.demographics">
-<span id="ogusa-demographics"></span><h2>ogusa.demographics<a class="headerlink" href="#module-ogusa.demographics" title="Link to this heading">#</a></h2>
-<hr class="docutils" />
-<dl class="py function">
-<dt class="sig sig-object py" id="ogusa.demographics.get_fert">
-<span class="sig-prename descclassname"><span class="pre">ogusa.demographics.</span></span><span class="sig-name descname"><span class="pre">get_fert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">totpers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_age</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_age</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">country_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'840'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2023</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2023</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ogusa/demographics.html#get_fert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ogusa.demographics.get_fert" title="Link to this definition">#</a></dt>
-<dd><p>This function generates a vector of fertility rates by model period
-age that corresponds to the fertility rate data by age in years.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>totpers</strong> (<em>int</em>) – total number of agent life periods (E+S), &gt;= 3</p></li>
-<li><p><strong>min_age</strong> (<em>int</em>) – age in years at which agents are born, &gt;= 0</p></li>
-<li><p><strong>max_age</strong> (<em>int</em>) – age in years at which agents die with certainty,
-&gt;= 4</p></li>
-<li><p><strong>country_id</strong> (<em>str</em>) – country id for UN data</p></li>
-<li><p><strong>start_year</strong> (<em>int</em>) – start year for UN data</p></li>
-<li><p><strong>end_year</strong> (<em>int</em>) – end year for UN data</p></li>
-<li><p><strong>graph</strong> (<em>bool</em>) – =True if want graphical output</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><dl class="simple">
-<dt>fertility rates for each model period</dt><dd><p>of life</p>
-</dd>
-</dl>
-</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>fert_rates (Numpy array)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="ogusa.demographics.get_mort">
-<span class="sig-prename descclassname"><span class="pre">ogusa.demographics.</span></span><span class="sig-name descname"><span class="pre">get_mort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">totpers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_age</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_age</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">country_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'840'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2023</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2023</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ogusa/demographics.html#get_mort"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ogusa.demographics.get_mort" title="Link to this definition">#</a></dt>
-<dd><p>This function generates a vector of mortality rates by model period
-age.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>totpers</strong> (<em>int</em>) – total number of agent life periods (E+S), &gt;= 3</p></li>
-<li><p><strong>min_age</strong> (<em>int</em>) – age in years at which agents are born, &gt;= 0</p></li>
-<li><p><strong>max_age</strong> (<em>int</em>) – age in years at which agents die with certainty,
-&gt;= 4</p></li>
-<li><p><strong>country_id</strong> (<em>str</em>) – country id for UN data</p></li>
-<li><p><strong>start_year</strong> (<em>int</em>) – start year for UN data</p></li>
-<li><p><strong>end_year</strong> (<em>int</em>) – end year for UN data</p></li>
-<li><p><strong>graph</strong> (<em>bool</em>) – =True if want graphical output</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><dl class="simple">
-<dt>mort_rates (Numpy array) mortality rates that correspond to each</dt><dd><p>period of life</p>
-</dd>
-</dl>
-<p>infmort_rate (scalar): infant mortality rate</p>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="ogusa.demographics.get_pop_objs">
-<span class="sig-prename descclassname"><span class="pre">ogusa.demographics.</span></span><span class="sig-name descname"><span class="pre">get_pop_objs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">E</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">S</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">320</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_age</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_age</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2022</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2023</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">country_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'840'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">GraphDiag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ogusa/demographics.html#get_pop_objs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ogusa.demographics.get_pop_objs" title="Link to this definition">#</a></dt>
-<dd><p>This function produces the demographics objects to be used in the
-OG-USA model package.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>E</strong> (<em>int</em>) – number of model periods in which agent is not
-economically active, &gt;= 1</p></li>
-<li><p><strong>S</strong> (<em>int</em>) – number of model periods in which agent is economically
-active, &gt;= 3</p></li>
-<li><p><strong>T</strong> (<em>int</em>) – number of periods to be simulated in TPI, &gt; 2*S</p></li>
-<li><p><strong>min_age</strong> (<em>int</em>) – age in years at which agents are born, &gt;= 0</p></li>
-<li><p><strong>max_age</strong> (<em>int</em>) – age in years at which agents die with certainty,
-&gt;= 4</p></li>
-<li><p><strong>model_year</strong> (<em>int</em>) – current year for which analysis will begin,
-&gt;= 2016</p></li>
-<li><p><strong>country_id</strong> (<em>str</em>) – country id for UN data</p></li>
-<li><p><strong>GraphDiag</strong> (<em>bool</em>) – =True if want graphical output and printed
-diagnostics</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><dl>
-<dt>includes:</dt><dd><dl class="simple">
-<dt>omega_path_S (Numpy array), time path of the population</dt><dd><p>distribution from the current state to the steady-state,
-size T+S x S</p>
-</dd>
-</dl>
-<p>g_n_SS (scalar): steady-state population growth rate
-omega_SS (Numpy array): normalized steady-state population</p>
-<blockquote>
-<div><p>distribution, length S</p>
-</div></blockquote>
-<dl class="simple">
-<dt>surv_rates (Numpy array): survival rates that correspond to</dt><dd><p>each model period of life, length S</p>
-</dd>
-<dt>mort_rates (Numpy array): mortality rates that correspond to</dt><dd><p>each model period of life, length S</p>
-</dd>
-<dt>g_n_path (Numpy array): population growth rates over the time</dt><dd><p>path, length T + S</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pop_dict (dict)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="ogusa.demographics.immsolve">
-<span class="sig-prename descclassname"><span class="pre">ogusa.demographics.</span></span><span class="sig-name descname"><span class="pre">immsolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">imm_rates</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ogusa/demographics.html#immsolve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ogusa.demographics.immsolve" title="Link to this definition">#</a></dt>
-<dd><p>This function generates a vector of errors representing the
-difference in two consecutive periods stationary population
-distributions. This vector of differences is the zero-function
-objective used to solve for the immigration rates vector, similar to
-the original immigration rates vector from get_imm_rates(), that
-sets the steady-state population distribution by age equal to the
-population distribution in period int(1.5*S)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>imm_rates</strong> (<em>Numpy array</em>) – immigration rates that correspond to
-each period of life, length E+S</p></li>
-<li><p><strong>args</strong> (<em>tuple</em>) – (fert_rates, mort_rates, infmort_rate, omega_cur,
-g_n_SS)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><dl class="simple">
-<dt>difference between omega_new and</dt><dd><p>omega_cur_pct, length E+S</p>
-</dd>
-</dl>
-</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>omega_errs (Numpy array)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="ogusa.demographics.pop_rebin">
-<span class="sig-prename descclassname"><span class="pre">ogusa.demographics.</span></span><span class="sig-name descname"><span class="pre">pop_rebin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">curr_pop_dist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">totpers_new</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ogusa/demographics.html#pop_rebin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ogusa.demographics.pop_rebin" title="Link to this definition">#</a></dt>
-<dd><p>For cases in which totpers (E+S) is less than the number of periods
-in the population distribution data, this function calculates a new
-population distribution vector with totpers (E+S) elements.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>curr_pop_dist</strong> (<em>Numpy array</em>) – population distribution over N
-periods</p></li>
-<li><p><strong>totpers_new</strong> (<em>int</em>) – number of periods to which we are
-transforming the population distribution, &gt;= 3</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><dl class="simple">
-<dt>new population distribution over</dt><dd><p>totpers (E+S) periods that approximates curr_pop_dist</p>
-</dd>
-</dl>
-</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>curr_pop_new (Numpy array)</p>
-</dd>
-</dl>
-</dd></dl>
-
+<section id="ogusa-demographics">
+<h2>ogusa.demographics<a class="headerlink" href="#ogusa-demographics" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -683,14 +494,7 @@ transforming the population distribution, &gt;= 3</p></li>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-ogusa.demographics">ogusa.demographics</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ogusa.demographics.get_fert"><code class="docutils literal notranslate"><span class="pre">get_fert()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ogusa.demographics.get_mort"><code class="docutils literal notranslate"><span class="pre">get_mort()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ogusa.demographics.get_pop_objs"><code class="docutils literal notranslate"><span class="pre">get_pop_objs()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ogusa.demographics.immsolve"><code class="docutils literal notranslate"><span class="pre">immsolve()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ogusa.demographics.pop_rebin"><code class="docutils literal notranslate"><span class="pre">pop_rebin()</span></code></a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ogusa-demographics">ogusa.demographics</a></li>
 </ul>
   </nav></div>
 

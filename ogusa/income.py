@@ -308,8 +308,8 @@ def get_e_interp(S, age_wgts, age_wgts_80, abil_wgts, plot=False):
                 new_s_midp,
                 abil_midp,
                 abil_wgts,
-                emat_new_scaled,
-                OUTPUT_DIR,
+                emat_new_scaled.reshape((1, S, J)),
+                path=OUTPUT_DIR,
                 **kwargs,
             )
 
@@ -460,7 +460,12 @@ def get_e_orig(age_wgts, abil_wgts, plot=False):
         # Plot original unscaled 80 x 7 ability matrix
         kwargs = {"filesuffix": "_orig_unscaled"}
         pp.plot_income_data(
-            ages_long, abil_midp, abil_wgts, e_orig, OUTPUT_DIR, **kwargs
+            ages_long,
+            abil_midp,
+            abil_wgts,
+            e_orig.reshape((1, 80, 7)),
+            path=OUTPUT_DIR,
+            **kwargs,
         )
 
         # Plot original scaled 80 x 7 ability matrix
@@ -469,8 +474,8 @@ def get_e_orig(age_wgts, abil_wgts, plot=False):
             ages_long,
             abil_midp,
             abil_wgts,
-            e_orig_scaled,
-            OUTPUT_DIR,
+            e_orig_scaled.reshape((1, 80, 7)),
+            path=OUTPUT_DIR,
             **kwargs,
         )
 

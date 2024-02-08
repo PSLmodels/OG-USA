@@ -1,9 +1,9 @@
-from ogusa import estimate_beta_j, bequest_transmission, demographics
+from ogusa import estimate_beta_j, bequest_transmission
 from ogusa import macro_params, transfer_distribution, income
 from ogusa import get_micro_data, psid_data_setup
 import os
 import numpy as np
-from ogcore import txfunc
+from ogcore import txfunc, demographics
 from ogcore.utils import safe_read_pickle, mkdirs
 import pkg_resources
 
@@ -58,11 +58,24 @@ class Calibration:
 
         # demographics
         self.demographic_params = demographics.get_pop_objs(
-            p.E, p.S, p.T, 1, 100, p.start_year - 1, p.start_year
+            p.E,
+            p.S,
+            p.T,
+            0,
+            99,
+            initial_data_year=p.start_year - 1,
+            final_data_year=p.start_year,
         )
+
         # demographics for 80 period lives (needed for getting e below)
         demog80 = demographics.get_pop_objs(
-            20, 80, p.T, 1, 100, p.start_year - 1, p.start_year
+            20,
+            80,
+            p.T,
+            0,
+            99,
+            initial_data_year=p.start_year - 1,
+            final_data_year=p.start_year,
         )
 
         # earnings profiles

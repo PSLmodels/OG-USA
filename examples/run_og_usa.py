@@ -47,6 +47,10 @@ def main():
     )
     p.tax_func_type = "GS"
     c = Calibration(p, estimate_tax_functions=True, client=client)
+    # close and delete client bc cache is too large
+    client.close()
+    del client
+    client = Client(n_workers=num_workers)
     d = c.get_dict()
     # # additional parameters to change
     updated_params = {
@@ -100,6 +104,10 @@ def main():
     c2 = Calibration(
         p2, iit_reform=iit_reform, estimate_tax_functions=True, client=client
     )
+    # close and delete client bc cache is too large
+    client.close()
+    del client
+    client = Client(n_workers=num_workers)
     # update tax function parameters in Specifications Object
     d = c2.get_dict()
     # # additional parameters to change

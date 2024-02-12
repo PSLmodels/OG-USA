@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updates the pandas_datareader quarterly calls in `macro_params.py` to be "QE" instead of just "Q"
 - Adds Jupyter Book and Black tags to `README.md` and `intro.md`
 - Adds back Windows tests to `build_and_test.yml`
+- PR #84 fixed some formatting
+- PR #85 updated the way the dask client is set in `run_og_usa.py` script
+- PR #86 moved `demographics.py` out of OG-USA and into OG-Core
 
 ## [0.1.2] - 2023-10-26 15:00:00
 

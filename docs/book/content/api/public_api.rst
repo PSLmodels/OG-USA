@@ -13,7 +13,6 @@ There is also a link to the source code for each documented member.
 
    bequest_transmission
    calibrate
-   demographics
    deterministic_profiles
    estimate_beta_j
    get_micro_data

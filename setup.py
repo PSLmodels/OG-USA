@@ -7,7 +7,7 @@ with open("README.md", "r") as readme_file:
 
 setup(
     name="ogusa",
-    version="0.1.2",
+    version="0.1.3",
     author="Jason DeBacker and Richard W. Evans",
     license="CC0 1.0 Universal (CC0 1.0) Public Domain Dedication",
     description="USA calibration for OG-Core",
@@ -35,7 +35,7 @@ setup(
     packages=["ogusa"],
     package_data={"ogusa": ["ogusa_default_parameters.json", "data/PSID/*"]},
     include_packages=True,
-    python_requires=">=3.7.7",
+    python_requires=">=3.7.7, <3.12",
     install_requires=[
         "numpy",
         "psutil",

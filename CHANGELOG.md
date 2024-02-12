@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.3] - 2024-02-12 15:00:00
+
+### Added
+
+- Restricts Python version in `environment.yml` and `setup.py` to be <3.12
+- Updates the Jupyter Book copyright to 2024 in `_config.yml`
+- Updates the pandas_datareader quarterly calls in `macro_params.py` to be "QE" instead of just "Q"
+- Adds Jupyter Book and Black tags to `README.md` and `intro.md`
+- Adds back Windows tests to `build_and_test.yml`
+- PR #84 fixed some formatting
+- PR #85 updated the way the dask client is set in `run_og_usa.py` script
+- PR #86 moved `demographics.py` out of OG-USA and into OG-Core
+
 ## [0.1.2] - 2023-10-26 15:00:00
 
 ### Added
@@ -47,5 +60,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+[0.1.3]: https://github.com/PSLmodels/OG-USA/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/PSLmodels/OG-USA/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/PSLmodels/OG-USA/compare/v0.1.0...v0.1.1

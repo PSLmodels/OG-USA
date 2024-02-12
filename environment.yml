@@ -2,7 +2,7 @@ name: ogusa-dev
 channels:
 - conda-forge
 dependencies:
-- python>=3.7.7
+- python>=3.7.7,<3.12
 - numpy
 - numba>=0.54
 - scipy>=1.5.0
@@ -26,7 +26,7 @@ dependencies:
 - statsmodels
 - linearmodels
 - rpy2<=3.5.11
-- black
+- black>=24.1.1
 - pip:
   - jupyter-book>=0.9.1
   - openpyxl>=3.1.2

@@ -61,7 +61,7 @@ def get_macro_params():
                 "GDP Per Capita",
             ]
         ]
-        .resample("Q")
+        .resample("QE")
         .mean()
     )
     fred_data_a = fred_data[["Labor share"]]
@@ -107,7 +107,7 @@ def get_macro_params():
 
     # find g_y
     macro_parameters["g_y"] = (
-        fred_data_q["GDP Per Capita"].pct_change(periods=4, freq="Q").mean()
+        fred_data_q["GDP Per Capita"].pct_change(periods=4, freq="QE").mean()
     )
 
     # # estimate r_gov_shift and r_gov_scale

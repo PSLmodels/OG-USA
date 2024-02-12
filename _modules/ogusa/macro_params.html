@@ -184,7 +184,6 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../content/api/public_api.html">API</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../content/api/bequest_transmission.html">Bequest Transmission Process Estimation Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../content/api/calibrate.html">Main Calibration Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../content/api/demographics.html">Demographics Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../content/api/deterministic_profiles.html">Deterministic Earnings Profiles Estimation Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../content/api/estimate_beta_j.html">Beta Estimation Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../content/api/get_micro_data.html">Functions to Get Micro-data</a></li>
@@ -429,7 +428,7 @@ document.write(`
                 <span class="s2">&quot;GDP Per Capita&quot;</span><span class="p">,</span>
             <span class="p">]</span>
         <span class="p">]</span>
-        <span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">&quot;Q&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">&quot;QE&quot;</span><span class="p">)</span>
         <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
     <span class="p">)</span>
     <span class="n">fred_data_a</span> <span class="o">=</span> <span class="n">fred_data</span><span class="p">[[</span><span class="s2">&quot;Labor share&quot;</span><span class="p">]]</span>
@@ -475,7 +474,7 @@ document.write(`
 
     <span class="c1"># find g_y</span>
     <span class="n">macro_parameters</span><span class="p">[</span><span class="s2">&quot;g_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">&quot;GDP Per Capita&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">(</span><span class="n">periods</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;Q&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">&quot;GDP Per Capita&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">(</span><span class="n">periods</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;QE&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
     <span class="p">)</span>
 
     <span class="c1"># # estimate r_gov_shift and r_gov_scale</span>
@@ -535,7 +534,7 @@ By Jason DeBacker and Richard W. Evans
 
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2024.
       <br/>
     
   </p>

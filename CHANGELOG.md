@@ -9,10 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Restricted Python version in `environment.yml` and `setup.py` to be <3.12
-- Updated the Jupyter Book copyright to 2024 in `_config.yml`
-- Updated the pandas_datareader quarterly calls in `macro_params.py` to be "QE" instead of just "Q"
-- Added Jupyter Book and Black tags to `README.md` and `intro.md`
+- Restricts Python version in `environment.yml` and `setup.py` to be <3.12
+- Updates the Jupyter Book copyright to 2024 in `_config.yml`
+- Updates the pandas_datareader quarterly calls in `macro_params.py` to be "QE" instead of just "Q"
+- Adds Jupyter Book and Black tags to `README.md` and `intro.md`
+- Adds back Windows tests to `build_and_test.yml`
 
 ## [0.1.2] - 2023-10-26 15:00:00
 

@@ -386,8 +386,10 @@ def comp_output(
     Function to create output for the COMP platform
     """
     if time_path:
-        table_title = "Percentage Changes in Economic Aggregates Between"
-        table_title += " Baseline and Reform Policy"
+        macro_table_title = "Percentage Changes in Economic Aggregates Between"
+        macro_table_title += " Baseline and Reform Policy"
+        dynamic_rev_table_title = "Dynamic Revenue Estimate Decomposition"
+        download_table_title = "Economic variables over the time path"
         plot1_title = "Pct Changes in Economic Aggregates Between"
         plot1_title += " Baseline and Reform Policy"
         plot2_title = "Pct Changes in Interest Rates and Wages"
@@ -401,7 +403,7 @@ def comp_output(
             reform_tpi,
             table_format="csv",
         )
-        html_table = ot.macro_table(
+        macro_table = ot.macro_table(
             base_tpi,
             base_params,
             reform_tpi,
@@ -411,6 +413,21 @@ def comp_output(
             num_years=10,
             include_SS=True,
             include_overall=True,
+            start_year=base_params.start_year,
+            table_format="html",
+        )
+        dynamic_rev_table = ot.dynamic_revenue_decomposition(
+            base_params,
+            base_tpi,
+            base_ss,
+            reform_params,
+            reform_tpi,
+            reform_ss,
+            num_years=10,
+            include_SS=True,
+            include_overall=True,
+            include_business_tax=True,
+            full_break_out=False,
             start_year=base_params.start_year,
             table_format="html",
         )
@@ -491,21 +508,26 @@ def comp_output(
                 },
                 {
                     "media_type": "table",
-                    "title": table_title,
-                    "data": html_table,
+                    "title": macro_table_title,
+                    "data": macro_table,
+                },
+                {
+                    "media_type": "table",
+                    "title": dynamic_rev_table_title,
+                    "data": dynamic_rev_table,
                 },
             ],
             "downloadable": [
                 {
                     "media_type": "CSV",
-                    "title": table_title,
+                    "title": download_table_title,
                     "data": out_table.to_csv(),
                 }
             ],
         }
     else:
-        table_title = "Percentage Changes in Economic Aggregates Between"
-        table_title += " Baseline and Reform Policy"
+        macro_table_title = "Percentage Changes in Economic Aggregates Between"
+        macro_table_title += " Baseline and Reform Policy"
         plot_title = "Percentage Changes in Consumption by Lifetime Income"
         plot_title += " Percentile Group"
         out_table = ot.macro_table_SS(
@@ -523,7 +545,7 @@ def comp_output(
             ],
             table_format="csv",
         )
-        html_table = ot.macro_table_SS(
+        macro_table_SS = ot.macro_table_SS(
             base_ss,
             reform_ss,
             var_list=[
@@ -554,14 +576,14 @@ def comp_output(
                 },
                 {
                     "media_type": "table",
-                    "title": table_title,
-                    "data": html_table,
+                    "title": macro_table_title,
+                    "data": macro_table_SS,
                 },
             ],
             "downloadable": [
                 {
                     "media_type": "CSV",
-                    "title": table_title,
+                    "title": macro_table_title,
                     "data": out_table.to_csv(),
                 }
             ],

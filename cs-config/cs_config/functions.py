@@ -191,8 +191,8 @@ def run_model(meta_param_dict, adjustment):
         utils.mkdirs(_dir)
 
     # Dask parmeters
-    client = Client()
     num_workers = 5
+    client = Client(n_workers=num_workers, threads_per_worker=1)
     # TODO: Swap to these parameters when able to specify tax function
     # and model workers separately
     # num_workers_txf = 5
@@ -233,19 +233,10 @@ def run_model(meta_param_dict, adjustment):
 
     # Solve baseline model
     start_year = meta_param_dict["year"][0]["value"]
-    if start_year == 2020:
-        OGPATH = inspect.getfile(SS)
-        OGDIR = os.path.dirname(OGPATH)
-        tax_func_path = None  # os.path.join(OGDIR, 'data', 'tax_functions',
-        #             cached_pickle)
-        run_micro_baseline = True
-    else:
-        tax_func_path = None
-        run_micro_baseline = True
     base_spec = {
         **{
             "start_year": start_year,
-            "tax_func_type": "DEP",
+            "tax_func_type": "GS",
             "age_specific": False,
         },
         **filtered_ogusa_params,
@@ -281,6 +272,9 @@ def run_model(meta_param_dict, adjustment):
         data=data,
         client=client,
     )
+    client.close()
+    del client
+    client = Client(n_workers=num_workers, threads_per_worker=1)
     # update tax function parameters in Specifications Object
     d_base = c_base.get_dict()
     # additional parameters to change
@@ -295,6 +289,9 @@ def run_model(meta_param_dict, adjustment):
     base_ss = SS.run_SS(base_params, client=client)
     utils.mkdirs(os.path.join(base_dir, "SS"))
     base_ss_dir = os.path.join(base_dir, "SS", "SS_vars.pkl")
+    client.close()
+    del client
+    client = Client(n_workers=num_workers, threads_per_worker=1)
     with open(base_ss_dir, "wb") as f:
         pickle.dump(base_ss, f)
     if time_path:

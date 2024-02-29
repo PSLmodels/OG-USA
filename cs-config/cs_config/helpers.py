@@ -12,6 +12,7 @@ import pandas as pd
 from taxcalc import Policy
 from collections import defaultdict
 from pathlib import Path
+
 try:
     from s3fs import S3FileSystem
 except ImportError as ie:
@@ -20,7 +21,8 @@ except ImportError as ie:
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", None)
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", None)
 PUF_S3_FILE_LOCATION = os.environ.get(
-    "PUF_S3_LOCATION", "s3://ospc-data-files/puf.20210720.csv.gz")
+    "PUF_S3_LOCATION", "s3://ospc-data-files/puf.20210720.csv.gz"
+)
 TC_LAST_YEAR = Policy.LAST_BUDGET_YEAR
 
 POLICY_SCHEMA = {
@@ -83,7 +85,11 @@ POLICY_SCHEMA = {
 }
 
 
-def retrieve_puf(puf_s3_file_location=PUF_S3_FILE_LOCATION, aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY):
+def retrieve_puf(
+    puf_s3_file_location=PUF_S3_FILE_LOCATION,
+    aws_access_key_id=AWS_ACCESS_KEY_ID,
+    aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+):
     """
     Function for retrieving the PUF from the OSPC S3 bucket
     """
@@ -93,7 +99,10 @@ def retrieve_puf(puf_s3_file_location=PUF_S3_FILE_LOCATION, aws_access_key_id=AW
     )
     if puf_s3_file_location and has_credentials and s3_reader_installed:
         print("Reading puf from S3 bucket.", puf_s3_file_location)
-        fs = S3FileSystem(key=AWS_ACCESS_KEY_ID, secret=AWS_SECRET_ACCESS_KEY,)
+        fs = S3FileSystem(
+            key=AWS_ACCESS_KEY_ID,
+            secret=AWS_SECRET_ACCESS_KEY,
+        )
         with fs.open(PUF_S3_FILE_NAME) as f:
             # Skips over header from top of file.
             puf_df = pd.read_csv(f, compression="gzip")

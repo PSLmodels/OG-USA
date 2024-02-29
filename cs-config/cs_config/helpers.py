@@ -104,7 +104,7 @@ def retrieve_puf(
             key=AWS_ACCESS_KEY_ID,
             secret=AWS_SECRET_ACCESS_KEY,
         )
-        with fs.open(PUF_S3_FILE_NAME) as f:
+        with fs.open(PUF_S3_FILE_LOCATION) as f:
             # Skips over header from top of file.
             puf_df = pd.read_csv(f, compression="gzip")
         return puf_df

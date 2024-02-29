@@ -193,8 +193,8 @@ def run_model(meta_param_dict, adjustment):
         utils.mkdirs(_dir)
 
     # Dask parmeters
-    client = Client()
     num_workers = 5
+    client = Client(n_workers=num_workers, threads_per_worker=1)
     # TODO: Swap to these parameters when able to specify tax function
     # and model workers separately
     # num_workers_txf = 5
@@ -235,19 +235,10 @@ def run_model(meta_param_dict, adjustment):
 
     # Solve baseline model
     start_year = meta_param_dict["year"][0]["value"]
-    if start_year == 2020:
-        OGPATH = inspect.getfile(SS)
-        OGDIR = os.path.dirname(OGPATH)
-        tax_func_path = None  # os.path.join(OGDIR, 'data', 'tax_functions',
-        #             cached_pickle)
-        run_micro_baseline = True
-    else:
-        tax_func_path = None
-        run_micro_baseline = True
     base_spec = {
         **{
             "start_year": start_year,
-            "tax_func_type": "DEP",
+            "tax_func_type": "GS",
             "age_specific": False,
         },
         **filtered_ogusa_params,
@@ -283,6 +274,9 @@ def run_model(meta_param_dict, adjustment):
         data=data,
         client=client,
     )
+    client.close()
+    del client
+    client = Client(n_workers=num_workers, threads_per_worker=1)
     # update tax function parameters in Specifications Object
     d_base = c_base.get_dict()
     # additional parameters to change
@@ -297,6 +291,9 @@ def run_model(meta_param_dict, adjustment):
     base_ss = SS.run_SS(base_params, client=client)
     utils.mkdirs(os.path.join(base_dir, "SS"))
     base_ss_dir = os.path.join(base_dir, "SS", "SS_vars.pkl")
+    client.close()
+    del client
+    client = Client(n_workers=num_workers, threads_per_worker=1)
     with open(base_ss_dir, "wb") as f:
         pickle.dump(base_ss, f)
     if time_path:
@@ -391,8 +388,10 @@ def comp_output(
     Function to create output for the COMP platform
     """
     if time_path:
-        table_title = "Percentage Changes in Economic Aggregates Between"
-        table_title += " Baseline and Reform Policy"
+        macro_table_title = "Percentage Changes in Economic Aggregates Between"
+        macro_table_title += " Baseline and Reform Policy"
+        dynamic_rev_table_title = "Dynamic Revenue Estimate Decomposition"
+        download_table_title = "Economic variables over the time path"
         plot1_title = "Pct Changes in Economic Aggregates Between"
         plot1_title += " Baseline and Reform Policy"
         plot2_title = "Pct Changes in Interest Rates and Wages"
@@ -406,7 +405,7 @@ def comp_output(
             reform_tpi,
             table_format="csv",
         )
-        html_table = ot.macro_table(
+        macro_table = ot.macro_table(
             base_tpi,
             base_params,
             reform_tpi,
@@ -416,6 +415,21 @@ def comp_output(
             num_years=10,
             include_SS=True,
             include_overall=True,
+            start_year=base_params.start_year,
+            table_format="html",
+        )
+        dynamic_rev_table = ot.dynamic_revenue_decomposition(
+            base_params,
+            base_tpi,
+            base_ss,
+            reform_params,
+            reform_tpi,
+            reform_ss,
+            num_years=10,
+            include_SS=True,
+            include_overall=True,
+            include_business_tax=True,
+            full_break_out=False,
             start_year=base_params.start_year,
             table_format="html",
         )
@@ -496,21 +510,26 @@ def comp_output(
                 },
                 {
                     "media_type": "table",
-                    "title": table_title,
-                    "data": html_table,
+                    "title": macro_table_title,
+                    "data": macro_table,
+                },
+                {
+                    "media_type": "table",
+                    "title": dynamic_rev_table_title,
+                    "data": dynamic_rev_table,
                 },
             ],
             "downloadable": [
                 {
                     "media_type": "CSV",
-                    "title": table_title,
+                    "title": download_table_title,
                     "data": out_table.to_csv(),
                 }
             ],
         }
     else:
-        table_title = "Percentage Changes in Economic Aggregates Between"
-        table_title += " Baseline and Reform Policy"
+        macro_table_title = "Percentage Changes in Economic Aggregates Between"
+        macro_table_title += " Baseline and Reform Policy"
         plot_title = "Percentage Changes in Consumption by Lifetime Income"
         plot_title += " Percentile Group"
         out_table = ot.macro_table_SS(
@@ -528,7 +547,7 @@ def comp_output(
             ],
             table_format="csv",
         )
-        html_table = ot.macro_table_SS(
+        macro_table_SS = ot.macro_table_SS(
             base_ss,
             reform_ss,
             var_list=[
@@ -559,14 +578,14 @@ def comp_output(
                 },
                 {
                     "media_type": "table",
-                    "title": table_title,
-                    "data": html_table,
+                    "title": macro_table_title,
+                    "data": macro_table_SS,
                 },
             ],
             "downloadable": [
                 {
                     "media_type": "CSV",
-                    "title": table_title,
+                    "title": macro_table_title,
                     "data": out_table.to_csv(),
                 }
             ],

@@ -23,6 +23,8 @@ from cs2tc import convert_policy_adjustment
 
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
+PUF_S3_FILE_LOCATION = os.environ.get(
+    "PUF_S3_LOCATION", "s3://ospc-data-files/puf.20210720.csv.gz")
 CUR_DIR = os.path.dirname(os.path.realpath(__file__))
 
 # Get Tax-Calculator default parameters
@@ -172,7 +174,7 @@ def run_model(meta_param_dict, adjustment):
     meta_params = MetaParams()
     meta_params.adjust(meta_param_dict)
     if meta_params.data_source == "PUF":
-        data = retrieve_puf(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+        data = retrieve_puf(PUF_S3_FILE_LOCATION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
         # set name of cached baseline file in case use below
         cached_pickle = "TxFuncEst_baseline_PUF.pkl"
     else:

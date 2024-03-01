@@ -17,6 +17,7 @@ class Calibration:
         estimate_tax_functions=False,
         estimate_beta=False,
         estimate_chi_n=False,
+        estimate_pop=False,
         tax_func_path=None,
         iit_reform={},
         guid="",
@@ -27,6 +28,7 @@ class Calibration:
         self.estimate_tax_functions = estimate_tax_functions
         self.estimate_beta = estimate_beta
         self.estimate_chi_n = estimate_chi_n
+        self.estimate_pop = estimate_pop
         if estimate_tax_functions:
             if tax_func_path is not None:
                 run_micro = False
@@ -42,7 +44,7 @@ class Calibration:
                 run_micro=run_micro,
                 tax_func_path=tax_func_path,
             )
-        if estimate_beta:
+        if self.estimate_beta:
             self.beta_j = estimate_beta_j.beta_estimate(self)
         # if estimate_chi_n:
         #     chi_n = self.get_chi_n()
@@ -57,35 +59,44 @@ class Calibration:
         self.zeta = bequest_transmission.get_bequest_matrix(p.J, p.lambdas)
 
         # demographics
-        self.demographic_params = demographics.get_pop_objs(
-            p.E,
-            p.S,
-            p.T,
-            0,
-            99,
-            initial_data_year=p.start_year - 1,
-            final_data_year=p.start_year,
-        )
+        if estimate_pop:
+            self.demographic_params = demographics.get_pop_objs(
+                p.E,
+                p.S,
+                p.T,
+                0,
+                99,
+                initial_data_year=p.start_year - 1,
+                final_data_year=p.start_year,
+            )
 
-        # demographics for 80 period lives (needed for getting e below)
-        demog80 = demographics.get_pop_objs(
-            20,
-            80,
-            p.T,
-            0,
-            99,
-            initial_data_year=p.start_year - 1,
-            final_data_year=p.start_year,
-        )
+            # demographics for 80 period lives (needed for getting e below)
+            demog80 = demographics.get_pop_objs(
+                20,
+                80,
+                p.T,
+                0,
+                99,
+                initial_data_year=p.start_year - 1,
+                final_data_year=p.start_year,
+            )
 
-        # earnings profiles
-        self.e = income.get_e_interp(
-            p.S,
-            self.demographic_params["omega_SS"],
-            demog80["omega_SS"],
-            p.lambdas,
-            plot=False,
-        )
+            # earnings profiles
+            self.e = income.get_e_interp(
+                p.S,
+                self.demographic_params["omega_SS"],
+                demog80["omega_SS"],
+                p.lambdas,
+                plot=False,
+            )
+        else:
+            self.e = income.get_e_interp(
+                p.S,
+                p.omega_SS,
+                p.omega_SS,
+                p.lambdas,
+                plot=False,
+            )
 
     # Tax Functions
     def get_tax_function_parameters(
@@ -334,6 +345,7 @@ class Calibration:
         dict["zeta"] = self.zeta
         dict.update(self.macro_params)
         dict["e"] = self.e
-        dict.update(self.demographic_params)
+        if self.estimate_pop:
+            dict.update(self.demographic_params)
 
         return dict

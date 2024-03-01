@@ -384,6 +384,7 @@ document.write(`
         <span class="n">estimate_tax_functions</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">estimate_beta</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">estimate_chi_n</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">estimate_pop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">tax_func_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">iit_reform</span><span class="o">=</span><span class="p">{},</span>
         <span class="n">guid</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
@@ -394,6 +395,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">estimate_tax_functions</span> <span class="o">=</span> <span class="n">estimate_tax_functions</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">estimate_beta</span> <span class="o">=</span> <span class="n">estimate_beta</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">estimate_chi_n</span> <span class="o">=</span> <span class="n">estimate_chi_n</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">estimate_pop</span> <span class="o">=</span> <span class="n">estimate_pop</span>
         <span class="k">if</span> <span class="n">estimate_tax_functions</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">tax_func_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">run_micro</span> <span class="o">=</span> <span class="kc">False</span>
@@ -409,7 +411,7 @@ document.write(`
                 <span class="n">run_micro</span><span class="o">=</span><span class="n">run_micro</span><span class="p">,</span>
                 <span class="n">tax_func_path</span><span class="o">=</span><span class="n">tax_func_path</span><span class="p">,</span>
             <span class="p">)</span>
-        <span class="k">if</span> <span class="n">estimate_beta</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimate_beta</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">beta_j</span> <span class="o">=</span> <span class="n">estimate_beta_j</span><span class="o">.</span><span class="n">beta_estimate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="c1"># if estimate_chi_n:</span>
         <span class="c1">#     chi_n = self.get_chi_n()</span>
@@ -424,35 +426,44 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">zeta</span> <span class="o">=</span> <span class="n">bequest_transmission</span><span class="o">.</span><span class="n">get_bequest_matrix</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">J</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">lambdas</span><span class="p">)</span>
 
         <span class="c1"># demographics</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">demographic_params</span> <span class="o">=</span> <span class="n">demographics</span><span class="o">.</span><span class="n">get_pop_objs</span><span class="p">(</span>
-            <span class="n">p</span><span class="o">.</span><span class="n">E</span><span class="p">,</span>
-            <span class="n">p</span><span class="o">.</span><span class="n">S</span><span class="p">,</span>
-            <span class="n">p</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
-            <span class="mi">0</span><span class="p">,</span>
-            <span class="mi">99</span><span class="p">,</span>
-            <span class="n">initial_data_year</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">start_year</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
-            <span class="n">final_data_year</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">start_year</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">estimate_pop</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">demographic_params</span> <span class="o">=</span> <span class="n">demographics</span><span class="o">.</span><span class="n">get_pop_objs</span><span class="p">(</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">E</span><span class="p">,</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">S</span><span class="p">,</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+                <span class="mi">0</span><span class="p">,</span>
+                <span class="mi">99</span><span class="p">,</span>
+                <span class="n">initial_data_year</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">start_year</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="n">final_data_year</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">start_year</span><span class="p">,</span>
+            <span class="p">)</span>
 
-        <span class="c1"># demographics for 80 period lives (needed for getting e below)</span>
-        <span class="n">demog80</span> <span class="o">=</span> <span class="n">demographics</span><span class="o">.</span><span class="n">get_pop_objs</span><span class="p">(</span>
-            <span class="mi">20</span><span class="p">,</span>
-            <span class="mi">80</span><span class="p">,</span>
-            <span class="n">p</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
-            <span class="mi">0</span><span class="p">,</span>
-            <span class="mi">99</span><span class="p">,</span>
-            <span class="n">initial_data_year</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">start_year</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
-            <span class="n">final_data_year</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">start_year</span><span class="p">,</span>
-        <span class="p">)</span>
+            <span class="c1"># demographics for 80 period lives (needed for getting e below)</span>
+            <span class="n">demog80</span> <span class="o">=</span> <span class="n">demographics</span><span class="o">.</span><span class="n">get_pop_objs</span><span class="p">(</span>
+                <span class="mi">20</span><span class="p">,</span>
+                <span class="mi">80</span><span class="p">,</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+                <span class="mi">0</span><span class="p">,</span>
+                <span class="mi">99</span><span class="p">,</span>
+                <span class="n">initial_data_year</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">start_year</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="n">final_data_year</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">start_year</span><span class="p">,</span>
+            <span class="p">)</span>
 
-        <span class="c1"># earnings profiles</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="n">income</span><span class="o">.</span><span class="n">get_e_interp</span><span class="p">(</span>
-            <span class="n">p</span><span class="o">.</span><span class="n">S</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">demographic_params</span><span class="p">[</span><span class="s2">&quot;omega_SS&quot;</span><span class="p">],</span>
-            <span class="n">demog80</span><span class="p">[</span><span class="s2">&quot;omega_SS&quot;</span><span class="p">],</span>
-            <span class="n">p</span><span class="o">.</span><span class="n">lambdas</span><span class="p">,</span>
-            <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="p">)</span>
+            <span class="c1"># earnings profiles</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="n">income</span><span class="o">.</span><span class="n">get_e_interp</span><span class="p">(</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">S</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">demographic_params</span><span class="p">[</span><span class="s2">&quot;omega_SS&quot;</span><span class="p">],</span>
+                <span class="n">demog80</span><span class="p">[</span><span class="s2">&quot;omega_SS&quot;</span><span class="p">],</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">lambdas</span><span class="p">,</span>
+                <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="n">income</span><span class="o">.</span><span class="n">get_e_interp</span><span class="p">(</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">S</span><span class="p">,</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">omega_SS</span><span class="p">,</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">omega_SS</span><span class="p">,</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">lambdas</span><span class="p">,</span>
+                <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">)</span>
 
     <span class="c1"># Tax Functions</span>
 <div class="viewcode-block" id="Calibration.get_tax_function_parameters">
@@ -707,7 +718,8 @@ document.write(`
         <span class="nb">dict</span><span class="p">[</span><span class="s2">&quot;zeta&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zeta</span>
         <span class="nb">dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">macro_params</span><span class="p">)</span>
         <span class="nb">dict</span><span class="p">[</span><span class="s2">&quot;e&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span>
-        <span class="nb">dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">demographic_params</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimate_pop</span><span class="p">:</span>
+            <span class="nb">dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">demographic_params</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="nb">dict</span></div>
 

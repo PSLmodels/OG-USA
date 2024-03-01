@@ -7,10 +7,23 @@ try:
 except ImportError:
     boto3 = None
 import gzip
+import os
 import pandas as pd
 from taxcalc import Policy
 from collections import defaultdict
+from pathlib import Path
+import warnings
 
+try:
+    from s3fs import S3FileSystem
+except ImportError as ie:
+    S3FileSystem = None
+
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", None)
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", None)
+PUF_S3_FILE_LOCATION = os.environ.get(
+    "PUF_S3_LOCATION", "s3://ospc-data-files/puf.20210720.csv.gz"
+)
 TC_LAST_YEAR = Policy.LAST_BUDGET_YEAR
 
 POLICY_SCHEMA = {
@@ -73,20 +86,37 @@ POLICY_SCHEMA = {
 }
 
 
-def retrieve_puf(aws_access_key_id, aws_secret_access_key):
+def retrieve_puf(
+    puf_s3_file_location=PUF_S3_FILE_LOCATION,
+    aws_access_key_id=AWS_ACCESS_KEY_ID,
+    aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+):
     """
     Function for retrieving the PUF from the OSPC S3 bucket
     """
-    has_credentials = aws_access_key_id and aws_secret_access_key
-    if has_credentials and boto3 is not None:
-        client = boto3.client(
-            "s3",
-            aws_access_key_id=aws_access_key_id,
-            aws_secret_access_key=aws_secret_access_key,
+    s3_reader_installed = S3FileSystem is not None
+    has_credentials = (
+        aws_access_key_id is not None and aws_secret_access_key is not None
+    )
+    if puf_s3_file_location and has_credentials and s3_reader_installed:
+        print("Reading puf from S3 bucket.", puf_s3_file_location)
+        fs = S3FileSystem(
+            key=AWS_ACCESS_KEY_ID,
+            secret=AWS_SECRET_ACCESS_KEY,
         )
-        obj = client.get_object(Bucket="ospc-data-files", Key="puf.csv.gz")
-        gz = gzip.GzipFile(fileobj=obj["Body"])
-        puf_df = pd.read_csv(gz)
+        with fs.open(PUF_S3_FILE_LOCATION) as f:
+            # Skips over header from top of file.
+            puf_df = pd.read_csv(f, compression="gzip")
         return puf_df
+    elif Path("puf.csv.gz").exists():
+        print("Reading puf from puf.csv.gz.")
+        return pd.read_csv("puf.csv.gz", compression="gzip")
+    elif Path("puf.csv").exists():
+        print("Reading puf from puf.csv.")
+        return pd.read_csv("puf.csv")
     else:
+        warnings.warn(
+            f"PUF file not available (has_credentials={has_credentials}, "
+            f"s3_reader_installed={s3_reader_installed})"
+        )
         return None

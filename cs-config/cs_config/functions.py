@@ -116,6 +116,20 @@ def get_inputs(meta_param_dict):
         "gamma",
         "epsilon",
         "start_year",
+        "e",
+        "chi_n",
+        "omega_SS",
+        "omega_S_preTP",
+        "omega",
+        "rho",
+        "imm_rates",
+        "g_n",
+        "g_n_ss",
+        "etr_params",
+        "mtrx_params",
+        "mtry_params",
+        "frac_tax_payroll",
+        "mean_income_data",
     ]
     for k, v in ogusa_params.dump().items():
         if (

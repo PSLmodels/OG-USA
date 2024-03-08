@@ -3,7 +3,7 @@
     "img": "https://raw.githubusercontent.com/PSLmodels/OG-USA/master/docs/OG-USA_logo.png",
     "banner_title": "OG-USA",
     "banner_subtitle": "Large-scale open source overlapping generations model of US fiscal policy",
-    "detailed_description": "A detailed description of the project...",
+    "detailed_description": "https://raw.githubusercontent.com/PSLmodels/OG-USA/master/README.md",
     "policy_area": "Policy analysis, policy reform, fiscal policy, tax, benefits, social security, public finance, macroeconomic analysis, general equilibrium, dynamic scoring, overlapping generations, OG, OLG",
     "geography": "USA",
     "language": "Python",

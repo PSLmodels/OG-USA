@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.4] - 2024-04-03 15:00:00
+
+### Added
+
+- PRs, #91, #93, and #94 update the configuration of Compute Studio hosted OG-USA web apps
+- PR #89 adds more CI tests, updates the Jupyter Book documentation, and make fixes for the latest `pandas-datareader`
+- PR #87 updates the `run_og_usa.py` script for better use of `dask` multiprocessing
+
 ## [0.1.3] - 2024-02-12 15:00:00
 
 ### Added

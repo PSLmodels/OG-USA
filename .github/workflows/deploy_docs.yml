@@ -3,6 +3,13 @@ on:
   push:
     branches:
       - master
+    paths:
+      - './docs/**.png'
+      - './docs/README.md'
+      - './docs/book/**.yml
+      - './docs/book/**.bib
+      - './docs/book/content/*'
+      - './ogusa/**.py'
 jobs:
   build-and-deploy:
     if: github.repository == 'PSLmodels/OG-USA'

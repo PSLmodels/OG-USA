@@ -17,6 +17,7 @@ dependencies:
 - pip
 - pytest>=6.0
 - pytest-pep8
+- pytest-cov
 - pytest-xdist
 - pycodestyle
 - pylint

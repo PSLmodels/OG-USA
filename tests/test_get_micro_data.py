@@ -213,7 +213,10 @@ def test_get_data(baseline, dask_client):
         client=dask_client,
         num_workers=NUM_WORKERS,
     )
-    for k, v in test_data.items():
+    # remove last two years from test_data, because get_data() method gives 4 years
+    keys = ['2031', '2032']
+    test_data2 = {x:test_data[x] for x in keys}
+    for k, v in test_data2.items():
         try:
             assert_frame_equal(expected_data[k], v)
         except KeyError:

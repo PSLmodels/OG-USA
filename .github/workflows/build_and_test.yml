@@ -6,14 +6,11 @@ on:
       - 'pyproject.toml'
       - 'pytest.ini'
       - 'setup.py'
-      - './data/PSID/**.R'
-      - './data/PSID/**.RData'
-      - './data/PSID/**.csv'
+      - './data/PSID/*'
       - './ogusa/**.py'
       - './ogusa/**.json'
       - './tests/**.py'
-      - './tests/test_io_data/**.pkl'
-      - './tests/test_io_data/**.csv'
+      - './tests/test_io_data/*'
 jobs:
   build:
     runs-on: ${{ matrix.os }}

@@ -1,5 +1,13 @@
 name: Check that docs build
-on: [pull_request]
+on:
+  [pull_request]:
+    paths:
+      - './docs/**.png'
+      - './docs/README.md'
+      - './docs/book/**.yml
+      - './docs/book/**.bib
+      - './docs/book/content/*'
+      - './ogusa/**.py'
 
 jobs:
   build:

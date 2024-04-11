@@ -1,5 +1,19 @@
 name: Build and test
-on: [push, pull_request]
+on:
+  [push, pull_request]:
+    paths:
+      - 'environment.yml'
+      - 'pyproject.toml'
+      - 'pytest.ini'
+      - 'setup.py'
+      - './data/PSID/**.R'
+      - './data/PSID/**.RData'
+      - './data/PSID/**.csv'
+      - './ogusa/**.py'
+      - './ogusa/**.json'
+      - './tests/**.py'
+      - './tests/test_io_data/**.pkl'
+      - './tests/test_io_data/**.csv'
 jobs:
   build:
     runs-on: ${{ matrix.os }}

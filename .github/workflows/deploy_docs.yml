@@ -6,8 +6,8 @@ on:
     paths:
       - './docs/**.png'
       - './docs/README.md'
-      - './docs/book/**.yml
-      - './docs/book/**.bib
+      - './docs/book/**.yml'
+      - './docs/book/**.bib'
       - './docs/book/content/*'
       - './ogusa/**.py'
 jobs:

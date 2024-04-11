@@ -1,6 +1,17 @@
 name: Build and test
 on:
-  [push, pull_request]:
+  push:
+    paths:
+      - 'environment.yml'
+      - 'pyproject.toml'
+      - 'pytest.ini'
+      - 'setup.py'
+      - './data/PSID/*'
+      - './ogusa/**.py'
+      - './ogusa/**.json'
+      - './tests/**.py'
+      - './tests/test_io_data/*'
+  pull_request:
     paths:
       - 'environment.yml'
       - 'pyproject.toml'

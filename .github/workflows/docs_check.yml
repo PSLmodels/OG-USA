@@ -1,5 +1,5 @@
 name: Check that docs build
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
   build:
@@ -11,7 +11,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup Miniconda
-        uses: conda-incubator/setup-miniconda@v2
+        uses: conda-incubator/setup-miniconda@v3
         with:
           miniforge-variant: Mambaforge
           activate-environment: ogusa-dev

@@ -16,7 +16,6 @@ dependencies:
 - sphinx-book-theme>=0.1.3
 - pip
 - pytest>=6.0
-- pytest-pep8
 - pytest-cov
 - pytest-xdist
 - pycodestyle

@@ -1,31 +1,16 @@
-"""This file contains the OG-USA package's metadata and dependencies."""
-
-from setuptools import find_packages, setup
+import setuptools
 
 with open("README.md", "r") as readme_file:
-    readme = readme_file.read()
+    longdesc = readme_file.read()
 
-setup(
+setuptools.setup(
     name="ogusa",
-    version="0.1.4",
+    version="0.1.5",
     author="Jason DeBacker and Richard W. Evans",
     license="CC0 1.0 Universal (CC0 1.0) Public Domain Dedication",
     description="USA calibration for OG-Core",
-    long_description=readme,
     long_description_content_type="text/markdown",
-    classifiers=[
-        "Development Status :: 5 - Production/Stable",
-        "Intended Audience :: Developers",
-        "Natural Language :: English",
-        "License :: OSI Approved :: Common Public License",
-        "Operating System :: POSIX",
-        "Programming Language :: Python",
-        "Programming Language :: Python :: 3.9",
-        "Programming Language :: Python :: 3.10",
-        "Programming Language :: Python :: 3.11",
-        "Topic :: Scientific/Engineering :: Information Analysis",
-        "Topic :: Software Development :: Libraries :: Python Modules",
-    ],
+    long_description=longdesc,
     keywords="USA calibration of large scale overlapping generations model of fiscal policy",
     url="https://github.com/PSLmodels/OG-USA/",
     download_url="https://github.com/PSLmodels/OG-USA/",
@@ -55,6 +40,19 @@ setup(
         "linearmodels",
         "wheel",
         "ogcore",
+    ],
+    classifiers=[
+        "Development Status :: 5 - Production/Stable",
+        "Intended Audience :: Developers",
+        "Natural Language :: English",
+        "License :: OSI Approved :: Common Public License",
+        "Operating System :: POSIX",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Topic :: Scientific/Engineering :: Information Analysis",
+        "Topic :: Software Development :: Libraries :: Python Modules",
     ],
     tests_require=["pytest"],
 )

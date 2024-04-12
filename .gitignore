@@ -40,6 +40,14 @@ envs/
 */__pycache__/*
 docs/book/_build/*
 docs/build*
+*micro_data_*.pkl
 examples/OG-USA_example_plots/*
 examples/ogusa_example_output.csv
 examples/OG-USA-Example/*
+cs-config/cs_config/OUTPUT_BASELINE/*
+data/csv_output_files/*
+data/images/*
+ogusa/csv_output_files/*
+ogusa/images/*
+.vscode/
+*default.profraw

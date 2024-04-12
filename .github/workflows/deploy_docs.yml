@@ -3,6 +3,15 @@ on:
   push:
     branches:
       - master
+    paths:
+      - './docs/**.png'
+      - './docs/book/content/calibration/images/**.png'
+      - './docs/README.md'
+      - './docs/book/**.yml'
+      - './docs/book/**.bib'
+      - '**.md'
+      - './docs/book/content/api/**.rst'
+      - './ogusa/**.py'
 jobs:
   build-and-deploy:
     if: github.repository == 'PSLmodels/OG-USA'
@@ -14,7 +23,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup Miniconda
-        uses: conda-incubator/setup-miniconda@v2
+        uses: conda-incubator/setup-miniconda@v3
         with:
           miniforge-variant: Mambaforge
           activate-environment: ogusa-dev

@@ -3,10 +3,12 @@ on:
   pull_request:
     paths:
       - './docs/**.png'
+      - './docs/book/content/calibration/images/**.png'
       - './docs/README.md'
       - './docs/book/**.yml'
       - './docs/book/**.bib'
-      - './docs/book/content/*'
+      - '**.md'
+      - './docs/book/content/api/**.rst'
       - './ogusa/**.py'
 
 jobs:

@@ -18,7 +18,6 @@ dependencies:
 - pytest>=6.0
 - pytest-cov
 - pytest-xdist
-- pycodestyle
 - pylint
 - coverage
 - requests

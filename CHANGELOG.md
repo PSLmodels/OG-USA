@@ -5,13 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.1.5] - 2024-04-11 12:00:00
+## [0.1.5] - 2024-04-12 10:00:00
 
 ### Added
 
-- Limits `docs_check.yml` GitHub Action to pull request commits, no more on push at merge.
-- Add Windows testing back into `build_and_test.yml`.
-- Adds Codecov secret token and if statement to `build_and_test.yml`.
+- Adds a list of file change event triggers to `build_and_test.yml` so that those tests only run when one of those files is changed.
+- Updates the codecov GH Action to version 4 and adds a secret token.
+- Adds a list of file change event triggers to `deploy_docs.yml` and `docs_check.yml`, and limits `docs_check.yml` to only run on pull requests.
+- Fixes a small typo in `tax_functions.md` in order to test if the event triggers worked properly (yes, they worked)
+- Updated some dependencies in `environment.yml`.
+- Updated three data files in the `/tests/test_io_data/` file that used output from the taxcalc package. This package was recently updated. I also changed the `test_get_data()` test in the `test_get_micro_data.py` file because the new taxcalc data included four years instead of two years. In order to conserve repo memory footprint, we deleted the last two years of the output.
 
 ## [0.1.4] - 2024-04-03 15:00:00
 

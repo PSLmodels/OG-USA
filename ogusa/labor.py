@@ -175,18 +175,24 @@ def labor_data_graphs(weighted, S, J, output_dir=None):
             linestyle="-.",
             label="Extrapolation",
         )
-        plt.plot(np.linspace(65, 76, 11), to_dot, linestyle="--", color="black")
+        plt.plot(
+            np.linspace(65, 76, 11), to_dot, linestyle="--", color="black"
+        )
         plt.axvline(x=76, color="black", linestyle="--")
         plt.xlabel(r"age-$s$")
         plt.ylabel(r"individual labor supply $/bar{l}_s$")
         plt.legend()
         plt.savefig(
-            os.path.join(output_dir, "Demographics/labor_dist_data_withfit.png")
+            os.path.join(
+                output_dir, "Demographics/labor_dist_data_withfit.png"
+            )
         )
 
         fig10 = plt.figure()
         ax10 = fig10.add_subplot(projection="3d")
-        ax10.plot_surface(X, Y, lab_mat_basic.T, rstride=1, cstride=2, cmap=cmap2)
+        ax10.plot_surface(
+            X, Y, lab_mat_basic.T, rstride=1, cstride=2, cmap=cmap2
+        )
         ax10.set_xlabel(r"age-$s$")
         ax10.set_ylabel(r"ability type -$j$")
         ax10.set_zlabel(r"labor $e_j(s)$")

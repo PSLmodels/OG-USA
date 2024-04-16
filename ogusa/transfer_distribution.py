@@ -8,7 +8,7 @@ CURDIR = os.path.split(os.path.abspath(__file__))[0]
 
 
 def get_transfer_matrix(
-    J=7, lambdas=np.array([0.25, 0.25, 0.2, 0.1, 0.1, 0.09, 0.01]), graphs=True
+    J=7, lambdas=np.array([0.25, 0.25, 0.2, 0.1, 0.1, 0.09, 0.01]), graphs=False
 ):
     """
     Compute SxJ matrix representing the distribution of aggregate

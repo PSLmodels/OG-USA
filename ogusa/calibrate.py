@@ -68,6 +68,7 @@ class Calibration:
                 99,
                 initial_data_year=p.start_year - 1,
                 final_data_year=p.start_year,
+                GraphDiag=False,
             )
 
             # demographics for 80 period lives (needed for getting e below)
@@ -79,6 +80,7 @@ class Calibration:
                 99,
                 initial_data_year=p.start_year - 1,
                 final_data_year=p.start_year,
+                GraphDiag=False,
             )
 
             # earnings profiles

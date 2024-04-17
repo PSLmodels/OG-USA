@@ -8,7 +8,9 @@ CURDIR = os.path.split(os.path.abspath(__file__))[0]
 
 
 def get_bequest_matrix(
-    J=7, lambdas=np.array([0.25, 0.25, 0.2, 0.1, 0.1, 0.09, 0.01]), graphs=True
+    J=7,
+    lambdas=np.array([0.25, 0.25, 0.2, 0.1, 0.1, 0.09, 0.01]),
+    graphs=False,
 ):
     """
     Returns S x J matrix representing the fraction of aggregate

@@ -15,7 +15,7 @@ from ogcore.utils import safe_read_pickle
 def main():
     # Define parameters to use for multiprocessing
     num_workers = min(multiprocessing.cpu_count(), 7)
-    client = Client(n_workers=num_workers)
+    client = Client(n_workers=num_workers, threads_per_worker=1)
     print("Number of workers = ", num_workers)
 
     # Directories to save data
@@ -50,7 +50,7 @@ def main():
     # close and delete client bc cache is too large
     client.close()
     del client
-    client = Client(n_workers=num_workers)
+    client = Client(n_workers=num_workers, threads_per_worker=1)
     d = c.get_dict()
     # # additional parameters to change
     updated_params = {
@@ -107,7 +107,7 @@ def main():
     # close and delete client bc cache is too large
     client.close()
     del client
-    client = Client(n_workers=num_workers)
+    client = Client(n_workers=num_workers, threads_per_worker=1)
     # update tax function parameters in Specifications Object
     d = c2.get_dict()
     # # additional parameters to change

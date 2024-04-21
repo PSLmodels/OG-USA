@@ -211,8 +211,12 @@ def run_model(meta_param_dict, adjustment):
 
     # Dask parmeters
     num_workers = 2
-    memory_per_worker = "10GiB"
-    client = Client(n_workers=num_workers, threads_per_worker=1, memory_limit=memory_per_worker)
+    memory_limit = "10GiB"
+    client = Client(
+        n_workers=num_workers,
+        threads_per_worker=1,
+        memory_limit=memory_per_worker,
+    )
     # TODO: Swap to these parameters when able to specify tax function
     # and model workers separately
     # num_workers_txf = 5
@@ -294,7 +298,11 @@ def run_model(meta_param_dict, adjustment):
     )
     client.close()
     del client
-    client = Client(n_workers=num_workers, threads_per_worker=1, memory_limit=memory_per_worker)
+    client = Client(
+        n_workers=num_workers,
+        threads_per_worker=1,
+        memory_limit=memory_per_worker,
+    )
     # update tax function parameters in Specifications Object
     d_base = c_base.get_dict()
     # additional parameters to change
@@ -311,7 +319,11 @@ def run_model(meta_param_dict, adjustment):
     base_ss_dir = os.path.join(base_dir, "SS", "SS_vars.pkl")
     client.close()
     del client
-    client = Client(n_workers=num_workers, threads_per_worker=1, memory_limit=memory_per_worker)
+    client = Client(
+        n_workers=num_workers,
+        threads_per_worker=1,
+        memory_limit=memory_per_worker,
+    )
     with open(base_ss_dir, "wb") as f:
         pickle.dump(base_ss, f)
     if time_path:

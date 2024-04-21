@@ -210,7 +210,8 @@ def run_model(meta_param_dict, adjustment):
         utils.mkdirs(_dir)
 
     # Dask parmeters
-    num_workers = 3
+    num_workers = 2
+    memory_per_worker = "10GiB"
     client = Client(n_workers=num_workers, threads_per_worker=1)
     # TODO: Swap to these parameters when able to specify tax function
     # and model workers separately

@@ -36,7 +36,7 @@ def test_cps():
     calc = get_micro_data.get_calculator(
         baseline,
         start_year,
-        reform=reform,
+        iit_reform=reform,
         records_start_year=CPS_START_YEAR,
         data="cps",
     )
@@ -64,7 +64,7 @@ def test_set_path():
         get_micro_data.get_calculator(
             baseline,
             start_year,
-            reform=reform,
+            iit_reform=reform,
             records_start_year=CPS_START_YEAR,
             data="notapath.csv",
         )
@@ -81,7 +81,7 @@ def test_puf_path():
     # puf.csv in ogusa/
     if os.path.exists(PUF_PATH):
         calc = get_micro_data.get_calculator(
-            baseline, start_year, reform=reform, data=PUF_PATH
+            baseline, start_year, iit_reform=reform, data=PUF_PATH
         )
         # blind_head is only in the CPS file and e00700 is only in the
         # PUF.  See taxcalc/records_variables.json
@@ -93,7 +93,7 @@ def test_puf_path():
             get_micro_data.get_calculator(
                 baseline,
                 start_year,
-                reform=reform,
+                iit_reform=reform,
                 records_start_year=CPS_START_YEAR,
                 data=None,
             )
@@ -124,7 +124,7 @@ def test_get_calculator_cps(baseline, iit_reform):
     calc = get_micro_data.get_calculator(
         baseline=baseline,
         calculator_start_year=2017,
-        reform=iit_reform,
+        iit_reform=iit_reform,
         data="cps",
         gfactors=GrowFactors(),
         records_start_year=CPS_START_YEAR,
@@ -146,7 +146,7 @@ def test_get_calculator_exception():
         assert get_micro_data.get_calculator(
             baseline=False,
             calculator_start_year=TC_LAST_YEAR + 1,
-            reform=iit_reform,
+            iit_reform=iit_reform,
             data="cps",
             gfactors=GrowFactors(),
             records_start_year=CPS_START_YEAR,
@@ -167,7 +167,7 @@ def test_get_calculator_puf():
     calc = get_micro_data.get_calculator(
         baseline=False,
         calculator_start_year=2017,
-        reform=iit_reform,
+        iit_reform=iit_reform,
         data=PUF_PATH,
         records_start_year=PUF_START_YEAR,
     )
@@ -188,7 +188,7 @@ def test_get_calculator_puf_from_file():
     calc = get_micro_data.get_calculator(
         baseline=False,
         calculator_start_year=2017,
-        reform=iit_reform,
+        iit_reform=iit_reform,
         data=PUF_PATH,
         records_start_year=PUF_START_YEAR,
     )
@@ -208,7 +208,7 @@ def test_get_data(baseline, dask_client):
     test_data, _ = get_micro_data.get_data(
         baseline=baseline,
         start_year=2031,
-        reform={},
+        iit_reform={},
         data="cps",
         client=dask_client,
         num_workers=NUM_WORKERS,
@@ -232,7 +232,7 @@ def test_taxcalc_advance():
     expected_dict = utils.safe_read_pickle(
         os.path.join(CUR_PATH, "test_io_data", "tax_dict_for_tests.pkl")
     )
-    test_dict = get_micro_data.taxcalc_advance(True, 2028, {}, "cps", 2028)
+    test_dict = get_micro_data.taxcalc_advance(True, 2028, {}, {}, "cps", 2028)
     for k, v in test_dict.items():
         assert np.allclose(expected_dict[k], v, equal_nan=True)
 
@@ -245,7 +245,7 @@ def test_cap_inc_mtr():
     Note that this test may fail if the Tax-Calculator is not v 3.2.1
     """
     calc1 = get_micro_data.get_calculator(
-        baseline=True, calculator_start_year=2028, reform={}, data="cps"
+        baseline=True, calculator_start_year=2028, iit_reform={}, data="cps"
     )
     calc1.advance_to_year(2028)
     expected = np.genfromtxt(

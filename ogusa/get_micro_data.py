@@ -22,7 +22,8 @@ CUR_PATH = os.path.split(os.path.abspath(__file__))[0]
 def get_calculator(
     baseline,
     calculator_start_year,
-    reform=None,
+    iit_baseline=None,
+    iit_reform=None,
     data=None,
     gfactors=None,
     weights=None,
@@ -72,17 +73,19 @@ def get_calculator(
         records1 = Records()  # pragma: no cover
 
     if baseline:
-        if not reform:
+        if not iit_baseline:
             print("Running current law policy baseline")
         else:
-            print("Baseline policy is: ", reform)
+            print("Baseline policy is: ", iit_baseline)
+            policy1.implement_reform(iit_baseline)
     else:
-        if not reform:
+        if not iit_reform:
             print("Running with current law as reform")
         else:
-            print("Reform policy is: ", reform)
-            print("TYPE", type(reform))
-    policy1.implement_reform(reform)
+            print("Reform policy is: ", iit_reform)
+            if iit_baseline:  # if alt baseline, stack reform on that
+                policy1.implement_reform(iit_baseline)
+            policy1.implement_reform(iit_reform)
 
     # the default set up increments year to 2013
     calc1 = Calculator(records=records1, policy=policy1)

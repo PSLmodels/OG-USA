@@ -19,12 +19,34 @@ class Calibration:
         estimate_chi_n=False,
         estimate_pop=False,
         tax_func_path=None,
+        iit_baseline=None,
         iit_reform={},
         guid="",
         data="cps",
         client=None,
         num_workers=1,
     ):
+        """
+        Constructor for the Calibration class.  This class is used to find
+        parameter values for the OG-USA model.
+
+        Args:
+            p (OGUSA Parameters object): parameters object
+            estimate_tax_functions (bool): whether to estimate tax functions
+            estimate_beta (bool): whether to estimate beta
+            estimate_chi_n (bool): whether to estimate chi_n
+            estimate_pop (bool): whether to estimate population
+            tax_func_path (str): path to tax function parameters
+            iit_baseline (dict): baseline policy to use
+            iit_reform (dict): reform tax parameters
+            guid (str): id for tax function parameters
+            data (str): data source for microsimulation model
+            client (Dask client object): client
+            num_workers (int): number of workers for Dask client
+
+        Returns:
+            Calibration class object instance
+        """
         self.estimate_tax_functions = estimate_tax_functions
         self.estimate_beta = estimate_beta
         self.estimate_chi_n = estimate_chi_n
@@ -36,6 +58,7 @@ class Calibration:
                 run_micro = True
             self.tax_function_params = self.get_tax_function_parameters(
                 p,
+                iit_baseline,
                 iit_reform,
                 guid,
                 data,
@@ -104,6 +127,7 @@ class Calibration:
     def get_tax_function_parameters(
         self,
         p,
+        iit_baseline=None,
         iit_reform={},
         guid="",
         data="",
@@ -117,7 +141,13 @@ class Calibration:
         parameters from microsimulation model output.
 
         Args:
+            p (OG-Core Parameters object): parameters object
+            iit_baseline (dict): baseline policy to use
+            iit_reform (dict): reform tax parameters
+            guid (string): id for tax function parameters
+            data (string): data source for microsimulation model
             client (Dask client object): client
+            num_workers (int): number of workers for Dask client
             run_micro (bool): whether to estimate parameters from
                 microsimulation model
             tax_func_path (string): path where find or save tax
@@ -152,7 +182,8 @@ class Calibration:
             micro_data, taxcalc_version = get_micro_data.get_data(
                 baseline=p.baseline,
                 start_year=p.start_year,
-                reform=iit_reform,
+                iit_baseline=iit_baseline,
+                iit_reform=iit_reform,
                 data=data,
                 path=p.output_base,
                 client=client,

@@ -121,7 +121,7 @@ def get_transfer_matrix(
         7,
         transfers_matrix.to_numpy(),
         filename=os.path.join(image_dir, "sum_transfers_kde.png"),
-        plot=True,
+        plot=graphs,
         bandwidth=0.5,
     )
 

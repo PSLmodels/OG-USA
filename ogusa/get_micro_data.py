@@ -22,7 +22,8 @@ CUR_PATH = os.path.split(os.path.abspath(__file__))[0]
 def get_calculator(
     baseline,
     calculator_start_year,
-    reform=None,
+    iit_baseline=None,
+    iit_reform=None,
     data=None,
     gfactors=None,
     weights=None,
@@ -72,17 +73,21 @@ def get_calculator(
         records1 = Records()  # pragma: no cover
 
     if baseline:
-        if not reform:
+        if iit_baseline is None:
             print("Running current law policy baseline")
         else:
-            print("Baseline policy is: ", reform)
+            print("Baseline policy is: ", iit_baseline)
+            policy1.implement_reform(iit_baseline)
     else:
-        if not reform:
+        if not iit_reform:
             print("Running with current law as reform")
         else:
-            print("Reform policy is: ", reform)
-            print("TYPE", type(reform))
-    policy1.implement_reform(reform)
+            print("Reform policy is: ", iit_reform)
+            if (
+                iit_baseline is not None
+            ):  # if alt baseline, stack reform on that
+                policy1.implement_reform(iit_baseline)
+            policy1.implement_reform(iit_reform)
 
     # the default set up increments year to 2013
     calc1 = Calculator(records=records1, policy=policy1)
@@ -97,7 +102,8 @@ def get_calculator(
 def get_data(
     baseline=False,
     start_year=DEFAULT_START_YEAR,
-    reform={},
+    iit_baseline=None,
+    iit_reform={},
     data=None,
     path=CUR_PATH,
     client=None,
@@ -112,7 +118,8 @@ def get_data(
     Args:
         baseline (boolean): True if baseline tax policy
         calculator_start_year (int): first year of budget window
-        reform (dictionary): IIT policy reform parameters, None if
+        iit_baseline (dictionary): IIT policy parameters for baseline
+        iit_reform (dictionary): IIT policy reform parameters, None if
             baseline
         data (DataFrame or str): DataFrame or path to datafile for
             Records object
@@ -132,7 +139,9 @@ def get_data(
     lazy_values = []
     for year in range(start_year, TC_LAST_YEAR + 1):
         lazy_values.append(
-            delayed(taxcalc_advance)(baseline, start_year, reform, data, year)
+            delayed(taxcalc_advance)(
+                baseline, start_year, iit_baseline, iit_reform, data, year
+            )
         )
     if client:  # pragma: no cover
         futures = client.compute(lazy_values, num_workers=num_workers)
@@ -167,14 +176,21 @@ def get_data(
     return micro_data_dict, taxcalc_version
 
 
-def taxcalc_advance(baseline, start_year, reform, data, year):
+def taxcalc_advance(
+    baseline, start_year, iit_baseline, iit_reform, data, year
+):
     """
     This function advances the year used in Tax-Calculator, compute
     taxes and rates, and save the results to a dictionary.
 
     Args:
-        calc1 (Tax-Calculator Calculator object): TC calculator
-        year (int): year to begin advancing from
+        baseline (boolean): True if baseline tax policy
+        start_year (int): first year of budget window
+        iit_baseline (dict): IIT policy parameters for baseline
+        iit_reform (dict): IIT policy reform parameters for reform
+        data (DataFrame or str): DataFrame or path to datafile for
+            Records object
+        year (int): year to advance to in Tax-Calculator
 
     Returns:
         tax_dict (dict): a dictionary of microdata with marginal tax
@@ -183,7 +199,8 @@ def taxcalc_advance(baseline, start_year, reform, data, year):
     calc1 = get_calculator(
         baseline=baseline,
         calculator_start_year=start_year,
-        reform=reform,
+        iit_baseline=iit_baseline,
+        iit_reform=iit_reform,
         data=data,
     )
     calc1.advance_to_year(year)

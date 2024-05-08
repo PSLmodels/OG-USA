@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - PR [#101](https://github.com/PSLmodels/OG-USA/pull/101), which sets plotting to "off" by default for the  `Calibrate` class
 - PR [#102](https://github.com/PSLmodels/OG-USA/pull/102), PR [#103](https://github.com/PSLmodels/OG-USA/pull/103), PR [#104](https://github.com/PSLmodels/OG-USA/pull/104), which change dask client parameters for better memory performance
 - PR [#106](https://github.com/PSLmodels/OG-USA/pull/106), which allows for alternative policy baselines and updates calls to the `ogcore.txfunc` module.
-
+- Updated `build_and_test.yml` to run on Python 3.10 and 3.11 (dropped Python 3.9)
 
 
 ## [0.1.5] - 2024-04-12 10:00:00

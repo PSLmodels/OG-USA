@@ -41,7 +41,7 @@
   <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
     <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../_static/copybutton.js?v=f281be69"></script>
@@ -386,12 +386,34 @@ document.write(`
         <span class="n">estimate_chi_n</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">estimate_pop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">tax_func_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">iit_baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">iit_reform</span><span class="o">=</span><span class="p">{},</span>
         <span class="n">guid</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
         <span class="n">data</span><span class="o">=</span><span class="s2">&quot;cps&quot;</span><span class="p">,</span>
         <span class="n">client</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">num_workers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor for the Calibration class.  This class is used to find</span>
+<span class="sd">        parameter values for the OG-USA model.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            p (OGUSA Parameters object): parameters object</span>
+<span class="sd">            estimate_tax_functions (bool): whether to estimate tax functions</span>
+<span class="sd">            estimate_beta (bool): whether to estimate beta</span>
+<span class="sd">            estimate_chi_n (bool): whether to estimate chi_n</span>
+<span class="sd">            estimate_pop (bool): whether to estimate population</span>
+<span class="sd">            tax_func_path (str): path to tax function parameters</span>
+<span class="sd">            iit_baseline (dict): baseline policy to use</span>
+<span class="sd">            iit_reform (dict): reform tax parameters</span>
+<span class="sd">            guid (str): id for tax function parameters</span>
+<span class="sd">            data (str): data source for microsimulation model</span>
+<span class="sd">            client (Dask client object): client</span>
+<span class="sd">            num_workers (int): number of workers for Dask client</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Calibration class object instance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">estimate_tax_functions</span> <span class="o">=</span> <span class="n">estimate_tax_functions</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">estimate_beta</span> <span class="o">=</span> <span class="n">estimate_beta</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">estimate_chi_n</span> <span class="o">=</span> <span class="n">estimate_chi_n</span>
@@ -403,6 +425,7 @@ document.write(`
                 <span class="n">run_micro</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tax_function_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_tax_function_parameters</span><span class="p">(</span>
                 <span class="n">p</span><span class="p">,</span>
+                <span class="n">iit_baseline</span><span class="p">,</span>
                 <span class="n">iit_reform</span><span class="p">,</span>
                 <span class="n">guid</span><span class="p">,</span>
                 <span class="n">data</span><span class="p">,</span>
@@ -435,6 +458,7 @@ document.write(`
                 <span class="mi">99</span><span class="p">,</span>
                 <span class="n">initial_data_year</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">start_year</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
                 <span class="n">final_data_year</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">start_year</span><span class="p">,</span>
+                <span class="n">GraphDiag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="p">)</span>
 
             <span class="c1"># demographics for 80 period lives (needed for getting e below)</span>
@@ -446,6 +470,7 @@ document.write(`
                 <span class="mi">99</span><span class="p">,</span>
                 <span class="n">initial_data_year</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">start_year</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
                 <span class="n">final_data_year</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">start_year</span><span class="p">,</span>
+                <span class="n">GraphDiag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="p">)</span>
 
             <span class="c1"># earnings profiles</span>
@@ -471,6 +496,7 @@ document.write(`
     <span class="k">def</span> <span class="nf">get_tax_function_parameters</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">p</span><span class="p">,</span>
+        <span class="n">iit_baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">iit_reform</span><span class="o">=</span><span class="p">{},</span>
         <span class="n">guid</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
         <span class="n">data</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
@@ -484,7 +510,13 @@ document.write(`
 <span class="sd">        parameters from microsimulation model output.</span>
 
 <span class="sd">        Args:</span>
+<span class="sd">            p (OG-Core Parameters object): parameters object</span>
+<span class="sd">            iit_baseline (dict): baseline policy to use</span>
+<span class="sd">            iit_reform (dict): reform tax parameters</span>
+<span class="sd">            guid (string): id for tax function parameters</span>
+<span class="sd">            data (string): data source for microsimulation model</span>
 <span class="sd">            client (Dask client object): client</span>
+<span class="sd">            num_workers (int): number of workers for Dask client</span>
 <span class="sd">            run_micro (bool): whether to estimate parameters from</span>
 <span class="sd">                microsimulation model</span>
 <span class="sd">            tax_func_path (string): path where find or save tax</span>
@@ -519,7 +551,8 @@ document.write(`
             <span class="n">micro_data</span><span class="p">,</span> <span class="n">taxcalc_version</span> <span class="o">=</span> <span class="n">get_micro_data</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span>
                 <span class="n">baseline</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">baseline</span><span class="p">,</span>
                 <span class="n">start_year</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">start_year</span><span class="p">,</span>
-                <span class="n">reform</span><span class="o">=</span><span class="n">iit_reform</span><span class="p">,</span>
+                <span class="n">iit_baseline</span><span class="o">=</span><span class="n">iit_baseline</span><span class="p">,</span>
+                <span class="n">iit_reform</span><span class="o">=</span><span class="n">iit_reform</span><span class="p">,</span>
                 <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
                 <span class="n">path</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">output_base</span><span class="p">,</span>
                 <span class="n">client</span><span class="o">=</span><span class="n">client</span><span class="p">,</span>
@@ -533,12 +566,9 @@ document.write(`
                 <span class="n">p</span><span class="o">.</span><span class="n">starting_age</span><span class="p">,</span>
                 <span class="n">p</span><span class="o">.</span><span class="n">ending_age</span><span class="p">,</span>
                 <span class="n">start_year</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">start_year</span><span class="p">,</span>
-                <span class="n">baseline</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">baseline</span><span class="p">,</span>
                 <span class="n">analytical_mtrs</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">analytical_mtrs</span><span class="p">,</span>
                 <span class="n">tax_func_type</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">tax_func_type</span><span class="p">,</span>
                 <span class="n">age_specific</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">age_specific</span><span class="p">,</span>
-                <span class="n">reform</span><span class="o">=</span><span class="n">iit_reform</span><span class="p">,</span>
-                <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
                 <span class="n">client</span><span class="o">=</span><span class="n">client</span><span class="p">,</span>
                 <span class="n">num_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">,</span>
                 <span class="n">tax_func_path</span><span class="o">=</span><span class="n">tax_func_path</span><span class="p">,</span>

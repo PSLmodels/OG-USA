@@ -1,17 +1,17 @@
 import setuptools
 
-with open("README.md", "r") as readme_file:
+with open("README.md", "r", encoding="utf-8") as readme_file:
     longdesc = readme_file.read()
 
 setuptools.setup(
     name="ogusa",
-    version="0.1.6",
+    version="0.1.7",
     author="Jason DeBacker and Richard W. Evans",
     license="CC0 1.0 Universal (CC0 1.0) Public Domain Dedication",
     description="USA calibration for OG-Core",
     long_description_content_type="text/markdown",
     long_description=longdesc,
-    keywords="USA calibration of large scale overlapping generations model of fiscal policy",
+    keywords="USA, OG-USA, OG-Core, overlapping-generations, general-equilibrium, fiscal, fiscal-policy, tax, benefits, debt, spending, macroeconomics",
     url="https://github.com/PSLmodels/OG-USA/",
     download_url="https://github.com/PSLmodels/OG-USA/",
     project_urls={
@@ -24,7 +24,7 @@ setuptools.setup(
     install_requires=[
         "numpy",
         "psutil",
-        "scipy>=1.5.0",
+        "scipy>=1.7.1",
         "pandas>=1.2.5",
         "matplotlib",
         "dask>=2.30.0",
@@ -32,13 +32,13 @@ setuptools.setup(
         "paramtools>=0.15.0",
         "taxcalc>=3.0.0",
         "requests",
+        "pip",
         "rpy2<=3.5.11",
         "pandas-datareader",
         "xlwt",
         "openpyxl>=3.1.2",
         "statsmodels",
         "linearmodels",
-        "wheel",
         "ogcore",
     ],
     classifiers=[

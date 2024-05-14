@@ -26,7 +26,7 @@ dependencies:
 - xlwt
 - statsmodels
 - linearmodels
-- rpy2<=3.5.11
+- rpy2>=3.5.12
 - black>=24.1.1
 - pip
 - pip:

@@ -5,7 +5,7 @@ with open("README.md", "r") as readme_file:
 
 setuptools.setup(
     name="ogusa",
-    version="0.1.6",
+    version="0.1.7",
     author="Jason DeBacker and Richard W. Evans",
     license="CC0 1.0 Universal (CC0 1.0) Public Domain Dedication",
     description="USA calibration for OG-Core",
@@ -32,7 +32,7 @@ setuptools.setup(
         "paramtools>=0.15.0",
         "taxcalc>=3.0.0",
         "requests",
-        "rpy2<=3.5.11",
+        "rpy2>=3.5.12",
         "pandas-datareader",
         "xlwt",
         "openpyxl>=3.1.2",

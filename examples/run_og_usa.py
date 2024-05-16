@@ -154,21 +154,31 @@ def main():
 
     # create plots of output
     op.plot_all(
-        base_dir, reform_dir, os.path.join(CUR_DIR, "OG-USA_example_plots_tables")
+        base_dir,
+        reform_dir,
+        os.path.join(CUR_DIR, "OG-USA_example_plots_tables"),
     )
     # Create CSV file with output
     ot.tp_output_dump_table(
-            base_params,
-            base_tpi,
-            reform_params,
-            reform_tpi,
-            table_format="csv",
-            path=os.path.join(CUR_DIR, "OG-USA_example_plots_tables", "macro_time_series_output.csv")
-        )
+        base_params,
+        base_tpi,
+        reform_params,
+        reform_tpi,
+        table_format="csv",
+        path=os.path.join(
+            CUR_DIR,
+            "OG-USA_example_plots_tables",
+            "macro_time_series_output.csv",
+        ),
+    )
 
     print("Percentage changes in aggregates:", ans)
     # save percentage change output to csv file
-    ans.to_csv(os.path.join(CUR_DIR, "OG-USA_example_plots_tables", "ogusa_example_output.csv"))
+    ans.to_csv(
+        os.path.join(
+            CUR_DIR, "OG-USA_example_plots_tables", "ogusa_example_output.csv"
+        )
+    )
 
 
 if __name__ == "__main__":

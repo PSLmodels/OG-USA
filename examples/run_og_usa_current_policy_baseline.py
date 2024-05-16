@@ -5,12 +5,21 @@ import requests
 import json
 import time
 from taxcalc import Calculator
+import matplotlib.pyplot as plt
 from ogusa.calibrate import Calibration
 from ogcore.parameters import Specifications
 from ogcore import output_tables as ot
 from ogcore import output_plots as op
 from ogcore.execute import runner
 from ogcore.utils import safe_read_pickle
+
+
+# Use a custom matplotlib style file for plots
+style_file_url = (
+    "https://raw.githubusercontent.com/PSLmodels/OG-Core/"
+    + "master/ogcore/OGcorePlots.mplstyle"
+)
+plt.style.use(style_file_url)
 
 
 def main():
@@ -47,6 +56,7 @@ def main():
         )
     )
     p.tax_func_type = "GS"
+    p.age_specific = False
     # get current policy JSON file
     base_url = (
         "github://PSLmodels:Tax-Calculator@master/taxcalc/"
@@ -111,6 +121,7 @@ def main():
         )
     )
     p2.tax_func_type = "GS"
+    p.age_specific = False
     # Use calibration class to estimate reform tax functions from
     # Tax-Calculator, specifying reform for Tax-Calculator in iit_reform
     c2 = Calibration(
@@ -168,12 +179,33 @@ def main():
 
     # create plots of output
     op.plot_all(
-        base_dir, reform_dir, os.path.join(CUR_DIR, "OG-USA_example_plots")
+        base_dir,
+        reform_dir,
+        os.path.join(CUR_DIR, "OG-USA_current_policy_example_plots_tables"),
+    )
+    # Create CSV file with output
+    ot.tp_output_dump_table(
+        base_params,
+        base_tpi,
+        reform_params,
+        reform_tpi,
+        table_format="csv",
+        path=os.path.join(
+            CUR_DIR,
+            "OG-USA_example_plots_tables",
+            "macro_time_series_output.csv",
+        ),
     )
 
     print("Percentage changes in aggregates:", ans)
     # save percentage change output to csv file
-    ans.to_csv("ogusa_example_output.csv")
+    ans.to_csv(
+        os.path.join(
+            CUR_DIR,
+            "OG-USA_current_policy_example_plots_tables",
+            "ogusa_example_output.csv",
+        )
+    )
 
 
 if __name__ == "__main__":

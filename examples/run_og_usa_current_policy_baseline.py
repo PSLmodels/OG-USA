@@ -5,12 +5,21 @@ import requests
 import json
 import time
 from taxcalc import Calculator
+import matplotlib.pyplot as plt
 from ogusa.calibrate import Calibration
 from ogcore.parameters import Specifications
 from ogcore import output_tables as ot
 from ogcore import output_plots as op
 from ogcore.execute import runner
 from ogcore.utils import safe_read_pickle
+
+
+# Use a custom matplotlib style file for plots
+style_file_url = (
+    "https://raw.githubusercontent.com/PSLmodels/OG-Core/"
+    + "master/ogcore/OGcorePlots.mplstyle"
+)
+plt.style.use(style_file_url)
 
 
 def main():

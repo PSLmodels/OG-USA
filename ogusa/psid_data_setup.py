@@ -6,8 +6,12 @@ from pandas_datareader import data as web
 import datetime
 from linearmodels import PanelOLS
 from rpy2.robjects import r
+from rpy2.robjects import conversion
+from rpy2.robjects import default_converter
 from rpy2.robjects import pandas2ri
+from rpy2.robjects.packages import importr
 from ogusa.constants import PSID_NOMINAL_VARS, PSID_CONSTANT_VARS
+
 
 pandas2ri.activate()
 pd.options.mode.chained_assignment = "raise"
@@ -34,7 +38,9 @@ def prep_data(data="psid1968to2015.RData"):
     """
     # Read data from R into pandas dataframe
     r["load"](os.path.join(CURDIR, "..", "data", "PSID", data))
-    raw_df = r("psid_df")
+    raw_r_df = r("psid_df")
+    with (default_converter + pandas2ri.converter).context():
+        raw_df = conversion.get_conversion().rpy2py(raw_r_df)
 
     # Create unique identifier for each household
     # note that will define a new household if head or spouse changes

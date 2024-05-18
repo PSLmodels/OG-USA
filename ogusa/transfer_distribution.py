@@ -17,7 +17,13 @@ def get_transfer_matrix(
     government transfers by age and lifetime income group.
     """
     # Create directory if output directory does not already exist
-    CURDIR = os.path.split(os.path.abspath(__file__))[0]
+    try:
+        # This is the case when a separate script is calling this function in
+        # this module
+        CURDIR = os.path.split(os.path.abspath(__file__))[0]
+    except:
+        # This is the case when a Jupyter notebook is calling this function
+        CURDIR = os.getcwd()
     output_fldr = "csv_output_files"
     output_dir = os.path.join(CURDIR, output_fldr)
     if not os.access(output_dir, os.F_OK):
@@ -32,12 +38,24 @@ def get_transfer_matrix(
     #     x, weights=df.loc[x.index, "fam_smpl_wgt_core"])
 
     # Read in dataframe of PSID data
-    # df = ogcore.utils.safe_read_pickle(
-    #     os.path.join(CURDIR, "data", "PSID", "psid_lifetime_income.pkl")
-    # )
-    df = pd.read_csv(
-        os.path.join(CURDIR, "..", "data", "PSID", "psid_lifetime_income.csv")
-    )
+    try:
+        # This is the case when running this from a branch of the OG-USA repo
+        df = pd.read_csv(
+            os.path.join(
+                CURDIR, "..", "data", "PSID", "psid_lifetime_income.csv"
+            )
+        )
+    except:
+        # This is the case when running OG-USA from a pip install
+        print(
+            "transfer_distribution.py: Reading psid_lifetime_income.csv " +
+            "from GitHub for get_transfer_matrix() function."
+        )
+        file_url = (
+            "https://raw.githubusercontent.com/PSLmodels/OG-USA/master/data/" +
+            "PSID/psid_lifetime_income.csv"
+        )
+        df = pd.read_csv(file_url)
 
     # Do some tabs with data file...
     df["total_transfers"] = (

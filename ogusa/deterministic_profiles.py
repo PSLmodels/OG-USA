@@ -6,11 +6,21 @@ from linearmodels import PanelOLS
 import ogcore  # import just for MPL style file
 
 # Create directory if output directory does not already exist
-cur_path = os.path.split(os.path.abspath(__file__))[0]
+try:
+    # This is the case when a separate script is calling this function in
+    # this module
+    cur_dir = os.path.split(os.path.abspath(__file__))[0]
+except:
+    # This is the case when a Jupyter notebook is calling this function
+    cur_dir = os.getcwd()
 output_fldr = "csv_output_files"
-output_dir = os.path.join(cur_path, "..", "data", output_fldr)
+output_dir = os.path.join(cur_dir, output_fldr)
 if not os.access(output_dir, os.F_OK):
     os.makedirs(output_dir)
+image_fldr = "images"
+image_dir = os.path.join(cur_dir, image_fldr)
+if not os.access(image_dir, os.F_OK):
+    os.makedirs(image_dir)
 
 
 def estimate_profiles(graphs=False):
@@ -27,11 +37,24 @@ def estimate_profiles(graphs=False):
 
     """
     # Read in dataframe of PSID data
-    df = ogcore.utils.safe_read_pickle(
-        os.path.join(
-            cur_path, "..", "data", "PSID", "psid_lifetime_income.pkl"
+    try:
+        # This is the case when running this from a branch of the OG-USA repo
+        df = ogcore.utils.safe_read_pickle(
+            os.path.join(
+                cur_dir, "..", "data", "PSID", "psid_lifetime_income.pkl"
+            )
         )
-    )
+    except:
+        # This is the case when running OG-USA from a pip install
+        print(
+            "deterministic_profiles.py: Reading psid_lifetime_income.csv " +
+            "from GitHub for estimate_profiles() function."
+        )
+        file_url = (
+            "https://raw.githubusercontent.com/PSLmodels/OG-USA/master/data/" +
+            "PSID/psid_lifetime_income.csv"
+        )
+        df = pd.read_csv(file_url)
 
     model_results = {
         "Names": [
@@ -119,7 +142,7 @@ def estimate_profiles(graphs=False):
         plt.legend()
 
         plt.savefig(
-            os.path.join(output_dir, "lifecycle_earnings_profiles.png")
+            os.path.join(image_dir, "lifecycle_earnings_profiles.png")
         )
 
         # Plot of lifecycles of hourly earnings from processes from data
@@ -135,7 +158,7 @@ def estimate_profiles(graphs=False):
         )
 
         plt.savefig(
-            os.path.join(output_dir, "lifecycle_earnings_profiles_data.png")
+            os.path.join(image_dir, "lifecycle_earnings_profiles_data.png")
         )
 
         # Plot of lifecycle profiles of hours by lifetime income group
@@ -152,6 +175,6 @@ def estimate_profiles(graphs=False):
         ).plot(legend=True)
         plt.title("Lifecycle Profiles of Hours by Lifetime Income Group")
 
-        plt.savefig(os.path.join(output_dir, "lifecycle_laborsupply.png"))
+        plt.savefig(os.path.join(image_dir, "lifecycle_laborsupply.png"))
 
     return reg_results

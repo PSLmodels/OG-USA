@@ -4,8 +4,6 @@ import matplotlib.pyplot as plt
 import os
 from ogusa.utils import MVKDE
 
-CURDIR = os.path.split(os.path.abspath(__file__))[0]
-
 
 def get_bequest_matrix(
     J=7,
@@ -18,13 +16,19 @@ def get_bequest_matrix(
 
     """
     # Create directory if output directory does not already exist
-    CURDIR = os.path.split(os.path.abspath(__file__))[0]
+    try:
+        # This is the case when a separate script is calling this function in
+        # this module
+        CURDIR = os.path.split(os.path.abspath(__file__))[0]
+    except:
+        # This is the case when a Jupyter notebook is calling this function
+        CURDIR = os.getcwd()
     output_fldr = "csv_output_files"
-    output_dir = os.path.join(CURDIR, "..", "data", output_fldr)
+    output_dir = os.path.join(CURDIR, output_fldr)
     if not os.access(output_dir, os.F_OK):
         os.makedirs(output_dir)
     image_fldr = "images"
-    image_dir = os.path.join(CURDIR, "..", "data", image_fldr)
+    image_dir = os.path.join(CURDIR, image_fldr)
     if not os.access(image_dir, os.F_OK):
         os.makedirs(image_dir)
 
@@ -36,9 +40,24 @@ def get_bequest_matrix(
     # df = ogcore.utils.safe_read_pickle(
     #     os.path.join(CURDIR, "data", "PSID", "psid_lifetime_income.pkl")
     # )
-    df = pd.read_csv(
-        os.path.join(CURDIR, "..", "data", "PSID", "psid_lifetime_income.csv")
-    )
+    try:
+        # This is the case when running this from a branch of the OG-USA repo
+        df = pd.read_csv(
+            os.path.join(
+                CURDIR, "..", "data", "PSID", "psid_lifetime_income.csv"
+            )
+        )
+    except:
+        # This is the case when running OG-USA from a pip install
+        print(
+            "bequest_transmission.py: Reading psid_lifetime_income.csv from " +
+            "GitHub for get_bequest_matrix() function."
+        )
+        file_url = (
+            "https://raw.githubusercontent.com/PSLmodels/OG-USA/master/data/" +
+            "PSID/psid_lifetime_income.csv"
+        )
+        df = pd.read_csv(file_url)
 
     # Do some tabs with data file...
     # 'net_wealth', 'inheritance', 'value_inheritance_1st',

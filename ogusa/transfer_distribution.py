@@ -4,8 +4,6 @@ import matplotlib.pyplot as plt
 import os
 from ogusa.utils import MVKDE
 
-CURDIR = os.path.split(os.path.abspath(__file__))[0]
-
 
 def get_transfer_matrix(
     J=7,

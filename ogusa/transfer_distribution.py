@@ -46,12 +46,12 @@ def get_transfer_matrix(
     except:
         # This is the case when running OG-USA from a pip install
         print(
-            "transfer_distribution.py: Reading psid_lifetime_income.csv " +
-            "from GitHub for get_transfer_matrix() function."
+            "transfer_distribution.py: Reading psid_lifetime_income.csv "
+            + "from GitHub for get_transfer_matrix() function."
         )
         file_url = (
-            "https://raw.githubusercontent.com/PSLmodels/OG-USA/master/data/" +
-            "PSID/psid_lifetime_income.csv"
+            "https://raw.githubusercontent.com/PSLmodels/OG-USA/master/data/"
+            + "PSID/psid_lifetime_income.csv"
         )
         df = pd.read_csv(file_url)
 

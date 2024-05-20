@@ -47,12 +47,12 @@ def estimate_profiles(graphs=False):
     except:
         # This is the case when running OG-USA from a pip install
         print(
-            "deterministic_profiles.py: Reading psid_lifetime_income.csv " +
-            "from GitHub for estimate_profiles() function."
+            "deterministic_profiles.py: Reading psid_lifetime_income.csv "
+            + "from GitHub for estimate_profiles() function."
         )
         file_url = (
-            "https://raw.githubusercontent.com/PSLmodels/OG-USA/master/data/" +
-            "PSID/psid_lifetime_income.csv"
+            "https://raw.githubusercontent.com/PSLmodels/OG-USA/master/data/"
+            + "PSID/psid_lifetime_income.csv"
         )
         df = pd.read_csv(file_url)
 
@@ -141,9 +141,7 @@ def estimate_profiles(graphs=False):
         )
         plt.legend()
 
-        plt.savefig(
-            os.path.join(image_dir, "lifecycle_earnings_profiles.png")
-        )
+        plt.savefig(os.path.join(image_dir, "lifecycle_earnings_profiles.png"))
 
         # Plot of lifecycles of hourly earnings from processes from data
         pd.pivot_table(

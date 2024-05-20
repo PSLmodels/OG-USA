@@ -22,7 +22,7 @@ def get_transfer_matrix(
     except:
         # This is the case when a Jupyter notebook is calling this function
         CURDIR = os.getcwd()
-    output_fldr = "csv_output_files"
+    output_fldr = "io_files"
     output_dir = os.path.join(CURDIR, output_fldr)
     if not os.access(output_dir, os.F_OK):
         os.makedirs(output_dir)

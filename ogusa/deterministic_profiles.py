@@ -13,7 +13,7 @@ try:
 except:
     # This is the case when a Jupyter notebook is calling this function
     cur_dir = os.getcwd()
-output_fldr = "csv_output_files"
+output_fldr = "io_files"
 output_dir = os.path.join(cur_dir, output_fldr)
 if not os.access(output_dir, os.F_OK):
     os.makedirs(output_dir)

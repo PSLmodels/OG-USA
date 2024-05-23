@@ -12,9 +12,6 @@ import scipy.interpolate as si
 from ogcore import parameter_plots as pp
 import os
 
-CUR_PATH = os.path.abspath(os.path.dirname(__file__))
-OUTPUT_DIR = os.path.join(CUR_PATH, "OUTPUT", "ability")
-
 
 def arctan_func(xvals, a, b, c):
     r"""
@@ -157,7 +154,7 @@ def arctan_fit(first_point, coef1, coef2, coef3, abil_deprec, init_guesses):
     return abil_last
 
 
-def get_e_interp(S, age_wgts, age_wgts_80, abil_wgts, plot=False):
+def get_e_interp(S, age_wgts, age_wgts_80, abil_wgts, plot_path=None):
     """
     This function takes a source matrix of lifetime earnings profiles
     (abilities, emat) of size (80, 7), where 80 is the number of ages
@@ -181,7 +178,7 @@ def get_e_interp(S, age_wgts, age_wgts_80, abil_wgts, plot=False):
             one-year age from 21 to 100, length 80
         abil_wgts (Numpy array): distribution of population in each
             ability group, length J
-        plot (bool): if True, creates plots of emat_orig and the new
+        plot_path (str): Path to save plots of emat_orig and the new
             interpolated emat_new
 
     Returns:
@@ -191,7 +188,7 @@ def get_e_interp(S, age_wgts, age_wgts_80, abil_wgts, plot=False):
     """
     # Get original 80 x 7 ability matrix
     abil_wgts_orig = np.array([0.25, 0.25, 0.2, 0.1, 0.1, 0.09, 0.01])
-    emat_orig = get_e_orig(age_wgts_80, abil_wgts_orig, plot)
+    emat_orig = get_e_orig(age_wgts_80, abil_wgts_orig, plot_path)
     if (
         S == 80
         and np.array_equal(
@@ -302,21 +299,21 @@ def get_e_interp(S, age_wgts, age_wgts_80, abil_wgts, plot=False):
             ).sum()
         )
 
-        if plot:
+        if plot_path is not None:
             kwargs = {"filesuffix": "_intrp_scaled"}
             pp.plot_income_data(
                 new_s_midp,
                 abil_midp,
                 abil_wgts,
                 emat_new_scaled.reshape((1, S, J)),
-                path=OUTPUT_DIR,
+                path=plot_path,
                 **kwargs,
             )
 
     return emat_new_scaled
 
 
-def get_e_orig(age_wgts, abil_wgts, plot=False):
+def get_e_orig(age_wgts, abil_wgts, plot_path=None):
     r"""
     This function generates the 80 x 7 matrix of lifetime earnings
     ability profiles, corresponding to annual ages from 21 to 100 and to
@@ -341,7 +338,7 @@ def get_e_orig(age_wgts, abil_wgts, plot=False):
         age_wgts (Numpy array): ergodic age distribution, length S
         abil_wgts (Numpy array): population weights in each lifetime
             earnings group, length J
-        plot (bool): if True, generates 3D plots of ability paths
+        plot_path (str): path to save 3D plots of ability paths
 
     Returns:
         e_orig_scaled (Numpy array): = lifetime ability profiles scaled
@@ -454,7 +451,7 @@ def get_e_orig(age_wgts, abil_wgts, plot=False):
         / (e_orig * age_wgts.reshape(80, 1) * abil_wgts.reshape(1, 7)).sum()
     )
 
-    if plot:
+    if plot_path is not None:
         ages_long = np.linspace(21, 100, 80)
         abil_midp = np.array([12.5, 37.5, 60.0, 75.0, 85.0, 94.5, 99.5])
         # Plot original unscaled 80 x 7 ability matrix
@@ -464,7 +461,7 @@ def get_e_orig(age_wgts, abil_wgts, plot=False):
             abil_midp,
             abil_wgts,
             e_orig.reshape((1, 80, 7)),
-            path=OUTPUT_DIR,
+            path=plot_path,
             **kwargs,
         )
 
@@ -475,7 +472,7 @@ def get_e_orig(age_wgts, abil_wgts, plot=False):
             abil_midp,
             abil_wgts,
             e_orig_scaled.reshape((1, 80, 7)),
-            path=OUTPUT_DIR,
+            path=plot_path,
             **kwargs,
         )
 

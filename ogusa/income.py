@@ -10,7 +10,6 @@ import numpy as np
 import scipy.optimize as opt
 import scipy.interpolate as si
 from ogcore import parameter_plots as pp
-import os
 
 
 def arctan_func(xvals, a, b, c):

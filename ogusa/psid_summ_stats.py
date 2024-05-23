@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import pickle
 import os
+from constants import CODE_PATH
 
 
 # Create directory if output directory does not already exist
@@ -16,15 +17,8 @@ first_stage_results = pickle.load(
     open(os.path.join(cur_path, "first_stage_reg_results.pkl"), "rb")
 )
 
-# Read in dataframe of PSID data
-df = pickle.load(
-    open(
-        os.path.join(
-            cur_path, "..", "data", "PSID", "psid_lifetime_income.pkl"
-        ),
-        "rb",
-    )
-)
+# Read in PSID data
+df = pd.read_csv("psid_lifetime_income.csv.gz")
 
 # save psid to stata data file
 stata_df = df.copy()

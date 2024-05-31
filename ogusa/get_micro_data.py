@@ -173,9 +173,7 @@ def get_data(
     return micro_data_dict, taxcalc_version
 
 
-def taxcalc_advance(
-    start_year, iit_baseline, iit_reform, data, year
-):
+def taxcalc_advance(start_year, iit_baseline, iit_reform, data, year):
     """
     This function advances the year used in Tax-Calculator, compute
     taxes and rates, and save the results to a dictionary.

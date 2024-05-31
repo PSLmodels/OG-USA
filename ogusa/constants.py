@@ -9,9 +9,6 @@ BASELINE_DIR = "OUTPUT_BASELINE"
 DEFAULT_START_YEAR = 2021
 # Tax-Calculator start year
 TC_LAST_YEAR = taxcalc.Policy.LAST_BUDGET_YEAR
-# Years of the PUF and CPS files
-PUF_START_YEAR = taxcalc.Records.PUFCSV_YEAR
-CPS_START_YEAR = taxcalc.Records.CPSCSV_YEAR
 
 VAR_LABELS = {
     "Y": "GDP ($Y_t$)",

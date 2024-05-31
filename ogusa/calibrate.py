@@ -3,6 +3,7 @@ from ogusa import macro_params, transfer_distribution, income
 from ogusa import get_micro_data, psid_data_setup
 import os
 import numpy as np
+from taxcalc import Records
 from ogcore import txfunc, demographics
 from ogcore.utils import safe_read_pickle, mkdirs
 import pkg_resources
@@ -23,6 +24,9 @@ class Calibration:
         iit_reform={},
         guid="",
         data="cps",
+        gfactors=None,
+        weights=None,
+        records_start_year=Records.CPSCSV_YEAR,
         client=None,
         num_workers=1,
     ):
@@ -40,7 +44,13 @@ class Calibration:
             iit_baseline (dict): baseline policy to use
             iit_reform (dict): reform tax parameters
             guid (str): id for tax function parameters
-            data (str): data source for microsimulation model
+            data (str or Pandas DataFrame): path or DataFrame with
+                data for Tax-Calculator model
+            gfactors (str or Pandas DataFrame ): path or DataFrame with
+                growth factors for Tax-Calculator model
+            weights (str or Pandas DataFrame): path or DataFrame with
+                weights for Tax-Calculator model
+            records_start_year (int): year micro data begins
             client (Dask client object): client
             num_workers (int): number of workers for Dask client
 
@@ -62,6 +72,9 @@ class Calibration:
                 iit_reform,
                 guid,
                 data,
+                gfactors,
+                weights,
+                records_start_year,
                 client,
                 num_workers,
                 run_micro=run_micro,

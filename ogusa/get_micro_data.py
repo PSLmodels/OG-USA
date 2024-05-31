@@ -102,6 +102,9 @@ def get_data(
     iit_baseline=None,
     iit_reform={},
     data=None,
+    gfactors=None,
+    weights=None,
+    records_start_year=Records.CPSCSV_YEAR,
     path=CUR_PATH,
     client=None,
     num_workers=1,
@@ -118,8 +121,13 @@ def get_data(
         iit_baseline (dictionary): IIT policy parameters for baseline
         iit_reform (dictionary): IIT policy reform parameters, None if
             baseline
-        data (DataFrame or str): DataFrame or path to datafile for
-            Records object
+        data (str or Pandas DataFrame): path or DataFrame with
+            data for Tax-Calculator model
+        gfactors (str or Pandas DataFrame ): path or DataFrame with
+            growth factors for Tax-Calculator model
+        weights (str or Pandas DataFrame): path or DataFrame with
+            weights for Tax-Calculator model
+        records_start_year (int): year micro data begins
         path (str): path to save microdata files to
         client (Dask Client object): client for Dask multiprocessing
         num_workers (int): number of workers to use for Dask
@@ -137,7 +145,14 @@ def get_data(
     for year in range(start_year, TC_LAST_YEAR + 1):
         lazy_values.append(
             delayed(taxcalc_advance)(
-                start_year, iit_baseline, iit_reform, data, year
+                start_year,
+                iit_baseline,
+                iit_reform,
+                data,
+                gfactors,
+                weights,
+                records_start_year,
+                year,
             )
         )
     if client:  # pragma: no cover
@@ -173,7 +188,16 @@ def get_data(
     return micro_data_dict, taxcalc_version
 
 
-def taxcalc_advance(start_year, iit_baseline, iit_reform, data, year):
+def taxcalc_advance(
+    start_year,
+    iit_baseline,
+    iit_reform,
+    data,
+    gfactors,
+    weights,
+    records_start_year,
+    year,
+):
     """
     This function advances the year used in Tax-Calculator, compute
     taxes and rates, and save the results to a dictionary.
@@ -182,8 +206,13 @@ def taxcalc_advance(start_year, iit_baseline, iit_reform, data, year):
         start_year (int): first year of budget window
         iit_baseline (dict): IIT policy parameters for baseline
         iit_reform (dict): IIT policy reform parameters for reform
-        data (DataFrame or str): DataFrame or path to datafile for
-            Records object
+        data (str or Pandas DataFrame): path or DataFrame with
+            data for Tax-Calculator model
+        gfactors (str or Pandas DataFrame ): path or DataFrame with
+            growth factors for Tax-Calculator model
+        weights (str or Pandas DataFrame): path or DataFrame with
+            weights for Tax-Calculator model
+        records_start_year (int): year micro data begins
         year (int): year to advance to in Tax-Calculator
 
     Returns:
@@ -195,6 +224,9 @@ def taxcalc_advance(start_year, iit_baseline, iit_reform, data, year):
         iit_baseline=iit_baseline,
         iit_reform=iit_reform,
         data=data,
+        gfactors=gfactors,
+        weights=weights,
+        records_start_year=records_start_year,
     )
     calc1.advance_to_year(year)
     calc1.calc_all()

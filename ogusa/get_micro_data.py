@@ -14,27 +14,25 @@ import os
 import pickle
 import pkg_resources
 from ogcore import utils
-from ogusa.constants import DEFAULT_START_YEAR, TC_LAST_YEAR, PUF_START_YEAR
+from ogusa.constants import DEFAULT_START_YEAR, TC_LAST_YEAR
 
 CUR_PATH = os.path.split(os.path.abspath(__file__))[0]
 
 
 def get_calculator(
-    baseline,
     calculator_start_year,
     iit_baseline=None,
     iit_reform=None,
     data=None,
     gfactors=None,
     weights=None,
-    records_start_year=PUF_START_YEAR,
+    records_start_year=Records.PUFCSV_YEAR,
 ):
     """
     This function creates the tax calculator object with the policy
     specified in reform and the data specified with the data kwarg.
 
     Args:
-        baseline (boolean): True if baseline tax policy
         calculator_start_year (int): first year of budget window
         reform (dictionary): IIT policy reform parameters, None if
             baseline
@@ -55,6 +53,7 @@ def get_calculator(
     # create a calculator
     policy1 = Policy()
     if data is not None and "cps" in data:
+        print("Using CPS")
         records1 = Records.cps_constructor()
         # impute short and long term capital gains if using CPS data
         # in 2012 SOI data 6.587% of CG as short-term gains
@@ -62,7 +61,16 @@ def get_calculator(
         records1.p23250 = (1 - 0.06587) * records1.e01100
         # set total capital gains to zero
         records1.e01100 = np.zeros(records1.e01100.shape[0])
+    elif data is None or "puf" in data:  # pragma: no cover
+        print("Using PUF")
+        records1 = Records()
+    elif data is not None and "tmd" in data:  # pragma: no cover
+        print("Using TMD")
+        records1 = Records.tmd_constructor("tmd.csv.gz")
     elif data is not None:  # pragma: no cover
+        print("Data is ", data)
+        print("Weights are ", weights)
+        print("Records start year is ", records_start_year)
         records1 = Records(
             data=data,
             gfactors=gfactors,
@@ -70,27 +78,16 @@ def get_calculator(
             start_year=records_start_year,
         )  # pragma: no cover
     else:  # pragma: no cover
-        records1 = Records()  # pragma: no cover
+        raise ValueError("Please provide data or use CPS, PUF, or TMD.")
 
-    if baseline:
-        if iit_baseline is None:
-            print("Running current law policy baseline")
-        else:
-            print("Baseline policy is: ", iit_baseline)
-            policy1.implement_reform(iit_baseline)
-    else:
-        if not iit_reform:
-            print("Running with current law as reform")
-        else:
-            print("Reform policy is: ", iit_reform)
-            if (
-                iit_baseline is not None
-            ):  # if alt baseline, stack reform on that
-                policy1.implement_reform(iit_baseline)
-            policy1.implement_reform(iit_reform)
+    if iit_baseline:  # if something other than current law policy baseline
+        update_policy(policy1, iit_baseline)
+    if iit_reform:  # if there is a reform
+        update_policy(policy1, iit_reform)
 
     # the default set up increments year to 2013
     calc1 = Calculator(records=records1, policy=policy1)
+    print("Calculator initial year = ", calc1.current_year)
 
     # Check that start_year is appropriate
     if calculator_start_year > TC_LAST_YEAR:
@@ -140,7 +137,7 @@ def get_data(
     for year in range(start_year, TC_LAST_YEAR + 1):
         lazy_values.append(
             delayed(taxcalc_advance)(
-                baseline, start_year, iit_baseline, iit_reform, data, year
+                start_year, iit_baseline, iit_reform, data, year
             )
         )
     if client:  # pragma: no cover
@@ -177,14 +174,13 @@ def get_data(
 
 
 def taxcalc_advance(
-    baseline, start_year, iit_baseline, iit_reform, data, year
+    start_year, iit_baseline, iit_reform, data, year
 ):
     """
     This function advances the year used in Tax-Calculator, compute
     taxes and rates, and save the results to a dictionary.
 
     Args:
-        baseline (boolean): True if baseline tax policy
         start_year (int): first year of budget window
         iit_baseline (dict): IIT policy parameters for baseline
         iit_reform (dict): IIT policy reform parameters for reform
@@ -197,7 +193,6 @@ def taxcalc_advance(
             rates and other information computed in TC
     """
     calc1 = get_calculator(
-        baseline=baseline,
         calculator_start_year=start_year,
         iit_baseline=iit_baseline,
         iit_reform=iit_reform,
@@ -321,3 +316,35 @@ def cap_inc_mtr(calc1):  # pragma: no cover
         total_cap_inc == 0
     ]
     return mtr_combined_capinc
+
+
+def update_policy(policy_obj, reform, **kwargs):
+    """
+    Convenience method that updates the Policy object with the reform
+    dict using the appropriate method, given the reform format.
+    """
+    if is_paramtools_format(reform):
+        policy_obj.adjust(reform, **kwargs)
+    else:
+        policy_obj.implement_reform(reform, **kwargs)
+
+
+def is_paramtools_format(reform):
+    """
+    Check first item in reform to determine if it is using the ParamTools
+    adjustment or the Tax-Calculator reform format.
+    If first item is a dict, then it is likely be a Tax-Calculator reform:
+    {
+        param: {2020: 1000}
+    }
+    Otherwise, it is likely to be a ParamTools format.
+    Returns:
+        format (bool): True if reform is likely to be in PT format.
+    """
+    for _, data in reform.items():
+        if isinstance(data, dict):
+            return False  # taxcalc reform
+        else:
+            # Not doing a specific check to see if the value is a list
+            # since it could be a list or just a scalar value.
+            return True

@@ -14,17 +14,21 @@ import io
 import pickle
 import json
 import inspect
+import pandas as pd
 import paramtools
 from distributed import Client
-from taxcalc import Policy
+from taxcalc import Policy, Records
 from collections import OrderedDict
-from .helpers import retrieve_puf
+from .helpers import retrieve_puf, retrieve_tmd
 from cs2tc import convert_policy_adjustment
 
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
 PUF_S3_FILE_LOCATION = os.environ.get(
     "PUF_S3_LOCATION", "s3://ospc-data-files/puf.20210720.csv.gz"
+)
+TMD_S3_FILE_LOCATION = os.environ.get(
+    "TMD_S3_LOCATION", "s3://ospc-data-files/puf.20210720.csv.gz"
 )
 CUR_DIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -188,16 +192,46 @@ def run_model(meta_param_dict, adjustment):
 
     meta_params = MetaParams()
     meta_params.adjust(meta_param_dict)
+    # Get data chosen by user
     if meta_params.data_source == "PUF":
         data = retrieve_puf(
             PUF_S3_FILE_LOCATION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
         )
+        weights = Records.PUF_WEIGHTS_FILENAME
+        records_start_year = Records.PUFCSV_YEAR
         # set name of cached baseline file in case use below
         cached_pickle = "TxFuncEst_baseline_PUF.pkl"
-    else:
+        if data is not None:
+            if not isinstance(data, pd.DataFrame):
+                raise TypeError("'data' must be a Pandas DataFrame.")
+        else:
+            # Access keys are not available. Default to the CPS.
+            print("Defaulting to the CPS")
+            meta_params.adjust({"data_source": "CPS"})
+    elif meta_params.data_source == "TMD":
+        data = retrieve_tmd(
+            TMD_S3_FILE_LOCATION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
+        )
+        weights = Records.TMD_WEIGHTS_FILENAME
+        records_start_year = Records.TMDCSV_YEAR
+        if data is not None:
+            if not isinstance(data, pd.DataFrame):
+                raise TypeError("'data' must be a Pandas DataFrame.")
+        else:
+            # Access keys are not available. Default to the CPS.
+            print("Defaulting to the CPS")
+            meta_params.adjust({"data_source": "CPS"})
+    elif meta_params.data_source == "CPS":
         data = "cps"
+        weights = Records.PUF_WEIGHTS_FILENAME
+        records_start_year = Records.CPSCSV_YEAR
         # set name of cached baseline file in case use below
         cached_pickle = "TxFuncEst_baseline_CPS.pkl"
+    else:
+        raise ValueError(
+            f"Data source '{meta_params.data_source}' is not supported."
+        )
+
     # Get TC params adjustments
     iit_mods = convert_policy_adjustment(
         adjustment["Tax-Calculator Parameters"]

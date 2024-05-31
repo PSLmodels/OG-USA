@@ -35,7 +35,7 @@ class Calibration:
         parameter values for the OG-USA model.
 
         Args:
-            p (OGUSA Parameters object): parameters object
+            p (OG-USA Parameters object): parameters object
             estimate_tax_functions (bool): whether to estimate tax functions
             estimate_beta (bool): whether to estimate beta
             estimate_chi_n (bool): whether to estimate chi_n

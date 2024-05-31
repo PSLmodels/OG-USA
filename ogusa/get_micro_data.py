@@ -320,6 +320,16 @@ def update_policy(policy_obj, reform, **kwargs):
     """
     Convenience method that updates the Policy object with the reform
     dict using the appropriate method, given the reform format.
+
+    Args:
+        policy_obj (Policy object): Tax-Calculator Policy object
+        reform (dict or str): JSON string or dictionary of reform
+            parameters
+        kwargs (dict): keyword arguments to pass to the adjust method
+
+    Returns:
+        None (updates policy object)
+
     """
     if is_paramtools_format(reform):
         policy_obj.adjust(reform, **kwargs)
@@ -336,6 +346,11 @@ def is_paramtools_format(reform):
         param: {2020: 1000}
     }
     Otherwise, it is likely to be a ParamTools format.
+
+    Args:
+        reform (dict or str): JSON string or dictionary of reform
+            parameters
+
     Returns:
         format (bool): True if reform is likely to be in PT format.
     """

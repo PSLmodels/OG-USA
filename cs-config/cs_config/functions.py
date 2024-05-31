@@ -17,7 +17,7 @@ import inspect
 import pandas as pd
 import paramtools
 from distributed import Client
-from taxcalc import Policy, Records
+from taxcalc import Policy, Records, GrowFactors
 from collections import OrderedDict
 from .helpers import retrieve_puf, retrieve_tmd
 from cs2tc import convert_policy_adjustment
@@ -245,7 +245,7 @@ def run_model(meta_param_dict, adjustment):
 
     # Dask parmeters
     num_workers = 2
-    memory_limit = "10GiB"
+    memory_per_worker = "10GiB"
     client = Client(
         n_workers=num_workers,
         threads_per_worker=1,
@@ -256,8 +256,7 @@ def run_model(meta_param_dict, adjustment):
     # num_workers_txf = 5
     # num_workers_mod = 6
 
-    # whether to estimate tax functions from microdata
-    run_micro = True
+    # Read in whether user chose to solve for transition path
     time_path = meta_param_dict["time_path"][0]["value"]
 
     # filter out OG-USA params that will not change between baseline and
@@ -397,6 +396,9 @@ def run_model(meta_param_dict, adjustment):
         iit_reform=iit_mods,
         estimate_tax_functions=True,
         data=data,
+        gfactors=GrowFactors.FILE_NAME,
+        weights=weights,
+        records_start_year=records_start_year,
         client=client,
     )
     # update tax function parameters in Specifications Object

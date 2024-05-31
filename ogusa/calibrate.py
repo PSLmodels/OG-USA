@@ -144,6 +144,9 @@ class Calibration:
         iit_reform={},
         guid="",
         data="",
+        gfactors=None,
+        weights=None,
+        records_start_year=Records.CPSCSV_YEAR,
         client=None,
         num_workers=1,
         run_micro=False,
@@ -158,7 +161,13 @@ class Calibration:
             iit_baseline (dict): baseline policy to use
             iit_reform (dict): reform tax parameters
             guid (string): id for tax function parameters
-            data (string): data source for microsimulation model
+            data (str or Pandas DataFrame): path or DataFrame with
+                data for Tax-Calculator model
+            gfactors (str or Pandas DataFrame ): path or DataFrame with
+                growth factors for Tax-Calculator model
+            weights (str or Pandas DataFrame): path or DataFrame with
+                weights for Tax-Calculator model
+            records_start_year (int): year micro data begins
             client (Dask client object): client
             num_workers (int): number of workers for Dask client
             run_micro (bool): whether to estimate parameters from

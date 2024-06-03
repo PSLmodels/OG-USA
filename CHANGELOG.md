@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Updates the file calls in some of the calibration modules (`bequest_transmission.py`,  `deterministic_profiles.py`, `psid_data_setup.py`, and `transfer_distirbution.py`). These files called `.RData` files that were not included in the `ogusa` package, so users who pip installed ogusa could not instantiate the `Calibrate` class object. These changes allow for Jupyter notebook users to automatically download the data files from the master branch of the GitHub repository if they are not working in their own branch of the repository.
+- Updates the `ogusa` package to include the zipped `psid_lifetime_income.csv.gz` file, which is now called in some calibration modules (`bequest_transmission.py`,  `deterministic_profiles.py`, and `transfer_distirbution.py`), but with an option for the user to provide their own custom datafile.  These changes allow for Jupyter notebook users to execute the `Calibration` class object and for those who install the `ogusa` package from PyPI to have the required datafile for the major calibration modules.
 
 
 ## [0.1.7] - 2024-05-14 16:30:00

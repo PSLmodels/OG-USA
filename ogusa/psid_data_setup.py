@@ -455,18 +455,23 @@ def prep_data(data="psid1968to2015.RData"):
     panel_li = (df_fit2[df_fit2["in_psid"]]).copy()
 
     # Save dictionary of regression results
-    pickle.dump(
-        first_stage_model_results,
-        open(
-            os.path.join(
-                CURDIR, "..", "data", "PSID", "first_stage_reg_results.pkl"
-            ),
-            "wb",
-        ),
+    # pickle.dump(
+    #     first_stage_model_results,
+    #     open(
+    #         os.path.join(
+    #             CURDIR, "..", "data", "PSID", "first_stage_reg_results.pkl"
+    #         ),
+    #         "wb",
+    #     ),
+    # )
+    results_df = pd.DataFrame.from_dict(first_stage_model_results)
+    results_df.to_csv(
+        os.path.join(
+            CURDIR, "..", "data", "PSID", "first_stage_reg_results.pkl"
+        )
     )
 
     # Save dataframe
-    # pickle.dump(panel_li, open("psid_lifetime_income.pkl", "wb"))
     panel_li.loc["li_group"] = panel_li["li_group"].astype("category")
     panel_li.loc["li_decile"] = panel_li["li_decile"].astype("category")
     panel_li.dropna(axis=0, how="all", inplace=True)

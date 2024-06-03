@@ -19,7 +19,10 @@ setuptools.setup(
     },
     packages=["ogusa"],
     package_data={
-        "ogusa": ["ogusa_default_parameters.json", "../data/PSID/*"]
+        "ogusa": [
+            "ogusa_default_parameters.json",
+            "psid_lifetime_income.csv.gz",
+        ]
     },
     include_packages=True,
     python_requires=">=3.7.7, <3.12",

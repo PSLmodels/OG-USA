@@ -24,7 +24,6 @@ htmlcov/*
 *.asv
 *.nav
 *.snm
-*.gz
 *.bib.bak
 *.fls
 *.m~
@@ -47,6 +46,7 @@ examples/OG-USA-Example/*
 cs-config/cs_config/OUTPUT_BASELINE/*
 data/csv_output_files/*
 data/images/*
+data/PSID/psid_lifetime_income.csv
 ogusa/csv_output_files/*
 ogusa/images/*
 .vscode/

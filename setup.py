@@ -5,7 +5,7 @@ with open("README.md", "r") as readme_file:
 
 setuptools.setup(
     name="ogusa",
-    version="0.1.7",
+    version="0.1.8",
     author="Jason DeBacker and Richard W. Evans",
     license="CC0 1.0 Universal (CC0 1.0) Public Domain Dedication",
     description="USA calibration for OG-Core",
@@ -18,7 +18,12 @@ setuptools.setup(
         "Issue Tracker": "https://github.com/PSLmodels/OG-USA/issues",
     },
     packages=["ogusa"],
-    package_data={"ogusa": ["ogusa_default_parameters.json", "data/PSID/*"]},
+    package_data={
+        "ogusa": [
+            "ogusa_default_parameters.json",
+            "psid_lifetime_income.csv.gz",
+        ]
+    },
     include_packages=True,
     python_requires=">=3.7.7, <3.12",
     install_requires=[

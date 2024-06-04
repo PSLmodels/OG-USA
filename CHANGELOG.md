@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+
+## [0.1.8] - 2024-05-20 12:00:00
+
+### Added
+
+- Updates the `ogusa` package to include the zipped `psid_lifetime_income.csv.gz` file, which is now called in some calibration modules (`bequest_transmission.py`,  `deterministic_profiles.py`, and `transfer_distirbution.py`), but with an option for the user to provide their own custom datafile.  These changes allow for Jupyter notebook users to execute the `Calibration` class object and for those who install the `ogusa` package from PyPI to have the required datafile for the major calibration modules.
+
+
 ## [0.1.7] - 2024-05-14 16:30:00
 
 ### Added
@@ -97,6 +105,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+[0.1.8]: https://github.com/PSLmodels/OG-USA/compare/v0.1.7...v0.1.8
 [0.1.7]: https://github.com/PSLmodels/OG-USA/compare/v0.1.6...v0.1.7
 [0.1.6]: https://github.com/PSLmodels/OG-USA/compare/v0.1.5...v0.1.6
 [0.1.5]: https://github.com/PSLmodels/OG-USA/compare/v0.1.4...v0.1.5

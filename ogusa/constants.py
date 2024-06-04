@@ -1,9 +1,12 @@
 import taxcalc
+import os
 
 SHOW_RUNTIME = False  # Flag to display RuntimeWarnings when run model
 
 REFORM_DIR = "OUTPUT_REFORM"
 BASELINE_DIR = "OUTPUT_BASELINE"
+
+CODE_PATH = os.path.abspath(os.path.dirname(__file__))
 
 # Default year for model runs
 DEFAULT_START_YEAR = 2021

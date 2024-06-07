@@ -380,7 +380,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">pickle</span>
 <span class="kn">import</span> <span class="nn">pkg_resources</span>
 <span class="kn">from</span> <span class="nn">ogcore</span> <span class="kn">import</span> <span class="n">utils</span>
-<span class="kn">from</span> <span class="nn">ogusa.constants</span> <span class="kn">import</span> <span class="n">DEFAULT_START_YEAR</span><span class="p">,</span> <span class="n">TC_LAST_YEAR</span><span class="p">,</span> <span class="n">PUF_START_YEAR</span>
+<span class="kn">from</span> <span class="nn">ogusa.constants</span> <span class="kn">import</span> <span class="n">DEFAULT_START_YEAR</span><span class="p">,</span> <span class="n">TC_LAST_YEAR</span>
 
 <span class="n">CUR_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
 
@@ -388,21 +388,19 @@ document.write(`
 <div class="viewcode-block" id="get_calculator">
 <a class="viewcode-back" href="../../content/api/get_micro_data.html#ogusa.get_micro_data.get_calculator">[docs]</a>
 <span class="k">def</span> <span class="nf">get_calculator</span><span class="p">(</span>
-    <span class="n">baseline</span><span class="p">,</span>
     <span class="n">calculator_start_year</span><span class="p">,</span>
     <span class="n">iit_baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">iit_reform</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">gfactors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">records_start_year</span><span class="o">=</span><span class="n">PUF_START_YEAR</span><span class="p">,</span>
+    <span class="n">records_start_year</span><span class="o">=</span><span class="n">Records</span><span class="o">.</span><span class="n">PUFCSV_YEAR</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function creates the tax calculator object with the policy</span>
 <span class="sd">    specified in reform and the data specified with the data kwarg.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        baseline (boolean): True if baseline tax policy</span>
 <span class="sd">        calculator_start_year (int): first year of budget window</span>
 <span class="sd">        reform (dictionary): IIT policy reform parameters, None if</span>
 <span class="sd">            baseline</span>
@@ -423,6 +421,7 @@ document.write(`
     <span class="c1"># create a calculator</span>
     <span class="n">policy1</span> <span class="o">=</span> <span class="n">Policy</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s2">&quot;cps&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using CPS&quot;</span><span class="p">)</span>
         <span class="n">records1</span> <span class="o">=</span> <span class="n">Records</span><span class="o">.</span><span class="n">cps_constructor</span><span class="p">()</span>
         <span class="c1"># impute short and long term capital gains if using CPS data</span>
         <span class="c1"># in 2012 SOI data 6.587% of CG as short-term gains</span>
@@ -430,7 +429,16 @@ document.write(`
         <span class="n">records1</span><span class="o">.</span><span class="n">p23250</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">0.06587</span><span class="p">)</span> <span class="o">*</span> <span class="n">records1</span><span class="o">.</span><span class="n">e01100</span>
         <span class="c1"># set total capital gains to zero</span>
         <span class="n">records1</span><span class="o">.</span><span class="n">e01100</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">records1</span><span class="o">.</span><span class="n">e01100</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="s2">&quot;puf&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using PUF&quot;</span><span class="p">)</span>
+        <span class="n">records1</span> <span class="o">=</span> <span class="n">Records</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s2">&quot;tmd&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using TMD&quot;</span><span class="p">)</span>
+        <span class="n">records1</span> <span class="o">=</span> <span class="n">Records</span><span class="o">.</span><span class="n">tmd_constructor</span><span class="p">(</span><span class="s2">&quot;tmd.csv.gz&quot;</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data is &quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Weights are &quot;</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Records start year is &quot;</span><span class="p">,</span> <span class="n">records_start_year</span><span class="p">)</span>
         <span class="n">records1</span> <span class="o">=</span> <span class="n">Records</span><span class="p">(</span>
             <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
             <span class="n">gfactors</span><span class="o">=</span><span class="n">gfactors</span><span class="p">,</span>
@@ -438,27 +446,16 @@ document.write(`
             <span class="n">start_year</span><span class="o">=</span><span class="n">records_start_year</span><span class="p">,</span>
         <span class="p">)</span>  <span class="c1"># pragma: no cover</span>
     <span class="k">else</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
-        <span class="n">records1</span> <span class="o">=</span> <span class="n">Records</span><span class="p">()</span>  <span class="c1"># pragma: no cover</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Please provide data or use CPS, PUF, or TMD.&quot;</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">baseline</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">iit_baseline</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Running current law policy baseline&quot;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Baseline policy is: &quot;</span><span class="p">,</span> <span class="n">iit_baseline</span><span class="p">)</span>
-            <span class="n">policy1</span><span class="o">.</span><span class="n">implement_reform</span><span class="p">(</span><span class="n">iit_baseline</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">iit_reform</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Running with current law as reform&quot;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reform policy is: &quot;</span><span class="p">,</span> <span class="n">iit_reform</span><span class="p">)</span>
-            <span class="k">if</span> <span class="p">(</span>
-                <span class="n">iit_baseline</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-            <span class="p">):</span>  <span class="c1"># if alt baseline, stack reform on that</span>
-                <span class="n">policy1</span><span class="o">.</span><span class="n">implement_reform</span><span class="p">(</span><span class="n">iit_baseline</span><span class="p">)</span>
-            <span class="n">policy1</span><span class="o">.</span><span class="n">implement_reform</span><span class="p">(</span><span class="n">iit_reform</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">iit_baseline</span><span class="p">:</span>  <span class="c1"># if something other than current law policy baseline</span>
+        <span class="n">update_policy</span><span class="p">(</span><span class="n">policy1</span><span class="p">,</span> <span class="n">iit_baseline</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">iit_reform</span><span class="p">:</span>  <span class="c1"># if there is a reform</span>
+        <span class="n">update_policy</span><span class="p">(</span><span class="n">policy1</span><span class="p">,</span> <span class="n">iit_reform</span><span class="p">)</span>
 
     <span class="c1"># the default set up increments year to 2013</span>
     <span class="n">calc1</span> <span class="o">=</span> <span class="n">Calculator</span><span class="p">(</span><span class="n">records</span><span class="o">=</span><span class="n">records1</span><span class="p">,</span> <span class="n">policy</span><span class="o">=</span><span class="n">policy1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Calculator initial year = &quot;</span><span class="p">,</span> <span class="n">calc1</span><span class="o">.</span><span class="n">current_year</span><span class="p">)</span>
 
     <span class="c1"># Check that start_year is appropriate</span>
     <span class="k">if</span> <span class="n">calculator_start_year</span> <span class="o">&gt;</span> <span class="n">TC_LAST_YEAR</span><span class="p">:</span>
@@ -476,6 +473,9 @@ document.write(`
     <span class="n">iit_baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">iit_reform</span><span class="o">=</span><span class="p">{},</span>
     <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">gfactors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">records_start_year</span><span class="o">=</span><span class="n">Records</span><span class="o">.</span><span class="n">CPSCSV_YEAR</span><span class="p">,</span>
     <span class="n">path</span><span class="o">=</span><span class="n">CUR_PATH</span><span class="p">,</span>
     <span class="n">client</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">num_workers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -492,8 +492,13 @@ document.write(`
 <span class="sd">        iit_baseline (dictionary): IIT policy parameters for baseline</span>
 <span class="sd">        iit_reform (dictionary): IIT policy reform parameters, None if</span>
 <span class="sd">            baseline</span>
-<span class="sd">        data (DataFrame or str): DataFrame or path to datafile for</span>
-<span class="sd">            Records object</span>
+<span class="sd">        data (str or Pandas DataFrame): path or DataFrame with</span>
+<span class="sd">            data for Tax-Calculator model</span>
+<span class="sd">        gfactors (str or Pandas DataFrame ): path or DataFrame with</span>
+<span class="sd">            growth factors for Tax-Calculator model</span>
+<span class="sd">        weights (str or Pandas DataFrame): path or DataFrame with</span>
+<span class="sd">            weights for Tax-Calculator model</span>
+<span class="sd">        records_start_year (int): year micro data begins</span>
 <span class="sd">        path (str): path to save microdata files to</span>
 <span class="sd">        client (Dask Client object): client for Dask multiprocessing</span>
 <span class="sd">        num_workers (int): number of workers to use for Dask</span>
@@ -511,7 +516,14 @@ document.write(`
     <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start_year</span><span class="p">,</span> <span class="n">TC_LAST_YEAR</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
         <span class="n">lazy_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
             <span class="n">delayed</span><span class="p">(</span><span class="n">taxcalc_advance</span><span class="p">)(</span>
-                <span class="n">baseline</span><span class="p">,</span> <span class="n">start_year</span><span class="p">,</span> <span class="n">iit_baseline</span><span class="p">,</span> <span class="n">iit_reform</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">year</span>
+                <span class="n">start_year</span><span class="p">,</span>
+                <span class="n">iit_baseline</span><span class="p">,</span>
+                <span class="n">iit_reform</span><span class="p">,</span>
+                <span class="n">data</span><span class="p">,</span>
+                <span class="n">gfactors</span><span class="p">,</span>
+                <span class="n">weights</span><span class="p">,</span>
+                <span class="n">records_start_year</span><span class="p">,</span>
+                <span class="n">year</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="p">)</span>
     <span class="k">if</span> <span class="n">client</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
@@ -551,19 +563,30 @@ document.write(`
 <div class="viewcode-block" id="taxcalc_advance">
 <a class="viewcode-back" href="../../content/api/get_micro_data.html#ogusa.get_micro_data.taxcalc_advance">[docs]</a>
 <span class="k">def</span> <span class="nf">taxcalc_advance</span><span class="p">(</span>
-    <span class="n">baseline</span><span class="p">,</span> <span class="n">start_year</span><span class="p">,</span> <span class="n">iit_baseline</span><span class="p">,</span> <span class="n">iit_reform</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">year</span>
+    <span class="n">start_year</span><span class="p">,</span>
+    <span class="n">iit_baseline</span><span class="p">,</span>
+    <span class="n">iit_reform</span><span class="p">,</span>
+    <span class="n">data</span><span class="p">,</span>
+    <span class="n">gfactors</span><span class="p">,</span>
+    <span class="n">weights</span><span class="p">,</span>
+    <span class="n">records_start_year</span><span class="p">,</span>
+    <span class="n">year</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function advances the year used in Tax-Calculator, compute</span>
 <span class="sd">    taxes and rates, and save the results to a dictionary.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        baseline (boolean): True if baseline tax policy</span>
 <span class="sd">        start_year (int): first year of budget window</span>
 <span class="sd">        iit_baseline (dict): IIT policy parameters for baseline</span>
 <span class="sd">        iit_reform (dict): IIT policy reform parameters for reform</span>
-<span class="sd">        data (DataFrame or str): DataFrame or path to datafile for</span>
-<span class="sd">            Records object</span>
+<span class="sd">        data (str or Pandas DataFrame): path or DataFrame with</span>
+<span class="sd">            data for Tax-Calculator model</span>
+<span class="sd">        gfactors (str or Pandas DataFrame ): path or DataFrame with</span>
+<span class="sd">            growth factors for Tax-Calculator model</span>
+<span class="sd">        weights (str or Pandas DataFrame): path or DataFrame with</span>
+<span class="sd">            weights for Tax-Calculator model</span>
+<span class="sd">        records_start_year (int): year micro data begins</span>
 <span class="sd">        year (int): year to advance to in Tax-Calculator</span>
 
 <span class="sd">    Returns:</span>
@@ -571,11 +594,13 @@ document.write(`
 <span class="sd">            rates and other information computed in TC</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">calc1</span> <span class="o">=</span> <span class="n">get_calculator</span><span class="p">(</span>
-        <span class="n">baseline</span><span class="o">=</span><span class="n">baseline</span><span class="p">,</span>
         <span class="n">calculator_start_year</span><span class="o">=</span><span class="n">start_year</span><span class="p">,</span>
         <span class="n">iit_baseline</span><span class="o">=</span><span class="n">iit_baseline</span><span class="p">,</span>
         <span class="n">iit_reform</span><span class="o">=</span><span class="n">iit_reform</span><span class="p">,</span>
         <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+        <span class="n">gfactors</span><span class="o">=</span><span class="n">gfactors</span><span class="p">,</span>
+        <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">,</span>
+        <span class="n">records_start_year</span><span class="o">=</span><span class="n">records_start_year</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">calc1</span><span class="o">.</span><span class="n">advance_to_year</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
     <span class="n">calc1</span><span class="o">.</span><span class="n">calc_all</span><span class="p">()</span>
@@ -698,6 +723,59 @@ document.write(`
         <span class="n">total_cap_inc</span> <span class="o">==</span> <span class="mi">0</span>
     <span class="p">]</span>
     <span class="k">return</span> <span class="n">mtr_combined_capinc</span></div>
+
+
+
+<div class="viewcode-block" id="update_policy">
+<a class="viewcode-back" href="../../content/api/get_micro_data.html#ogusa.get_micro_data.update_policy">[docs]</a>
+<span class="k">def</span> <span class="nf">update_policy</span><span class="p">(</span><span class="n">policy_obj</span><span class="p">,</span> <span class="n">reform</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convenience method that updates the Policy object with the reform</span>
+<span class="sd">    dict using the appropriate method, given the reform format.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        policy_obj (Policy object): Tax-Calculator Policy object</span>
+<span class="sd">        reform (dict or str): JSON string or dictionary of reform</span>
+<span class="sd">            parameters</span>
+<span class="sd">        kwargs (dict): keyword arguments to pass to the adjust method</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None (updates policy object)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">is_paramtools_format</span><span class="p">(</span><span class="n">reform</span><span class="p">):</span>
+        <span class="n">policy_obj</span><span class="o">.</span><span class="n">adjust</span><span class="p">(</span><span class="n">reform</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">policy_obj</span><span class="o">.</span><span class="n">implement_reform</span><span class="p">(</span><span class="n">reform</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="is_paramtools_format">
+<a class="viewcode-back" href="../../content/api/get_micro_data.html#ogusa.get_micro_data.is_paramtools_format">[docs]</a>
+<span class="k">def</span> <span class="nf">is_paramtools_format</span><span class="p">(</span><span class="n">reform</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check first item in reform to determine if it is using the ParamTools</span>
+<span class="sd">    adjustment or the Tax-Calculator reform format.</span>
+<span class="sd">    If first item is a dict, then it is likely be a Tax-Calculator reform:</span>
+<span class="sd">    {</span>
+<span class="sd">        param: {2020: 1000}</span>
+<span class="sd">    }</span>
+<span class="sd">    Otherwise, it is likely to be a ParamTools format.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        reform (dict or str): JSON string or dictionary of reform</span>
+<span class="sd">            parameters</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        format (bool): True if reform is likely to be in PT format.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">reform</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>  <span class="c1"># taxcalc reform</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Not doing a specific check to see if the value is a list</span>
+            <span class="c1"># since it could be a list or just a scalar value.</span>
+            <span class="k">return</span> <span class="kc">True</span></div>
 
 </pre></div>
 

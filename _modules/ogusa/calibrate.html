@@ -369,6 +369,7 @@ document.write(`
 <span class="kn">from</span> <span class="nn">ogusa</span> <span class="kn">import</span> <span class="n">get_micro_data</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">taxcalc</span> <span class="kn">import</span> <span class="n">Records</span>
 <span class="kn">from</span> <span class="nn">ogcore</span> <span class="kn">import</span> <span class="n">txfunc</span><span class="p">,</span> <span class="n">demographics</span>
 <span class="kn">from</span> <span class="nn">ogcore.utils</span> <span class="kn">import</span> <span class="n">safe_read_pickle</span><span class="p">,</span> <span class="n">mkdirs</span>
 <span class="kn">import</span> <span class="nn">pkg_resources</span>
@@ -391,6 +392,9 @@ document.write(`
         <span class="n">iit_reform</span><span class="o">=</span><span class="p">{},</span>
         <span class="n">guid</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
         <span class="n">data</span><span class="o">=</span><span class="s2">&quot;cps&quot;</span><span class="p">,</span>
+        <span class="n">gfactors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">records_start_year</span><span class="o">=</span><span class="n">Records</span><span class="o">.</span><span class="n">CPSCSV_YEAR</span><span class="p">,</span>
         <span class="n">client</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">num_workers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">demographic_data_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -401,7 +405,7 @@ document.write(`
 <span class="sd">        parameter values for the OG-USA model.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            p (OGUSA Parameters object): parameters object</span>
+<span class="sd">            p (OG-USA Parameters object): parameters object</span>
 <span class="sd">            estimate_tax_functions (bool): whether to estimate tax functions</span>
 <span class="sd">            estimate_beta (bool): whether to estimate beta</span>
 <span class="sd">            estimate_chi_n (bool): whether to estimate chi_n</span>
@@ -410,7 +414,13 @@ document.write(`
 <span class="sd">            iit_baseline (dict): baseline policy to use</span>
 <span class="sd">            iit_reform (dict): reform tax parameters</span>
 <span class="sd">            guid (str): id for tax function parameters</span>
-<span class="sd">            data (str): data source for microsimulation model</span>
+<span class="sd">            data (str or Pandas DataFrame): path or DataFrame with</span>
+<span class="sd">                data for Tax-Calculator model</span>
+<span class="sd">            gfactors (str or Pandas DataFrame ): path or DataFrame with</span>
+<span class="sd">                growth factors for Tax-Calculator model</span>
+<span class="sd">            weights (str or Pandas DataFrame): path or DataFrame with</span>
+<span class="sd">                weights for Tax-Calculator model</span>
+<span class="sd">            records_start_year (int): year micro data begins</span>
 <span class="sd">            client (Dask client object): client</span>
 <span class="sd">            num_workers (int): number of workers for Dask client</span>
 <span class="sd">            output_path (str): path to save output to</span>
@@ -437,6 +447,9 @@ document.write(`
                 <span class="n">iit_reform</span><span class="p">,</span>
                 <span class="n">guid</span><span class="p">,</span>
                 <span class="n">data</span><span class="p">,</span>
+                <span class="n">gfactors</span><span class="p">,</span>
+                <span class="n">weights</span><span class="p">,</span>
+                <span class="n">records_start_year</span><span class="p">,</span>
                 <span class="n">client</span><span class="p">,</span>
                 <span class="n">num_workers</span><span class="p">,</span>
                 <span class="n">run_micro</span><span class="o">=</span><span class="n">run_micro</span><span class="p">,</span>
@@ -513,6 +526,9 @@ document.write(`
         <span class="n">iit_reform</span><span class="o">=</span><span class="p">{},</span>
         <span class="n">guid</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
         <span class="n">data</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">gfactors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">records_start_year</span><span class="o">=</span><span class="n">Records</span><span class="o">.</span><span class="n">CPSCSV_YEAR</span><span class="p">,</span>
         <span class="n">client</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">num_workers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">run_micro</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -527,7 +543,13 @@ document.write(`
 <span class="sd">            iit_baseline (dict): baseline policy to use</span>
 <span class="sd">            iit_reform (dict): reform tax parameters</span>
 <span class="sd">            guid (string): id for tax function parameters</span>
-<span class="sd">            data (string): data source for microsimulation model</span>
+<span class="sd">            data (str or Pandas DataFrame): path or DataFrame with</span>
+<span class="sd">                data for Tax-Calculator model</span>
+<span class="sd">            gfactors (str or Pandas DataFrame ): path or DataFrame with</span>
+<span class="sd">                growth factors for Tax-Calculator model</span>
+<span class="sd">            weights (str or Pandas DataFrame): path or DataFrame with</span>
+<span class="sd">                weights for Tax-Calculator model</span>
+<span class="sd">            records_start_year (int): year micro data begins</span>
 <span class="sd">            client (Dask client object): client</span>
 <span class="sd">            num_workers (int): number of workers for Dask client</span>
 <span class="sd">            run_micro (bool): whether to estimate parameters from</span>

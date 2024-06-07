@@ -414,7 +414,9 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ogusa.get_micro_data.cap_inc_mtr"><code class="docutils literal notranslate"><span class="pre">cap_inc_mtr()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ogusa.get_micro_data.get_calculator"><code class="docutils literal notranslate"><span class="pre">get_calculator()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ogusa.get_micro_data.get_data"><code class="docutils literal notranslate"><span class="pre">get_data()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ogusa.get_micro_data.is_paramtools_format"><code class="docutils literal notranslate"><span class="pre">is_paramtools_format()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ogusa.get_micro_data.taxcalc_advance"><code class="docutils literal notranslate"><span class="pre">taxcalc_advance()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ogusa.get_micro_data.update_policy"><code class="docutils literal notranslate"><span class="pre">update_policy()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -459,13 +461,12 @@ on different sources of capital income.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ogusa.get_micro_data.get_calculator">
-<span class="sig-prename descclassname"><span class="pre">ogusa.get_micro_data.</span></span><span class="sig-name descname"><span class="pre">get_calculator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">baseline</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calculator_start_year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iit_baseline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iit_reform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gfactors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">records_start_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2011</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ogusa/get_micro_data.html#get_calculator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ogusa.get_micro_data.get_calculator" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ogusa.get_micro_data.</span></span><span class="sig-name descname"><span class="pre">get_calculator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calculator_start_year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iit_baseline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iit_reform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gfactors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">records_start_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2011</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ogusa/get_micro_data.html#get_calculator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ogusa.get_micro_data.get_calculator" title="Link to this definition">#</a></dt>
 <dd><p>This function creates the tax calculator object with the policy
 specified in reform and the data specified with the data kwarg.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>baseline</strong> (<em>boolean</em>) – True if baseline tax policy</p></li>
 <li><p><strong>calculator_start_year</strong> (<em>int</em>) – first year of budget window</p></li>
 <li><p><strong>reform</strong> (<em>dictionary</em>) – IIT policy reform parameters, None if
 baseline</p></li>
@@ -494,7 +495,7 @@ in the Tax-Calculator project)</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ogusa.get_micro_data.get_data">
-<span class="sig-prename descclassname"><span class="pre">ogusa.get_micro_data.</span></span><span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">baseline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2021</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iit_baseline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iit_reform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/home/runner/work/OG-USA/OG-USA/ogusa'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ogusa/get_micro_data.html#get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ogusa.get_micro_data.get_data" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ogusa.get_micro_data.</span></span><span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">baseline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2021</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iit_baseline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iit_reform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gfactors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">records_start_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2014</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/home/runner/work/OG-USA/OG-USA/ogusa'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ogusa/get_micro_data.html#get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ogusa.get_micro_data.get_data" title="Link to this definition">#</a></dt>
 <dd><p>This function creates dataframes of micro data with marginal tax
 rates and information to compute effective tax rates from the
 Tax-Calculator output.  The resulting dictionary of dataframes is
@@ -507,8 +508,13 @@ returned and saved to disk in a pickle file.</p>
 <li><p><strong>iit_baseline</strong> (<em>dictionary</em>) – IIT policy parameters for baseline</p></li>
 <li><p><strong>iit_reform</strong> (<em>dictionary</em>) – IIT policy reform parameters, None if
 baseline</p></li>
-<li><p><strong>data</strong> (<em>DataFrame</em><em> or </em><em>str</em>) – DataFrame or path to datafile for
-Records object</p></li>
+<li><p><strong>data</strong> (<em>str</em><em> or </em><em>Pandas DataFrame</em>) – path or DataFrame with
+data for Tax-Calculator model</p></li>
+<li><p><strong>gfactors</strong> (<em>str</em><em> or </em><em>Pandas DataFrame</em>) – path or DataFrame with
+growth factors for Tax-Calculator model</p></li>
+<li><p><strong>weights</strong> (<em>str</em><em> or </em><em>Pandas DataFrame</em>) – path or DataFrame with
+weights for Tax-Calculator model</p></li>
+<li><p><strong>records_start_year</strong> (<em>int</em>) – year micro data begins</p></li>
 <li><p><strong>path</strong> (<em>str</em>) – path to save microdata files to</p></li>
 <li><p><strong>client</strong> (<em>Dask Client object</em>) – client for Dask multiprocessing</p></li>
 <li><p><strong>num_workers</strong> (<em>int</em>) – number of workers to use for Dask
@@ -531,19 +537,49 @@ analyze</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="ogusa.get_micro_data.is_paramtools_format">
+<span class="sig-prename descclassname"><span class="pre">ogusa.get_micro_data.</span></span><span class="sig-name descname"><span class="pre">is_paramtools_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reform</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ogusa/get_micro_data.html#is_paramtools_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ogusa.get_micro_data.is_paramtools_format" title="Link to this definition">#</a></dt>
+<dd><p>Check first item in reform to determine if it is using the ParamTools
+adjustment or the Tax-Calculator reform format.
+If first item is a dict, then it is likely be a Tax-Calculator reform:
+{</p>
+<blockquote>
+<div><p>param: {2020: 1000}</p>
+</div></blockquote>
+<p>}
+Otherwise, it is likely to be a ParamTools format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>reform</strong> (<em>dict</em><em> or </em><em>str</em>) – JSON string or dictionary of reform
+parameters</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if reform is likely to be in PT format.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>format (bool)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="ogusa.get_micro_data.taxcalc_advance">
-<span class="sig-prename descclassname"><span class="pre">ogusa.get_micro_data.</span></span><span class="sig-name descname"><span class="pre">taxcalc_advance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">baseline</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iit_baseline</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iit_reform</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ogusa/get_micro_data.html#taxcalc_advance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ogusa.get_micro_data.taxcalc_advance" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ogusa.get_micro_data.</span></span><span class="sig-name descname"><span class="pre">taxcalc_advance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iit_baseline</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iit_reform</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gfactors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">records_start_year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ogusa/get_micro_data.html#taxcalc_advance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ogusa.get_micro_data.taxcalc_advance" title="Link to this definition">#</a></dt>
 <dd><p>This function advances the year used in Tax-Calculator, compute
 taxes and rates, and save the results to a dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>baseline</strong> (<em>boolean</em>) – True if baseline tax policy</p></li>
 <li><p><strong>start_year</strong> (<em>int</em>) – first year of budget window</p></li>
 <li><p><strong>iit_baseline</strong> (<em>dict</em>) – IIT policy parameters for baseline</p></li>
 <li><p><strong>iit_reform</strong> (<em>dict</em>) – IIT policy reform parameters for reform</p></li>
-<li><p><strong>data</strong> (<em>DataFrame</em><em> or </em><em>str</em>) – DataFrame or path to datafile for
-Records object</p></li>
+<li><p><strong>data</strong> (<em>str</em><em> or </em><em>Pandas DataFrame</em>) – path or DataFrame with
+data for Tax-Calculator model</p></li>
+<li><p><strong>gfactors</strong> (<em>str</em><em> or </em><em>Pandas DataFrame</em>) – path or DataFrame with
+growth factors for Tax-Calculator model</p></li>
+<li><p><strong>weights</strong> (<em>str</em><em> or </em><em>Pandas DataFrame</em>) – path or DataFrame with
+weights for Tax-Calculator model</p></li>
+<li><p><strong>records_start_year</strong> (<em>int</em>) – year micro data begins</p></li>
 <li><p><strong>year</strong> (<em>int</em>) – year to advance to in Tax-Calculator</p></li>
 </ul>
 </dd>
@@ -556,6 +592,26 @@ Records object</p></li>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>tax_dict (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ogusa.get_micro_data.update_policy">
+<span class="sig-prename descclassname"><span class="pre">ogusa.get_micro_data.</span></span><span class="sig-name descname"><span class="pre">update_policy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">policy_obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reform</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ogusa/get_micro_data.html#update_policy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ogusa.get_micro_data.update_policy" title="Link to this definition">#</a></dt>
+<dd><p>Convenience method that updates the Policy object with the reform
+dict using the appropriate method, given the reform format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>policy_obj</strong> (<em>Policy object</em>) – Tax-Calculator Policy object</p></li>
+<li><p><strong>reform</strong> (<em>dict</em><em> or </em><em>str</em>) – JSON string or dictionary of reform
+parameters</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – keyword arguments to pass to the adjust method</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None (updates policy object)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -631,7 +687,9 @@ Records object</p></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ogusa.get_micro_data.cap_inc_mtr"><code class="docutils literal notranslate"><span class="pre">cap_inc_mtr()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ogusa.get_micro_data.get_calculator"><code class="docutils literal notranslate"><span class="pre">get_calculator()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ogusa.get_micro_data.get_data"><code class="docutils literal notranslate"><span class="pre">get_data()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ogusa.get_micro_data.is_paramtools_format"><code class="docutils literal notranslate"><span class="pre">is_paramtools_format()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ogusa.get_micro_data.taxcalc_advance"><code class="docutils literal notranslate"><span class="pre">taxcalc_advance()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ogusa.get_micro_data.update_policy"><code class="docutils literal notranslate"><span class="pre">update_policy()</span></code></a></li>
 </ul>
 </li>
 </ul>

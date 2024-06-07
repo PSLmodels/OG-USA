@@ -9,4 +9,4 @@ ogusa.get_micro_data
 ------------------------------------------
 
 .. automodule:: ogusa.get_micro_data
-  :members: get_calculator, get_data, taxcalc_advance, cap_inc_mtr
+  :members: get_calculator, get_data, taxcalc_advance, cap_inc_mtr, update_policy, is_paramtools_format

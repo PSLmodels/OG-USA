@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.9] - 2024-06-07 12:00:00
+
+### Added
+
+- Updates the `get_micro_data.py` and `calibration.py` modules to allow for the user to use the CPS, PUF, and TMD files with Tax-Calculator or to provide their own custom datafile, with associated grow factors and weights.
+
 
 ## [0.1.8] - 2024-05-20 12:00:00
 
@@ -105,6 +111,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+[0.1.9]: https://github.com/PSLmodels/OG-USA/compare/v0.1.8...v0.1.9
 [0.1.8]: https://github.com/PSLmodels/OG-USA/compare/v0.1.7...v0.1.8
 [0.1.7]: https://github.com/PSLmodels/OG-USA/compare/v0.1.6...v0.1.7
 [0.1.6]: https://github.com/PSLmodels/OG-USA/compare/v0.1.5...v0.1.6

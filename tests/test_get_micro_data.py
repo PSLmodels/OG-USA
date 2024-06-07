@@ -4,15 +4,16 @@ import pytest
 from pandas.testing import assert_frame_equal
 import numpy as np
 import os
-from ogusa.constants import CPS_START_YEAR, PUF_START_YEAR, TC_LAST_YEAR
+from ogusa.constants import TC_LAST_YEAR
 from ogusa import get_micro_data
 from ogcore import utils
-from taxcalc import GrowFactors
+from taxcalc import GrowFactors, Records
 
 NUM_WORKERS = min(multiprocessing.cpu_count(), 7)
 # get path to puf if puf.csv in ogusa/ directory
 CUR_PATH = os.path.abspath(os.path.dirname(__file__))
 PUF_PATH = os.path.join(CUR_PATH, "..", "puf.csv")
+TMD_PATH = os.path.join(CUR_PATH, "..", "tmd.csv.gz")
 
 
 @pytest.fixture(scope="module")
@@ -29,15 +30,13 @@ def test_cps():
     """
     Check that setting `data` to 'cps' uses cps data
     """
-    baseline = False
     start_year = 2016
     reform = {"II_em": {2017: 10000}}
 
     calc = get_micro_data.get_calculator(
-        baseline,
         start_year,
         iit_reform=reform,
-        records_start_year=CPS_START_YEAR,
+        records_start_year=Records.CPSCSV_YEAR,
         data="cps",
     )
     # blind_head is only in the CPS file and e00700 is only in the PUF.
@@ -52,7 +51,6 @@ def test_set_path():
     Check that 'notapath.csv' is passed to taxcalc. An error
     containing 'notapath.csv' is sufficient proof for this
     """
-    baseline = False
     start_year = 2016
     reform = {"II_em": {2017: 10000}}
 
@@ -62,26 +60,25 @@ def test_set_path():
     # this could change. So I think it's best to catch both errors
     with pytest.raises((IOError, ValueError), match="notapath.csv"):
         get_micro_data.get_calculator(
-            baseline,
             start_year,
             iit_reform=reform,
-            records_start_year=CPS_START_YEAR,
+            records_start_year=Records.PUFCSV_YEAR,
             data="notapath.csv",
         )
 
 
+@pytest.mark.needs_puf
 def test_puf_path():
     """
-    Check that setting `data` to None uses the puf file
+    Check that setting `data` to "puf" uses the puf file
     """
-    baseline = False
     start_year = 2016
     reform = {"II_em": {2017: 10000}}
 
     # puf.csv in ogusa/
     if os.path.exists(PUF_PATH):
         calc = get_micro_data.get_calculator(
-            baseline, start_year, iit_reform=reform, data=PUF_PATH
+            start_year, iit_reform=reform, data=PUF_PATH
         )
         # blind_head is only in the CPS file and e00700 is only in the
         # PUF.  See taxcalc/records_variables.json
@@ -91,11 +88,38 @@ def test_puf_path():
         # make sure TC is looking for puf.csv
         with pytest.raises((IOError, ValueError), match="puf.csv"):
             get_micro_data.get_calculator(
-                baseline,
                 start_year,
                 iit_reform=reform,
-                records_start_year=CPS_START_YEAR,
+                records_start_year=Records.PUFCSV_YEAR,
                 data=None,
+            )
+
+
+@pytest.mark.needs_tmd
+def test_tmd_path():
+    """
+    Check that setting `data` to "tmd" uses the tmd file
+    """
+    start_year = 2016
+    reform = {"II_em": {2017: 10000}}
+
+    # puf.csv in ogusa/
+    if os.path.exists(TMD_PATH):
+        calc = get_micro_data.get_calculator(
+            start_year, iit_reform=reform, data=TMD_PATH
+        )
+        # blind_head is only in the CPS file and e00700 is only in the
+        # PUF.  See taxcalc/records_variables.json
+        assert calc.array("e00700").sum() > 0
+    # we do not have puf.csv
+    else:
+        # make sure TC is looking for puf.csv
+        with pytest.raises((IOError, ValueError), match="tmd.csv.gz"):
+            get_micro_data.get_calculator(
+                start_year,
+                iit_reform=reform,
+                records_start_year=Records.TMDCSV_YEAR,
+                data=TMD_PATH,
             )
 
 
@@ -122,14 +146,13 @@ iit_reform_1 = {
 )
 def test_get_calculator_cps(baseline, iit_reform):
     calc = get_micro_data.get_calculator(
-        baseline=baseline,
         calculator_start_year=2017,
         iit_reform=iit_reform,
         data="cps",
         gfactors=GrowFactors(),
-        records_start_year=CPS_START_YEAR,
+        records_start_year=Records.CPSCSV_YEAR,
     )
-    assert calc.current_year == CPS_START_YEAR
+    assert calc.current_year == Records.CPSCSV_YEAR
 
 
 def test_get_calculator_exception():
@@ -144,12 +167,11 @@ def test_get_calculator_exception():
     }
     with pytest.raises(Exception):
         assert get_micro_data.get_calculator(
-            baseline=False,
             calculator_start_year=TC_LAST_YEAR + 1,
             iit_reform=iit_reform,
             data="cps",
             gfactors=GrowFactors(),
-            records_start_year=CPS_START_YEAR,
+            records_start_year=Records.CPSCSV_YEAR,
         )
 
 
@@ -165,11 +187,10 @@ def test_get_calculator_puf():
         "II_rt7": {2017: 0.3564},
     }
     calc = get_micro_data.get_calculator(
-        baseline=False,
         calculator_start_year=2017,
         iit_reform=iit_reform,
         data=PUF_PATH,
-        records_start_year=PUF_START_YEAR,
+        records_start_year=Records.PUFCSV_YEAR,
     )
     assert calc.current_year == 2013
 
@@ -186,11 +207,10 @@ def test_get_calculator_puf_from_file():
         "II_rt7": {2017: 0.3564},
     }
     calc = get_micro_data.get_calculator(
-        baseline=False,
         calculator_start_year=2017,
         iit_reform=iit_reform,
         data=PUF_PATH,
-        records_start_year=PUF_START_YEAR,
+        records_start_year=Records.PUFCSV_YEAR,
     )
     assert calc.current_year == 2013
 
@@ -232,7 +252,9 @@ def test_taxcalc_advance():
     expected_dict = utils.safe_read_pickle(
         os.path.join(CUR_PATH, "test_io_data", "tax_dict_for_tests.pkl")
     )
-    test_dict = get_micro_data.taxcalc_advance(True, 2028, {}, {}, "cps", 2028)
+    test_dict = get_micro_data.taxcalc_advance(
+        2028, {}, {}, "cps", None, None, 2014, 2028
+    )
     for k, v in test_dict.items():
         assert np.allclose(expected_dict[k], v, equal_nan=True)
 
@@ -245,7 +267,7 @@ def test_cap_inc_mtr():
     Note that this test may fail if the Tax-Calculator is not v 3.2.1
     """
     calc1 = get_micro_data.get_calculator(
-        baseline=True, calculator_start_year=2028, iit_reform={}, data="cps"
+        calculator_start_year=2028, iit_reform={}, data="cps"
     )
     calc1.advance_to_year(2028)
     expected = np.genfromtxt(

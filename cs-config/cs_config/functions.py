@@ -1,3 +1,4 @@
+import ogusa
 from ogusa.calibrate import Calibration
 from ogcore.parameters import Specifications
 from ogusa.constants import (
@@ -82,7 +83,7 @@ class MetaParams(paramtools.Parameters):
 
 
 def get_version():
-    return "0.1.9"
+    return ogusa.__version__
 
 
 def get_inputs(meta_param_dict):

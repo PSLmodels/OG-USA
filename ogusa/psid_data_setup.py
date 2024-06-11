@@ -5,16 +5,8 @@ import pickle
 from pandas_datareader import data as web
 import datetime
 from linearmodels import PanelOLS
-from rpy2.robjects import r
-from rpy2.robjects import conversion
-from rpy2.robjects import default_converter
-from rpy2.robjects import pandas2ri
-from rpy2.robjects.packages import importr
 from ogusa.constants import PSID_NOMINAL_VARS, PSID_CONSTANT_VARS
 
-
-pandas2ri.activate()
-pd.options.mode.chained_assignment = "raise"
 
 try:
     # This is the case when a separate script is calling this function in
@@ -29,7 +21,9 @@ if not os.access(output_dir, os.F_OK):
     os.makedirs(output_dir)
 
 
-def prep_data(data="psid1968to2015.RData"):
+def prep_data(
+    data=os.path.join(CURDIR, "..", "data", "PSID", "psid1968to2015.csv.gz")
+):
     """
     This script takes PSID data created from psid_download.R and:
     1) Creates variables at the "tax filing unit" (equal to family
@@ -47,10 +41,7 @@ def prep_data(data="psid1968to2015.RData"):
             income groups defined
     """
     # Read data from R into pandas dataframe
-    r["load"](os.path.join(CURDIR, "..", "data", "PSID", data))
-    raw_r_df = r("psid_df")
-    with (default_converter + pandas2ri.converter).context():
-        raw_df = conversion.get_conversion().rpy2py(raw_r_df)
+    raw_df = pd.read_csv(data, compression="gzip")
 
     # Create unique identifier for each household
     # note that will define a new household if head or spouse changes

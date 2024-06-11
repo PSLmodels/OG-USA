@@ -176,4 +176,5 @@ for (var in names(ind_var_names)){
 print('Beginning to build panel')
 # Build PSID panel
 psid_df <- build.panel(datadir=mydir, fam.vars=famvars, ind.vars=indvars, sample="SRC", design='all')
-save(psid_df,file=file.path(script.dir, 'psid1968to2017.RData'))
+
+write.csv(psid_df, file=gzfile("psid1968to2017.csv.gz"))

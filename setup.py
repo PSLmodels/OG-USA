@@ -37,7 +37,6 @@ setuptools.setup(
         "paramtools>=0.15.0",
         "taxcalc>=3.0.0",
         "requests",
-        "rpy2>=3.5.12",
         "pandas-datareader",
         "xlwt",
         "openpyxl>=3.1.2",

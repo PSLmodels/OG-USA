@@ -371,16 +371,8 @@ document.write(`
 <span class="kn">from</span> <span class="nn">pandas_datareader</span> <span class="kn">import</span> <span class="n">data</span> <span class="k">as</span> <span class="n">web</span>
 <span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">from</span> <span class="nn">linearmodels</span> <span class="kn">import</span> <span class="n">PanelOLS</span>
-<span class="kn">from</span> <span class="nn">rpy2.robjects</span> <span class="kn">import</span> <span class="n">r</span>
-<span class="kn">from</span> <span class="nn">rpy2.robjects</span> <span class="kn">import</span> <span class="n">conversion</span>
-<span class="kn">from</span> <span class="nn">rpy2.robjects</span> <span class="kn">import</span> <span class="n">default_converter</span>
-<span class="kn">from</span> <span class="nn">rpy2.robjects</span> <span class="kn">import</span> <span class="n">pandas2ri</span>
-<span class="kn">from</span> <span class="nn">rpy2.robjects.packages</span> <span class="kn">import</span> <span class="n">importr</span>
 <span class="kn">from</span> <span class="nn">ogusa.constants</span> <span class="kn">import</span> <span class="n">PSID_NOMINAL_VARS</span><span class="p">,</span> <span class="n">PSID_CONSTANT_VARS</span>
 
-
-<span class="n">pandas2ri</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">chained_assignment</span> <span class="o">=</span> <span class="s2">&quot;raise&quot;</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="c1"># This is the case when a separate script is calling this function in</span>
@@ -397,7 +389,9 @@ document.write(`
 
 <div class="viewcode-block" id="prep_data">
 <a class="viewcode-back" href="../../content/api/psid_data_setup.html#ogusa.psid_data_setup.prep_data">[docs]</a>
-<span class="k">def</span> <span class="nf">prep_data</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s2">&quot;psid1968to2015.RData&quot;</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">prep_data</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CURDIR</span><span class="p">,</span> <span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;PSID&quot;</span><span class="p">,</span> <span class="s2">&quot;psid1968to2015.csv.gz&quot;</span><span class="p">)</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This script takes PSID data created from psid_download.R and:</span>
 <span class="sd">    1) Creates variables at the &quot;tax filing unit&quot; (equal to family</span>
@@ -415,10 +409,7 @@ document.write(`
 <span class="sd">            income groups defined</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Read data from R into pandas dataframe</span>
-    <span class="n">r</span><span class="p">[</span><span class="s2">&quot;load&quot;</span><span class="p">](</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CURDIR</span><span class="p">,</span> <span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;PSID&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">))</span>
-    <span class="n">raw_r_df</span> <span class="o">=</span> <span class="n">r</span><span class="p">(</span><span class="s2">&quot;psid_df&quot;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="p">(</span><span class="n">default_converter</span> <span class="o">+</span> <span class="n">pandas2ri</span><span class="o">.</span><span class="n">converter</span><span class="p">)</span><span class="o">.</span><span class="n">context</span><span class="p">():</span>
-        <span class="n">raw_df</span> <span class="o">=</span> <span class="n">conversion</span><span class="o">.</span><span class="n">get_conversion</span><span class="p">()</span><span class="o">.</span><span class="n">rpy2py</span><span class="p">(</span><span class="n">raw_r_df</span><span class="p">)</span>
+    <span class="n">raw_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="s2">&quot;gzip&quot;</span><span class="p">)</span>
 
     <span class="c1"># Create unique identifier for each household</span>
     <span class="c1"># note that will define a new household if head or spouse changes</span>

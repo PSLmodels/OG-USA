@@ -1,17 +1,17 @@
 import taxcalc
+import os
 
 SHOW_RUNTIME = False  # Flag to display RuntimeWarnings when run model
 
 REFORM_DIR = "OUTPUT_REFORM"
 BASELINE_DIR = "OUTPUT_BASELINE"
 
+CODE_PATH = os.path.abspath(os.path.dirname(__file__))
+
 # Default year for model runs
 DEFAULT_START_YEAR = 2021
 # Tax-Calculator start year
 TC_LAST_YEAR = taxcalc.Policy.LAST_BUDGET_YEAR
-# Years of the PUF and CPS files
-PUF_START_YEAR = taxcalc.Records.PUFCSV_YEAR
-CPS_START_YEAR = taxcalc.Records.CPSCSV_YEAR
 
 VAR_LABELS = {
     "Y": "GDP ($Y_t$)",

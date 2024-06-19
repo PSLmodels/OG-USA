@@ -5,17 +5,25 @@ import pickle
 from pandas_datareader import data as web
 import datetime
 from linearmodels import PanelOLS
-from rpy2.robjects import r
-from rpy2.robjects import pandas2ri
 from ogusa.constants import PSID_NOMINAL_VARS, PSID_CONSTANT_VARS
 
-pandas2ri.activate()
-pd.options.mode.chained_assignment = "raise"
 
-CURDIR = os.path.split(os.path.abspath(__file__))[0]
+try:
+    # This is the case when a separate script is calling this function in
+    # this module
+    CURDIR = os.path.split(os.path.abspath(__file__))[0]
+except:
+    # This is the case when a Jupyter notebook is calling this function
+    CURDIR = os.getcwd()
+output_fldr = "io_files"
+output_dir = os.path.join(CURDIR, output_fldr)
+if not os.access(output_dir, os.F_OK):
+    os.makedirs(output_dir)
 
 
-def prep_data(data="psid1968to2015.RData"):
+def prep_data(
+    data=os.path.join(CURDIR, "..", "data", "PSID", "psid1968to2015.csv.gz")
+):
     """
     This script takes PSID data created from psid_download.R and:
     1) Creates variables at the "tax filing unit" (equal to family
@@ -33,8 +41,7 @@ def prep_data(data="psid1968to2015.RData"):
             income groups defined
     """
     # Read data from R into pandas dataframe
-    r["load"](os.path.join(CURDIR, "..", "data", "PSID", data))
-    raw_df = r("psid_df")
+    raw_df = pd.read_csv(data, compression="gzip")
 
     # Create unique identifier for each household
     # note that will define a new household if head or spouse changes
@@ -439,18 +446,23 @@ def prep_data(data="psid1968to2015.RData"):
     panel_li = (df_fit2[df_fit2["in_psid"]]).copy()
 
     # Save dictionary of regression results
-    pickle.dump(
-        first_stage_model_results,
-        open(
-            os.path.join(
-                CURDIR, "..", "data", "PSID", "first_stage_reg_results.pkl"
-            ),
-            "wb",
-        ),
+    # pickle.dump(
+    #     first_stage_model_results,
+    #     open(
+    #         os.path.join(
+    #             CURDIR, "..", "data", "PSID", "first_stage_reg_results.pkl"
+    #         ),
+    #         "wb",
+    #     ),
+    # )
+    results_df = pd.DataFrame.from_dict(first_stage_model_results)
+    results_df.to_csv(
+        os.path.join(
+            CURDIR, "..", "data", "PSID", "first_stage_reg_results.pkl"
+        )
     )
 
     # Save dataframe
-    # pickle.dump(panel_li, open("psid_lifetime_income.pkl", "wb"))
     panel_li.loc["li_group"] = panel_li["li_group"].astype("category")
     panel_li.loc["li_decile"] = panel_li["li_decile"].astype("category")
     panel_li.dropna(axis=0, how="all", inplace=True)

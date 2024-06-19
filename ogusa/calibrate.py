@@ -1,8 +1,9 @@
 from ogusa import estimate_beta_j, bequest_transmission
 from ogusa import macro_params, transfer_distribution, income
-from ogusa import get_micro_data, psid_data_setup
+from ogusa import get_micro_data
 import os
 import numpy as np
+from taxcalc import Records
 from ogcore import txfunc, demographics
 from ogcore.utils import safe_read_pickle, mkdirs
 import pkg_resources
@@ -23,15 +24,20 @@ class Calibration:
         iit_reform={},
         guid="",
         data="cps",
+        gfactors=None,
+        weights=None,
+        records_start_year=Records.CPSCSV_YEAR,
         client=None,
         num_workers=1,
+        demographic_data_path=None,
+        output_path=None,
     ):
         """
         Constructor for the Calibration class.  This class is used to find
         parameter values for the OG-USA model.
 
         Args:
-            p (OGUSA Parameters object): parameters object
+            p (OG-USA Parameters object): parameters object
             estimate_tax_functions (bool): whether to estimate tax functions
             estimate_beta (bool): whether to estimate beta
             estimate_chi_n (bool): whether to estimate chi_n
@@ -40,13 +46,24 @@ class Calibration:
             iit_baseline (dict): baseline policy to use
             iit_reform (dict): reform tax parameters
             guid (str): id for tax function parameters
-            data (str): data source for microsimulation model
+            data (str or Pandas DataFrame): path or DataFrame with
+                data for Tax-Calculator model
+            gfactors (str or Pandas DataFrame ): path or DataFrame with
+                growth factors for Tax-Calculator model
+            weights (str or Pandas DataFrame): path or DataFrame with
+                weights for Tax-Calculator model
+            records_start_year (int): year micro data begins
             client (Dask client object): client
             num_workers (int): number of workers for Dask client
+            output_path (str): path to save output to
 
         Returns:
             Calibration class object instance
         """
+        # Create output_path if it doesn't exist
+        if output_path is not None:
+            if not os.path.exists(output_path):
+                os.makedirs(output_path)
         self.estimate_tax_functions = estimate_tax_functions
         self.estimate_beta = estimate_beta
         self.estimate_chi_n = estimate_chi_n
@@ -62,6 +79,9 @@ class Calibration:
                 iit_reform,
                 guid,
                 data,
+                gfactors,
+                weights,
+                records_start_year,
                 client,
                 num_workers,
                 run_micro=run_micro,
@@ -76,10 +96,14 @@ class Calibration:
         self.macro_params = macro_params.get_macro_params()
 
         # eta estimation
-        self.eta = transfer_distribution.get_transfer_matrix(p.J, p.lambdas)
+        self.eta = transfer_distribution.get_transfer_matrix(
+            p.J, p.lambdas, output_path=output_path
+        )
 
         # zeta estimation
-        self.zeta = bequest_transmission.get_bequest_matrix(p.J, p.lambdas)
+        self.zeta = bequest_transmission.get_bequest_matrix(
+            p.J, p.lambdas, output_path=output_path
+        )
 
         # demographics
         if estimate_pop:
@@ -92,6 +116,7 @@ class Calibration:
                 initial_data_year=p.start_year - 1,
                 final_data_year=p.start_year,
                 GraphDiag=False,
+                download_path=demographic_data_path,
             )
 
             # demographics for 80 period lives (needed for getting e below)
@@ -112,7 +137,7 @@ class Calibration:
                 self.demographic_params["omega_SS"],
                 demog80["omega_SS"],
                 p.lambdas,
-                plot=False,
+                plot_path=output_path,
             )
         else:
             self.e = income.get_e_interp(
@@ -120,7 +145,7 @@ class Calibration:
                 p.omega_SS,
                 p.omega_SS,
                 p.lambdas,
-                plot=False,
+                plot_path=output_path,
             )
 
     # Tax Functions
@@ -131,6 +156,9 @@ class Calibration:
         iit_reform={},
         guid="",
         data="",
+        gfactors=None,
+        weights=None,
+        records_start_year=Records.CPSCSV_YEAR,
         client=None,
         num_workers=1,
         run_micro=False,
@@ -145,7 +173,13 @@ class Calibration:
             iit_baseline (dict): baseline policy to use
             iit_reform (dict): reform tax parameters
             guid (string): id for tax function parameters
-            data (string): data source for microsimulation model
+            data (str or Pandas DataFrame): path or DataFrame with
+                data for Tax-Calculator model
+            gfactors (str or Pandas DataFrame ): path or DataFrame with
+                growth factors for Tax-Calculator model
+            weights (str or Pandas DataFrame): path or DataFrame with
+                weights for Tax-Calculator model
+            records_start_year (int): year micro data begins
             client (Dask client object): client
             num_workers (int): number of workers for Dask client
             run_micro (bool): whether to estimate parameters from

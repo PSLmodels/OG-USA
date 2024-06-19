@@ -99,7 +99,7 @@ def test_arctan_fit():
     assert np.allclose(test_vals, expected_vals)
 
 
-def test_get_e_orig():
+def test_get_e_orig(tmp_path):
     """
     Test get_e_orig() function
     """
@@ -830,7 +830,7 @@ def test_get_e_orig():
 
     age_wgts = np.ones(80) * 1 / 80
     abil_wgts = np.array([0.25, 0.25, 0.2, 0.1, 0.1, 0.09, 0.014])
-    test_vals = income.get_e_orig(age_wgts, abil_wgts, plot=True)
+    test_vals = income.get_e_orig(age_wgts, abil_wgts, plot_path=tmp_path)
 
     assert np.allclose(test_vals, expected_vals)
 
@@ -2354,13 +2354,13 @@ expected_vals4 = (
         "J=9 weights",
     ],
 )
-def test_get_e_interp(abil_wgts, expected_vals):
+def test_get_e_interp(abil_wgts, expected_vals, tmp_path):
     """
     Test of get_e_interp
     """
     age_wgts = np.ones(80) * 1 / 80
     test_vals = income.get_e_interp(
-        80, age_wgts, age_wgts, abil_wgts, plot=True
+        80, age_wgts, age_wgts, abil_wgts, plot_path=tmp_path
     )
     print("test vals = ", test_vals)
     assert np.allclose(test_vals, expected_vals)

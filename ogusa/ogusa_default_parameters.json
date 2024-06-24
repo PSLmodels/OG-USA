@@ -51,7 +51,7 @@
     "debt_ratio_ss": 2.0,
     "initial_debt_ratio": 0.99,
     "r_gov_scale": [0.0],
-    "r_gov_shift": [0.5, 0.7, 0.9, 1],
+    "r_gov_shift": [-0.005, -0.007, -0.009, -0.01],
     "cit_rate": [[0.21]],
     "c_corp_share_of_assets": 0.55,
     "adjustment_factor_for_cit_receipts": [0.3090],

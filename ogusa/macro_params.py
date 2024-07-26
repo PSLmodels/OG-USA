@@ -92,7 +92,6 @@ def get_macro_params():
             - fred_data_q["Total gov transfer payments"]
             - fred_data_q["Gov interest payments"]
             - fred_data_q["Gov investment"]
-            - fred_data_q["Social Security payments"]
         )
         / fred_data_q["Nominal GDP"]
     ).loc[baseline_date]

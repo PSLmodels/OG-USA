@@ -171,7 +171,7 @@
     "analytical_mtrs": false,
     "age_specific": true,
     "retirement_age": [65],
-    "AIME_num_years": 35,
+    "avg_earn_num_years": 35,
     "AIME_bkt_1": 1115.0,
     "AIME_bkt_2": 6721.0,
     "PIA_rate_bkt_1": 0.9,

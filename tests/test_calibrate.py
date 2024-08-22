@@ -30,6 +30,8 @@ def test_read_tax_func_estimate_error():
 def test_read_tax_func_estimate():
     p = ogcore.Specifications()
     p.BW = 11
+    p.tax_func_type = "DEP"
+    p.start_year = 2021
     tax_func_path = os.path.join(
         CUR_PATH, "test_io_data", "TxFuncEst_policy.pkl"
     )

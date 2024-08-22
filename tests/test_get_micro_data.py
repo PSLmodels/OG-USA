@@ -219,8 +219,6 @@ def test_get_calculator_puf_from_file():
 def test_get_data(baseline, dask_client):
     """
     Test of get_micro_data.get_data() function
-
-    Note that this test may fail if the Tax-Calculator is not v 3.2.2
     """
     expected_data = utils.safe_read_pickle(
         os.path.join(CUR_PATH, "test_io_data", "micro_data_dict_for_tests.pkl")

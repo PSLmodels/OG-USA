@@ -6,7 +6,6 @@ import numpy as np
 from taxcalc import Records
 from ogcore import txfunc, demographics
 from ogcore.utils import safe_read_pickle, mkdirs
-import pkg_resources
 
 
 class Calibration:

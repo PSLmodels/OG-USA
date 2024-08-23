@@ -28,6 +28,7 @@ def read_cbo_forecast():
             & (pd.isnull(df["Unnamed: 2"]))
         )
     ]
+    # df.fillna(value=np.nan, inplace=True)
     df.fillna(value="", inplace=True)
     df["full_var_name"] = (
         df["Unnamed: 0"] + df["Unnamed: 1"] + df["Unnamed: 2"]

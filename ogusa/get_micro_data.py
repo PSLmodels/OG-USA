@@ -12,7 +12,7 @@ import dask.multiprocessing
 import numpy as np
 import os
 import pickle
-import pkg_resources
+import importlib.metadata
 from ogcore import utils
 from ogusa.constants import DEFAULT_START_YEAR, TC_LAST_YEAR
 
@@ -183,7 +183,7 @@ def get_data(
     del results
 
     # Pull Tax-Calc version for reference
-    taxcalc_version = pkg_resources.get_distribution("taxcalc").version
+    taxcalc_version = importlib.metadata.version("taxcalc")
 
     return micro_data_dict, taxcalc_version
 
@@ -263,7 +263,8 @@ def taxcalc_advance(
         "total_tax_liab": calc1.array("combined"),
         "payroll_tax_liab": calc1.array("payrolltax"),
         "etr": (
-            (calc1.array("combined") - calc1.array("ubi")) / market_income
+            (calc1.array("combined") - calc1.array("ubi"))
+            / np.maximum(market_income, 1)
         ),
         "year": calc1.current_year * np.ones(length),
         "weight": calc1.array("s006"),

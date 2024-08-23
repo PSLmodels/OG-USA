@@ -237,9 +237,9 @@ def test_get_data(baseline, dask_client):
     for k, v in test_data2.items():
         try:
             # check that columns are the same
-            assert (set(expected_data[k].columns) == set(v.columns))
+            assert set(expected_data[k].columns) == set(v.columns)
             # check that test data returns some non-zero values
-            assert (v.count().sum() > 0)
+            assert v.count().sum() > 0
         except KeyError:
             pass
 
@@ -255,10 +255,10 @@ def test_taxcalc_advance():
         2028, {}, {}, "cps", None, None, 2014, 2028
     )
     # check that keys are the same
-    assert (set(expected_dict.keys()) == set(test_dict.keys()))
+    assert set(expected_dict.keys()) == set(test_dict.keys())
     for _, v in test_dict.items():
         # check that test data returns some non-zero values
-        assert (np.count_nonzero(v) > 0)
+        assert np.count_nonzero(v) > 0
 
 
 @pytest.mark.local
@@ -273,8 +273,8 @@ def test_cap_inc_mtr():
     test_data = get_micro_data.cap_inc_mtr(calc1)
 
     # check that test data returns some non-zero values
-    assert (np.count_nonzero(test_data) > 0)
+    assert np.count_nonzero(test_data) > 0
     # assert mtrs < 1
-    assert (test_data.max() < 1)
+    assert test_data.max() < 1
     # assert mtrs > -1
-    assert (test_data.min() > -1)
+    assert test_data.min() > -1

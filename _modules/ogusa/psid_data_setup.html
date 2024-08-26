@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -380,7 +380,7 @@ document.write(`
     <span class="c1"># This is the case when a separate script is calling this function in</span>
     <span class="c1"># this module</span>
     <span class="n">CURDIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
-<span class="k">except</span><span class="p">:</span>
+<span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
     <span class="c1"># This is the case when a Jupyter notebook is calling this function</span>
     <span class="n">CURDIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
 <span class="n">output_fldr</span> <span class="o">=</span> <span class="s2">&quot;io_files&quot;</span>
@@ -424,11 +424,13 @@ document.write(`
     <span class="c1"># SRC sample families have 1968 family interview numbers less than 3000</span>
     <span class="n">raw_df</span> <span class="o">=</span> <span class="n">raw_df</span><span class="p">[</span><span class="n">raw_df</span><span class="p">[</span><span class="s2">&quot;ID1968&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">3000</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
-    <span class="n">raw_df</span><span class="p">[</span><span class="s2">&quot;relation.head&quot;</span><span class="p">][</span>
-        <span class="p">(</span><span class="n">raw_df</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1983</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">raw_df</span><span class="p">[</span><span class="s2">&quot;relation.head&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">raw_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+        <span class="n">raw_df</span><span class="o">.</span><span class="n">index</span><span class="p">[(</span><span class="n">raw_df</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1983</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">raw_df</span><span class="p">[</span><span class="s2">&quot;relation.head&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)],</span>
+        <span class="s2">&quot;relation.head&quot;</span><span class="p">,</span>
     <span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
-    <span class="n">raw_df</span><span class="p">[</span><span class="s2">&quot;relation.head&quot;</span><span class="p">][</span>
-        <span class="p">(</span><span class="n">raw_df</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1983</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">raw_df</span><span class="p">[</span><span class="s2">&quot;relation.head&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">raw_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+        <span class="n">raw_df</span><span class="o">.</span><span class="n">index</span><span class="p">[(</span><span class="n">raw_df</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1983</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">raw_df</span><span class="p">[</span><span class="s2">&quot;relation.head&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)],</span>
+        <span class="s2">&quot;relation.head&quot;</span><span class="p">,</span>
     <span class="p">]</span> <span class="o">=</span> <span class="mi">20</span>
     <span class="n">head_df</span> <span class="o">=</span> <span class="n">raw_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
         <span class="n">raw_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span>
@@ -493,7 +495,7 @@ document.write(`
     <span class="c1"># pull series of interest using pandas_datareader</span>
     <span class="n">fred_data</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">DataReader</span><span class="p">([</span><span class="s2">&quot;CPIAUCSL&quot;</span><span class="p">],</span> <span class="s2">&quot;fred&quot;</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
     <span class="c1"># Make data annual by averaging over months in year</span>
-    <span class="n">fred_data</span> <span class="o">=</span> <span class="n">fred_data</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">fred_data</span> <span class="o">=</span> <span class="n">fred_data</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">&quot;YE&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
     <span class="n">fred_data</span><span class="p">[</span><span class="s2">&quot;year_data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fred_data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">year</span>
     <span class="n">psid_df2</span> <span class="o">=</span> <span class="n">psid_df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">fred_data</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;year_data&quot;</span><span class="p">)</span>
     <span class="n">psid_df</span> <span class="o">=</span> <span class="n">psid_df2</span>
@@ -645,15 +647,11 @@ document.write(`
     <span class="c1"># Backfill and then forward fill variables that are constant over time</span>
     <span class="c1"># within hhid</span>
     <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">PSID_CONSTANT_VARS</span><span class="p">:</span>
-        <span class="n">rebalanced_data</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">rebalanced_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;hh_id&quot;</span><span class="p">)[</span><span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span>
-            <span class="n">method</span><span class="o">=</span><span class="s2">&quot;bfill&quot;</span>
-        <span class="p">)</span>
-        <span class="n">rebalanced_data</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">rebalanced_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;hh_id&quot;</span><span class="p">)[</span><span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span>
-            <span class="n">method</span><span class="o">=</span><span class="s2">&quot;ffill&quot;</span>
-        <span class="p">)</span>
+        <span class="n">rebalanced_data</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">rebalanced_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;hh_id&quot;</span><span class="p">)[</span><span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">bfill</span><span class="p">()</span>
+        <span class="n">rebalanced_data</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">rebalanced_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;hh_id&quot;</span><span class="p">)[</span><span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">ffill</span><span class="p">()</span>
 
     <span class="c1">### NOTE: we seem to get some cases where the marital status is not constant</span>
-    <span class="c1"># despite trying to set up the indentifcation of a household such that it</span>
+    <span class="c1"># despite trying to set up the identification of a household such that it</span>
     <span class="c1"># has to be.  Why this is happening needs to be checked.</span>
 
     <span class="c1"># Fill in year by doing a cumulative counter within each hh_id and then</span>

@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -380,7 +380,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
-<span class="kn">import</span> <span class="nn">pkg_resources</span>
+<span class="kn">import</span> <span class="nn">importlib.metadata</span>
 <span class="kn">from</span> <span class="nn">ogcore</span> <span class="kn">import</span> <span class="n">utils</span>
 <span class="kn">from</span> <span class="nn">ogusa.constants</span> <span class="kn">import</span> <span class="n">DEFAULT_START_YEAR</span><span class="p">,</span> <span class="n">TC_LAST_YEAR</span>
 
@@ -556,7 +556,7 @@ document.write(`
     <span class="k">del</span> <span class="n">results</span>
 
     <span class="c1"># Pull Tax-Calc version for reference</span>
-    <span class="n">taxcalc_version</span> <span class="o">=</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">get_distribution</span><span class="p">(</span><span class="s2">&quot;taxcalc&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">version</span>
+    <span class="n">taxcalc_version</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">version</span><span class="p">(</span><span class="s2">&quot;taxcalc&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">micro_data_dict</span><span class="p">,</span> <span class="n">taxcalc_version</span></div>
 
@@ -639,7 +639,8 @@ document.write(`
         <span class="s2">&quot;total_tax_liab&quot;</span><span class="p">:</span> <span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;combined&quot;</span><span class="p">),</span>
         <span class="s2">&quot;payroll_tax_liab&quot;</span><span class="p">:</span> <span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;payrolltax&quot;</span><span class="p">),</span>
         <span class="s2">&quot;etr&quot;</span><span class="p">:</span> <span class="p">(</span>
-            <span class="p">(</span><span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;combined&quot;</span><span class="p">)</span> <span class="o">-</span> <span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;ubi&quot;</span><span class="p">))</span> <span class="o">/</span> <span class="n">market_income</span>
+            <span class="p">(</span><span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;combined&quot;</span><span class="p">)</span> <span class="o">-</span> <span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;ubi&quot;</span><span class="p">))</span>
+            <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">market_income</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="p">),</span>
         <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="n">calc1</span><span class="o">.</span><span class="n">current_year</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">length</span><span class="p">),</span>
         <span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="n">calc1</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s2">&quot;s006&quot;</span><span class="p">),</span>

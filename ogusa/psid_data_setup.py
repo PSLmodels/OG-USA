@@ -12,7 +12,7 @@ try:
     # This is the case when a separate script is calling this function in
     # this module
     CURDIR = os.path.split(os.path.abspath(__file__))[0]
-except:
+except NameError:
     # This is the case when a Jupyter notebook is calling this function
     CURDIR = os.getcwd()
 output_fldr = "io_files"
@@ -54,11 +54,13 @@ def prep_data(
     # SRC sample families have 1968 family interview numbers less than 3000
     raw_df = raw_df[raw_df["ID1968"] < 3000].copy()
 
-    raw_df["relation.head"][
-        (raw_df["year"] < 1983) & (raw_df["relation.head"] == 1)
+    raw_df.loc[
+        raw_df.index[(raw_df["year"] < 1983) & (raw_df["relation.head"] == 1)],
+        "relation.head",
     ] = 10
-    raw_df["relation.head"][
-        (raw_df["year"] < 1983) & (raw_df["relation.head"] == 2)
+    raw_df.loc[
+        raw_df.index[(raw_df["year"] < 1983) & (raw_df["relation.head"] == 2)],
+        "relation.head",
     ] = 20
     head_df = raw_df.loc[
         raw_df.index[
@@ -123,7 +125,7 @@ def prep_data(
     # pull series of interest using pandas_datareader
     fred_data = web.DataReader(["CPIAUCSL"], "fred", start, end)
     # Make data annual by averaging over months in year
-    fred_data = fred_data.resample("A").mean()
+    fred_data = fred_data.resample("YE").mean()
     fred_data["year_data"] = fred_data.index.year
     psid_df2 = psid_df.merge(fred_data, how="left", on="year_data")
     psid_df = psid_df2
@@ -275,15 +277,11 @@ def prep_data(
     # Backfill and then forward fill variables that are constant over time
     # within hhid
     for item in PSID_CONSTANT_VARS:
-        rebalanced_data[item] = rebalanced_data.groupby("hh_id")[item].fillna(
-            method="bfill"
-        )
-        rebalanced_data[item] = rebalanced_data.groupby("hh_id")[item].fillna(
-            method="ffill"
-        )
+        rebalanced_data[item] = rebalanced_data.groupby("hh_id")[item].bfill()
+        rebalanced_data[item] = rebalanced_data.groupby("hh_id")[item].ffill()
 
     ### NOTE: we seem to get some cases where the marital status is not constant
-    # despite trying to set up the indentifcation of a household such that it
+    # despite trying to set up the identification of a household such that it
     # has to be.  Why this is happening needs to be checked.
 
     # Fill in year by doing a cumulative counter within each hh_id and then

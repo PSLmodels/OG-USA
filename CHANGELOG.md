@@ -5,11 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.12] - 2024-08-26 12:00:00
+
+### Added
+
+- Streamlined the `run_og_usa.py` script to make the example more clear, run faster, and save output in a common directory.
+
 ## [0.1.11] - 2024-07-26 12:00:00
 
 ### Added
 
-- Adds a module to update Tax-Calculator growth factors using OG-USA simualtions.
+- Adds a module to update Tax-Calculator growth factors using OG-USA simulations.
 
 
 ## [0.1.10] - 2024-06-10 12:00:00
@@ -124,7 +130,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Any earlier versions of OG-USA can be found in the [`OG-Core`](https://github.com/PSLmodels/OG-Core) repository [release history](https://github.com/PSLmodels/OG-Core/releases) from [v.0.6.4](https://github.com/PSLmodels/OG-Core/releases/tag/v0.6.4) (Jul. 20, 2021) or earlier.
 
 
-
+[0.1.12]: https://github.com/PSLmodels/OG-USA/compare/v0.1.11...v0.1.12
+[0.1.11]: https://github.com/PSLmodels/OG-USA/compare/v0.1.10...v0.1.11
 [0.1.10]: https://github.com/PSLmodels/OG-USA/compare/v0.1.9...v0.1.10
 [0.1.9]: https://github.com/PSLmodels/OG-USA/compare/v0.1.8...v0.1.9
 [0.1.8]: https://github.com/PSLmodels/OG-USA/compare/v0.1.7...v0.1.8

@@ -5,7 +5,7 @@ with open("README.md", "r") as readme_file:
 
 setuptools.setup(
     name="ogusa",
-    version="0.1.12",
+    version="0.2.0",
     author="Jason DeBacker and Richard W. Evans",
     license="CC0 1.0 Universal (CC0 1.0) Public Domain Dedication",
     description="USA calibration for OG-Core",
@@ -25,7 +25,7 @@ setuptools.setup(
         ]
     },
     include_packages=True,
-    python_requires=">=3.7.7, <3.12",
+    python_requires=">=3.7.7, <3.13",
     install_requires=[
         "numpy",
         "psutil",
@@ -54,6 +54,7 @@ setuptools.setup(
         "Programming Language :: Python",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         "Topic :: Scientific/Engineering :: Information Analysis",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],

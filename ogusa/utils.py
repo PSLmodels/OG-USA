@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from scipy.stats import kde
+from scipy.stats import gaussian_kde
 import matplotlib.pyplot as plt
 import requests
 import urllib3
@@ -28,6 +28,7 @@ def read_cbo_forecast():
             & (pd.isnull(df["Unnamed: 2"]))
         )
     ]
+    # df.fillna(value=np.nan, inplace=True)
     df.fillna(value="", inplace=True)
     df["full_var_name"] = (
         df["Unnamed: 0"] + df["Unnamed: 1"] + df["Unnamed: 2"]
@@ -203,7 +204,7 @@ def MVKDE(
         k += 1
 
     freq_mat = np.vstack((age_frequency, income_frequency)).T
-    density = kde.gaussian_kde(freq_mat.T, bw_method=bandwidth)
+    density = gaussian_kde(freq_mat.T, bw_method=bandwidth)
     age_min, income_min = freq_mat.min(axis=0)
     age_max, income_max = freq_mat.max(axis=0)
     agei, incomei = np.mgrid[

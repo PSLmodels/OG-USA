@@ -13,7 +13,8 @@ dependencies:
 - dask>=2.30.0
 - dask-core>=2.30.0
 - distributed>=2.30.1
-- paramtools>=0.15.0
+- "marshmallow<3.22"    # to work around paramtools bug
+- "paramtools>=0.18.2"  # requires marshmallow>=3.0
 - taxcalc>=3.0.0
 - sphinx>=3.5.4
 - sphinx-book-theme>=0.1.3

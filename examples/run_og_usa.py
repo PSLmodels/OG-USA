@@ -62,10 +62,6 @@ def main():
         "mtry_params": d["mtry_params"],
         "mean_income_data": d["mean_income_data"],
         "frac_tax_payroll": d["frac_tax_payroll"],
-        "r_gov_shift": [-0.005],
-        "r_gov_scale": [0.0],
-        "zeta_K": [0.5],
-        "zeta_D": [0.5],
     }
     p.update_specifications(updated_params)
     # Run model

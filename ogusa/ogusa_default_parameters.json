@@ -41,7 +41,7 @@
     "world_int_rate_annual": [0.04],
     "initial_foreign_debt_ratio": 0.4,
     "zeta_D": [0.4],
-    "zeta_K": [0.1],
+    "zeta_K": [0.5],
     "tG1": 20,
     "tG2": 256,
     "alpha_T": [0.052],

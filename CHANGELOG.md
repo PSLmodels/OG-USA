@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2024-08-27 12:00:00
+
+### Added
+
+- Updated default calibration to represent 2024 values of USA parameters and economic conditions.
+
 ## [0.1.12] - 2024-08-26 12:00:00
 
 ### Added
@@ -130,6 +136,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Any earlier versions of OG-USA can be found in the [`OG-Core`](https://github.com/PSLmodels/OG-Core) repository [release history](https://github.com/PSLmodels/OG-Core/releases) from [v.0.6.4](https://github.com/PSLmodels/OG-Core/releases/tag/v0.6.4) (Jul. 20, 2021) or earlier.
 
 
+[0.2.0]: https://github.com/PSLmodels/OG-USA/compare/v0.1.12...v0.2.0
 [0.1.12]: https://github.com/PSLmodels/OG-USA/compare/v0.1.11...v0.1.12
 [0.1.11]: https://github.com/PSLmodels/OG-USA/compare/v0.1.10...v0.1.11
 [0.1.10]: https://github.com/PSLmodels/OG-USA/compare/v0.1.9...v0.1.10

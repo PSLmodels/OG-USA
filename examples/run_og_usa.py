@@ -87,6 +87,8 @@ def main():
 
     # create new Specifications object for reform simulation
     p2 = copy.deepcopy(p)
+    p2.baseline = False
+    p2.output_base = reform_dir
     # Use calibration class to estimate reform tax functions from
     # Tax-Calculator, specifying reform for Tax-Calculator in iit_reform
     c2 = Calibration(

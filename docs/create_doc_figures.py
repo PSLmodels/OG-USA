@@ -18,7 +18,7 @@ import ogusa
 CUR_DIR = os.path.dirname(os.path.realpath(__file__))
 UN_COUNTRY_CODE = "840"
 plot_path = os.path.join(CUR_DIR, "book", "content", "calibration", "images")
-YEAR_TO_PLOT = 2023
+YEAR_TO_PLOT = 2025
 # update path for demographics graphdiag plots
 demog.OUTPUT_DIR = plot_path
 
@@ -35,12 +35,6 @@ with importlib.resources.open_text(
     defaults = json.load(file)
 p.start_year = YEAR_TO_PLOT
 p.update_specifications(defaults)
-
-# also load parameters from OG-USA for comparison
-p2 = Specifications()
-p2.update_specifications(
-    "github://PSLmodels:OG-USA@master/ogusa/ogusa_default_parameters.json"
-)
 
 """
 Demographics chapter
@@ -114,6 +108,8 @@ demog.get_pop_objs(
     GraphDiag=True,
     download_path=None,
 )
+
+
 # Population growth
 fig = pp.plot_pop_growth(
     p,

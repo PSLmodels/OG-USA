@@ -16,17 +16,19 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
@@ -36,10 +38,11 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
@@ -66,6 +69,7 @@
     <link rel="prev" title="Lifetime Earnings Profiles" href="earnings.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -81,19 +85,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../search.html"
       method="get">
@@ -101,7 +94,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -109,8 +101,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -126,7 +118,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -156,21 +149,17 @@
     
     
     <img src="../../_static/OG-USA_logo.png" class="logo__image only-light" alt="OG-USA - Home"/>
-    <script>document.write(`<img src="../../_static/OG-USA_logo.png" class="logo__image only-dark" alt="OG-USA - Home"/>`);</script>
+    <img src="../../_static/OG-USA_logo.png" class="logo__image only-dark pst-js-only" alt="OG-USA - Home"/>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -203,7 +192,6 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Calibration</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="exogenous_parameters.html">Exogenous Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="macro.html">Calibration of Macroeconomic Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="demographics.html">Demographics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="earnings.html">Lifetime Earnings Profiles</a></li>
@@ -211,6 +199,7 @@
 <li class="toctree-l1"><a class="reference internal" href="bequests.html">Bequest Process Calibration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UBI.html">Universal Basic Income (UBI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="matching_lwi.html">Matching Labor, Wealth, and Income Moments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exogenous_parameters.html">Exogenous Parameters</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
@@ -373,24 +362,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -503,9 +484,9 @@ document.write(`
 <p>By assuming each tax function takes the same form, we are breaking the analytical link between the the effective tax rate function and the marginal rate functions.  In particular, one could assume an effective tax rate function and then use the analytical derivative of that to find the marginal tax rate function.  However, we’ve found it useful to separately estimate the marginal and average rate functions.  One reason is that we want the tax functions to be able to capture policy changes that have differential effects on marginal and average rates.  For example, a change in the standard deduction for tax payers would have a direct effect on their average tax rates.  But it will have secondary effect on marginal rates as well, as some filers will find themselves in different tax brackets after the policy change. These are smaller and second order effects. When tax functions are are fit to the new policy, in this case a lower standard deduction, we want them to be able to represent this differential impact on the marginal and average tax rates. The second reason is related to the first. As the additional flexibility allows us to model specific aspects of tax policy more closely, it also allows us to better fit the parameterized tax functions to the data.</p>
 <p>The key building blocks of the functional form Equation <a class="reference internal" href="#equation-eqtaxcalctaxfuncform">(25)</a> are the <span class="math notranslate nohighlight">\(\tau(x)\)</span> and <span class="math notranslate nohighlight">\(\tau(y)\)</span> univariate functions. The ratio of polynomials in the <span class="math notranslate nohighlight">\(\tau(x)\)</span> function <span class="math notranslate nohighlight">\(\frac{Ax^2 + Bx}{Ax^2 + Bx + 1}\)</span> with positive coefficients <span class="math notranslate nohighlight">\(A,B&gt;0\)</span> and positive support for labor income <span class="math notranslate nohighlight">\(x&gt;0\)</span> creates a negative-exponential-shaped function that is bounded between 0 and 1, and the curvature is governed by the ratio of quadratic polynomials. The multiplicative scalar term <span class="math notranslate nohighlight">\((max_x-min_x)\)</span> on the ratio of polynomials and the addition of <span class="math notranslate nohighlight">\(min_x\)</span> at the end of <span class="math notranslate nohighlight">\(\tau(x)\)</span> expands the range of the univariate negative-exponential-shaped function to <span class="math notranslate nohighlight">\(\tau(x)\in[min_x, max_x]\)</span>. The <span class="math notranslate nohighlight">\(\tau(y)\)</span> function is an analogous univariate negative-exponential-shaped function in capital income <span class="math notranslate nohighlight">\(y\)</span>, such that <span class="math notranslate nohighlight">\(\tau(y)\in[min_y,max_y]\)</span>.</p>
 <p>The respective <span class="math notranslate nohighlight">\(shift_x\)</span> and <span class="math notranslate nohighlight">\(shift_y\)</span> parameters in Equation <a class="reference internal" href="#equation-eqtaxcalctaxfuncform">(25)</a> are analogous to the additive constants in a Stone-Geary utility function. These constants ensure that the two sums <span class="math notranslate nohighlight">\(\tau(x) + shift_x\)</span> and <span class="math notranslate nohighlight">\(\tau(y) + shift_y\)</span> are both strictly positive. They allow for negative tax rates in the <span class="math notranslate nohighlight">\(\tau(\cdot)\)</span> functions despite the requirement that the arguments inside the brackets be strictly positive. The general <span class="math notranslate nohighlight">\(shift\)</span> parameter outside of the Cobb-Douglas brackets can then shift the tax rate function so that it can accommodate negative tax rates. The Cobb-Douglas share parameter <span class="math notranslate nohighlight">\(\phi\in[0,1]\)</span> controls the shape of the function between the two univariate functions <span class="math notranslate nohighlight">\(\tau(x)\)</span> and <span class="math notranslate nohighlight">\(\tau(y)\)</span>.</p>
-<p>This functional form for tax rates delivers flexible parametric functions that can fit the tax rate data shown in <a class="reference internal" href="#figtaxcalc3dtaxrates"><span class="std std-numref">Figure 10</span></a> as well as a wide variety of policy reforms. Further, these functional forms are monotonically increasing in both labor income <span class="math notranslate nohighlight">\(x\)</span> and capital income <span class="math notranslate nohighlight">\(y\)</span>. This characteristic of monotonicity in <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> is essential for guaranteeing convex budget sets and thus uniqueness of solutions to the household Euler equations. The assumption of monotonicity does not appear to be a strong one when viewing the the tax rate data shown in <a class="reference internal" href="#figtaxcalc3dtaxrates"><span class="std std-numref">Figure 10</span></a>. While it does limit the potential tax systems to which one could apply our methodology, tax policies that do not satisfy this assumption would result in non-convex budget sets and thus require non-standard DGE model solutions methods and would not guarantee a unique equilibrium. The 12 parameters of our tax rate functional form from <a class="reference internal" href="#equation-eqtaxcalctaxfuncform">(25)</a> are summarized in <a class="reference internal" href="#tabtaxcalctfuncparams"><span class="std std-numref">Table 6</span></a>.</p>
+<p>This functional form for tax rates delivers flexible parametric functions that can fit the tax rate data shown in <a class="reference internal" href="#figtaxcalc3dtaxrates"><span class="std std-numref">Figure 10</span></a> as well as a wide variety of policy reforms. Further, these functional forms are monotonically increasing in both labor income <span class="math notranslate nohighlight">\(x\)</span> and capital income <span class="math notranslate nohighlight">\(y\)</span>. This characteristic of monotonicity in <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> is essential for guaranteeing convex budget sets and thus uniqueness of solutions to the household Euler equations. The assumption of monotonicity does not appear to be a strong one when viewing the the tax rate data shown in <a class="reference internal" href="#figtaxcalc3dtaxrates"><span class="std std-numref">Figure 10</span></a>. While it does limit the potential tax systems to which one could apply our methodology, tax policies that do not satisfy this assumption would result in non-convex budget sets and thus require non-standard DGE model solutions methods and would not guarantee a unique equilibrium. The 12 parameters of our tax rate functional form from <a class="reference internal" href="#equation-eqtaxcalctaxfuncform">(25)</a> are summarized in <a class="reference internal" href="#tabtaxcalctfuncparams"><span class="std std-numref">Table 5</span></a>.</p>
 <div class="pst-scrollable-table-container"><table class="table" id="tabtaxcalctfuncparams">
-<caption><span class="caption-number">Table 6 </span><span class="caption-text"><strong>Description of tax rate function <span class="math notranslate nohighlight">\(\tau(x,y)\)</span> parameters.</strong></span><a class="headerlink" href="#tabtaxcalctfuncparams" title="Link to this table">#</a></caption>
+<caption><span class="caption-number">Table 5 </span><span class="caption-text"><strong>Description of tax rate function <span class="math notranslate nohighlight">\(\tau(x,y)\)</span> parameters.</strong></span><a class="headerlink" href="#tabtaxcalctfuncparams" title="Link to this table">#</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Symbol</p></th>
 <th class="head"><p>Description</p></th>
@@ -558,7 +539,7 @@ document.write(`
 </figcaption>
 </figure>
 <div class="pst-scrollable-table-container"><table class="table" id="tabtaxcalcest42">
-<caption><span class="caption-number">Table 7 </span><span class="caption-text"><strong>Estimated baseline current law tax rate function for <span class="math notranslate nohighlight">\(\tau_{s,t}(x,y)\)</span> parameters for <span class="math notranslate nohighlight">\(s=42\)</span>, <span class="math notranslate nohighlight">\(t=2017\)</span>.</strong></span><a class="headerlink" href="#tabtaxcalcest42" title="Link to this table">#</a></caption>
+<caption><span class="caption-number">Table 6 </span><span class="caption-text"><strong>Estimated baseline current law tax rate function for <span class="math notranslate nohighlight">\(\tau_{s,t}(x,y)\)</span> parameters for <span class="math notranslate nohighlight">\(s=42\)</span>, <span class="math notranslate nohighlight">\(t=2017\)</span>.</strong></span><a class="headerlink" href="#tabtaxcalcest42" title="Link to this table">#</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Parameter</p></th>
 <th class="head"><p><span class="math notranslate nohighlight">\(ETR\)</span></p></th>
@@ -647,7 +628,7 @@ document.write(`
     &amp;\qquad\text{subject to}\quad A, B, C, D &gt; 0 \quad\text{and}\quad \phi\in[0,1]\end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\tau_{i}\)</span> is the tax rate for observation <span class="math notranslate nohighlight">\(i\)</span> from the microsimulation output, <span class="math notranslate nohighlight">\(\tau_{s,t}(x_i,y_i|\tilde{\boldsymbol{\theta}}_{s,t},\bar{\boldsymbol{\theta}}_{s,t})\)</span> is the predicted tax rate for filing-unit <span class="math notranslate nohighlight">\(i\)</span> with <span class="math notranslate nohighlight">\(x_{i}\)</span> labor income and <span class="math notranslate nohighlight">\(y_{i}\)</span> capital income given parameters <span class="math notranslate nohighlight">\(\boldsymbol{\theta}_{s,t}\)</span>, and <span class="math notranslate nohighlight">\(w_{i}\)</span> is the CPS sampling weight of this observation. The number <span class="math notranslate nohighlight">\(N\)</span> is the total number of observations from the microsimulation output for age <span class="math notranslate nohighlight">\(s\)</span> and year <span class="math notranslate nohighlight">\(t\)</span>. <a class="reference internal" href="#figtaxcalc3dvspred"><span class="std std-numref">Figure 11</span></a> shows the typical fit of an estimated tax function <span class="math notranslate nohighlight">\(\tau_{s,t}\bigl(x,y|\hat{\boldsymbol{\theta}}_{s,t}\bigr)\)</span> to the data. The data in <a class="reference internal" href="#figtaxcalc3dvspred"><span class="std std-numref">Figure 11</span></a> are the same age <span class="math notranslate nohighlight">\(s=42\)</span> and year <span class="math notranslate nohighlight">\(t=2017\)</span> as the data <a class="reference internal" href="#figtaxcalc3dtaxrates"><span class="std std-numref">Figure 10</span></a>.</p>
 <p>The underlying data can limit the number of tax functions that can be estimated. For example, we use the age of the primary filer from the PUF-CPS match to be equivalent to the age of the DGE model household. The DGE model we use allows for individuals up to age 100, however the data contain few primary filers with age above age 80. Because we cannot reliably estimate tax functions for <span class="math notranslate nohighlight">\(s&gt;80\)</span>, we apply the tax function estimates for 80 year-olds to those with model ages 81 to 100. In the case certain ages below age 80 have too few observations to enable precise estimation of the model parameters, we use a linear interpolation method to find the values for those ages <span class="math notranslate nohighlight">\(21\leq s &lt;80\)</span> that cannot be precisely estimated. <a class="footnote-reference brackets" href="#interpolation-note" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p>
-<p>In <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code>, we estimate the 12-parameter functional form <a class="reference internal" href="#equation-eqtaxcalctaxfuncform">(25)</a> using weighted nonlinear least squares to fit an effective tax rate function <span class="math notranslate nohighlight">\((\tau^{etr}_{s,t})\)</span>, a marginal tax rate of labor income function <span class="math notranslate nohighlight">\((\tau^{mtrx}_{s,t})\)</span>, and a marginal tax rate of capital income function <span class="math notranslate nohighlight">\((\tau^{mtry}_{s,t})\)</span> for each age <span class="math notranslate nohighlight">\(E+1\leq s\leq E+S\)</span> and each of the first 10 years from the current period. <a class="footnote-reference brackets" href="#param-note" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> That means we have to perform 2,400 estimations of 12 parameters each. <a class="reference internal" href="#figtaxcalc3dvspred"><span class="std std-numref">Figure 11</span></a> shows the predicted surfaces for <span class="math notranslate nohighlight">\(\tau^{etr}_{s=42,t=2017}\)</span>, <span class="math notranslate nohighlight">\(\tau^{mtrx}_{s=42,t=2017}\)</span>, and <span class="math notranslate nohighlight">\(\tau^{mtry}_{s=42,t=2017}\)</span> along with the underlying scatter plot data from which those functions were estimated. <a class="reference internal" href="#tabtaxcalcest42"><span class="std std-numref">Table 7</span></a> shows the estimated values of those functional forms.</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code>, we estimate the 12-parameter functional form <a class="reference internal" href="#equation-eqtaxcalctaxfuncform">(25)</a> using weighted nonlinear least squares to fit an effective tax rate function <span class="math notranslate nohighlight">\((\tau^{etr}_{s,t})\)</span>, a marginal tax rate of labor income function <span class="math notranslate nohighlight">\((\tau^{mtrx}_{s,t})\)</span>, and a marginal tax rate of capital income function <span class="math notranslate nohighlight">\((\tau^{mtry}_{s,t})\)</span> for each age <span class="math notranslate nohighlight">\(E+1\leq s\leq E+S\)</span> and each of the first 10 years from the current period. <a class="footnote-reference brackets" href="#param-note" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> That means we have to perform 2,400 estimations of 12 parameters each. <a class="reference internal" href="#figtaxcalc3dvspred"><span class="std std-numref">Figure 11</span></a> shows the predicted surfaces for <span class="math notranslate nohighlight">\(\tau^{etr}_{s=42,t=2017}\)</span>, <span class="math notranslate nohighlight">\(\tau^{mtrx}_{s=42,t=2017}\)</span>, and <span class="math notranslate nohighlight">\(\tau^{mtry}_{s=42,t=2017}\)</span> along with the underlying scatter plot data from which those functions were estimated. <a class="reference internal" href="#tabtaxcalcest42"><span class="std std-numref">Table 6</span></a> shows the estimated values of those functional forms.</p>
 <p>The full set of estimated values are calculated using the <a class="reference external" href="https://github.com/PSLmodels/OG-USA/blob/master/ogusa/calibrate.py#L82"><code class="docutils literal notranslate"><span class="pre">get_tax_function_parameters</span></code></a> method of the <a class="reference external" href="https://github.com/PSLmodels/OG-USA/blob/master/ogusa/calibrate.py#L20"><code class="docutils literal notranslate"><span class="pre">Calibration</span></code></a> class  of the <a class="reference external" href="https://github.com/PSLmodels/OG-USA/blob/master/ogusa/calibrate.py#L20"><code class="docutils literal notranslate"><span class="pre">OG-USA/ogusa/calibrate.py</span></code></a> module. And the estimated baseline values are stored in the <a class="reference external" href="https://github.com/PSLmodels/OG-USA/blob/master/ogusa/ogusa_default_parameters.json"><code class="docutils literal notranslate"><span class="pre">ogusa_default_parameters.json</span></code></a> file.</p>
 </section>
 <section id="alternative-functional-forms">
@@ -755,7 +736,8 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -822,8 +804,8 @@ By Jason DeBacker and Richard W. Evans
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

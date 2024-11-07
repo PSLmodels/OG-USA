@@ -16,17 +16,19 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
@@ -36,10 +38,11 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
@@ -66,6 +69,7 @@
     <link rel="prev" title="Demographics" href="demographics.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -81,19 +85,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../search.html"
       method="get">
@@ -101,7 +94,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -109,8 +101,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -126,7 +118,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -156,21 +149,17 @@
     
     
     <img src="../../_static/OG-USA_logo.png" class="logo__image only-light" alt="OG-USA - Home"/>
-    <script>document.write(`<img src="../../_static/OG-USA_logo.png" class="logo__image only-dark" alt="OG-USA - Home"/>`);</script>
+    <img src="../../_static/OG-USA_logo.png" class="logo__image only-dark pst-js-only" alt="OG-USA - Home"/>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -203,7 +192,6 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Calibration</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="exogenous_parameters.html">Exogenous Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="macro.html">Calibration of Macroeconomic Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="demographics.html">Demographics</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Lifetime Earnings Profiles</a></li>
@@ -211,6 +199,7 @@
 <li class="toctree-l1"><a class="reference internal" href="bequests.html">Bequest Process Calibration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UBI.html">Universal Basic Income (UBI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="matching_lwi.html">Matching Labor, Wealth, and Income Moments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exogenous_parameters.html">Exogenous Parameters</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
@@ -373,24 +362,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -474,11 +455,11 @@ Exogenous life cycle income ability paths $\log(e_{j,s})$ with $S=80$ and $J=7$
 <p>First, since our panel data do not allow us to observe the complete life cycle of earnings for each household (because of sample attrition, death or the finite sample period of the data), we use an imputation to estimate wages in the years of the household’s economic life for which they do not appear in the CWHS. To do this, we estimate the following equation, separately by household type (where household types are single male, single female, couple with male head, or couple with female head):</p>
 <div class="math notranslate nohighlight" id="equation-wage-step1">
 <span class="eqno">(12)<a class="headerlink" href="#equation-wage-step1" title="Link to this equation">#</a></span>\[  ln(w_{i,t}) = \alpha_{i} + \beta_{1}age_{i,t} + \beta_{2}age_{i,t}^{2} + \beta_{3}*age_{i,t}^{3} + \varepsilon_{i,t}\]</div>
-<p>The parameter estimates, including the household fixed effects, from Equation <a class="reference internal" href="#equation-wage-step1">(12)</a> are shown in <a class="reference internal" href="#tabwage-step1"><span class="std std-numref">Table 2</span></a>. These estimates are then used to impute values for log wages in years of each households’ economic life for which we do not have data.  This creates a balanced panel of log wages of households with heads aged 21 to 80. The actual and imputed wage values are then used to calculate the net present value of lifetime labor endowments per adult for each household. Specifically, we define lifetime income for household <span class="math notranslate nohighlight">\(i\)</span> as:</p>
+<p>The parameter estimates, including the household fixed effects, from Equation <a class="reference internal" href="#equation-wage-step1">(12)</a> are shown in <a class="reference internal" href="#tabwage-step1"><span class="std std-numref">Table 1</span></a>. These estimates are then used to impute values for log wages in years of each households’ economic life for which we do not have data.  This creates a balanced panel of log wages of households with heads aged 21 to 80. The actual and imputed wage values are then used to calculate the net present value of lifetime labor endowments per adult for each household. Specifically, we define lifetime income for household <span class="math notranslate nohighlight">\(i\)</span> as:</p>
 <div class="math notranslate nohighlight" id="equation-eqn-li">
 <span class="eqno">(13)<a class="headerlink" href="#equation-eqn-li" title="Link to this equation">#</a></span>\[  LI_{i} = \sum_{t=21}^{80}\left(\frac{1}{1+r}\right)^{t-21}(w_{i,t}*4000)\]</div>
 <div class="pst-scrollable-table-container"><table class="table" id="tabwage-step1">
-<caption><span class="caption-number">Table 2 </span><span class="caption-text"><strong>Initial log wage regressions.</strong> Source: CWHS data, 1991-2009. ** Significant at the 5-percent level (<span class="math notranslate nohighlight">\(p&lt;0.05\)</span>). *** Significant at the 1-percent level (<span class="math notranslate nohighlight">\(p&lt;0.01\)</span>).</span><a class="headerlink" href="#tabwage-step1" title="Link to this table">#</a></caption>
+<caption><span class="caption-number">Table 1 </span><span class="caption-text"><strong>Initial log wage regressions.</strong> Source: CWHS data, 1991-2009. ** Significant at the 5-percent level (<span class="math notranslate nohighlight">\(p&lt;0.05\)</span>). *** Significant at the 1-percent level (<span class="math notranslate nohighlight">\(p&lt;0.01\)</span>).</span><a class="headerlink" href="#tabwage-step1" title="Link to this table">#</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Dependent variable</p></th>
 <th class="head"><p>Single male</p></th>
@@ -558,9 +539,9 @@ Exogenous life cycle income ability paths $\log(e_{j,s})$ with $S=80$ and $J=7$
 <p>With observations of lifetime income for each household, we next sort households and find the percentile of the lifetime income distribution that each household falls in.  With these percentiles, we create our lifetime income groupings.</p>
 <div class="math notranslate nohighlight" id="equation-eqlfearnlambda-j">
 <span class="eqno">(14)<a class="headerlink" href="#equation-eqlfearnlambda-j" title="Link to this equation">#</a></span>\[  \lambda_{j}=[0.25, 0.25, 0.2, 0.1, 0.1, 0.09, 0.01]\]</div>
-<p>That is, lifetime income group one includes those in below the 25th percentile, group two includes those from the 25th to the median, group three includes those from the median to the 70th percentile, group four includes those from the 70th to the 80th percentile, group 5 includes those from the 80th to 90th percentile, group 6 includes those from the 90th to 99th percentile, and group 7 consists of the top one percent in the lifetime income distribution.  <a class="reference internal" href="#tab-li-group-stats"><span class="std std-numref">Table 3</span></a> presents descriptive statistics for each of these groups.</p>
+<p>That is, lifetime income group one includes those in below the 25th percentile, group two includes those from the 25th to the median, group three includes those from the median to the 70th percentile, group four includes those from the 70th to the 80th percentile, group 5 includes those from the 80th to 90th percentile, group 6 includes those from the 90th to 99th percentile, and group 7 consists of the top one percent in the lifetime income distribution.  <a class="reference internal" href="#tab-li-group-stats"><span class="std std-numref">Table 2</span></a> presents descriptive statistics for each of these groups.</p>
 <div class="pst-scrollable-table-container"><table class="table" id="tab-li-group-stats">
-<caption><span class="caption-number">Table 3 </span><span class="caption-text"><strong>Descriptive Statistics by Lifetime Income Category.</strong> Source: CWHS data, 1991-2009, all nominal values in 2005 $.</span><a class="headerlink" href="#tab-li-group-stats" title="Link to this table">#</a></caption>
+<caption><span class="caption-number">Table 2 </span><span class="caption-text"><strong>Descriptive Statistics by Lifetime Income Category.</strong> Source: CWHS data, 1991-2009, all nominal values in 2005 $.</span><a class="headerlink" href="#tab-li-group-stats" title="Link to this table">#</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Lifetime Income Category</p></th>
 <th class="head"><p>1</p></th>
@@ -710,7 +691,7 @@ Exogenous life cycle income ability paths $\log(e_{j,s})$ with $S=80$ and $J=7$
 <p>To get a life-cycle profile of effective labor units for each group, we estimate the wage profile for each lifetime income group. We do this by estimating the following regression model Equation {eq}`` separately for each lifetime income group using data on actual (not imputed) wages:</p>
 <div class="math notranslate nohighlight" id="equation-eqwage-profile">
 <span class="eqno">(15)<a class="headerlink" href="#equation-eqwage-profile" title="Link to this equation">#</a></span>\[  ln(w_{j,t}) = \alpha_{j} + \beta_{1}age_{j,t} + \beta_{2}age_{j,t}^{2} + \beta_{3}*age_{j,t}^{3} + \varepsilon_{j,t}\]</div>
-<p>The estimated parameters from equation <a class="reference internal" href="#equation-eqwage-profile">(15)</a> are given in <a class="reference internal" href="#tabwage-profiles"><span class="std std-numref">Table 4</span></a>. The life-cycle earnings profiles implied by these parameters are plotted in <a class="reference internal" href="#figlogabil"><span class="std std-numref">Figure 8</span></a>. Note that there are few individuals above age 80 in the data. To extrapolate these estimates for model ages 80-100, we use an arctan function of the following form:</p>
+<p>The estimated parameters from equation <a class="reference internal" href="#equation-eqwage-profile">(15)</a> are given in <a class="reference internal" href="#tabwage-profiles"><span class="std std-numref">Table 3</span></a>. The life-cycle earnings profiles implied by these parameters are plotted in <a class="reference internal" href="#figlogabil"><span class="std std-numref">Figure 8</span></a>. Note that there are few individuals above age 80 in the data. To extrapolate these estimates for model ages 80-100, we use an arctan function of the following form:</p>
 <div class="math notranslate nohighlight" id="equation-eqlfearnarctan">
 <span class="eqno">(16)<a class="headerlink" href="#equation-eqlfearnarctan" title="Link to this equation">#</a></span>\[    y = \left(\frac{-a}{\pi}\right)*arctan(bx+c)+\frac{a}{2}\]</div>
 <p>where <span class="math notranslate nohighlight">\(x\)</span> is age, and <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span>, and <span class="math notranslate nohighlight">\(c\)</span> are the parameters we search over for the best fit of the function to the following three criteria: 1) the value of the function should match the value of the data at age 80 2) the slope of the arctan should match the slope of the data at age 80 and 3) the value of the function should match the value of the data at age 100 times a constant.  This constant is .5 for all lifetime income groups, except the 2nd highest ability is .7 (otherwise, the 2nd highest has a lower income than the 3rd highest ability group in the last few years).</p>
@@ -781,7 +762,7 @@ Significant at the 5 percent level (*p* &lt; 0.05).
 
 Significant at the 1 percent level (*p* &lt; 0.01). -->
 <div class="pst-scrollable-table-container"><table class="table" id="tabwage-profiles">
-<caption><span class="caption-number">Table 4 </span><span class="caption-text"><strong>Log Wage Regressions, by Lifetime Income Group.</strong> Source: CWHS data, 1991-2009. * Significant at the 10-percent level (<span class="math notranslate nohighlight">\(p&lt;0.10\)</span>). ** Significant at the 5-percent level (<span class="math notranslate nohighlight">\(p&lt;0.05\)</span>). *** Significant at the 1-percent level (<span class="math notranslate nohighlight">\(p&lt;0.01\)</span>).</span><a class="headerlink" href="#tabwage-profiles" title="Link to this table">#</a></caption>
+<caption><span class="caption-number">Table 3 </span><span class="caption-text"><strong>Log Wage Regressions, by Lifetime Income Group.</strong> Source: CWHS data, 1991-2009. * Significant at the 10-percent level (<span class="math notranslate nohighlight">\(p&lt;0.10\)</span>). ** Significant at the 5-percent level (<span class="math notranslate nohighlight">\(p&lt;0.05\)</span>). *** Significant at the 1-percent level (<span class="math notranslate nohighlight">\(p&lt;0.01\)</span>).</span><a class="headerlink" href="#tabwage-profiles" title="Link to this table">#</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Lifetime income groups (percentiles)</p></th>
 <th class="head"><p>Constant</p></th>
@@ -899,7 +880,7 @@ Significant at the 1 percent level (*p* &lt; 0.01). -->
 <p>In addition to lifecycle profiles of the seven percentile groups above, <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> has calibrations of income at the very top.  This includes breaking out percentiles at fine as the top 0.01% of earners.  The two alternative <span class="math notranslate nohighlight">\(\lambda\)</span> vectors are <span class="math notranslate nohighlight">\(\lambda_{j}=[0.25, 0.25, 0.2, 0.1, 0.1, 0.09, 0.005, 0.004, 0.001]\)</span> and <span class="math notranslate nohighlight">\(\lambda_{j}=[0.25, 0.25, 0.2, 0.1, 0.1, 0.09, 0.005, 0.004, 0.0009, 0.0001]\)</span>.</p>
 <p>Because we do not have panel data that allow us to observe such top percentile groups, we make the following assumptions in calibrating income at the very top.  First, we assume the shape of the lifecycle profile of these top earners is the same as the top 1% overall.  Second, we 2018 estimates from the methodology of <span id="id9">[<a class="reference internal" href="../OGUSA_references.html#id60" title="Thomas Piketty and Emmanuel Saez. Income inequality in the united states, 1913-1998. Quarterly Journal of Economics, 118(1):1-39, February 2003.">Piketty and Saez, 2003</a>]</span> to provide factors to scale earnings process we estimate for groups inside the top 1%.<a class="footnote-reference brackets" href="#ps-note" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a></p>
 <div class="pst-scrollable-table-container"><table class="table" id="tab-top-incomes">
-<caption><span class="caption-number">Table 5 </span><span class="caption-text"><strong>Incomes at the very top</strong> Source: Piketty and Saez (2003) 2018 estimates.</span><a class="headerlink" href="#tab-top-incomes" title="Link to this table">#</a></caption>
+<caption><span class="caption-number">Table 4 </span><span class="caption-text"><strong>Incomes at the very top</strong> Source: Piketty and Saez (2003) 2018 estimates.</span><a class="headerlink" href="#tab-top-incomes" title="Link to this table">#</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Income Percentile Range</p></th>
 <th class="head"><p>Ratio to Top 1%</p></th>
@@ -1007,7 +988,8 @@ Significant at the 1 percent level (*p* &lt; 0.01). -->
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1068,8 +1050,8 @@ By Jason DeBacker and Richard W. Evans
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

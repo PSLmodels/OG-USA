@@ -16,17 +16,19 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
@@ -36,10 +38,11 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
@@ -62,10 +65,11 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/calibration/exogenous_parameters';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Calibration of Macroeconomic Parameters" href="macro.html" />
-    <link rel="prev" title="Utilities Functions" href="../api/utils.html" />
+    <link rel="next" title="References" href="../OGUSA_references.html" />
+    <link rel="prev" title="Matching Labor, Wealth, and Income Moments" href="matching_lwi.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -81,19 +85,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../search.html"
       method="get">
@@ -101,7 +94,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -109,8 +101,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -126,7 +118,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -156,21 +149,17 @@
     
     
     <img src="../../_static/OG-USA_logo.png" class="logo__image only-light" alt="OG-USA - Home"/>
-    <script>document.write(`<img src="../../_static/OG-USA_logo.png" class="logo__image only-dark" alt="OG-USA - Home"/>`);</script>
+    <img src="../../_static/OG-USA_logo.png" class="logo__image only-dark pst-js-only" alt="OG-USA - Home"/>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -203,7 +192,6 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Calibration</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Exogenous Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="macro.html">Calibration of Macroeconomic Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="demographics.html">Demographics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="earnings.html">Lifetime Earnings Profiles</a></li>
@@ -211,6 +199,7 @@
 <li class="toctree-l1"><a class="reference internal" href="bequests.html">Bequest Process Calibration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="UBI.html">Universal Basic Income (UBI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="matching_lwi.html">Matching Labor, Wealth, and Income Moments</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Exogenous Parameters</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
@@ -373,24 +362,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 
 </div></div>
       
@@ -418,8 +399,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="exogenous-parameters">
 <span id="chap-exog"></span><h1>Exogenous Parameters<a class="headerlink" href="#exogenous-parameters" title="Link to this heading">#</a></h1>
-<p>[TODO: This chapter needs heavy updating. Would be nice to do something similar to API chapter. But it is also nice to have references and descriptions as in the table below.]</p>
-<p>In this chapter, list the exogenous inputs to the model, options, and where the values come from (weak calibration vs. strong calibration). Point to the respective chapters for some of the inputs. Mention the code in <a class="reference external" href="https://github.com/PSLmodels/OG-USA/blob/master/ogusa/default_parameters.json"><code class="docutils literal notranslate"><span class="pre">default_parameters.json</span></code></a> and <a class="reference external" href="https://github.com/PSLmodels/OG-USA/blob/master/ogusa/parameters.py"><code class="docutils literal notranslate"><span class="pre">parameters.py</span></code></a>.</p>
+<p>The JSON file <a class="reference external" href="https://github.com/PSLmodels/OG-USA/blob/master/ogusa/default_parameters.json"><code class="docutils literal notranslate"><span class="pre">ogusa_default_parameters.json</span></code></a> provides values for all the model parameters used as defaults for OG-USA. Below, we provide a table highlighting some of the parameters describing the scale of the model (number of periods, aged, productivity types) and some parameters of the solution method (dampening parameter for TPI). The table below provides a list of the exogenous parameters and their baseline calibration values.</p>
   <!-- +++
   ```{code-cell} ogusa-dev
   :tags: [hide-cell]
@@ -431,54 +411,294 @@ document.write(`
   glue("param_table", table, display=False)
   ```
   -->
-<div class="pst-scrollable-table-container"><table class="table" id="tabexogvars">
-<caption><span class="caption-number">Table 1 </span><span class="caption-text"><strong>List of exogenous parameters and baseline calibration values.</strong></span><a class="headerlink" href="#tabexogvars" title="Link to this table">#</a></caption>
+<p><strong>List of exogenous parameters and baseline calibration values.</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
 <thead>
-<tr class="row-odd"><th class="head"><p><strong>Symbol</strong></p></th>
-<th class="head"><p><strong>Description</strong></p></th>
-<th class="head"><p><strong>Value</strong></p></th>
+<tr class="row-odd"><th class="head text-left"><p>Symbol</p></th>
+<th class="head text-left"><p>Description</p></th>
+<th class="head text-left"><p>Value</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(S\)</span></p></td>
-<td><p>Maximum periods in economically active household life</p></td>
-<td><p>80</p></td>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{start_year}\)</span></p></td>
+<td class="text-left"><p>Initial year</p></td>
+<td class="text-left"><p>2025</p></td>
 </tr>
-<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(E\)</span></p></td>
-<td><p>Number of periods of youth economically outside the model</p></td>
-<td><p><span class="math notranslate nohighlight">\(\text{round} \frac{S}{4}\)</span>=20</p></td>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\omega_{s,t}\)</span></p></td>
+<td class="text-left"><p>Population by age over time</p></td>
+<td class="text-left"><p>Too large to report here, see default parameters JSON</p></td>
 </tr>
-<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(R\)</span></p></td>
-<td><p>Retirement age (period)</p></td>
-<td><p><span class="math notranslate nohighlight">\(E + \text{round} (\frac{9}{16} S) = 65\)</span></p></td>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(i_{s,t}\)</span></p></td>
+<td class="text-left"><p>Immigration rates by age</p></td>
+<td class="text-left"><p>Too large to report here, see default parameters JSON</p></td>
 </tr>
-<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(T_1\)</span></p></td>
-<td><p>Number of periods to steady state for initial time path guesses</p></td>
-<td><p>160</p></td>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\rho_{s,t}\)</span></p></td>
+<td class="text-left"><p>Mortality rates by age</p></td>
+<td class="text-left"><p>Too large to report here, see default parameters JSON</p></td>
 </tr>
-<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(T_2\)</span></p></td>
-<td><p>Maximum number of periods to steady state for nonsteady-state equilibrium</p></td>
-<td><p>160</p></td>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(e_{j,s,t}\)</span></p></td>
+<td class="text-left"><p>Deterministic ability process</p></td>
+<td class="text-left"><p>Too large to report here, see default parameters JSON</p></td>
 </tr>
-<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\nu\)</span></p></td>
-<td><p>Dampening parameter for TPI</p></td>
-<td><p>0.4</p></td>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\lambda_{j}\)</span></p></td>
+<td class="text-left"><p>Lifetime income group percentages</p></td>
+<td class="text-left"><p>Too large to report here, see default parameters JSON</p></td>
 </tr>
-<tr class="row-even"><td><p><span class="math notranslate nohighlight">\({ \{ { \{ \omega_{s,0} \} }_{s=1}^{E+S}  \}}_{t=0}^{T_2 + S - 1}\)</span></p></td>
-<td><p>Initial population distribution by age</p></td>
-<td><p>(see Chap. <a class="reference internal" href="demographics.html#chap-demog"><span class="std std-ref">Demographics</span></a>)</p></td>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(J\)</span></p></td>
+<td class="text-left"><p>Number of lifetime income groups</p></td>
+<td class="text-left"><p>10</p></td>
 </tr>
-<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\({ \{ f_s \}}_{s=1}^{E+S}\)</span></p></td>
-<td><p>Fertility rates by age</p></td>
-<td><p>(see Sec. <a class="reference internal" href="demographics.html#secdemogfert"><span class="std std-ref">Fertility rates</span></a>)</p></td>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(S\)</span></p></td>
+<td class="text-left"><p>Maximum periods in economically active individual life</p></td>
+<td class="text-left"><p>80</p></td>
 </tr>
-<tr class="row-even"><td><p><span class="math notranslate nohighlight">\({ \{ i_s \}}_{s=1}^{E+S}\)</span></p></td>
-<td><p>Immigration rates by age</p></td>
-<td><p>(see Sec. <a class="reference internal" href="demographics.html#secdemogmort"><span class="std std-ref">Mortality rates</span></a>)</p></td>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(E\)</span></p></td>
+<td class="text-left"><p>Number of periods of youth economically outside the model</p></td>
+<td class="text-left"><p>20</p></td>
 </tr>
-<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\({ \{ \rho_s \}}_{s=0}^{E+S}\)</span></p></td>
-<td><p>Mortality rates by age</p></td>
-<td><p>(see Sec. <a class="reference internal" href="demographics.html#secdemogimm"><span class="std std-ref">Immigration rates</span></a>)</p></td>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(T\)</span></p></td>
+<td class="text-left"><p>Number of periods to steady-state</p></td>
+<td class="text-left"><p>320</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(R\)</span></p></td>
+<td class="text-left"><p>Retirement age</p></td>
+<td class="text-left"><p>[65.000…65.000]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\tilde{l}\)</span></p></td>
+<td class="text-left"><p>Maximum hours of labor supply</p></td>
+<td class="text-left"><p>1.000</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\beta\)</span></p></td>
+<td class="text-left"><p>Discount factor</p></td>
+<td class="text-left"><p>[0.910…0.995]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\sigma\)</span></p></td>
+<td class="text-left"><p>Coefficient of constant relative risk aversion</p></td>
+<td class="text-left"><p>1.500</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\nu\)</span></p></td>
+<td class="text-left"><p>Frisch elasticity of labor supply</p></td>
+<td class="text-left"><p>0.400</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(b\)</span></p></td>
+<td class="text-left"><p>Scale parameter in utility of leisure</p></td>
+<td class="text-left"><p>0.573</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\upsilon\)</span></p></td>
+<td class="text-left"><p>Shape parameter in utility of leisure</p></td>
+<td class="text-left"><p>2.856</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\chi^{n}_{s}\)</span></p></td>
+<td class="text-left"><p>Disutility of labor level parameters</p></td>
+<td class="text-left"><p>Too large to report here, see default parameters JSON</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\chi^{b}_{j}\)</span></p></td>
+<td class="text-left"><p>Utility of bequests level parameters</p></td>
+<td class="text-left"><p>[80.000…80.000]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{use_zeta}\)</span></p></td>
+<td class="text-left"><p>Whether to distribute bequests between lifetime income groups</p></td>
+<td class="text-left"><p>0.00E+00</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\zeta\)</span></p></td>
+<td class="text-left"><p>Distribution of bequests</p></td>
+<td class="text-left"><p>Too large to report here, see default parameters JSON</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(Z_{t}\)</span></p></td>
+<td class="text-left"><p>Total factor productivity</p></td>
+<td class="text-left"><p>Too large to report here, see default parameters JSON</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\gamma\)</span></p></td>
+<td class="text-left"><p>Capital share of income</p></td>
+<td class="text-left"><p>[0.380…0.380]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\varepsilon\)</span></p></td>
+<td class="text-left"><p>Elasticity of substitution between capital and labor</p></td>
+<td class="text-left"><p>[1.000…1.000]</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\delta\)</span></p></td>
+<td class="text-left"><p>Capital depreciation rate</p></td>
+<td class="text-left"><p>0.050</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(g_{y}\)</span></p></td>
+<td class="text-left"><p>Growth rate of labor augmenting technological progress</p></td>
+<td class="text-left"><p>0.020</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{tax_func_type}\)</span></p></td>
+<td class="text-left"><p>Functional form used for income tax functions</p></td>
+<td class="text-left"><p>DEP</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{analytical_mtrs}\)</span></p></td>
+<td class="text-left"><p>Whether use analytical MTRs or estimate MTRs</p></td>
+<td class="text-left"><p>0.00E+00</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{age_specific}\)</span></p></td>
+<td class="text-left"><p>Whether use age-specific tax functions</p></td>
+<td class="text-left"><p>1.000</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\tau^{p}_{t}\)</span></p></td>
+<td class="text-left"><p>Payroll tax rate</p></td>
+<td class="text-left"><p>[0.000…0.000]</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\tau^{BQ}_{t}\)</span></p></td>
+<td class="text-left"><p>Bequest (estate) tax rate</p></td>
+<td class="text-left"><p>[0.000…0.000]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\tau^{b}_{t}\)</span></p></td>
+<td class="text-left"><p>Entity-level business income tax rate</p></td>
+<td class="text-left"><p>Too large to report here, see default parameters JSON</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\delta^{\tau}_{t}\)</span></p></td>
+<td class="text-left"><p>Rate of depreciation for tax purposes</p></td>
+<td class="text-left"><p>Too large to report here, see default parameters JSON</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\tau^{c}_{t,s,j}\)</span></p></td>
+<td class="text-left"><p>Consumption tax rates</p></td>
+<td class="text-left"><p>Too large to report here, see default parameters JSON</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(H\)</span></p></td>
+<td class="text-left"><p>Coefficient on linear term in wealth tax function</p></td>
+<td class="text-left"><p>[0.100…0.100]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(M\)</span></p></td>
+<td class="text-left"><p>Constant in wealth tax function</p></td>
+<td class="text-left"><p>[1.000…1.000]</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(P\)</span></p></td>
+<td class="text-left"><p>Coefficient on level term in wealth tax function</p></td>
+<td class="text-left"><p>[0.000…0.000]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{budget_balance}\)</span></p></td>
+<td class="text-left"><p>Whether have a balanced budget in each period</p></td>
+<td class="text-left"><p>0.00E+00</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{baseline_spending}\)</span></p></td>
+<td class="text-left"><p>Whether level of spending constant between the baseline and reform runs</p></td>
+<td class="text-left"><p>0.00E+00</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\alpha^{T}_{t}\)</span></p></td>
+<td class="text-left"><p>Transfers as a share of GDP</p></td>
+<td class="text-left"><p>[0.052…0.052]</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\eta_{j,s,t}\)</span></p></td>
+<td class="text-left"><p>Distribution of transfers</p></td>
+<td class="text-left"><p>Too large to report here, see default parameters JSON</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\eta_{RM,j,s,t}\)</span></p></td>
+<td class="text-left"><p>Distribution of remittances</p></td>
+<td class="text-left"><p>Too large to report here, see default parameters JSON</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\alpha^{G}_{t}\)</span></p></td>
+<td class="text-left"><p>Government spending as a share of GDP</p></td>
+<td class="text-left"><p>[0.091…0.091]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\alpha_{RM,1}\)</span></p></td>
+<td class="text-left"><p>Remittances as a share of GDP in initial period</p></td>
+<td class="text-left"><p>0.00E+00</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\alpha_{RM,T}\)</span></p></td>
+<td class="text-left"><p>Remittances as a share of GDP in long run</p></td>
+<td class="text-left"><p>0.00E+00</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(g_{RM,t}\)</span></p></td>
+<td class="text-left"><p>Growth rate of remittances in initial periods</p></td>
+<td class="text-left"><p>[0.000…0.000]</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(t_{G1}\)</span></p></td>
+<td class="text-left"><p>Model period in which budget closure rule starts</p></td>
+<td class="text-left"><p>20</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(t_{G2}\)</span></p></td>
+<td class="text-left"><p>Model period in which budget closure rule ends</p></td>
+<td class="text-left"><p>256</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\rho_{G}\)</span></p></td>
+<td class="text-left"><p>Budget closure rule smoothing parameter</p></td>
+<td class="text-left"><p>0.100</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\bar{\alpha}_{D}\)</span></p></td>
+<td class="text-left"><p>Steady-state Debt-to-GDP ratio</p></td>
+<td class="text-left"><p>2.000</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\alpha_{D,0}\)</span></p></td>
+<td class="text-left"><p>Initial period Debt-to-GDP ratio</p></td>
+<td class="text-left"><p>0.990</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\tau_{d,t}\)</span></p></td>
+<td class="text-left"><p>Scale parameter in government interest rate wedge</p></td>
+<td class="text-left"><p>[0.000…0.000]</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\mu_{d,t}\)</span></p></td>
+<td class="text-left"><p>Shift parameter in government interest rate wedge</p></td>
+<td class="text-left"><p>[-0.005…-0.010]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{avg_earn_num_years}\)</span></p></td>
+<td class="text-left"><p>Number of years over which compute average earnings for pension benefit</p></td>
+<td class="text-left"><p>35</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{AIME_bkt_1}\)</span></p></td>
+<td class="text-left"><p>First AIME bracket threshold</p></td>
+<td class="text-left"><p>1174.000</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{AIME_bkt_2}\)</span></p></td>
+<td class="text-left"><p>Second AIME bracket threshold</p></td>
+<td class="text-left"><p>7078.000</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{PIA_rate_bkt_1}\)</span></p></td>
+<td class="text-left"><p>First AIME bracket PIA rate</p></td>
+<td class="text-left"><p>0.900</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{PIA_rate_bkt_2}\)</span></p></td>
+<td class="text-left"><p>Second AIME bracket PIA rate</p></td>
+<td class="text-left"><p>0.320</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{PIA_rate_bkt_3}\)</span></p></td>
+<td class="text-left"><p>Third AIME bracket PIA rate</p></td>
+<td class="text-left"><p>0.150</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{PIA_maxpayment}\)</span></p></td>
+<td class="text-left"><p>Maximum PIA payment</p></td>
+<td class="text-left"><p>4555.000</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{PIA_minpayment}\)</span></p></td>
+<td class="text-left"><p>Minimum PIA payment</p></td>
+<td class="text-left"><p>0.00E+00</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\theta_{adj,t}\)</span></p></td>
+<td class="text-left"><p>Adjustment to replacement rate</p></td>
+<td class="text-left"><p>[1.000…1.000]</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(r^{*}_{t}\)</span></p></td>
+<td class="text-left"><p>World interest rate</p></td>
+<td class="text-left"><p>[0.040…0.040]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(D_{f,0}\)</span></p></td>
+<td class="text-left"><p>Share of government debt held by foreigners in initial period</p></td>
+<td class="text-left"><p>0.400</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\zeta_{D, t}\)</span></p></td>
+<td class="text-left"><p>Share of new debt issues purchased by foreigners</p></td>
+<td class="text-left"><p>[0.400…0.400]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\zeta_{K, t}\)</span></p></td>
+<td class="text-left"><p>Share of excess capital demand satisfied by foreigners</p></td>
+<td class="text-left"><p>[0.500…0.500]</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\xi\)</span></p></td>
+<td class="text-left"><p>Dampening parameter for TPI</p></td>
+<td class="text-left"><p>0.400</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{maxiter}\)</span></p></td>
+<td class="text-left"><p>Maximum number of iterations for TPI</p></td>
+<td class="text-left"><p>250</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{mindist_SS}\)</span></p></td>
+<td class="text-left"><p>SS solution tolerance</p></td>
+<td class="text-left"><p>1.00E-09</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{mindist_TPI}\)</span></p></td>
+<td class="text-left"><p>TPI solution tolerance</p></td>
+<td class="text-left"><p>1.00E-05</p></td>
 </tr>
 </tbody>
 </table>
@@ -516,20 +736,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../api/utils.html"
+       href="matching_lwi.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Utilities Functions</p>
+        <p class="prev-next-title">Matching Labor, Wealth, and Income Moments</p>
       </div>
     </a>
     <a class="right-next"
-       href="macro.html"
+       href="../OGUSA_references.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Calibration of Macroeconomic Parameters</p>
+        <p class="prev-next-title">References</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -583,8 +803,8 @@ By Jason DeBacker and Richard W. Evans
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -36,11 +36,11 @@ def get_calculator(
         calculator_start_year (int): first year of budget window
         reform (dictionary): IIT policy reform parameters, None if
             baseline
-        data (DataFrame or str): DataFrame or path to datafile for
+        data (DataFrame or str or Path): DataFrame or str or Path to datafile for
             Records object
-        gfactors (Tax-Calculator GrowthFactors object): growth factors
+        gfactors (Tax-Calculator GrowthFactors object or Path): growth factors
             to use to extrapolate data over budget window
-        weights (DataFrame): weights for Records object
+        weights (DataFrame or Path): weights for Records object
         records_start_year (int): the start year for the data and
             weights dfs (default is set to the PUF start year as defined
             in the Tax-Calculator project)
@@ -52,7 +52,7 @@ def get_calculator(
     """
     # create a calculator
     policy1 = Policy()
-    if data is not None and "cps" in data:
+    if data is not None and "cps" in str(data):
         print("Using CPS")
         records1 = Records.cps_constructor()
         # impute short and long term capital gains if using CPS data
@@ -61,9 +61,16 @@ def get_calculator(
         records1.p23250 = (1 - 0.06587) * records1.e01100
         # set total capital gains to zero
         records1.e01100 = np.zeros(records1.e01100.shape[0])
-    elif data is None or "puf" in data:  # pragma: no cover
+    elif data is None or "puf" in str(data):  # pragma: no cover
         print("Using PUF")
         records1 = Records()
+    elif data is not None and "tmd" in str(data):  # pragma: no cover
+        print("Using TMD")
+        records1 = Records.tmd_constructor(
+            data_path=data,
+            weights_path=weights,
+            growfactors=gfactors
+        )
     elif data is not None:  # pragma: no cover
         print("Data is ", data)
         print("Weights are ", weights)

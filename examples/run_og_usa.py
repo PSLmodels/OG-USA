@@ -5,6 +5,7 @@ import json
 import time
 import importlib.resources
 import copy
+from pathlib import Path
 from taxcalc import Calculator
 import matplotlib.pyplot as plt
 from ogusa.calibrate import Calibration
@@ -52,9 +53,22 @@ def main():
     ) as file:
         defaults = json.load(file)
     p.update_specifications(defaults)
-    p.tax_func_type = "DEP"
-    p.age_specific = False
-    c = Calibration(p, estimate_tax_functions=True, client=client)
+    p.tax_func_type = "HSV"
+    p.age_specific = True
+
+    tmd_dir = (
+        "/Users/jason.debacker/repos/tax-microdata-benchmarking/tmd/storage/output"
+    )
+
+    c = Calibration(
+        p,
+        estimate_tax_functions=True,
+        client=client,
+        data=Path(os.path.join(tmd_dir, "tmd.csv.gz")),
+        weights=Path(os.path.join(tmd_dir, "tmd_weights.csv.gz")),
+        gfactors=Path(os.path.join(tmd_dir, "tmd_growfactors.csv")),
+        records_start_year=2021
+        )
     d = c.get_dict()
     # # additional parameters to change
     updated_params = {

@@ -218,6 +218,8 @@ class Calibration:
                 iit_baseline=iit_baseline,
                 iit_reform=iit_reform,
                 data=data,
+                gfactors=gfactors,
+                weights=weights,
                 path=p.output_base,
                 client=client,
                 num_workers=num_workers,

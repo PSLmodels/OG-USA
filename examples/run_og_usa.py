@@ -30,7 +30,7 @@ def main():
 
     # Directories to save data
     CUR_DIR = os.path.dirname(os.path.realpath(__file__))
-    save_dir = os.path.join(CUR_DIR, "OG-USA-Example")
+    save_dir = os.path.join(CUR_DIR, "OG-USA-Example-DEP")
     base_dir = os.path.join(save_dir, "OUTPUT_BASELINE")
     reform_dir = os.path.join(save_dir, "OUTPUT_REFORM")
 
@@ -52,7 +52,8 @@ def main():
     ) as file:
         defaults = json.load(file)
     p.update_specifications(defaults)
-    p.tax_func_type = "HSV"
+    p.tax_func_type = "DEP"
+    p.age_specific = False
     c = Calibration(p, estimate_tax_functions=True, client=client)
     d = c.get_dict()
     # # additional parameters to change

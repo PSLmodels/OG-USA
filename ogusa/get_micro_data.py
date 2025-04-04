@@ -67,9 +67,7 @@ def get_calculator(
     elif data is not None and "tmd" in str(data):  # pragma: no cover
         print("Using TMD")
         records1 = Records.tmd_constructor(
-            data_path=data,
-            weights_path=weights,
-            growfactors=gfactors
+            data_path=data, weights_path=weights, growfactors=gfactors
         )
     elif data is not None:  # pragma: no cover
         print("Data is ", data)

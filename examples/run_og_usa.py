@@ -56,9 +56,7 @@ def main():
     p.tax_func_type = "HSV"
     p.age_specific = True
 
-    tmd_dir = (
-        "/Users/jason.debacker/repos/tax-microdata-benchmarking/tmd/storage/output"
-    )
+    tmd_dir = "/Users/jason.debacker/repos/tax-microdata-benchmarking/tmd/storage/output"
 
     c = Calibration(
         p,
@@ -67,8 +65,8 @@ def main():
         data=Path(os.path.join(tmd_dir, "tmd.csv.gz")),
         weights=Path(os.path.join(tmd_dir, "tmd_weights.csv.gz")),
         gfactors=Path(os.path.join(tmd_dir, "tmd_growfactors.csv")),
-        records_start_year=2021
-        )
+        records_start_year=2021,
+    )
     d = c.get_dict()
     # # additional parameters to change
     updated_params = {

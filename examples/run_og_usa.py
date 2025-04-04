@@ -65,9 +65,9 @@ def main():
     }
     p.update_specifications(updated_params)
     # Run model
-    start_time = time.time()
-    runner(p, time_path=True, client=client)
-    print("run time = ", time.time() - start_time)
+    # start_time = time.time()
+    # runner(p, time_path=True, client=client)
+    # print("run time = ", time.time() - start_time)
 
     """
     ------------------------------------------------------------------------

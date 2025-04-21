@@ -36,9 +36,9 @@ def main():
     reform_dir = os.path.join(save_dir, "OUTPUT_REFORM")
 
     """
-    ------------------------------------------------------------------------
+    ---------------------------------------------------------------------------
     Run baseline policy
-    ------------------------------------------------------------------------
+    ---------------------------------------------------------------------------
     """
     # Set up baseline parameterization
     p = Specifications(
@@ -56,7 +56,8 @@ def main():
     p.tax_func_type = "HSV"
     p.age_specific = True
 
-    # Set the path to the directory where the TMD files are stored
+    # Set the path to the directory on your hard drive where the TMD files are
+    # stored
     tmd_dir = (
         "/Users/jason.debacker/repos/tax-microdata-benchmarking/tmd/storage/" +
         "output"
@@ -87,9 +88,9 @@ def main():
     print("run time = ", time.time() - start_time)
 
     """
-    ------------------------------------------------------------------------
+    ---------------------------------------------------------------------------
     Run reform policy
-    ------------------------------------------------------------------------
+    ---------------------------------------------------------------------------
     """
     # Grab a reform JSON file already in Tax-Calculator
     # In this example the 'reform' is a change to 2017 law (the
@@ -130,9 +131,9 @@ def main():
     client.close()
 
     """
-    ------------------------------------------------------------------------
+    ---------------------------------------------------------------------------
     Save some results of simulations
-    ------------------------------------------------------------------------
+    ---------------------------------------------------------------------------
     """
     base_tpi = safe_read_pickle(os.path.join(base_dir, "TPI", "TPI_vars.pkl"))
     base_params = safe_read_pickle(os.path.join(base_dir, "model_params.pkl"))
@@ -168,7 +169,7 @@ def main():
         table_format="csv",
         path=os.path.join(
             save_dir,
-            "OG-USA_example_plots_tables",
+            "tmd_example_plots_tables",
             "macro_time_series_output.csv",
         ),
     )

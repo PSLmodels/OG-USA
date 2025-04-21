@@ -31,14 +31,14 @@ def main():
 
     # Directories to save data
     CUR_DIR = os.path.dirname(os.path.realpath(__file__))
-    save_dir = os.path.join(CUR_DIR, "Example-TMD")
+    save_dir = os.path.join(CUR_DIR, "Example")
     base_dir = os.path.join(save_dir, "OUTPUT_BASELINE")
     reform_dir = os.path.join(save_dir, "OUTPUT_REFORM")
 
     """
-    ------------------------------------------------------------------------
+    ---------------------------------------------------------------------------
     Run baseline policy
-    ------------------------------------------------------------------------
+    ---------------------------------------------------------------------------
     """
     # Set up baseline parameterization
     p = Specifications(
@@ -55,22 +55,7 @@ def main():
     p.update_specifications(defaults)
     p.tax_func_type = "HSV"
     p.age_specific = True
-
-    # Set the path to the directory where the TMD files are stored
-    tmd_dir = (
-        "/Users/jason.debacker/repos/tax-microdata-benchmarking/tmd/storage/" +
-        "output"
-    )
-
-    c = Calibration(
-        p,
-        estimate_tax_functions=True,
-        client=client,
-        data=Path(os.path.join(tmd_dir, "tmd.csv.gz")),
-        weights=Path(os.path.join(tmd_dir, "tmd_weights.csv.gz")),
-        gfactors=Path(os.path.join(tmd_dir, "tmd_growfactors.csv")),
-        records_start_year=2021,
-    )
+    c = Calibration(p, estimate_tax_functions=True, client=client)
     d = c.get_dict()
     # # additional parameters to change
     updated_params = {
@@ -87,9 +72,9 @@ def main():
     print("run time = ", time.time() - start_time)
 
     """
-    ------------------------------------------------------------------------
+    ---------------------------------------------------------------------------
     Run reform policy
-    ------------------------------------------------------------------------
+    ---------------------------------------------------------------------------
     """
     # Grab a reform JSON file already in Tax-Calculator
     # In this example the 'reform' is a change to 2017 law (the
@@ -130,9 +115,9 @@ def main():
     client.close()
 
     """
-    ------------------------------------------------------------------------
+    ---------------------------------------------------------------------------
     Save some results of simulations
-    ------------------------------------------------------------------------
+    ---------------------------------------------------------------------------
     """
     base_tpi = safe_read_pickle(os.path.join(base_dir, "TPI", "TPI_vars.pkl"))
     base_params = safe_read_pickle(os.path.join(base_dir, "model_params.pkl"))
@@ -157,7 +142,7 @@ def main():
     op.plot_all(
         base_dir,
         reform_dir,
-        os.path.join(save_dir, "tmd_example_plots_tables"),
+        os.path.join(save_dir, "example_plots_tables"),
     )
     # Create CSV file with output
     ot.tp_output_dump_table(
@@ -168,7 +153,7 @@ def main():
         table_format="csv",
         path=os.path.join(
             save_dir,
-            "OG-USA_example_plots_tables",
+            "example_plots_tables",
             "macro_time_series_output.csv",
         ),
     )
@@ -177,7 +162,7 @@ def main():
     # save percentage change output to csv file
     ans.to_csv(
         os.path.join(
-            save_dir, "tmd_example_plots_tables", "tmd_example_output.csv"
+            save_dir, "example_plots_tables", "example_output.csv"
         )
     )
 

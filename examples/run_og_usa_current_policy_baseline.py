@@ -30,13 +30,14 @@ def main():
 
     # Directories to save data
     CUR_DIR = os.path.dirname(os.path.realpath(__file__))
-    base_dir = os.path.join(CUR_DIR, "OG-USA-CP-Example", "OUTPUT_BASELINE")
-    reform_dir = os.path.join(CUR_DIR, "OG-USA-CP-Example", "OUTPUT_REFORM")
+    save_dir = os.path.join(CUR_DIR, "CP-Example")
+    base_dir = os.path.join(save_dir, "OUTPUT_BASELINE")
+    reform_dir = os.path.join(save_dir, "OUTPUT_REFORM")
 
     """
-    ------------------------------------------------------------------------
+    ---------------------------------------------------------------------------
     Run baseline policy
-    ------------------------------------------------------------------------
+    ---------------------------------------------------------------------------
     """
     # Set up baseline parameterization
     p = Specifications(
@@ -90,9 +91,9 @@ def main():
     print("run time = ", time.time() - start_time)
 
     """
-    ------------------------------------------------------------------------
+    ---------------------------------------------------------------------------
     Run reform policy
-    ------------------------------------------------------------------------
+    ---------------------------------------------------------------------------
     """
     # Grab a reform JSON file already in Tax-Calculator
     # In this example the 'reform' is a change to 2017 law
@@ -154,9 +155,9 @@ def main():
     client.close()
 
     """
-    ------------------------------------------------------------------------
+    ---------------------------------------------------------------------------
     Save some results of simulations
-    ------------------------------------------------------------------------
+    ---------------------------------------------------------------------------
     """
     base_tpi = safe_read_pickle(os.path.join(base_dir, "TPI", "TPI_vars.pkl"))
     base_params = safe_read_pickle(os.path.join(base_dir, "model_params.pkl"))
@@ -181,7 +182,7 @@ def main():
     op.plot_all(
         base_dir,
         reform_dir,
-        os.path.join(CUR_DIR, "OG-USA_current_policy_example_plots_tables"),
+        os.path.join(save_dir, "cp_example_plots_tables"),
     )
     # Create CSV file with output
     ot.tp_output_dump_table(
@@ -191,8 +192,8 @@ def main():
         reform_tpi,
         table_format="csv",
         path=os.path.join(
-            CUR_DIR,
-            "OG-USA_example_plots_tables",
+            save_dir,
+            "cp_example_plots_tables",
             "macro_time_series_output.csv",
         ),
     )
@@ -201,9 +202,9 @@ def main():
     # save percentage change output to csv file
     ans.to_csv(
         os.path.join(
-            CUR_DIR,
-            "OG-USA_current_policy_example_plots_tables",
-            "ogusa_example_output.csv",
+            save_dir,
+            "cp_example_plots_tables",
+            "cp_example_output.csv",
         )
     )
 

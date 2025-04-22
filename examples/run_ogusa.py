@@ -161,9 +161,7 @@ def main():
     print("Percentage changes in aggregates:", ans)
     # save percentage change output to csv file
     ans.to_csv(
-        os.path.join(
-            save_dir, "example_plots_tables", "example_output.csv"
-        )
+        os.path.join(save_dir, "example_plots_tables", "example_output.csv")
     )
 
 

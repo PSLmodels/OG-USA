@@ -30,6 +30,7 @@ htmlcov/*
 *.sublime*
 .DS_Store
 *puf.csv
+*tmd.csv.gz
 *tax_func_loop_inputs_large.pkl
 */OUTPUT/*
 envs/
@@ -50,3 +51,5 @@ ogusa/csv_output_files/*
 ogusa/images/*
 .vscode/
 *default.profraw
+*first_stage_reg_results.pkl*
+*hh_id_two_statuses.csv*

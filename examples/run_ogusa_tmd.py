@@ -59,8 +59,8 @@ def main():
     # Set the path to the directory on your hard drive where the TMD files are
     # stored
     tmd_dir = (
-        "/Users/jason.debacker/repos/tax-microdata-benchmarking/tmd/storage/" +
-        "output"
+        "/Users/jason.debacker/repos/tax-microdata-benchmarking/tmd/storage/"
+        + "output"
     )
 
     c = Calibration(

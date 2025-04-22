@@ -161,7 +161,7 @@ def main():
         os.path.join(save_dir, "tmd_example_plots_tables"),
     )
     # Create CSV file with output
-    ot.tp_output_dump_table(
+    ot.time_series_table(
         base_params,
         base_tpi,
         reform_params,

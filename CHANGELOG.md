@@ -11,7 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Updates `get_micro_data.py` to use the new taxcalc TMD constructor method. To do this, arguments had to be passed all the way through from the Calibration class object in `calibrate.py`.
 - Renames and updates `run_ogusa.py`, `run_ogusa_tmd.py`, and `run_current_policy_baseline.py` run scripts.
--
+- Updates `.gitignore` and `README.md`.
+- Updates `test_get_micro_data.py` test `test_tmd_path()` to be consistent with new code in `calibrate.py` and `get_micro_data.py`
+- Updates the `test_run_example.py` test to correspond to the new run script names.
+- Adds a `make format` command to `Makefile`.
 
 ## [0.2.1] - 2024-10-05 12:00:00
 

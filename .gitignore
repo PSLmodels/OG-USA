@@ -41,6 +41,7 @@ docs/book/_build/*
 docs/build*
 *micro_data_*.pkl
 examples/Example/*
+examples/Example-TMD/*
 cs-config/cs_config/OUTPUT_BASELINE/*
 data/csv_output_files/*
 data/images/*

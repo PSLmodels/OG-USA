@@ -59,17 +59,17 @@ def main():
     # Set the path to the directory on your hard drive where the TMD files are
     # stored
     tmd_dir = (
-        "/Users/jason.debacker/repos/tax-microdata-benchmarking/tmd/storage/" +
-        "output"
+        "/Users/richardevans/Docs/Economics/OSE/microsim/" +
+        "tax-microdata-benchmarking/tmd/storage/output"
     )
 
     c = Calibration(
         p,
         estimate_tax_functions=True,
         client=client,
-        data=Path(os.path.join(tmd_dir, "tmd.csv.gz")),
-        weights=Path(os.path.join(tmd_dir, "tmd_weights.csv.gz")),
-        gfactors=Path(os.path.join(tmd_dir, "tmd_growfactors.csv")),
+        data=Path(os.path.join(tmd_dir, "tmd_jason.csv.gz")),
+        weights=Path(os.path.join(tmd_dir, "tmd_weights_jason.csv.gz")),
+        gfactors=Path(os.path.join(tmd_dir, "tmd_growfactors_jason.csv")),
         records_start_year=2021,
     )
     d = c.get_dict()

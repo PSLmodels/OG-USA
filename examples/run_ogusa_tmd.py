@@ -5,6 +5,7 @@ import json
 import time
 import importlib.resources
 import copy
+import argparse
 from pathlib import Path
 from taxcalc import Calculator
 import matplotlib.pyplot as plt
@@ -178,4 +179,10 @@ def main(tmd_dir=None):
 
 if __name__ == "__main__":
     # execute only if run as a script
-    main()
+    # execute only if run as a script
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "tmd_path", help="Path to TMD data files", type=str
+    )  # positional arg
+    args = parser.parse_args()
+    main(args.tmd_path)

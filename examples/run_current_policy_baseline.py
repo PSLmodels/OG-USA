@@ -56,7 +56,7 @@ def main():
             )
         )
     )
-    p.tax_func_type = "GS"
+    p.tax_func_type = "HSV"
     p.age_specific = False
     # get current policy JSON file
     base_url = (
@@ -121,7 +121,7 @@ def main():
             )
         )
     )
-    p2.tax_func_type = "GS"
+    p2.tax_func_type = "HSV"
     p.age_specific = False
     # Use calibration class to estimate reform tax functions from
     # Tax-Calculator, specifying reform for Tax-Calculator in iit_reform

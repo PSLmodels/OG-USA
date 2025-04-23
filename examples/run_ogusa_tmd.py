@@ -23,7 +23,7 @@ style_file_url = (
 plt.style.use(style_file_url)
 
 
-def main():
+def main(tmd_dir=None):
     # Define parameters to use for multiprocessing
     num_workers = min(multiprocessing.cpu_count(), 7)
     client = Client(n_workers=num_workers, threads_per_worker=1)
@@ -55,13 +55,6 @@ def main():
     p.update_specifications(defaults)
     p.tax_func_type = "HSV"
     p.age_specific = True
-
-    # Set the path to the directory on your hard drive where the TMD files are
-    # stored
-    tmd_dir = (
-        "/Users/jason.debacker/repos/tax-microdata-benchmarking/tmd/storage/"
-        + "output"
-    )
 
     c = Calibration(
         p,

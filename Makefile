@@ -68,3 +68,6 @@ git-pr:
 pip-package:
 	pip install wheel
 	python setup.py sdist bdist_wheel
+
+format:
+	black . -l 79

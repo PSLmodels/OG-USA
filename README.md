@@ -23,23 +23,17 @@ The model is constantly under development, and model components could change sig
 * Then, `conda activate ogusa-dev`
 * Then install by `pip install -e .`
 * Navigate to `./examples`
-* Run the model with an example reform from terminal/command prompt by typing `python run_og_usa.py`
-* You can adjust the `./examples/run_og_usa.py` by modifying model parameters specified in the dictionary passed to the `p.update_specifications()` calls.
+* Run the model with an example reform from terminal/command prompt by typing `python run_ogusa.py`
+* You can adjust the `./examples/run_ogusa.py` by modifying model parameters specified in the dictionary passed to the `p.update_specifications()` calls.
 * Model outputs will be saved in the following files:
-  * `./examples/OG-USA_example_plots`
-    * This folder will contain a number of plots generated from OG-Core to help you visualize the output from your run
-  * `./examples/ogusa_example_output.csv`
-    * This is a summary of the percentage changes in macro variables over the first ten years and in the steady-state.
-  * `./examples/OG-USA-Example/OUTPUT_BASELINE/model_params.pkl`
-    * Model parameters used in the baseline run
-    * See [`ogcore.execute.py`](https://github.com/PSLmodels/OG-Core/blob/master/ogcore/execute.py) for items in the dictionary object in this pickle file
-  * `./examples/OG-USA-Example/OUTPUT_BASELINE/SS/SS_vars.pkl`
-    * Outputs from the model steady state solution under the baseline policy
-    * See [`ogcore.SS.py`](https://github.com/PSLmodels/OG-Core/blob/master/ogcore/SS.py) for what is in the dictionary object in this pickle file
-  * `./examples/OG-USA-Example/OUTPUT_BASELINE/TPI/TPI_vars.pkl`
-    * Outputs from the model timepath solution under the baseline policy
-    * See [`ogcore.TPI.py`](https://github.com/PSLmodels/OG-Core/blob/master/ogcore/TPI.py) for what is in the dictionary object in this pickle file
-  * An analogous set of files in the `./examples/OUTPUT_REFORM` directory, which represent objects from the simulation of the reform policy
+    * `./examples/Example/`: This folder will contain all of the output from the `run_ogusa.py` run script.
+        * `./examples/Example/example_plots_tables`: This folder will contain a number of plots and tables generated from the `run_ogusa.py` run script to help you visualize the output.
+        * `./examples/Example/example_output.csv`: This is a summary of the percentage changes in macro variables over the first ten years and in the steady-state.
+    * `./examples/Example/OUTPUT_BASELINE/`: This folder contains all of the inputs to and outputs from the baseline equilibrium computation from `run_ogusa.py`
+        * `./examples/Example/OUTPUT_BASELINE/model_params.pkl`: Pickle binary file of ParamTools object of model parameters used in the baseline run
+        * `./examples/Example/OUTPUT_BASELINE/SS/SS_vars.pkl`: Pickle binary file of Python dictionary of outputs from the model steady state solution under the baseline policy. See [`ogcore.SS.py`](https://github.com/PSLmodels/OG-Core/blob/master/ogcore/SS.py) for what is in the dictionary object in this pickle file
+        * `./examples/Example/OUTPUT_BASELINE/TPI/TPI_vars.pkl`: Pickle binary file of Python dictionary of outputs from the model timepath solution under the baseline policy. See [`ogcore.TPI.py`](https://github.com/PSLmodels/OG-Core/blob/master/ogcore/TPI.py) for what is in the dictionary object in this pickle file
+    * An analogous set of files in the `./examples/OUTPUT_REFORM` directory, which represent objects from the simulation of the reform policy.
 
 Note that, depending on your machine, a full model run (solving for the full time path equilibrium for the baseline and reform policies) can take more than two hours of compute time.
 
@@ -62,7 +56,7 @@ p.update_specifications({'initial_debt_ratio': updated_params['initial_debt_rati
 The core maintainers of the OG-Core repository are:
 
 * [Jason DeBacker](https://www.jasondebacker.com/) (GitHub handle: [jdebacker](https://github.com/jdebacker)), Associate Professor, Department of Economics, Darla Moore School of Business, University of South Carolina; President, PSL Foundation; Vice President of Research and Co-founder, Open Research Group, Inc.
-* [Richard W. Evans](https://sites.google.com/site/rickecon/) (GitHub handle: [rickecon](https://github.com/rickecon)), Senior Research Fellow and Director of Open Policy, Center for Growth and Opportunity at Utah State University; President, Open Research Group, Inc.; Director, Open Source Economics Laboratory.
+* [Richard W. Evans](https://sites.google.com/site/rickecon/) (GitHub handle: [rickecon](https://github.com/rickecon)), Senior Economist, Abundance Institute; President, Open Research Group, Inc.; Director, Open Source Economics Laboratory.
 
 ## Citing OG-USA
 

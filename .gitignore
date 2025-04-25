@@ -30,6 +30,7 @@ htmlcov/*
 *.sublime*
 .DS_Store
 *puf.csv
+*tmd*.csv*
 *tax_func_loop_inputs_large.pkl
 */OUTPUT/*
 envs/
@@ -40,9 +41,9 @@ envs/
 docs/book/_build/*
 docs/build*
 *micro_data_*.pkl
-examples/OG-USA_example_plots/*
-examples/ogusa_example_output.csv
-examples/OG-USA-Example/*
+examples/Example/*
+examples/Example-TMD/*
+examples/CP-Example/*
 cs-config/cs_config/OUTPUT_BASELINE/*
 data/csv_output_files/*
 data/images/*
@@ -51,3 +52,5 @@ ogusa/csv_output_files/*
 ogusa/images/*
 .vscode/
 *default.profraw
+*first_stage_reg_results.pkl*
+*hh_id_two_statuses.csv*

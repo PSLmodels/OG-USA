@@ -4,6 +4,7 @@ import pytest
 from pandas.testing import assert_frame_equal
 import numpy as np
 import os
+from pathlib import Path
 from ogusa.constants import TC_LAST_YEAR
 from ogusa import get_micro_data
 from ogcore import utils
@@ -13,7 +14,7 @@ NUM_WORKERS = min(multiprocessing.cpu_count(), 7)
 # get path to puf if puf.csv in ogusa/ directory
 CUR_PATH = os.path.abspath(os.path.dirname(__file__))
 PUF_PATH = os.path.join(CUR_PATH, "..", "puf.csv")
-TMD_PATH = os.path.join(CUR_PATH, "..", "tmd.csv.gz")
+TMD_DIR = os.path.join(CUR_PATH, "..")
 
 
 @pytest.fixture(scope="module")
@@ -104,22 +105,29 @@ def test_tmd_path():
     reform = {"II_em": {2017: 10000}}
 
     # puf.csv in ogusa/
-    if os.path.exists(TMD_PATH):
+    if os.path.exists(os.path.join(TMD_DIR, "tmd.csv.gz")):
         calc = get_micro_data.get_calculator(
-            start_year, iit_reform=reform, data=TMD_PATH
+            start_year,
+            iit_reform=reform,
+            data=Path(TMD_DIR, "tmd.csv.gz"),
+            weights=Path(TMD_DIR, "tmd_weights.csv.gz"),
+            gfactors=Path(TMD_DIR, "tmd_growfactors.csv"),
+            records_start_year=Records.TMDCSV_YEAR,
         )
         # blind_head is only in the CPS file and e00700 is only in the
         # PUF.  See taxcalc/records_variables.json
         assert calc.array("e00700").sum() > 0
     # we do not have puf.csv
     else:
-        # make sure TC is looking for puf.csv
+        # make sure TC is looking for tmd.csv
         with pytest.raises((IOError, ValueError), match="tmd.csv.gz"):
             get_micro_data.get_calculator(
                 start_year,
                 iit_reform=reform,
+                data=Path(TMD_DIR, "tmd.csv.gz"),
+                weights=Path(TMD_DIR, "tmd_weights.csv.gz"),
+                gfactors=Path(TMD_DIR, "tmd_growfactors.csv"),
                 records_start_year=Records.TMDCSV_YEAR,
-                data=TMD_PATH,
             )
 
 

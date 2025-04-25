@@ -30,7 +30,7 @@ def main():
 
     # Directories to save data
     CUR_DIR = os.path.dirname(os.path.realpath(__file__))
-    save_dir = os.path.join(CUR_DIR, "CP-Example")
+    save_dir = os.path.join(CUR_DIR, "Example-CP")
     base_dir = os.path.join(save_dir, "OUTPUT_BASELINE")
     reform_dir = os.path.join(save_dir, "OUTPUT_REFORM")
 

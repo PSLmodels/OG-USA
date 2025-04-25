@@ -43,7 +43,7 @@ docs/build*
 *micro_data_*.pkl
 examples/Example/*
 examples/Example-TMD/*
-examples/CP-Example/*
+examples/Example-CP/*
 cs-config/cs_config/OUTPUT_BASELINE/*
 data/csv_output_files/*
 data/images/*

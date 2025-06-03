@@ -7,15 +7,17 @@ import urllib3
 import ssl
 
 
-def read_cbo_forecast():
+def read_cbo_forecast(
+        lt_url="https://www.cbo.gov/system/files/2020-09/51119-2020-09-ltbo_0.xlsx",
+        ten_year_budget_url="https://www.cbo.gov/system/files/2021-02/51118-2021-02-11-budgetprojections.xlsx",
+        ten_year_macro_url="https://www.cbo.gov/system/files/2021-02/51135-2021-02-economicprojections.xlsx"
+        ):
     """
     This function reads the CBO Long-Term Budget Projections document
     from https://www.cbo.gov/about/products/budget-economic-data#1
     and then formats the relevant data for use with OG-Core
     """
-    CBO_LT_URL = (
-        "https://www.cbo.gov/system/files/2020-09/51119-2020-09-ltbo_0.xlsx"
-    )
+    CBO_LT_URL = lt_url
     # Read in data
     df = pd.read_excel(
         CBO_LT_URL, sheet_name="3. Economic Vars", skiprows=7, nrows=45
@@ -83,10 +85,7 @@ def read_cbo_forecast():
     )
     df_lt["D"] = df_lt["Y"] * df_lt["D/Y"]
 
-    CBO_10yr_budget_URL = (
-        "https://www.cbo.gov/system/files/2021-02/51118-2021-02-11-"
-        + "budgetprojections.xlsx"
-    )
+    CBO_10yr_budget_URL = ten_year_budget_url
     df = pd.read_excel(
         CBO_10yr_budget_URL, sheet_name="Table 1-1", skiprows=8, nrows=7
     )
@@ -105,10 +104,7 @@ def read_cbo_forecast():
     df.drop_duplicates(subset="variable", keep="last", inplace=True)
     df2 = df[~pd.isnull(df.variable)]
 
-    CBO_10yr_macro_URL = (
-        "https://www.cbo.gov/system/files/2021-02/51135-2021-02-"
-        + "economicprojections.xlsx"
-    )
+    CBO_10yr_macro_URL = ten_year_macro_url
     df = pd.read_excel(
         CBO_10yr_macro_URL,
         sheet_name="2. Calendar Year",

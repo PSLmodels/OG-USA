@@ -12,6 +12,10 @@ def read_cbo_forecast(
     lt_budget_url="https://www.cbo.gov/system/files/2025-03/51119-2025-03-LTBO-budget.xlsx",
     ten_year_budget_url="https://www.cbo.gov/system/files/2025-01/51118-2025-01-Budget-Projections.xlsx",
     ten_year_macro_url="https://www.cbo.gov/system/files/2025-01/51135-2025-01-Economic-Projections.xlsx",
+    lt_start_year=1995,
+    lt_end_year=2055,
+    st_start_year=2024,
+    st_end_year=2035,
 ):
     """
     This function reads the CBO Long-Term Budget Projections document
@@ -76,7 +80,7 @@ def read_cbo_forecast(
     df = pd.melt(
         df,
         id_vars="var_name",
-        value_vars=[i for i in range(1995, 2056)],  # TODO: make this flexible
+        value_vars=[i for i in range(lt_start_year, lt_end_year + 1)],
     )
     df_rates = df.pivot(index="variable", columns="var_name", values="value")
     df_rates.reset_index(inplace=True)
@@ -118,8 +122,8 @@ def read_cbo_forecast(
     df.rename(
         columns={
             "Unnamed: 0": "variable",
-            "Actual, 2024": 2024,
-        },  # TODO: make this flexible?
+            "Actual, 2024": st_start_year,
+        },
         inplace=True,
     )
     df.drop(columns=["2026–2030", "2026–2035"], inplace=True)
@@ -144,8 +148,8 @@ def read_cbo_forecast(
     df.rename(
         columns={
             "Unnamed: 0": "variable",
-            "Actual, 2024": 2024,
-        },  # TODO: make this flexible?
+            "Actual, 2024": st_start_year,
+        },
         inplace=True,
     )
     df.drop(columns=["2026–2030", "2026–2035"], inplace=True)
@@ -189,9 +193,7 @@ def read_cbo_forecast(
     df_st = pd.melt(
         df_st,
         id_vars="var_name",
-        value_vars=[
-            i for i in range(2024, 2036)
-        ],  # TODO: make this flexible: macro 10 year is 2024-2035
+        value_vars=[i for i in range(st_start_year, st_end_year + 1)],
     )
     df_st = df_st.pivot(
         index="variable", columns="var_name", values="value"

@@ -7,51 +7,69 @@ import urllib3
 import ssl
 
 
-def read_cbo_forecast():
+def read_cbo_forecast(
+    lt_econ_url="https://www.cbo.gov/system/files/2025-03/57054-2025-03-LTBO-econ.xlsx",
+    lt_budget_url="https://www.cbo.gov/system/files/2025-03/51119-2025-03-LTBO-budget.xlsx",
+    ten_year_budget_url="https://www.cbo.gov/system/files/2025-01/51118-2025-01-Budget-Projections.xlsx",
+    ten_year_macro_url="https://www.cbo.gov/system/files/2025-01/51135-2025-01-Economic-Projections.xlsx",
+    lt_start_year=1995,
+    lt_end_year=2055,
+    st_start_year=2024,
+    st_end_year=2035,
+):
     """
     This function reads the CBO Long-Term Budget Projections document
     from https://www.cbo.gov/about/products/budget-economic-data#1
-    and then formats the relevant data for use with OG-Core
+    and then formats the relevant data for use with OG-Core.
+
+    Warning: CBO spreadsheets are not consistent across years so you may
+    run into errors passing different URLs to this function.
     """
-    CBO_LT_URL = (
-        "https://www.cbo.gov/system/files/2020-09/51119-2020-09-ltbo_0.xlsx"
-    )
-    # Read in data
-    df = pd.read_excel(
-        CBO_LT_URL, sheet_name="3. Economic Vars", skiprows=7, nrows=45
-    )
-    df.drop(columns=["Unnamed: 3", "Unnamed: 4"], inplace=True)
-    df[
-        ~(
-            (pd.isnull(df["Unnamed: 0"]))
-            & (pd.isnull(df["Unnamed: 1"]))
-            & (pd.isnull(df["Unnamed: 2"]))
-        )
-    ]
-    # df.fillna(value=np.nan, inplace=True)
-    df.fillna(value="", inplace=True)
-    df["full_var_name"] = (
-        df["Unnamed: 0"] + df["Unnamed: 1"] + df["Unnamed: 2"]
-    )
     CBO_VAR_NAMES = {
-        "Real GDP (Billions of 2019 dollars) ": "Y",
-        "On 10-year Treasury notes and the OASDI trust funds": "r",
-        "Growth of Real Earnings per Worker": "w_growth",
-        "Growth of Total Hours Worked": "L_growth",
-        "Hours of All Persons (Nonfarm Business Sector)": "L",
-        "Personal Consumption Expenditures": "C",
-        "Gross Private Domestic Investment": "I_total",
+        "Real GDP (trillions of 2017 dollars)": "Y",
+        "Real rates": "r",
+        "Growth of real earnings per worker": "w_growth",
+        "Growth of total hours worked": "L_growth",
+        "Hours of All Persons (nonfarm business sector)": "L",
+        "Personal consumption expenditures": "C",
+        "Gross private domestic investment": "I_total",
         "Government Consumption Expenditures and Gross Investment": "G",
         "Old-Age and Survivors Insurance": "agg_pension_outlays",
         "Individual income taxes": "iit_revenue",
         "Payroll taxes": "payroll_tax_revenue",
         "Corporate income taxes": "business_tax_revenue",
-        "Wages and Salaries": "wL",
+        "U.S. wage and salary disbursements\n (trillions of dollars)": "wL",
     }
-    df["var_name"] = df["full_var_name"].replace(CBO_VAR_NAMES)
+
+    # Econ data in levels
+    # Read in data
+    df = pd.read_excel(
+        lt_econ_url,
+        sheet_name="3. Econ Vars_Annual Levels",
+        skiprows=6,
+        nrows=62,
+    )
+    # replace column names with full variable names
+    df.rename(columns=CBO_VAR_NAMES, inplace=True)
+    # keep only variables that map to model variables
+    df.set_index("Year", inplace=True)
+    df_levels = df.loc[:, df.columns.isin(CBO_VAR_NAMES.values())]
+    df_levels.reset_index(inplace=True)
+
+    # Econ data in rates
+    # Read in data
+    df = pd.read_excel(
+        lt_econ_url,
+        sheet_name="1. Econ Vars_Annual Rates",
+        skiprows=7,
+        nrows=39,
+    )
+    df[~((pd.isnull(df["Unnamed: 0"])))]
+    df.rename(columns={"Unnamed: 0": "variable"}, inplace=True)
+    df["var_name"] = df["variable"].replace(CBO_VAR_NAMES)
     # keep just variables of interest
     df.drop(
-        columns=["Unnamed: 0", "Unnamed: 1", "Unnamed: 2", "full_var_name"],
+        columns=["variable"],
         inplace=True,
     )
     df = df[df["var_name"].isin(CBO_VAR_NAMES.values())]
@@ -60,82 +78,129 @@ def read_cbo_forecast():
     df.drop_duplicates(subset="var_name", inplace=True)
     # reshape so that variable names down column
     df = pd.melt(
-        df, id_vars="var_name", value_vars=[i for i in range(1990, 2051)]
+        df,
+        id_vars="var_name",
+        value_vars=[i for i in range(lt_start_year, lt_end_year + 1)],
     )
-    df = df.pivot(index="variable", columns="var_name", values="value")
-    df.reset_index(inplace=True)
-    df.rename(columns={"variable": "year"}, inplace=True)
-    # add debt forcast
+    df_rates = df.pivot(index="variable", columns="var_name", values="value")
+    df_rates.reset_index(inplace=True)
+    df_rates.rename(columns={"variable": "Year"}, inplace=True)
+
+    # add debt forecast
     df_fiscal = pd.read_excel(
-        CBO_LT_URL,
-        sheet_name="1. Summary Extended Baseline",
+        lt_budget_url,  # Need to define this variable in args or at the top
+        sheet_name="1. Summary Ext Baseline",
         skiprows=9,
         nrows=32,
     )
     df_fiscal = df_fiscal[
-        ["Fiscal Year", "Revenues", "Federal Debt Held by the Public"]
+        ["Fiscal year", "Total", "Federal debt held by the public"]
     ]
-    df_lt = df.merge(
-        df_fiscal, left_on="year", right_on="Fiscal Year", how="left"
+    # rename Total to "Revenues"
+    df_fiscal.rename(columns={"Total": "Revenues"}, inplace=True)
+    # merge to macro levels data
+    df_lt = df_fiscal.merge(
+        df_levels, left_on="Fiscal year", right_on="Year", how="left"
+    )
+    # merge to macro rates data
+    df_lt = df_lt.merge(
+        df_rates, left_on="Fiscal year", right_on="Year", how="left"
     )
     df_lt.rename(
-        columns={"Federal Debt Held by the Public": "D/Y"}, inplace=True
+        columns={"Federal debt held by the public": "D/Y"}, inplace=True
     )
     df_lt["D"] = df_lt["Y"] * df_lt["D/Y"]
-
-    CBO_10yr_budget_URL = (
-        "https://www.cbo.gov/system/files/2021-02/51118-2021-02-11-"
-        + "budgetprojections.xlsx"
-    )
+    # drop Year_x, Year_y columns
+    df_lt.drop(columns=["Year_x", "Year_y"], inplace=True)
+    # rename Fiscal year to year
+    df_lt.rename(columns={"Fiscal year": "year"}, inplace=True)
+    # %%
+    #  10 year budget
     df = pd.read_excel(
-        CBO_10yr_budget_URL, sheet_name="Table 1-1", skiprows=8, nrows=7
+        ten_year_budget_url, sheet_name="Table B-1", skiprows=7, nrows=7
     )
     df.rename(
-        columns={"Unnamed: 0": "variable", "Actual, \n2020": 2020},
+        columns={
+            "Unnamed: 0": "variable",
+            "Actual, 2024": st_start_year,
+        },
         inplace=True,
     )
-    df.drop(columns=["2026.1", "2031.1"], inplace=True)
-    df1 = df[~((pd.isnull(df.variable)) | (df.variable == "Other"))]
-
+    df.drop(columns=["2026–2030", "2026–2035"], inplace=True)
+    df1 = df[
+        ~(
+            (pd.isnull(df.variable))
+            | (df.variable == "Other")
+            | (df.variable == "Revenues")
+        )
+    ]
+    # cast all year columns to float
+    df1.iloc[:, 1:] = df1.iloc[:, 1:].astype(float)
+    # cast all year column names to int
+    df1.columns = [
+        int(i) if isinstance(i, str) and i.isdigit() else i
+        for i in df1.columns
+    ]
+    # data from other table
     df = pd.read_excel(
-        CBO_10yr_budget_URL, sheet_name="Table 1-3", skiprows=9, nrows=22
+        ten_year_budget_url, sheet_name="Table B-4", skiprows=8, nrows=18
     )
-    df.rename(columns={"Unnamed: 0": "variable"}, inplace=True)
-    df.drop(columns=["2026.1", "2031.1"], inplace=True)
+    df.rename(
+        columns={
+            "Unnamed: 0": "variable",
+            "Actual, 2024": st_start_year,
+        },
+        inplace=True,
+    )
+    df.drop(columns=["2026–2030", "2026–2035"], inplace=True)
     df.drop_duplicates(subset="variable", keep="last", inplace=True)
     df2 = df[~pd.isnull(df.variable)]
+    # cast all year columns to float
+    df2.iloc[:, 1:] = df2.iloc[:, 1:].astype(float)
+    # cast all year column names to int
+    df2.columns = [
+        int(i) if isinstance(i, str) and i.isdigit() else i
+        for i in df2.columns
+    ]
 
-    CBO_10yr_macro_URL = (
-        "https://www.cbo.gov/system/files/2021-02/51135-2021-02-"
-        + "economicprojections.xlsx"
-    )
+    # %%
+    # 10 year macro forecast
     df = pd.read_excel(
-        CBO_10yr_macro_URL,
+        ten_year_macro_url,
         sheet_name="2. Calendar Year",
         skiprows=6,
         nrows=131,
     )
-    df.rename(columns={"Unnamed: 1": "variable"}, inplace=True)
-    df.drop(columns=["Unnamed: 0", "Unnamed: 2", "Units"], inplace=True)
+    df.rename(columns={"Unnamed: 0": "variable"}, inplace=True)
     # Note that real values come second (after nominal values)
     df.drop_duplicates(subset="variable", keep="last", inplace=True)
+    df.drop(columns=["Units"], inplace=True)
     df3 = df[~pd.isnull(df.variable)]
+    # cast all year columns to float
+    df3.iloc[:, 1:] = df3.iloc[:, 1:].astype(float)
+    # cast all year column names to int
+    df3.columns = [
+        int(i) if isinstance(i, str) and i.isdigit() else i
+        for i in df3.columns
+    ]
+    # it's creating a lot of NaN values in the final dataframe
     df_st = pd.concat([df1, df2, df3], sort=False, ignore_index=True)
-    # df_st = df1.append(df2, sort=False, ignore_index=True).append(
-    #     df3, sort=False, ignore_index=True
-    # )
+
     df_st["var_name"] = df_st["variable"].replace(CBO_VAR_NAMES)
     df_st = df_st[~pd.isnull(df_st.var_name)]
     df_st.drop(columns=["variable"], inplace=True)
     # reshape so each row a year
     df_st = pd.melt(
-        df_st, id_vars="var_name", value_vars=[i for i in range(2017, 2031)]
+        df_st,
+        id_vars="var_name",
+        value_vars=[i for i in range(st_start_year, st_end_year + 1)],
     )
     df_st = df_st.pivot(
         index="variable", columns="var_name", values="value"
     ).reset_index()
     df_st.rename(columns={"variable": "year"}, inplace=True)
 
+    # %%
     # merge with long term data
     df_cbo = df_lt.merge(
         df_st, how="outer", on="year", suffixes=("_lt", "_st")

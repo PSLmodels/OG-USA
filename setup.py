@@ -34,7 +34,7 @@ setuptools.setup(
         "matplotlib",
         "dask>=2.30.0",
         "distributed>=2.30.1",
-        "paramtools>=0.15.0",
+        "paramtools>=0.20.0",
         "taxcalc>=3.0.0",
         "requests",
         "pandas-datareader",

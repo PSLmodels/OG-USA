@@ -11,7 +11,8 @@ print(paste0('Directory to save files = ', mydir))
 
 # Read in PSID variable crosswalk file from PSID website
 # cwf = openxlsx::read.xlsx(system.file(package="psidR","psid-lists","psid.xlsx"))
-cwf <- read.xlsx("http://psidonline.isr.umich.edu/help/xyr/psid.xlsx")
+# cwf <- read.xlsx("http://psidonline.isr.umich.edu/help/xyr/psid.xlsx")
+cwf = openxlsx::read.xlsx(system.file(package="psidR","psid-lists","psid.xlsx"))
 
 # Set survey years to pull
 years_to_pull = c(1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977,

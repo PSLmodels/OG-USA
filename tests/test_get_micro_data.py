@@ -104,7 +104,6 @@ def test_tmd_path():
     start_year = 2016
     reform = {"II_em": {2017: 10000}}
 
-    # puf.csv in ogusa/
     if os.path.exists(os.path.join(TMD_DIR, "tmd.csv.gz")):
         calc = get_micro_data.get_calculator(
             start_year,

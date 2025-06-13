@@ -52,7 +52,6 @@ setuptools.setup(
         "License :: OSI Approved :: Common Public License",
         "Operating System :: POSIX",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
         "Topic :: Scientific/Engineering :: Information Analysis",

@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.3] - 2025-06-12 12:00:00
+
+### Added
+
+- Updates `utils.read_cbo_forecast` to use 2025 forecasts
+- Environment uses more recent `paramtools` to avoid `marshmallow` dependency issues
+
 ## [0.2.2] - 2025-04-25 12:00:00
 
 ### Added
@@ -153,6 +160,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Any earlier versions of OG-USA can be found in the [`OG-Core`](https://github.com/PSLmodels/OG-Core) repository [release history](https://github.com/PSLmodels/OG-Core/releases) from [v.0.6.4](https://github.com/PSLmodels/OG-Core/releases/tag/v0.6.4) (Jul. 20, 2021) or earlier.
 
 
+[0.2.3]: https://github.com/PSLmodels/OG-USA/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/PSLmodels/OG-USA/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/PSLmodels/OG-USA/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/PSLmodels/OG-USA/compare/v0.1.12...v0.2.0

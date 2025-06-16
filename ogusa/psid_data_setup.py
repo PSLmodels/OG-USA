@@ -423,15 +423,17 @@ def prep_data(
     # Put in bins
     groups = [0.0, 0.25, 0.5, 0.7, 0.8, 0.9, 0.99, 1.0]
     cats_pct = ["0-25", "26-50", "51-70", "71-80", "81-90", "91-99", "100"]
-    li_df = li_df.join(
-        pd.get_dummies(pd.cut(li_df["li_percentile"], groups, labels=cats_pct))
-    ).copy()
+    dummies = pd.get_dummies(
+        pd.cut(li_df["li_percentile"], groups, labels=cats_pct)
+    )
+    li_df = pd.concat([li_df, dummies], axis=1).copy()
     li_df["li_group"] = pd.cut(li_df["li_percentile"], groups)
     deciles = list(np.arange(0.0, 1.1, 0.10))
     cats_10 = ["D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10"]
-    li_df = li_df.join(
-        pd.get_dummies(pd.cut(li_df["li_percentile"], deciles, labels=cats_10))
-    ).copy()
+    dummies = pd.get_dummies(
+        pd.cut(li_df["li_percentile"], deciles, labels=cats_10)
+    )
+    li_df = pd.concat([li_df, dummies], axis=1).copy()
     li_df["li_decile"] = pd.cut(li_df["li_percentile"], deciles)
 
     # Merge lifetime income to panel

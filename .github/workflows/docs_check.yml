@@ -26,7 +26,7 @@ jobs:
           miniconda-version: "latest"
           activate-environment: ogusa-dev
           environment-file: environment.yml
-          python-version: "3.11"
+          python-version: "3.12"
           auto-activate-base: false
 
       - name: Build # Build Jupyter Book

@@ -37,4 +37,4 @@ dependencies:
   - cs-kit
   - cs2tc
   - pandas-datareader
-  - ogcore>=0.14.6
+  - ogcore

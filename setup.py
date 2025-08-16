@@ -25,7 +25,7 @@ setuptools.setup(
         ]
     },
     include_packages=True,
-    python_requires=">3.11.0, <3.14",
+    python_requires=">=3.12.0, <3.14",
     install_requires=[
         "numpy",
         "psutil",

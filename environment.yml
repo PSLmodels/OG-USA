@@ -2,7 +2,7 @@ name: ogusa-dev
 channels:
 - conda-forge
 dependencies:
-- python>=3.11,<3.13
+- python>=3.12,<3.14
 - numpy
 - setuptools
 - wheel
@@ -14,7 +14,7 @@ dependencies:
 - dask-core>=2.30.0
 - distributed>=2.30.1
 - paramtools>=0.20.0
-- taxcalc>=4.0.0
+# - taxcalc==5.2.0
 - ipython
 - ipykernel
 - jupyter
@@ -38,3 +38,4 @@ dependencies:
   - cs2tc
   - pandas-datareader
   - ogcore
+  - taxcalc>=5.2.0

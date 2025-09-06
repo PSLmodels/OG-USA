@@ -79,13 +79,14 @@ def main():
     # Grab a reform JSON file already in Tax-Calculator
     # In this example the 'reform' is a change to 2017 law (the
     # baseline policy is tax law in 2018)
-    reform_url = (
-        "github://PSLmodels:Tax-Calculator@master/taxcalc/"
-        + "reforms/2017_law.json"
-    )
+    # reform_url = (
+    #     "github://PSLmodels:Tax-Calculator@master/taxcalc/"
+    #     + "reforms/2017_law.json"
+    # )
 
-    ref = Calculator.read_json_param_objects(reform_url, None)
-    iit_reform = ref["policy"]
+    # ref = Calculator.read_json_param_objects(reform_url, None)
+    # iit_reform = ref["policy"]
+    iit_reform = {}
 
     # create new Specifications object for reform simulation
     p2 = copy.deepcopy(p)

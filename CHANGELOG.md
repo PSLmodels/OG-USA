@@ -9,10 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Updated `ogusa_default_parameters_j10` and `ogusa_default_parameters_j7`
-- Set `run_ogusa.py` example run script to use `ogusa_default_parameters_j7`
-- Set `jupyter-book<2.0.0` in `environment.yml`
-- Updated copyright to 2026 in `_config.yml`
+- Updates `ogusa_default_parameters_j10` and `ogusa_default_parameters_j7`
+- Sets `run_ogusa.py` example run script to use `ogusa_default_parameters_j7`
+- Sets `jupyter-book<2.0.0` in `environment.yml`
+- Updates copyright to 2026 in `_config.yml`
 
 ## [0.3.1] - 2025-09-24 18:00:00
 

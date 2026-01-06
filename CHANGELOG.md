@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.2] - 2026-01-05 12:00:00
+
+### Added
+
+- Updated `ogusa_default_parameters_j10` and `ogusa_default_parameters_j7`
+- Set `run_ogusa.py` example run script to use `ogusa_default_parameters_j7`
+- Set `jupyter-book<2.0.0` in `environment.yml`
+- Updated copyright to 2026 in `_config.yml`
+
 ## [0.3.1] - 2025-09-24 18:00:00
 
 ### Bug Fixes
@@ -179,6 +188,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Any earlier versions of OG-USA can be found in the [`OG-Core`](https://github.com/PSLmodels/OG-Core) repository [release history](https://github.com/PSLmodels/OG-Core/releases) from [v.0.6.4](https://github.com/PSLmodels/OG-Core/releases/tag/v0.6.4) (Jul. 20, 2021) or earlier.
 
 
+[0.3.2]: https://github.com/PSLmodels/OG-USA/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/PSLmodels/OG-USA/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/PSLmodels/OG-USA/compare/v0.2.4...v0.3.0
 [0.2.4]: https://github.com/PSLmodels/OG-USA/compare/v0.2.3...v0.2.4

@@ -36,6 +36,7 @@ setuptools.setup(
         "distributed>=2.30.1",
         "paramtools>=0.20.0",
         "taxcalc>=4.6.0",
+        "behresp",
         "requests",
         "pandas-datareader",
         "xlwt",

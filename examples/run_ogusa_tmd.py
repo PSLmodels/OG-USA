@@ -50,7 +50,7 @@ def main(tmd_dir=None):
     )
     # Update parameters for baseline from default json file
     with importlib.resources.open_text(
-        "ogusa", "ogusa_default_parameters.json"
+        "ogusa", "ogusa_default_parameters_j10.json"
     ) as file:
         defaults = json.load(file)
     p.update_specifications(defaults)

@@ -5786,6 +5786,16 @@
             0.0
         ]
     ],
+    "income_tax_filer": [
+        [
+            1.0
+        ]
+    ],
+    "wealth_tax_filer": [
+        [
+            1.0
+        ]
+    ],
     "nu": 0.4,
     "SS_root_method": "hybr",
     "FOC_root_method": "hybr",

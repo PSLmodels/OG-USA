@@ -39,6 +39,56 @@ Note that, depending on your machine, a full model run (solving for the full tim
 
 If you run into errors running the example script, please open a new issue in the OG-USA repo with a description of the issue and any relevant tracebacks you receive.
 
+## Interactive Web Application
+
+OG-USA includes a browser-based GUI that lets you adjust model parameters, launch a run, and view results without writing any Python.
+
+### Launch locally
+
+**Option 1 — double-click (macOS)**
+
+After completing the setup steps above, make the launcher executable once:
+```bash
+chmod +x launch_ogusa.command
+```
+Then double-click `launch_ogusa.command` in Finder. A Terminal window will open, activate the `ogusa-dev` environment, start the Panel server, and open the app in your default browser at `http://localhost:5006/app`.
+
+**Option 2 — command line**
+
+```bash
+conda activate ogusa-dev
+panel serve ogusa/app/app.py --show --address localhost --port 5006 --prefix /app --allow-websocket-origin localhost:5006
+```
+
+### Hosted deployment
+
+To serve the app on a remote machine (e.g., an EC2 instance or a university server), run:
+```bash
+panel serve ogusa/app/app.py --address 0.0.0.0 --port 5006 --allow-websocket-origin <your-domain-or-ip>:5006
+```
+Place an nginx reverse proxy in front of it for HTTPS in production.
+
+### Email notifications (optional)
+
+For runs that take 30–90 minutes, the app can email you when a run finishes. Set the following environment variables before launching:
+
+```bash
+export OGUSA_SMTP_HOST=smtp.gmail.com   # your SMTP server
+export OGUSA_SMTP_PORT=587
+export OGUSA_SMTP_USER=you@example.com
+export OGUSA_SMTP_PASS=your-app-password
+```
+
+Then enter your address in the **Notify email** field in the app sidebar before clicking **Run Model**.
+
+### Output location
+
+Each run saves baseline and reform output to a timestamped subdirectory of `~/.ogusa_app/runs/`, e.g.:
+```
+~/.ogusa_app/runs/20250321_143022/OUTPUT_BASELINE/
+~/.ogusa_app/runs/20250321_143022/OUTPUT_REFORM/
+```
+
 Once the package is installed, one can adjust parameters in the OG-Core `Specifications` object using the `Calibration` class as follows:
 
 ```
@@ -55,7 +105,7 @@ p.update_specifications({'initial_debt_ratio': updated_params['initial_debt_rati
 
 The core maintainers of the OG-Core repository are:
 
-* [Jason DeBacker](https://www.jasondebacker.com/) (GitHub handle: [jdebacker](https://github.com/jdebacker)), Associate Professor, Department of Economics, Darla Moore School of Business, University of South Carolina; President, PSL Foundation; Vice President of Research and Co-founder, Open Research Group, Inc.
+* [Jason DeBacker](https://www.jasondebacker.com/) (GitHub handle: [jdebacker](https://github.com/jdebacker)), Professor, Department of Economics, Darla Moore School of Business, University of South Carolina; President, PSL Foundation; Vice President of Research and Co-founder, Open Research Group, Inc.
 * [Richard W. Evans](https://sites.google.com/site/rickecon/) (GitHub handle: [rickecon](https://github.com/rickecon)), Senior Economist, Abundance Institute; President, Open Research Group, Inc.; Director, Open Source Economics Laboratory.
 
 ## Citing OG-USA

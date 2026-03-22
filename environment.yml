@@ -34,8 +34,7 @@ dependencies:
 - pip
 - pip:
   - openpyxl>=3.1.2
-  - cs-kit
-  - cs2tc
+  - panel>=1.3
   - pandas-datareader
   - ogcore
   - taxcalc>=5.2.0

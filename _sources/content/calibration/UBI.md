@@ -57,6 +57,8 @@ We have included the modeling of a universal basic income (UBI) policy directly 
 (SecUBIfootnotes)=
 ## Footnotes
 
+This section contains the footnotes.
+
 [^HOH_age_dist_note]: DeBacker and Evans compared the `OG-USA` age demographics $\hat{\omega}_{s,t}$ with the respective age demographics in Tax Policy Center's microsimulation model and in [Tax-Calculator](https://github.com/PSLmodels/Tax-Calculator)'s microsimulation model. The latter two microsimulation models' age demographics are based on head of household tax filer age distributions, whereas `OG-USA`'s demographics are based on the population age distribution.
 
 [^GrowthAdj_note]: We impose this requirement of `ubi_growthadj = False` when `g_y_annual < 0` in the [`ogusa_default_parameters.json`](https://github.com/PSLmodels/OG-USA/blob/master/ogusa/ogusa_default_parameters.json) "validators" specification of the parameter.

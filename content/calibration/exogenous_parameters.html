@@ -534,21 +534,29 @@
 <td class="text-left"><p>Exogenous fraction of GDP for infrastructure investment</p></td>
 <td class="text-left"><p>[0.000…0.000]</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\alpha^{BS}_{T,t}\)</span></p></td>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\phi_g\)</span></p></td>
+<td class="text-left"><p>Infrastructure investment leakage rate</p></td>
+<td class="text-left"><p>0.00E+00</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\alpha^{BS}_{T,t}\)</span></p></td>
 <td class="text-left"><p>Proportional adjustment to government transfers relative to baseline amount when budget balance is true</p></td>
 <td class="text-left"><p>[1.000…1.000]</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\alpha^{BS}_{G,t}\)</span></p></td>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\alpha^{BS}_{G,t}\)</span></p></td>
 <td class="text-left"><p>Proportional adjustment to government consumption expenditures relative to baseline amount when budget balance is true</p></td>
 <td class="text-left"><p>[1.000…1.000]</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\alpha^{BS}_{I,t}\)</span></p></td>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\alpha^{BS}_{I,t}\)</span></p></td>
 <td class="text-left"><p>Proportional adjustment to infrastructure spending relative to baseline amount when budget balance is true</p></td>
 <td class="text-left"><p>[1.000…1.000]</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\rho_{G}\)</span></p></td>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\rho_{G}\)</span></p></td>
 <td class="text-left"><p>Budget closure rule smoothing parameter</p></td>
 <td class="text-left"><p>0.100</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\alpha_{FA}\)</span></p></td>
+<td class="text-left"><p>Foreign aid as a share of GDP</p></td>
+<td class="text-left"><p>[0.000…0.000]</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\alpha_{RM,1}\)</span></p></td>
 <td class="text-left"><p>Remittances as a share of GDP in initial period</p></td>
@@ -686,51 +694,55 @@
 <td class="text-left"><p>Flag for use in reform simulations to keep Social Security system replacement rate constant between baseline and reform runs</p></td>
 <td class="text-left"><p>0.00E+00</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{start_year}\)</span></p></td>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{use_sparse_FOC_jac}\)</span></p></td>
+<td class="text-left"><p>Use a banded finite-difference Jacobian in the household solver</p></td>
+<td class="text-left"><p>1.000</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{start_year}\)</span></p></td>
 <td class="text-left"><p>Initial year</p></td>
 <td class="text-left"><p>2026</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{tax_func_type}\)</span></p></td>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{tax_func_type}\)</span></p></td>
 <td class="text-left"><p>Functional form used for income tax functions</p></td>
 <td class="text-left"><p>HSV</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\xi\)</span></p></td>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\xi\)</span></p></td>
 <td class="text-left"><p>Dampening parameter for TPI</p></td>
 <td class="text-left"><p>0.400</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{maxiter}\)</span></p></td>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{maxiter}\)</span></p></td>
 <td class="text-left"><p>Maximum number of iterations for TPI</p></td>
 <td class="text-left"><p>250</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{mindist_SS}\)</span></p></td>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{mindist_SS}\)</span></p></td>
 <td class="text-left"><p>SS solution tolerance</p></td>
 <td class="text-left"><p>1.00E-09</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{mindist_TPI}\)</span></p></td>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\texttt{mindist_TPI}\)</span></p></td>
 <td class="text-left"><p>TPI solution tolerance</p></td>
 <td class="text-left"><p>1.00E-05</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\omega_{s,t}\)</span></p></td>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\omega_{s,t}\)</span></p></td>
 <td class="text-left"><p>Population by age over time</p></td>
 <td class="text-left"><p>Too large to report here, see default parameters JSON</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\bar{\omega}_s\)</span></p></td>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\bar{\omega}_s\)</span></p></td>
 <td class="text-left"><p>Steady-state population distribution</p></td>
 <td class="text-left"><p>[0.014…0.001]</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(g_{n,t}\)</span></p></td>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(g_{n,t}\)</span></p></td>
 <td class="text-left"><p>Population growth rate over the time path</p></td>
 <td class="text-left"><p>[0.006…-0.004]</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\bar{g}_n\)</span></p></td>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\bar{g}_n\)</span></p></td>
 <td class="text-left"><p>Population growth rate in the steady-state</p></td>
 <td class="text-left"><p>-3.55E-03</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(i_{s,t}\)</span></p></td>
+<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(i_{s,t}\)</span></p></td>
 <td class="text-left"><p>Immigration rates by age</p></td>
 <td class="text-left"><p>Too large to report here, see default parameters JSON</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><span class="math notranslate nohighlight">\(\rho_{s,t}\)</span></p></td>
+<tr class="row-even"><td class="text-left"><p><span class="math notranslate nohighlight">\(\rho_{s,t}\)</span></p></td>
 <td class="text-left"><p>Mortality rates by age</p></td>
 <td class="text-left"><p>Too large to report here, see default parameters JSON</p></td>
 </tr>

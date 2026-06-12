@@ -30,10 +30,12 @@
 | $\alpha^{T}_{t}$              | Transfers as a share of GDP                                                                                                  | [0.087...0.100]                                       |
 | $\alpha^{G}_{t}$              | Government spending as a share of GDP                                                                                        | [0.059...0.050]                                       |
 | $\alpha^{I}_{t}$              | Exogenous fraction of GDP for infrastructure investment                                                                      | [0.000...0.000]                                       |
+| $\phi_g$                      | Infrastructure investment leakage rate                                                                                       | 0.00E+00                                              |
 | $\alpha^{BS}_{T,t}$           | Proportional adjustment to government transfers relative to baseline amount when budget balance is true                      | [1.000...1.000]                                       |
 | $\alpha^{BS}_{G,t}$           | Proportional adjustment to government consumption expenditures relative to baseline amount when budget balance is true       | [1.000...1.000]                                       |
 | $\alpha^{BS}_{I,t}$           | Proportional adjustment to infrastructure spending relative to baseline amount when budget balance is true                   | [1.000...1.000]                                       |
 | $\rho_{G}$                    | Budget closure rule smoothing parameter                                                                                      | 0.100                                                 |
+| $\alpha_{FA}$                 | Foreign aid as a share of GDP                                                                                                | [0.000...0.000]                                       |
 | $\alpha_{RM,1}$               | Remittances as a share of GDP in initial period                                                                              | 0.00E+00                                              |
 | $\alpha_{RM,T}$               | Remittances as a share of GDP in long run                                                                                    | 0.00E+00                                              |
 | $g_{RM,t}$                    | Growth rate of remittances in initial periods                                                                                | [0.000...0.000]                                       |
@@ -68,6 +70,7 @@
 | $\texttt{budget_balance}$     | Whether have a balanced budget in each period                                                                                | 0.00E+00                                              |
 | $\texttt{baseline_spending}$  | Whether level of spending constant between the baseline and reform runs                                                      | 0.00E+00                                              |
 | $\texttt{baseline_theta}$     | Flag for use in reform simulations to keep Social Security system replacement rate constant between baseline and reform runs | 0.00E+00                                              |
+| $\texttt{use_sparse_FOC_jac}$ | Use a banded finite-difference Jacobian in the household solver                                                              | 1.000                                                 |
 | $\texttt{start_year}$         | Initial year                                                                                                                 | 2026                                                  |
 | $\texttt{tax_func_type}$      | Functional form used for income tax functions                                                                                | HSV                                                   |
 | $\xi$                         | Dampening parameter for TPI                                                                                                  | 0.400                                                 |

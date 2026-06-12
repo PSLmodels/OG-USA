@@ -353,6 +353,7 @@
                   
   <h1>Source code for ogusa.utils</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">io</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">gaussian_kde</span>
@@ -374,6 +375,16 @@
     <span class="s2">&quot;Accept-Language&quot;</span><span class="p">:</span> <span class="s2">&quot;en-US,en;q=0.9&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Referer&quot;</span><span class="p">:</span> <span class="s2">&quot;https://www.cbo.gov/&quot;</span><span class="p">,</span>
 <span class="p">}</span>
+<span class="n">CBO_FORECAST_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;CBO_forecasts&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_cbo_forecast_file</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the path to a locally saved CBO forecast workbook.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CBO_FORECAST_DIR</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_fetch_excel</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
@@ -385,13 +396,27 @@
     <span class="k">return</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
 
 
+<span class="k">def</span><span class="w"> </span><span class="nf">_excel_source</span><span class="p">(</span><span class="n">source</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a file-like object for URLs and a local path for saved files.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fspath</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">source</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">&quot;http://&quot;</span><span class="p">,</span> <span class="s2">&quot;https://&quot;</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="n">_fetch_excel</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+
+
 <div class="viewcode-block" id="read_cbo_forecast">
 <a class="viewcode-back" href="../../content/api/utils.html#ogusa.bequest_transmission.read_cbo_forecast">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">read_cbo_forecast</span><span class="p">(</span>
-    <span class="n">lt_econ_url</span><span class="o">=</span><span class="s2">&quot;https://www.cbo.gov/system/files/2025-03/57054-2025-03-LTBO-econ.xlsx&quot;</span><span class="p">,</span>
-    <span class="n">lt_budget_url</span><span class="o">=</span><span class="s2">&quot;https://www.cbo.gov/system/files/2025-03/51119-2025-03-LTBO-budget.xlsx&quot;</span><span class="p">,</span>
-    <span class="n">ten_year_budget_url</span><span class="o">=</span><span class="s2">&quot;https://www.cbo.gov/system/files/2025-01/51118-2025-01-Budget-Projections.xlsx&quot;</span><span class="p">,</span>
-    <span class="n">ten_year_macro_url</span><span class="o">=</span><span class="s2">&quot;https://www.cbo.gov/system/files/2025-01/51135-2025-01-Economic-Projections.xlsx&quot;</span><span class="p">,</span>
+    <span class="n">lt_econ_url</span><span class="o">=</span><span class="n">_cbo_forecast_file</span><span class="p">(</span><span class="s2">&quot;57054-2025-03-LTBO-econ.xlsx&quot;</span><span class="p">),</span>
+    <span class="n">lt_budget_url</span><span class="o">=</span><span class="n">_cbo_forecast_file</span><span class="p">(</span><span class="s2">&quot;51119-2025-03-LTBO-budget.xlsx&quot;</span><span class="p">),</span>
+    <span class="n">ten_year_budget_url</span><span class="o">=</span><span class="n">_cbo_forecast_file</span><span class="p">(</span>
+        <span class="s2">&quot;51118-2025-01-Budget-Projections.xlsx&quot;</span>
+    <span class="p">),</span>
+    <span class="n">ten_year_macro_url</span><span class="o">=</span><span class="n">_cbo_forecast_file</span><span class="p">(</span>
+        <span class="s2">&quot;51135-2025-01-Economic-Projections.xlsx&quot;</span>
+    <span class="p">),</span>
     <span class="n">lt_start_year</span><span class="o">=</span><span class="mi">1995</span><span class="p">,</span>
     <span class="n">lt_end_year</span><span class="o">=</span><span class="mi">2055</span><span class="p">,</span>
     <span class="n">st_start_year</span><span class="o">=</span><span class="mi">2024</span><span class="p">,</span>
@@ -424,7 +449,7 @@
     <span class="c1"># Econ data in levels</span>
     <span class="c1"># Read in data</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span>
-        <span class="n">_fetch_excel</span><span class="p">(</span><span class="n">lt_econ_url</span><span class="p">),</span>
+        <span class="n">_excel_source</span><span class="p">(</span><span class="n">lt_econ_url</span><span class="p">),</span>
         <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;3. Econ Vars_Annual Levels&quot;</span><span class="p">,</span>
         <span class="n">skiprows</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
         <span class="n">nrows</span><span class="o">=</span><span class="mi">62</span><span class="p">,</span>
@@ -439,7 +464,7 @@
     <span class="c1"># Econ data in rates</span>
     <span class="c1"># Read in data</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span>
-        <span class="n">_fetch_excel</span><span class="p">(</span><span class="n">lt_econ_url</span><span class="p">),</span>
+        <span class="n">_excel_source</span><span class="p">(</span><span class="n">lt_econ_url</span><span class="p">),</span>
         <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;1. Econ Vars_Annual Rates&quot;</span><span class="p">,</span>
         <span class="n">skiprows</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
         <span class="n">nrows</span><span class="o">=</span><span class="mi">39</span><span class="p">,</span>
@@ -468,7 +493,7 @@
 
     <span class="c1"># add debt forecast</span>
     <span class="n">df_fiscal</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span>
-        <span class="n">_fetch_excel</span><span class="p">(</span><span class="n">lt_budget_url</span><span class="p">),</span>
+        <span class="n">_excel_source</span><span class="p">(</span><span class="n">lt_budget_url</span><span class="p">),</span>
         <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;1. Summary Ext Baseline&quot;</span><span class="p">,</span>
         <span class="n">skiprows</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
         <span class="n">nrows</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
@@ -497,7 +522,7 @@
     <span class="c1"># %%</span>
     <span class="c1">#  10 year budget</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span>
-        <span class="n">_fetch_excel</span><span class="p">(</span><span class="n">ten_year_budget_url</span><span class="p">),</span>
+        <span class="n">_excel_source</span><span class="p">(</span><span class="n">ten_year_budget_url</span><span class="p">),</span>
         <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;Table B-1&quot;</span><span class="p">,</span>
         <span class="n">skiprows</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
         <span class="n">nrows</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
@@ -526,7 +551,7 @@
     <span class="p">]</span>
     <span class="c1"># data from other table</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span>
-        <span class="n">_fetch_excel</span><span class="p">(</span><span class="n">ten_year_budget_url</span><span class="p">),</span>
+        <span class="n">_excel_source</span><span class="p">(</span><span class="n">ten_year_budget_url</span><span class="p">),</span>
         <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;Table B-4&quot;</span><span class="p">,</span>
         <span class="n">skiprows</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
         <span class="n">nrows</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
@@ -552,7 +577,7 @@
     <span class="c1"># %%</span>
     <span class="c1"># 10 year macro forecast</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span>
-        <span class="n">_fetch_excel</span><span class="p">(</span><span class="n">ten_year_macro_url</span><span class="p">),</span>
+        <span class="n">_excel_source</span><span class="p">(</span><span class="n">ten_year_macro_url</span><span class="p">),</span>
         <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;2. Calendar Year&quot;</span><span class="p">,</span>
         <span class="n">skiprows</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
         <span class="n">nrows</span><span class="o">=</span><span class="mi">131</span><span class="p">,</span>

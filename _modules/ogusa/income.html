@@ -484,6 +484,61 @@
 
 
 
+<span class="k">def</span><span class="w"> </span><span class="nf">_arctan_fit_params</span><span class="p">(</span>
+    <span class="n">first_point</span><span class="p">,</span> <span class="n">coef1</span><span class="p">,</span> <span class="n">coef2</span><span class="p">,</span> <span class="n">coef3</span><span class="p">,</span> <span class="n">abil_deprec</span><span class="p">,</span> <span class="n">init_guesses</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Solve for the arctan parameters used to extrapolate ability levels.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="n">first_point</span><span class="p">,</span> <span class="n">coef1</span><span class="p">,</span> <span class="n">coef2</span><span class="p">,</span> <span class="n">coef3</span><span class="p">,</span> <span class="n">abil_deprec</span><span class="p">]</span>
+    <span class="n">fit_tol</span> <span class="o">=</span> <span class="mf">1e-6</span>
+    <span class="n">retry_tol</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">first_point</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_best</span><span class="p">(</span><span class="n">solution</span><span class="p">,</span> <span class="n">best_x</span><span class="p">,</span> <span class="n">best_error_norm</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">solution</span><span class="o">.</span><span class="n">x</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="n">best_x</span><span class="p">,</span> <span class="n">best_error_norm</span>
+        <span class="n">error_vec</span> <span class="o">=</span> <span class="n">arc_error</span><span class="p">(</span><span class="n">solution</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">error_vec</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="n">best_x</span><span class="p">,</span> <span class="n">best_error_norm</span>
+        <span class="n">error_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">error_vec</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">error_norm</span> <span class="o">&lt;</span> <span class="n">best_error_norm</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">solution</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">error_norm</span>
+        <span class="k">return</span> <span class="n">best_x</span><span class="p">,</span> <span class="n">best_error_norm</span>
+
+    <span class="n">best_x</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">best_error_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+    <span class="n">solution</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">arc_error</span><span class="p">,</span> <span class="n">init_guesses</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;lm&quot;</span><span class="p">)</span>
+    <span class="n">best_x</span><span class="p">,</span> <span class="n">best_error_norm</span> <span class="o">=</span> <span class="n">update_best</span><span class="p">(</span><span class="n">solution</span><span class="p">,</span> <span class="n">best_x</span><span class="p">,</span> <span class="n">best_error_norm</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">best_error_norm</span> <span class="o">&lt;=</span> <span class="n">retry_tol</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">best_x</span>
+
+    <span class="n">fallback_guesses</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">[</span><span class="n">first_point</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">first_point</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">3.0</span> <span class="o">*</span> <span class="n">first_point</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.0</span><span class="p">],</span>
+        <span class="p">[</span><span class="n">first_point</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">first_point</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">3.0</span> <span class="o">*</span> <span class="n">first_point</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">first_point</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">40.0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">3.0</span> <span class="o">*</span> <span class="n">first_point</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">80.0</span><span class="p">],</span>
+    <span class="p">]</span>
+    <span class="k">for</span> <span class="n">guess</span> <span class="ow">in</span> <span class="n">fallback_guesses</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;lm&quot;</span><span class="p">,</span> <span class="s2">&quot;hybr&quot;</span><span class="p">):</span>
+            <span class="n">solution</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">arc_error</span><span class="p">,</span> <span class="n">guess</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
+            <span class="n">best_x</span><span class="p">,</span> <span class="n">best_error_norm</span> <span class="o">=</span> <span class="n">update_best</span><span class="p">(</span>
+                <span class="n">solution</span><span class="p">,</span> <span class="n">best_x</span><span class="p">,</span> <span class="n">best_error_norm</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">best_error_norm</span> <span class="o">&lt;=</span> <span class="n">fit_tol</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">best_x</span>
+
+    <span class="k">if</span> <span class="n">best_error_norm</span> <span class="o">&lt;=</span> <span class="n">retry_tol</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">best_x</span>
+    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+        <span class="s2">&quot;Unable to fit arctan ability extrapolation. &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;Best error norm was </span><span class="si">{</span><span class="n">best_error_norm</span><span class="si">}</span><span class="s2">.&quot;</span>
+    <span class="p">)</span>
+
+
 <div class="viewcode-block" id="arctan_fit">
 <a class="viewcode-back" href="../../content/api/income.html#ogusa.income.arctan_fit">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">arctan_fit</span><span class="p">(</span><span class="n">first_point</span><span class="p">,</span> <span class="n">coef1</span><span class="p">,</span> <span class="n">coef2</span><span class="p">,</span> <span class="n">coef3</span><span class="p">,</span> <span class="n">abil_deprec</span><span class="p">,</span> <span class="n">init_guesses</span><span class="p">):</span>
@@ -510,9 +565,9 @@
 <span class="sd">            81 to 100, length 20</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="n">first_point</span><span class="p">,</span> <span class="n">coef1</span><span class="p">,</span> <span class="n">coef2</span><span class="p">,</span> <span class="n">coef3</span><span class="p">,</span> <span class="n">abil_deprec</span><span class="p">]</span>
-    <span class="n">solution</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">arc_error</span><span class="p">,</span> <span class="n">init_guesses</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;lm&quot;</span><span class="p">)</span>
-    <span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">solution</span><span class="o">.</span><span class="n">x</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">_arctan_fit_params</span><span class="p">(</span>
+        <span class="n">first_point</span><span class="p">,</span> <span class="n">coef1</span><span class="p">,</span> <span class="n">coef2</span><span class="p">,</span> <span class="n">coef3</span><span class="p">,</span> <span class="n">abil_deprec</span><span class="p">,</span> <span class="n">init_guesses</span>
+    <span class="p">)</span>
     <span class="n">old_ages</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">81</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
     <span class="n">abil_last</span> <span class="o">=</span> <span class="n">arctan_func</span><span class="p">(</span><span class="n">old_ages</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">abil_last</span></div>

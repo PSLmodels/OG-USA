@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
-    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
@@ -53,7 +53,7 @@
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
@@ -425,7 +425,12 @@
 <p>If you have already completed the <a class="reference internal" href="#sec-setuppython"><span class="std std-ref">Setup Python</span></a> and <a class="reference internal" href="#sec-setupgit"><span class="std std-ref">Setup Git</span></a> sections, you can skip to the <a class="reference internal" href="#sec-workflow"><span class="std std-ref">Workflow</span></a> section.</p>
 <section id="setup-python">
 <span id="sec-setuppython"></span><h2>Setup Python<a class="headerlink" href="#setup-python" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> is written in the Python programming language. Download and install the free and most recent Anaconda distribution of Python and associated libraries from <a class="reference external" href="https://www.anaconda.com/products/individual#Downloads">Anaconda.com</a>.<a class="footnote-reference brackets" href="#recent-python" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> You should do this even if you already have Python installed on your computer because the Anaconda distribution contains additional Python packages that are used by <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> (many of which are not included in other Python installations). You can install the Anaconda distribution without having administrative privileges on your computer and the Anaconda distribution will not interfere with any Python installation that came as part of your computer’s operating system.</p>
+<p><code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> is written in the Python programming language. Install
+<a class="reference external" href="https://docs.astral.sh/uv/"><code class="docutils literal notranslate"><span class="pre">uv</span></code></a> by following the
+<a class="reference external" href="https://docs.astral.sh/uv/getting-started/installation/">installation instructions</a>
+for your platform, or by running <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">uv</span></code> in an existing Python
+environment. <code class="docutils literal notranslate"><span class="pre">uv</span></code> will create and manage the Python environment used by
+<code class="docutils literal notranslate"><span class="pre">OG-USA</span></code>.</p>
 </section>
 <section id="setup-git">
 <span id="sec-setupgit"></span><h2>Setup Git<a class="headerlink" href="#setup-git" title="Link to this heading">#</a></h2>
@@ -435,7 +440,7 @@
 <li><p>Tell Git to remember your GitHub password by following steps 1-4 on <a class="reference external" href="https://help.github.com/articles/caching-your-github-password-in-git/">password setup</a>.</p></li>
 <li><p>Sign in to GitHub and create your own <a class="reference external" href="https://help.github.com/articles/github-glossary/#remote">remote</a> <a class="reference external" href="https://help.github.com/articles/github-glossary/#repository">repository</a> (repo) of <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> by clicking <a class="reference external" href="https://help.github.com/articles/github-glossary/#fork">Fork</a> in the upper right corner of the <a class="reference external" href="https://github.com/PSLmodels/OG-USA">OG-USA GitHub repository page</a>. Select your username when asked “Where should we fork this repository?”</p></li>
 <li><p>From your command line, navigate to the directory on your computer where you would like your local repo to live.</p></li>
-<li><p>Create a local repo by entering at the command line the text, shown in the code blocks below after the <code class="docutils literal notranslate"><span class="pre">$</span></code> symbol.<a class="footnote-reference brackets" href="#commandline-note" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> This step creates a directory called <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> in the directory that you specified in the prior step:</p>
+<li><p>Create a local repo by entering at the command line the text, shown in the code blocks below after the <code class="docutils literal notranslate"><span class="pre">$</span></code> symbol.<a class="footnote-reference brackets" href="#commandline-note" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> This step creates a directory called <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> in the directory that you specified in the prior step:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  $ git clone https://github.com/[github-username]/OG-USA.git
 </pre></div>
 </div>
@@ -447,20 +452,21 @@
 </pre></div>
 </div>
 </li>
-<li><p>Create a conda environment with all of the necessary packages to execute the source code.
-The process of creating the <code class="docutils literal notranslate"><span class="pre">ogusa-dev</span></code> conda environment can take up to 10 minutes. The pip install of the <code class="docutils literal notranslate"><span class="pre">OG-Core</span></code> dependency from <a class="reference external" href="https://pypi.org/project/ogcore/">pypi.org</a>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  OG-USA$ conda env create
+<li><p>Create a uv-managed environment with all of the necessary packages to
+execute the source code.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  OG-USA$ uv sync --extra dev
 </pre></div>
 </div>
 </li>
-<li><p>The prior command will create a conda environment called <code class="docutils literal notranslate"><span class="pre">ogusa-dev</span></code>.
-Activate this environment as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  OG-USA$ conda activate ogusa-dev
+<li><p>The prior command installs <code class="docutils literal notranslate"><span class="pre">ogusa</span></code> in editable mode with its
+development dependencies. Run commands inside this environment with
+<code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">run</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  OG-USA$ uv run python
 </pre></div>
 </div>
 </li>
-<li><p>Once the environment is activated, install the <code class="docutils literal notranslate"><span class="pre">ogusa</span></code> package in the <code class="docutils literal notranslate"><span class="pre">ogusa-dev</span></code> environment with all its modules by executing the following <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> command.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  (ogusa-dev) OG-USA$ pip install -e .
+<li><p>To install documentation dependencies, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  OG-USA$ uv sync --extra docs
 </pre></div>
 </div>
 </li>
@@ -522,10 +528,17 @@ you are working with the latest version of OG-USA:</p>
 introduce bugs or degrade the accuracy of the <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code>. To do
 this, run the following command from the command line from inside
 the <code class="docutils literal notranslate"><span class="pre">/OG-USA/ogusa/</span></code> directory:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> OG-USA/ogusa$  pytest -m &quot;not needs_puf and not regression&quot;
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> OG-USA$ uv run pytest -m &quot;not needs_puf and not regression&quot;
 </pre></div>
 </div>
-<p>Note that running this full suite of tests may take close to 24 hours (depending on your hardware).  To run the small set of tests that run on each pull request (and take about 40 minutes), use  <code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">-m</span> <span class="pre">&quot;not</span> <span class="pre">needs_puf</span> <span class="pre">and</span> <span class="pre">not</span> <span class="pre">local</span> <span class="pre">and</span> <span class="pre">not</span> <span class="pre">regression&quot;</span></code>.  If the tests do not pass, try to fix the issue by using the information provided by the error message. If this isn’t possible or doesn’t work, the core maintainers are here to help via a <a class="reference external" href="https://github.com/PSLmodels/OG-USA/issues">GitHub Issue</a>.</p>
+<p>Note that running this full suite of tests may take close to 24 hours
+(depending on your hardware). To run the small set of tests that run
+on each pull request, use
+<code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">run</span> <span class="pre">pytest</span> <span class="pre">-m</span> <span class="pre">&quot;not</span> <span class="pre">needs_puf</span> <span class="pre">and</span> <span class="pre">not</span> <span class="pre">local</span> <span class="pre">and</span> <span class="pre">not</span> <span class="pre">regression&quot;</span></code>.
+If the tests do not pass, try to fix the issue by
+using the information provided by the error message. If this isn’t
+possible or doesn’t work, the core maintainers are here to help via a
+<a class="reference external" href="https://github.com/PSLmodels/OG-USA/issues">GitHub Issue</a>.</p>
 </li>
 <li><p>Now you’re ready to <a class="reference external" href="https://help.github.com/articles/github-glossary/#commit">commit</a> your changes to your local repo using the code below. The first line of code tells <code class="docutils literal notranslate"><span class="pre">Git</span></code> to track a file. Use “git status” to find all the files you’ve edited, and “git add” each of the files that you’d like <code class="docutils literal notranslate"><span class="pre">Git</span></code> to track. As a rule, do not add large files. If you’d like to add a file that is larger than 25 MB, please contact the other contributors and ask how to proceed. The second line of code commits your changes to your local repo and allows you to create a commit message; this should be a short description of your changes.</p>
 <p><em>Tip</em>: Committing often is a good idea as <code class="docutils literal notranslate"><span class="pre">Git</span></code> keeps a record of your changes. This means that you can always revert to a previous version of your work if you need to. Do this to commit:</p>
@@ -559,12 +572,8 @@ the <code class="docutils literal notranslate"><span class="pre">/OG-USA/ogusa/<
 <span id="sec-contribfootnotes"></span><h2>Footnotes<a class="headerlink" href="#footnotes" title="Link to this heading">#</a></h2>
 <hr class="footnotes docutils" />
 <aside class="footnote-list brackets">
-<aside class="footnote brackets" id="recent-python" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
-<p>The most recent version of Python from Anaconda is Python 3.9. <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> is currently tested to run on Python 3.8 and 3.9.</p>
-</aside>
 <aside class="footnote brackets" id="commandline-note" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
 <p>The dollar sign is the end of the command prompt on a Mac. If you are using the Windows operating system, this is usually the right angle bracket (&gt;). No matter the symbol, you don’t need to type it (or anything to its left, which shows the current working directory) at the command line before you enter a command; the prompt symbol and preceding characters should already be there.</p>
 </aside>
 </aside>

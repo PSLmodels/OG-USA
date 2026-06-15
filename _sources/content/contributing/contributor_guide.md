@@ -11,7 +11,12 @@ If you have already completed the {ref}`Sec_SetupPython` and {ref}`Sec_SetupGit`
 (Sec_SetupPython)=
 ## Setup Python
 
-`OG-USA` is written in the Python programming language. Download and install the free and most recent Anaconda distribution of Python and associated libraries from [Anaconda.com](https://www.anaconda.com/products/individual#Downloads).[^recent_python] You should do this even if you already have Python installed on your computer because the Anaconda distribution contains additional Python packages that are used by `OG-USA` (many of which are not included in other Python installations). You can install the Anaconda distribution without having administrative privileges on your computer and the Anaconda distribution will not interfere with any Python installation that came as part of your computer's operating system.
+`OG-USA` is written in the Python programming language. Install
+[`uv`](https://docs.astral.sh/uv/) by following the
+[installation instructions](https://docs.astral.sh/uv/getting-started/installation/)
+for your platform, or by running `pip install uv` in an existing Python
+environment. `uv` will create and manage the Python environment used by
+`OG-USA`.
 
 
 (Sec_SetupGit)=
@@ -42,24 +47,25 @@ If you have already completed the {ref}`Sec_SetupPython` and {ref}`Sec_SetupGit`
       OG-USA$ git remote add upstream https://github.com/PSLmodels/OG-USA.git
     ```
 
-9. Create a conda environment with all of the necessary packages to execute the source code.
-The process of creating the `ogusa-dev` conda environment can take up to 10 minutes. The pip install of the `OG-Core` dependency from [pypi.org](https://pypi.org/project/ogcore/).
+9. Create a uv-managed environment with all of the necessary packages to
+execute the source code.
 
     ```
-      OG-USA$ conda env create
+      OG-USA$ uv sync --extra dev
     ```
 
-10. The prior command will create a conda environment called `ogusa-dev`.
-    Activate this environment as follows:
+10. The prior command installs `ogusa` in editable mode with its
+development dependencies. Run commands inside this environment with
+`uv run`:
 
     ```
-      OG-USA$ conda activate ogusa-dev
+      OG-USA$ uv run python
     ```
 
-11. Once the environment is activated, install the `ogusa` package in the `ogusa-dev` environment with all its modules by executing the following `pip install` command.
+11. To install documentation dependencies, run:
 
     ```
-      (ogusa-dev) OG-USA$ pip install -e .
+      OG-USA$ uv sync --extra docs
     ```
 
 If you have made it this far, you've successfully made a remote copy (a
@@ -127,9 +133,16 @@ situations, in which case other contributors are here to help.
    this, run the following command from the command line from inside
    the `/OG-USA/ogusa/` directory:
     ```
-     OG-USA/ogusa$  pytest -m "not needs_puf and not regression"
+     OG-USA$ uv run pytest -m "not needs_puf and not regression"
     ```
-   Note that running this full suite of tests may take close to 24 hours (depending on your hardware).  To run the small set of tests that run on each pull request (and take about 40 minutes), use  `pytest -m "not needs_puf and not local and not regression"`.  If the tests do not pass, try to fix the issue by using the information provided by the error message. If this isn't possible or doesn't work, the core maintainers are here to help via a [GitHub Issue](https://github.com/PSLmodels/OG-USA/issues).
+   Note that running this full suite of tests may take close to 24 hours
+   (depending on your hardware). To run the small set of tests that run
+   on each pull request, use
+   `uv run pytest -m "not needs_puf and not local and not regression"`.
+   If the tests do not pass, try to fix the issue by
+   using the information provided by the error message. If this isn't
+   possible or doesn't work, the core maintainers are here to help via a
+   [GitHub Issue](https://github.com/PSLmodels/OG-USA/issues).
 
 4. Now you're ready to [commit](https://help.github.com/articles/github-glossary/#commit) your changes to your local repo using the code below. The first line of code tells `Git` to track a file. Use "git status" to find all the files you've edited, and "git add" each of the files that you'd like `Git` to track. As a rule, do not add large files. If you'd like to add a file that is larger than 25 MB, please contact the other contributors and ask how to proceed. The second line of code commits your changes to your local repo and allows you to create a commit message; this should be a short description of your changes.
 
@@ -163,7 +176,5 @@ situations, in which case other contributors are here to help.
 
 (Sec_ContribFootnotes)=
 ## Footnotes
-
-[^recent_python]:The most recent version of Python from Anaconda is Python 3.9. `OG-USA` is currently tested to run on Python 3.8 and 3.9.
 
 [^commandline_note]:The dollar sign is the end of the command prompt on a Mac. If you are using the Windows operating system, this is usually the right angle bracket (>). No matter the symbol, you don't need to type it (or anything to its left, which shows the current working directory) at the command line before you enter a command; the prompt symbol and preceding characters should already be there.

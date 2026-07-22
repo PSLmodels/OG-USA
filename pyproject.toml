@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ogusa"
-version = "0.4.0"
+version = "0.4.1"
 authors = [
     {name = "Jason DeBacker and Richard W. Evans"},
 ]
@@ -44,7 +44,7 @@ dependencies = [
     "openpyxl>=3.1.2",
     "statsmodels",
     "linearmodels",
-    "ogcore>=0.14.6",
+    "ogcore>=0.14.6,<=0.17.0",
 ]
 
 [project.urls]

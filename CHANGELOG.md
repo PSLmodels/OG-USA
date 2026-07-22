@@ -10,7 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Pinned the ogcore version in `pyproject.toml` to be between `"ogcore>=0.14.6,<=0.17.0"`. The version `ogcore 0.18.0` was released on July 22, but significant changes need to be made to OG-USA before it can use `ogcore` v0.18.0. Once OG-USA is updated, the pin in `pyproject.toml` can be updated to `"ogcore>=0.18.0"`.
+- Pins the ogcore version in `pyproject.toml` to be between `"ogcore>=0.14.6,<=0.17.0"`. The version `ogcore 0.18.0` was released on July 22, but significant changes need to be made to OG-USA before it can use `ogcore` v0.18.0. Once OG-USA is updated, the pin in `pyproject.toml` can be updated to `"ogcore>=0.18.0"`.
+- Adds an updated `uv.lock` file.
 
 ## [0.4.0] - 2026-06-15 12:00:00
 

@@ -35,7 +35,7 @@
 | $\alpha^{BS}_{G,t}$           | Proportional adjustment to government consumption expenditures relative to baseline amount when budget balance is true       | [1.000...1.000]                                       |
 | $\alpha^{BS}_{I,t}$           | Proportional adjustment to infrastructure spending relative to baseline amount when budget balance is true                   | [1.000...1.000]                                       |
 | $\rho_{G}$                    | Budget closure rule smoothing parameter                                                                                      | 0.100                                                 |
-| $\alpha_{FA}$                 | Foreign aid as a share of GDP                                                                                                | [0.000...0.000]                                       |
+| $\alpha_{FA,t}$               | Foreign aid as a share of GDP                                                                                                | [0.000...0.000]                                       |
 | $\alpha_{RM,1}$               | Remittances as a share of GDP in initial period                                                                              | 0.00E+00                                              |
 | $\alpha_{RM,T}$               | Remittances as a share of GDP in long run                                                                                    | 0.00E+00                                              |
 | $g_{RM,t}$                    | Growth rate of remittances in initial periods                                                                                | [0.000...0.000]                                       |
@@ -78,8 +78,8 @@
 | $\texttt{mindist_SS}$         | SS solution tolerance                                                                                                        | 1.00E-09                                              |
 | $\texttt{mindist_TPI}$        | TPI solution tolerance                                                                                                       | 1.00E-05                                              |
 | $\omega_{s,t}$                | Population by age over time                                                                                                  | Too large to report here, see default parameters JSON |
-| $\bar{\omega}_s$              | Steady-state population distribution                                                                                         | [0.014...0.001]                                       |
-| $g_{n,t}$                     | Population growth rate over the time path                                                                                    | [0.006...-0.004]                                      |
-| $\bar{g}_n$                   | Population growth rate in the steady-state                                                                                   | -3.55E-03                                             |
+| $\bar{\omega}_s$              | Steady-state population distribution                                                                                         | Too large to report here, see default parameters JSON |
+| $g_{n,t}$                     | Population growth rate over the time path                                                                                    | [0.009...-0.001]                                      |
+| $\bar{g}_n$                   | Population growth rate in the steady-state                                                                                   | -1.33E-03                                             |
 | $i_{s,t}$                     | Immigration rates by age                                                                                                     | Too large to report here, see default parameters JSON |
 | $\rho_{s,t}$                  | Mortality rates by age                                                                                                       | Too large to report here, see default parameters JSON |

@@ -11,6 +11,7 @@ from matplotlib import pyplot as plt
 from matplotlib import cm, colors
 from mpl_toolkits.mplot3d import Axes3D
 from scipy.ndimage import gaussian_filter
+from scipy.ndimage import gaussian_filter1d
 from scipy.stats import gaussian_kde
 from ogcore import utils as ogcore_utils
 from ogusa import utils as ogusa_utils
@@ -233,6 +234,18 @@ def wealth_distributions(
         w_dist_sj, w_dist_s, w_dist_j, p_dist_sj, p_dist_s, p_dist_j,
         gini_coef, var_ln_w
     )
+
+
+def smooth_wealth_dist_age(w_dist_sj, sigma_s=3.0):
+    """
+    Smooth an (S, J) joint wealth distribution by smoothing wealth per
+    household across the age dimension of the data (s) using gaussian filter
+    blurring, and rescale each j column to match the original share of wealth.
+    """
+    w = np.asarray(w_dist_sj, dtype=float)
+    w_smooth = gaussian_filter1d(w, sigma=sigma_s, axis=0, mode="reflect")
+    # Rescale each column to keep that group's raw share of total wealth
+    return w_smooth * w.sum(axis=0) / w_smooth.sum(axis=0)
 
 
 def smooth_joint_dist(

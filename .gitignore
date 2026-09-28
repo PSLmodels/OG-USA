@@ -53,6 +53,7 @@ data/csv_output_files/*
 data/images/*
 data/PSID/psid_lifetime_income.csv
 ogusa/csv_output_files/*
+ogusa/data/SCF/*.png
 ogusa/images/*
 .vscode/
 *default.profraw

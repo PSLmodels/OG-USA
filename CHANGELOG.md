@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [0.5.1] - 2026-09-26 12:00:00
+
+### Adds
+
+- Updates `wealth.py` with tools to access and manipulate the survey of consumer finances. My goal is to use many of the new functions in `wealth.py` as part of the `bequest_transmission.py` and `transfer_distribution.py` calibration modules.
+- Stores two `.pkl` files (`w_dist_sj_orig_dict.pkl` and `w_dist_sj_smooth_dict.pkl`) in the `./ogusa/data/SCF/` directory.
+- Adds `_url_exists()` and `get_cpi_monthly_data()` functions to `./ogusa/utils.py` and deletes two unused functions (`CustomHttpAdapter()` and `def get_legacy_session()`) from that module.
+
+### Fixes
+- Fixes a naming conflict in `get_micro_data.py` by differentiating the OG-Core `utils.py` from the OG-USA `utils.py`.
+
 ## [0.5.0] - 2026-07-25 12:00:00
 
 ### Fixed
@@ -216,6 +227,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Any earlier versions of OG-USA can be found in the [`OG-Core`](https://github.com/PSLmodels/OG-Core) repository [release history](https://github.com/PSLmodels/OG-Core/releases) from [v.0.6.4](https://github.com/PSLmodels/OG-Core/releases/tag/v0.6.4) (Jul. 20, 2021) or earlier.
 
 
+[0.5.1]: https://github.com/PSLmodels/OG-USA/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/PSLmodels/OG-USA/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/PSLmodels/OG-USA/compare/v0.3.3...v0.4.0
 [0.3.3]: https://github.com/PSLmodels/OG-USA/compare/v0.3.2...v0.3.3

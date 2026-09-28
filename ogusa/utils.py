@@ -1,14 +1,14 @@
 import io
 import os
+import urllib.error
+import urllib.request
 import pandas as pd
 import numpy as np
 from scipy.stats import gaussian_kde
 import matplotlib.pyplot as plt
 import requests
-import urllib3
-import ssl
 
-_HEADERS = {
+CBO_HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -26,6 +26,15 @@ CBO_FORECAST_DIR = os.path.abspath(
 )
 
 
+def _url_exists(url, headers):
+    request = urllib.request.Request(url, headers=headers, method="HEAD")
+    try:
+        with urllib.request.urlopen(request, timeout=30) as response:
+            return response.status == 200
+    except urllib.error.HTTPError:
+        return False
+
+
 def _cbo_forecast_file(filename):
     """
     Return the path to a locally saved CBO forecast workbook.
@@ -36,8 +45,8 @@ def _cbo_forecast_file(filename):
 def _fetch_excel(url):
     """Download a CBO Excel file using a session to acquire cookies first."""
     session = requests.Session()
-    session.get("https://www.cbo.gov/", headers=_HEADERS, timeout=30)
-    response = session.get(url, headers=_HEADERS, timeout=30)
+    session.get("https://www.cbo.gov/", headers=CBO_HEADERS, timeout=30)
+    response = session.get(url, headers=CBO_HEADERS, timeout=30)
     response.raise_for_status()
     return io.BytesIO(response.content)
 
@@ -50,6 +59,35 @@ def _excel_source(source):
     if source.startswith(("http://", "https://")):
         return _fetch_excel(source)
     return os.path.expanduser(source)
+
+
+def get_cpi_monthly_data(start_year=2022, start_month=7):
+    """
+    Return a DataFrame of monthly CPI core index value data from FRED, starting
+    from the specified year and month to the most recent data.
+
+    Args:
+        start_year (int): The year to start the data from.
+        start_month (int): The month to start the data from.
+
+    Returns:
+        df (pd.DataFrame): A DataFrame with the monthly CPI core index values.
+    """
+    url = "https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPILFESL"
+    df = pd.read_csv(url)
+    # FRED renamed the CSV date column from "DATE" to "observation_date", so
+    # identify it by position rather than by name.
+    df.rename(columns={df.columns[0]: "date"}, inplace=True)
+    df["date"] = pd.to_datetime(df["date"])
+    df.set_index("date", inplace=True)
+    df = df[
+        df.index >= pd.Timestamp(year=start_year, month=start_month, day=1)
+    ]
+    df.reset_index(inplace=True)
+    df["date"] = df["date"].dt.strftime("%Y-%m-%d")
+    df["CPILFESL"] = df["CPILFESL"].astype(float)
+
+    return df
 
 
 def read_cbo_forecast(
@@ -342,31 +380,3 @@ def MVKDE(
         ax.set_zlabel(zaxis_label)
         plt.savefig(filename)
     return estimator_scaled
-
-
-class CustomHttpAdapter(requests.adapters.HTTPAdapter):
-    """
-    The UN Data Portal server doesn't support "RFC 5746 secure renegotiation". This causes and error when the client is using OpenSSL 3, which enforces that standard by default.
-    The fix is to create a custom SSL context that allows for legacy connections. This defines a function get_legacy_session() that should be used instead of requests().
-    """
-
-    # "Transport adapter" that allows us to use custom ssl_context.
-    def __init__(self, ssl_context=None, **kwargs):
-        self.ssl_context = ssl_context
-        super().__init__(**kwargs)
-
-    def init_poolmanager(self, connections, maxsize, block=False):
-        self.poolmanager = urllib3.poolmanager.PoolManager(
-            num_pools=connections,
-            maxsize=maxsize,
-            block=block,
-            ssl_context=self.ssl_context,
-        )
-
-
-def get_legacy_session():
-    ctx = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
-    ctx.options |= 0x4  # OP_LEGACY_SERVER_CONNECT  #in Python 3.12 you will be able to switch from 0x4 to ssl.OP_LEGACY_SERVER_CONNECT.
-    session = requests.session()
-    session.mount("https://", CustomHttpAdapter(ctx))
-    return session

@@ -6,13 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
-## [0.5.1] - 2026-09-22 12:00:00
+## [0.5.1] - 2026-09-26 12:00:00
 
 ### Adds
 
-- Updates `wealth.py` with tools to access and manipulate the survey of consumer finances. My goal is to use many of the new functions in `wealth.py` as part of the `bequest_transmission.py` calibration module.
-- Made some changes to `wealthinit.py`, but we should be able to delete that file. I moved all the functionality for calibrating the initial distribution of wealth to `wealth.py`.
-- Stores two `.pkl` files (`w_dist_sj_orig_dict.pkl` and `w_dist_sj_smooth_dict.pkl`) and two `.png` images (`w_dist_sj_orig.png` and `w_dist_sj_smooth.png`) in the `./ogusa/data/SCF/` directory.
+- Updates `wealth.py` with tools to access and manipulate the survey of consumer finances. My goal is to use many of the new functions in `wealth.py` as part of the `bequest_transmission.py` and `transfer_distribution.py` calibration modules.
+- Stores two `.pkl` files (`w_dist_sj_orig_dict.pkl` and `w_dist_sj_smooth_dict.pkl`) in the `./ogusa/data/SCF/` directory.
 - Adds `_url_exists()` and `get_cpi_monthly_data()` functions to `./ogusa/utils.py` and deletes two unused functions (`CustomHttpAdapter()` and `def get_legacy_session()`) from that module.
 
 ### Fixes

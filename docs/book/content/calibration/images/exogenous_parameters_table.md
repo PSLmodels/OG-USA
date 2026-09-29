@@ -9,7 +9,7 @@
 | $I$                           | Number of different consumption goods                                                                                        | 1                                                     |
 | $\lambda_{j}$                 | Lifetime income group percentages                                                                                            | Too large to report here, see default parameters JSON |
 | $e_{j,s,t}$                   | Deterministic ability process                                                                                                | Too large to report here, see default parameters JSON |
-| $\beta_{j,ann}$               | Annual rate of time preference for households                                                                                | [0.910...0.995]                                       |
+| $\beta_{j,ann}$               | Annual rate of time preference for households                                                                                | [0.953...0.997]                                       |
 | $\sigma$                      | Coefficient of constant relative risk aversion                                                                               | 1.500                                                 |
 | $\alpha_i$                    | Share parameters for each good in the composite consumption good                                                             | [1.000...1.000]                                       |
 | $c_{min,i}$                   | Minimum consumption levels for each good in the composite consumption good                                                   | [0.000...0.000]                                       |
@@ -49,7 +49,7 @@
 | $P$                           | Coefficient on level term in wealth tax function                                                                             | [0.000...0.000]                                       |
 | $\tau^{BQ}_{t}$               | Bequest (estate) tax rate                                                                                                    | [0.000...0.000]                                       |
 | $\tau^{p}_{t}$                | Payroll tax rate                                                                                                             | [0.000...0.000]                                       |
-| $\chi^{b}_{j}$                | Utility of bequests level parameters                                                                                         | [80.000...80.000]                                     |
+| $\chi^{b}_{j}$                | Utility of bequests level parameters                                                                                         | [9.056...75.881]                                      |
 | $\chi^{n}_{s,t}$              | Disutility of labor level parameters                                                                                         | Too large to report here, see default parameters JSON |
 | $\eta_{j,s,t}$                | Distribution of transfers                                                                                                    | Too large to report here, see default parameters JSON |
 | $\eta_{RM,j,s,t}$             | Distribution of remittances                                                                                                  | Too large to report here, see default parameters JSON |

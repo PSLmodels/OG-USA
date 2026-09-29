@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
-## [0.6.0] - 2026-09-23 09:00:00
+## [0.6.0] - 2026-09-29 00:30:00
 
 ### Added
 
@@ -251,6 +251,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Any earlier versions of OG-USA can be found in the [`OG-Core`](https://github.com/PSLmodels/OG-Core) repository [release history](https://github.com/PSLmodels/OG-Core/releases) from [v.0.6.4](https://github.com/PSLmodels/OG-Core/releases/tag/v0.6.4) (Jul. 20, 2021) or earlier.
 
 
+[0.6.0]: https://github.com/PSLmodels/OG-USA/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/PSLmodels/OG-USA/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/PSLmodels/OG-USA/compare/v0.3.3...v0.4.0
 [0.3.3]: https://github.com/PSLmodels/OG-USA/compare/v0.3.2...v0.3.3

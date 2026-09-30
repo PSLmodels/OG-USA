@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ogusa"
-version = "0.5.0"
+version = "0.6.0"
 authors = [
     {name = "Jason DeBacker and Richard W. Evans"},
 ]
@@ -44,6 +44,7 @@ dependencies = [
     "openpyxl>=3.1.2",
     "statsmodels",
     "linearmodels",
+    "dfo-ls",
     "ogcore>=0.18.0",
     "tabulate",
 ]
@@ -86,16 +87,6 @@ ogusa = [
     "data/SCF/*.csv",
 ]
 
-[tool.uv]
-dev-dependencies = [
-    "coverage",
-    "pytest>=6.0",
-    "pytest-cov",
-    "pytest-xdist",
-    "ruff",
-    "linecheck",
-]
-
 [tool.ruff]
 line-length = 79
 target-version = "py312"
@@ -112,7 +103,6 @@ ignore = ["E501", "F841", "W505"]
 
 [tool.ruff.lint.per-file-ignores]
 "ogusa/__init__.py" = ["F403"]
-"ogusa/calibrate_chi_n.py" = ["E402", "F401"]
 "ogusa/get_micro_data.py" = ["F401"]
 "ogusa/labor.py" = ["F401", "F821"]
 "ogusa/psid_summ_stats.py" = ["F401"]
@@ -129,4 +119,15 @@ markers = [
     "needs_puf: marks tests that require the PUF data to run",
     "needs_tmd: marks tests that require the TMD data to run",
     "needs_fred: marks tests that require a FRED API key to run",
+]
+
+[dependency-groups]
+dev = [
+    "coverage",
+    "pytest>=6.0",
+    "pytest-cov",
+    "pytest-xdist",
+    "ruff",
+    "linecheck",
+    "ipykernel>=7.3.0",
 ]

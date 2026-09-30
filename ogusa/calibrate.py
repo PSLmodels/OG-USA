@@ -1,7 +1,11 @@
 from ogusa import estimate_beta_j, bequest_transmission
 from ogusa import macro_params, transfer_distribution, income
 from ogusa import get_micro_data
+from ogusa import calibrate_lifecycle
+import copy
+import json
 import os
+import warnings
 import numpy as np
 from taxcalc import Records
 from ogcore import txfunc, demographics
@@ -17,9 +21,15 @@ class Calibration:
         estimate_tax_functions=False,
         estimate_beta=False,
         estimate_chi_n=False,
+        estimate_lifecycle_prefs=False,
         estimate_pop=False,
         get_macro_params=False,
         tax_func_path=None,
+        lifecycle_params_path=None,
+        lifecycle_config=None,
+        lifecycle_options=None,
+        lifecycle_initial_ss=None,
+        lifecycle_kwargs=None,
         iit_baseline=None,
         iit_reform={},
         guid="",
@@ -39,11 +49,35 @@ class Calibration:
         Args:
             p (OG-USA Parameters object): parameters object
             estimate_tax_functions (bool): whether to estimate tax functions
-            estimate_beta (bool): whether to estimate beta
-            estimate_chi_n (bool): whether to estimate chi_n
+            estimate_beta (bool): whether to estimate beta with the
+                legacy wealth-moment SMM (`estimate_beta_j`)
+            estimate_chi_n (bool): deprecated alias for
+                `estimate_lifecycle_prefs`; `chi_n` is only calibrated
+                jointly with `beta_annual` and `chi_b`
+            estimate_lifecycle_prefs (bool): whether to calibrate
+                `beta_annual` by type, `chi_b`, and the `chi_n` age
+                profile with the nested general-equilibrium routine in
+                `calibrate_lifecycle.calibrate_lifecycle_preferences`
+                (20 to 40 minutes serially; see
+                `LIFECYCLE_CALIBRATION_PLAN.md`)
             estimate_pop (bool): whether to estimate population
             get_macro_params (bool): whether to get macro parameters
             tax_func_path (str): path to tax function parameters
+            lifecycle_params_path (str): JSON file with calibrated
+                lifecycle preference parameters. If it exists and is
+                consistent with `p`, the parameters are read instead of
+                re-calibrated; otherwise the calibration runs and the
+                result is written there. When None the calibration
+                always runs and is saved to `p.output_base`.
+            lifecycle_config (LifecycleCalibrationConfig): moment
+                configuration for the lifecycle calibration
+            lifecycle_options (PreferenceCalibrationOptions): options
+                for the beta / chi_b step
+            lifecycle_initial_ss (dict): OG-Core steady-state output to
+                start the outer loop from, instead of a cold solve
+            lifecycle_kwargs (dict): further keyword arguments for
+                `calibrate_lifecycle_preferences` (for example
+                `max_outer`, `param_tol`, `ge_client`)
             iit_baseline (dict): baseline policy to use
             iit_reform (dict): reform tax parameters
             guid (str): id for tax function parameters
@@ -56,6 +90,8 @@ class Calibration:
             records_start_year (int): year micro data begins
             client (Dask client object): client
             num_workers (int): number of workers for Dask client
+            demographic_data_path (str): path to save or find
+                downloaded UN demographic data
             output_path (str): path to save output to
 
         Returns:
@@ -67,7 +103,16 @@ class Calibration:
                 os.makedirs(output_path)
         self.estimate_tax_functions = estimate_tax_functions
         self.estimate_beta = estimate_beta
+        if estimate_chi_n and not estimate_lifecycle_prefs:
+            warnings.warn(
+                "estimate_chi_n is deprecated; chi_n is calibrated jointly "
+                "with beta_annual and chi_b. Use estimate_lifecycle_prefs.",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+            estimate_lifecycle_prefs = True
         self.estimate_chi_n = estimate_chi_n
+        self.estimate_lifecycle_prefs = estimate_lifecycle_prefs
         self.estimate_pop = estimate_pop
         self.get_macro_params = get_macro_params
         if estimate_tax_functions:
@@ -90,9 +135,9 @@ class Calibration:
                 tax_func_path=tax_func_path,
             )
         if self.estimate_beta:
-            self.beta_j = estimate_beta_j.beta_estimate(self)
-        # if estimate_chi_n:
-        #     chi_n = self.get_chi_n()
+            self.beta_j, self.beta_j_se = estimate_beta_j.beta_estimate(
+                np.asarray(p.beta_annual, dtype=float), client=client
+            )
 
         # Macro estimation
         if self.get_macro_params:
@@ -152,6 +197,145 @@ class Calibration:
                 p.lambdas,
                 plot_path=output_path,
             )
+
+        # Lifecycle preference parameters: beta by type, chi_b, chi_n
+        self.lifecycle_outcome = None
+        if self.estimate_lifecycle_prefs:
+            self.lifecycle_params = self.get_lifecycle_parameters(
+                p,
+                lifecycle_params_path=lifecycle_params_path,
+                config=lifecycle_config,
+                options=lifecycle_options,
+                initial_ss=lifecycle_initial_ss,
+                client=client,
+                **(lifecycle_kwargs or {}),
+            )
+
+    # Lifecycle preference parameters
+    def get_lifecycle_parameters(
+        self,
+        p,
+        lifecycle_params_path=None,
+        config=None,
+        options=None,
+        initial_ss=None,
+        client=None,
+        **kwargs,
+    ):
+        """
+        Reads calibrated lifecycle preference parameters from a JSON file
+        or calibrates them with the nested general-equilibrium routine.
+
+        The calibration runs on a copy of ``p`` that already carries every
+        other parameter this class has produced so far (tax functions,
+        transfer and bequest matrices, earnings profiles, demographics,
+        macro parameters), so the calibrated preferences are consistent
+        with the rest of ``get_dict()``.  ``p`` itself is not modified.
+
+        Args:
+            p (OG-Core Specifications object): parameters object
+            lifecycle_params_path (str): JSON file to read from or write
+                to; None writes to ``p.output_base``
+            config (LifecycleCalibrationConfig): moment configuration
+            options (PreferenceCalibrationOptions): beta / chi_b options
+            initial_ss (dict): steady state to start the outer loop from
+            client (Dask client object): client for household solves
+            kwargs: passed to ``calibrate_lifecycle_preferences``
+
+        Returns:
+            dict: ``beta_annual``, ``chi_b``, ``chi_n`` as lists
+
+        """
+        run_calibration = True
+        if lifecycle_params_path is None:
+            lifecycle_params_path = os.path.join(
+                p.output_base, "LifecyclePrefEst.json"
+            )
+        else:
+            params, run_calibration = self.read_lifecycle_parameters(
+                p, lifecycle_params_path
+            )
+        mkdirs(os.path.split(lifecycle_params_path)[0])
+        if run_calibration:
+            p_calib = copy.deepcopy(p)
+            updates = {
+                k: v
+                for k, v in self._parameter_updates().items()
+                if k in p_calib._data
+            }
+            if updates:
+                p_calib.update_specifications(updates)
+            outcome = calibrate_lifecycle.calibrate_lifecycle_preferences(
+                p_calib,
+                config=config,
+                options=options,
+                initial_ss=initial_ss,
+                client=client,
+                **kwargs,
+            )
+            self.lifecycle_outcome = outcome
+            params = outcome.parameter_dict
+            record = dict(params)
+            record["_meta"] = {
+                "S": int(p.S),
+                "J": int(p.J),
+                "start_year": int(p.start_year),
+                "converged": bool(outcome.converged),
+                "iterations": int(outcome.iterations),
+            }
+            with open(lifecycle_params_path, "w", encoding="utf-8") as file:
+                json.dump(record, file, indent=1)
+            print(
+                "Saved lifecycle preference parameters to ",
+                lifecycle_params_path,
+            )
+        return params
+
+    def read_lifecycle_parameters(self, p, lifecycle_params_path):
+        """
+        Reads calibrated lifecycle preference parameters from a JSON
+        file and checks that they fit the model dimensions.
+
+        Args:
+            p (OG-Core Specifications object): parameters object
+            lifecycle_params_path (str): path to the JSON file
+
+        Returns:
+            params (dict or None): ``beta_annual``, ``chi_b``, ``chi_n``
+            run_calibration (bool): whether the calibration must run
+
+        """
+        keys = ("beta_annual", "chi_b", "chi_n")
+        if not os.path.exists(lifecycle_params_path):
+            print(
+                "Lifecycle preference parameters do not exist at given "
+                "path. Running new calibration."
+            )
+            return None, True
+        with open(lifecycle_params_path, "r", encoding="utf-8") as file:
+            record = json.load(file)
+        if not all(k in record for k in keys):
+            raise RuntimeError(
+                "Lifecycle preference parameter file at given path is "
+                "missing one of " + ", ".join(keys)
+            )
+        params = {k: list(record[k]) for k in keys}
+        consistent = (
+            len(params["beta_annual"]) == p.J
+            and len(params["chi_b"]) == p.J
+            and len(params["chi_n"]) == p.S
+        )
+        if not consistent:
+            print(
+                "Lifecycle preference parameters at given path do not "
+                "match the model's S and J. Running new calibration."
+            )
+            return None, True
+        print(
+            "Using lifecycle preference parameters from ",
+            lifecycle_params_path,
+        )
+        return params, False
 
     # Tax Functions
     def get_tax_function_parameters(
@@ -403,15 +587,22 @@ class Calibration:
 
         return dict_params, run_micro
 
-    # method to return all newly calibrated parameters in a dictionary
-    def get_dict(self):
+    def _parameter_updates(self):
+        """
+        Collects the calibrated parameters other than the lifecycle
+        preferences (tax functions, legacy beta, eta, zeta, macro
+        parameters, e, demographics).
+
+        Returns:
+            dict (dict): parameter updates in `update_specifications`
+                format
+
+        """
         dict = {}
         if self.estimate_tax_functions:
             dict.update(self.tax_function_params)
         if self.estimate_beta:
-            dict["beta_annual"] = self.beta
-        if self.estimate_chi_n:
-            dict["chi_n"] = self.chi_n
+            dict["beta_annual"] = self.beta_j
         dict["eta"] = self.eta
         dict["zeta"] = self.zeta
         if self.get_macro_params:
@@ -419,5 +610,22 @@ class Calibration:
         dict["e"] = self.e
         if self.estimate_pop:
             dict.update(self.demographic_params)
+
+        return dict
+
+    # method to return all newly calibrated parameters in a dictionary
+    def get_dict(self):
+        """
+        Returns all newly calibrated parameters in a dictionary.
+
+        Returns:
+            dict (dict): parameter updates in `update_specifications`
+                format, including `beta_annual`, `chi_b`, and `chi_n`
+                when the lifecycle preferences were calibrated
+
+        """
+        dict = self._parameter_updates()
+        if self.estimate_lifecycle_prefs:
+            dict.update(self.lifecycle_params)
 
         return dict

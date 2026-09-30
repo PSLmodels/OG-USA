@@ -6,6 +6,41 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [0.6.0] - 2026-09-29 22:20:00
+
+### Added
+
+- Documentation chapter `docs/book/content/calibration/matching_lwi.md` describing the calibration of `chi_n`, `beta_annual`, and `chi_b`: data targets, the inversion and least-squares steps, the general-equilibrium loop, standard errors, time-path validation, and the fit against CPS hours and SCF wealth moments. `PREFERENCE_CALIBRATION_GUIDE.md` summarizes the approach for other country calibrations.
+- `Calibration(estimate_lifecycle_prefs=True)` runs the nested lifecycle preference calibration on a copy of the parameters that already carries the class's other outputs (tax functions, `e`, `eta`, `zeta`, demographics, macro parameters) and returns `beta_annual`, `chi_b`, and `chi_n` from `get_dict()`. `lifecycle_params_path` reads a saved JSON when its dimensions match the model and writes the result otherwise; `lifecycle_config`, `lifecycle_options`, `lifecycle_initial_ss`, and `lifecycle_kwargs` pass through to `calibrate_lifecycle_preferences`. `estimate_chi_n` is a deprecated alias.
+- `ogusa/calibrate_lifecycle.py`: `preference_inference` computes standard errors for `beta_annual` and `chi_b` by type from the least-squares Jacobian of the household-only calibration step (classical nonlinear least squares, or a sandwich with a bootstrap covariance of the data moments carried to the targets by `preference_target_selection`) and, with a moment covariance, the overidentification test. `PreferenceCalibrationResult` now stores the Jacobian and target weights.
+- `examples/run_lifecycle_calibration.py` runs the calibration through the `Calibration` class and writes the parameter JSON, moment comparison, outer-loop history, optional standard errors, and the hours, wealth, and `chi_n` comparison figures. `examples/validate_lifecycle_time_path.py` solves a baseline and a reform time path at calibrated parameters and records convergence and Euler errors.
+- `ogusa/calibrate_lifecycle.py`: household-only steady-state solve (`HouseholdEnvironment`, `solve_households`, `partial_equilibrium_ss`) that re-solves every lifetime-income type's Euler equations at fixed prices, transfers, bequests, and scaling factor from an OG-Core steady-state output. It reproduces the general-equilibrium household solution at equilibrium prices in well under a second serially and is the inner loop for the preference-parameter calibration.
+- `ogusa/calibrate_lifecycle.py`: `calibrate_lifecycle_preferences` runs the full nested calibration: general-equilibrium steady state, `chi_n` inversion, `beta` and `chi_b` calibration, re-inversion, and a warm-started general-equilibrium re-solve (`solve_ge_steady_state`), repeated with adaptive damping until parameters and prices settle. Returns a `LifecycleCalibrationOutcome` with per-pass diagnostics and a data-versus-model moment table.
+- `ogusa/calibrate_lifecycle.py`: `calibrate_beta_chi_b` calibrates `beta_annual` by type and `chi_b` by type group at fixed prices with bounded nonlinear least squares over household-only solves, targeting SCF wealth shares by type bin, SCF mean wealth over mean income, by-bin old-age wealth tilts, and the mortality-weighted bequest-flow ratio. `PreferenceCalibrationOptions` selects the `chi_b` grouping and whether the structurally unmatchable bottom-half bin is excluded.
+- New moments in `estimate_lifecycle_params.py`: `wealth_income_ratio` (SCF mean net worth over mean income, pre-transfer or total concept), `bequest_flow_ratio` (wealth of decedents over wealth of the living using the model's mortality on both sides), and by-bin old-age tilts (`tilt_*`); `merged_type_groups` and `percentile_bin_shares` helpers.
+- SCF extracts in `ogusa/data/SCF` now carry total pre-tax income and its components (`data/download_moment_data.py`); `wealth.get_wealth_data` accepts `include_income`.
+- `ogusa/calibrate_lifecycle.py`: `invert_chi_n` chooses the `chi_n` age profile so population-weighted model hours match CPS hours at each age 20 to 79 at fixed prices, by iterating on the labor first-order condition (`chi_n_update`). Ages beyond the last target are filled by the configured tail method, values are clipped to the ParamTools range, and ages where the cap binds are reported.
+
+### Changed
+
+- `ogusa/estimate_lifecycle_params.py` now builds the default preference-calibration moment set as hours by single year of age (CPS, lightly smoothed), one SCF wealth share per lifetime-income type with percentile bins taken from `p.lambdas`, and the ratio of mean SCF net worth at ages 75-79 to ages 60-64. The normalized wealth-by-age profile, income Gini, gross saving rate, wealth Gini, variance of log wealth, and aggregate bequests over GDP are optional or diagnostic moments. See `LIFECYCLE_CALIBRATION_PLAN.md`.
+- Age aggregation of model moments uses the (S, J) steady-state population distribution from OG-Core rather than `lambdas` alone.
+- `SS.SS_solver` warm starts are called by keyword against the installed OG-Core signature, and a failed warm start logs a warning before falling back to a cold solve.
+- Moved `tool.uv.dev-dependencies` into `[dependency-groups] dev` in `pyproject.toml`.
+
+### Fixed
+
+- `calibrate_beta_chi_b` now supplies its own finite-difference Jacobian with an absolute step (`PreferenceCalibrationOptions.diff_step`, now absolute in the transformed space) taken from a common household guess. SciPy's `diff_step` is relative to the parameter value, and because the parameterization starts at zero it silently fell back to a step of about 1.5e-8, far below the reproducibility of the household solve, so the least-squares Jacobian was mostly solver noise.
+- `Calibration.get_dict` referenced attributes that were never set for `estimate_beta` and `estimate_chi_n`; the legacy `estimate_beta` path now passes the current `beta_annual` as the initial guess and returns the estimate.
+- `wealth.compute_wealth_moments` no longer drops the wealthiest observation from the top percentile bin, so shares sum to one.
+- Wealth-by-age model moments map age `a` to `b_sp1[a - starting_age - 1]`, the savings actually held at age `a`.
+- DFO-LS bounds in `estimate_lifecycle_params` are built in the transformed (logit/log) parameter space from the ParamTools validators intersected with configurable bounds; the previous code raised on scalar concatenation.
+- Solver failures inside the SMM residual and objective return a bounded penalty instead of `1e15`.
+
+### Removed
+
+- `ogusa/calibrate_chi_n.py`, which targeted an OG-Core API that no longer exists.
+
 ## [0.5.0] - 2026-07-25 12:00:00
 
 ### Fixed
@@ -216,6 +251,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Any earlier versions of OG-USA can be found in the [`OG-Core`](https://github.com/PSLmodels/OG-Core) repository [release history](https://github.com/PSLmodels/OG-Core/releases) from [v.0.6.4](https://github.com/PSLmodels/OG-Core/releases/tag/v0.6.4) (Jul. 20, 2021) or earlier.
 
 
+[0.6.0]: https://github.com/PSLmodels/OG-USA/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/PSLmodels/OG-USA/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/PSLmodels/OG-USA/compare/v0.3.3...v0.4.0
 [0.3.3]: https://github.com/PSLmodels/OG-USA/compare/v0.3.2...v0.3.3

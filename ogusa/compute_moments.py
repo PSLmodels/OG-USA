@@ -484,7 +484,7 @@ def get_macro_moments(year=2025):
         r"Investment rate $(I/K)$",
         r"Capital-Output ratio $(K/Y)$",
         r"Consumption-Output ratio $(C/Y)$",
-        r"Savings rate $(B/Y)$",
+        r"Gross savings rate $(S/Y)$",
         r"Interest rate $(r)$",
         r"Capital share of output",
         r"Labor share of output",
@@ -609,7 +609,7 @@ def get_macro_moments(year=2025):
         fred_data_q["Personal consumption expenditures"],
         fred_data_q["Nominal GDP"],
     )
-    macro_moments[r"Savings rate $(B/Y)$"] = _mean_ratio(
+    macro_moments[r"Gross savings rate $(S/Y)$"] = _mean_ratio(
         fred_data_q["Gross private savings"], fred_data_q["Nominal GDP"]
     )
     macro_moments[r"Interest rate $(r)$"] = _mean_real_rate(

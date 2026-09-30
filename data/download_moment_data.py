@@ -25,6 +25,18 @@ CPS_ASEC_URLS = {
 }
 
 SCF_YEARS = [2019, 2016, 2013, 2010, 2007]
+# Total pre-tax household income and its components from the SCF summary
+# extract. The components let moments use income net of transfers, which is
+# the model's before-tax income concept (capital plus labor income).
+SCF_INCOME_COLUMNS = [
+    "income",
+    "wageinc",
+    "bussefarminc",
+    "intdivinc",
+    "kginc",
+    "ssretinc",
+    "transfothinc",
+]
 SCF_CPI_2019 = {
     2019: 100.000,
     2016: 94.06403464,
@@ -126,12 +138,19 @@ def download_scf():
                 )
             with zip_file.open(dta_files[0]) as dta_file:
                 scf = pd.read_stata(
-                    dta_file, columns=["age", "networth", "wgt"]
+                    dta_file,
+                    columns=["age", "networth", "wgt"] + SCF_INCOME_COLUMNS,
                 )
 
         scf["year"] = year
-        scf["networth_infadj"] = scf["networth"] * (100.0 / SCF_CPI_2019[year])
-        scf = scf[["year", "age", "networth", "networth_infadj", "wgt"]]
+        deflator = 100.0 / SCF_CPI_2019[year]
+        scf["networth_infadj"] = scf["networth"] * deflator
+        scf["income_infadj"] = scf["income"] * deflator
+        scf = scf[
+            ["year", "age", "networth", "networth_infadj", "wgt"]
+            + SCF_INCOME_COLUMNS
+            + ["income_infadj"]
+        ]
 
         output_path = os.path.join(SCF_DIR, f"scf_wealth_{year}.csv")
         scf.to_csv(output_path, index=False)

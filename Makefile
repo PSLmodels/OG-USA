@@ -86,9 +86,9 @@ format:
 	uv run linecheck . --fix
 
 documentation:
-	uv run jupyter-book clean docs/book
-	uv run python docs/create_doc_figures.py
-	uv run jupyter-book build docs/book
+	uv run --extra docs jupyter-book clean docs/book
+	uv run --extra docs python docs/create_doc_figures.py
+	uv run --extra docs jupyter-book build docs/book
 
 new-baseline:
 	uv run python ogusa/update_baseline.py

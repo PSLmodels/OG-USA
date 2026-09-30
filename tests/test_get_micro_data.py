@@ -9,7 +9,7 @@ from ogusa import get_micro_data
 from ogcore import utils
 from taxcalc import GrowFactors, Records
 
-NUM_WORKERS = min(multiprocessing.cpu_count(), 7)
+NUM_WORKERS = min(multiprocessing.cpu_count(), 2)
 # get path to puf if puf.csv in ogusa/ directory
 CUR_PATH = os.path.abspath(os.path.dirname(__file__))
 PUF_PATH = os.path.join(CUR_PATH, "..", "puf.csv")

@@ -399,10 +399,10 @@
                 <article class="bd-article">
                   
   <h1>Source code for ogusa.estimate_beta_j</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">This script uses simulated method of moments estimator to estimate the</span>
 <span class="sd">beta_j parameters for OG-USA.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
@@ -412,7 +412,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">ogcore</span><span class="w"> </span><span class="kn">import</span> <span class="n">SS</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ogcore.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">Inequality</span>
 
-<span class="c1"># Don&#39;t print output along the way of SS solution</span>
+<span class="c1"># Don't print output along the way of SS solution</span>
 <span class="n">SS</span><span class="o">.</span><span class="n">VERBOSE</span> <span class="o">=</span> <span class="kc">False</span>
 
 <span class="n">CUR_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
@@ -423,7 +423,7 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">beta_estimate</span><span class="p">(</span>
     <span class="n">beta_initial_guesses</span><span class="p">,</span> <span class="n">og_spec</span><span class="o">=</span><span class="p">{},</span> <span class="n">two_step</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="kc">None</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    This function estimates the beta_j parameters using a simulated</span>
 <span class="sd">    method of moments estimator that targets moments of the wealth</span>
 <span class="sd">    distribution.</span>
@@ -439,15 +439,15 @@
 <span class="sd">        beta_hat (array-like): estimates of the beta_j</span>
 <span class="sd">        beta_se (array-like): standard errors on the beta_j estimates</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="c1"># initialize parameters object</span>
     <span class="n">tax_func_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
         <span class="n">CUR_PATH</span><span class="p">,</span>
-        <span class="s2">&quot;..&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;data&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;tax_functions&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;TxFuncEst_baseline_PUF.pkl&quot;</span><span class="p">,</span>
+        <span class="s2">".."</span><span class="p">,</span>
+        <span class="s2">"data"</span><span class="p">,</span>
+        <span class="s2">"tax_functions"</span><span class="p">,</span>
+        <span class="s2">"TxFuncEst_baseline_PUF.pkl"</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">p</span> <span class="o">=</span> <span class="n">Specifications</span><span class="p">(</span><span class="n">baseline</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">p</span><span class="o">.</span><span class="n">update_specifications</span><span class="p">(</span><span class="n">og_spec</span><span class="p">)</span>
@@ -472,12 +472,12 @@
         <span class="n">minstat</span><span class="p">,</span>
         <span class="n">beta_initial_guesses</span><span class="p">,</span>
         <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">min_args</span><span class="p">),</span>
-        <span class="n">method</span><span class="o">=</span><span class="s2">&quot;L-BFGS-B&quot;</span><span class="p">,</span>
+        <span class="n">method</span><span class="o">=</span><span class="s2">"L-BFGS-B"</span><span class="p">,</span>
         <span class="n">bounds</span><span class="o">=</span><span class="n">bnds</span><span class="p">,</span>
         <span class="n">tol</span><span class="o">=</span><span class="mf">1e-15</span><span class="p">,</span>
-        <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;maxfun&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;maxiter&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;maxls&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+        <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">"maxfun"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"maxiter"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"maxls"</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
     <span class="p">)</span>
-    <span class="n">beta_hat</span> <span class="o">=</span> <span class="n">est_output</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]</span>
+    <span class="n">beta_hat</span> <span class="o">=</span> <span class="n">est_output</span><span class="p">[</span><span class="s2">"x"</span><span class="p">]</span>
 
     <span class="c1"># calculate std errors</span>
     <span class="n">K</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_moments</span><span class="p">)</span>
@@ -490,12 +490,12 @@
             <span class="n">minstat</span><span class="p">,</span>
             <span class="n">beta_initial_guesses</span><span class="p">,</span>
             <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">min_args</span><span class="p">),</span>
-            <span class="n">method</span><span class="o">=</span><span class="s2">&quot;L-BFGS-B&quot;</span><span class="p">,</span>
+            <span class="n">method</span><span class="o">=</span><span class="s2">"L-BFGS-B"</span><span class="p">,</span>
             <span class="n">bounds</span><span class="o">=</span><span class="n">bnds</span><span class="p">,</span>
             <span class="n">tol</span><span class="o">=</span><span class="mf">1e-15</span><span class="p">,</span>
-            <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;maxfun&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;maxiter&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;maxls&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+            <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">"maxfun"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"maxiter"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"maxls"</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
         <span class="p">)</span>
-        <span class="n">beta_hat</span> <span class="o">=</span> <span class="n">est_output</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]</span>
+        <span class="n">beta_hat</span> <span class="o">=</span> <span class="n">est_output</span><span class="p">[</span><span class="s2">"x"</span><span class="p">]</span>
         <span class="n">beta_se</span><span class="p">,</span> <span class="n">VCV_params</span> <span class="o">=</span> <span class="n">compute_se</span><span class="p">(</span>
             <span class="n">beta_hat</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="n">client</span>
         <span class="p">)</span>
@@ -507,7 +507,7 @@
 <div class="viewcode-block" id="minstat">
 <a class="viewcode-back" href="../../content/api/estimate_beta_j.html#ogusa.estimate_beta_j.minstat">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">minstat</span><span class="p">(</span><span class="n">beta_guesses</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    This function generates the weighted sum of squared differences</span>
 <span class="sd">    between the model and data moments.</span>
 
@@ -519,7 +519,7 @@
 <span class="sd">        distance (scalar): weighted, squared deviation between data and</span>
 <span class="sd">            model moments</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># unpack args tuple</span>
     <span class="n">data_moments</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">client</span> <span class="o">=</span> <span class="n">args</span>
 
@@ -527,7 +527,7 @@
     <span class="n">p</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="n">beta_guesses</span>
 
     <span class="c1"># Solve model SS</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Baseline = &quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">baseline</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Baseline = "</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">baseline</span><span class="p">)</span>
     <span class="n">ss_output</span> <span class="o">=</span> <span class="n">SS</span><span class="o">.</span><span class="n">run_SS</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="n">client</span><span class="p">)</span>
 
     <span class="c1"># Compute moments from model SS</span>
@@ -539,7 +539,7 @@
         <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">model_moments</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data_moments</span><span class="p">),</span>
     <span class="p">)</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DATA and MODEL DISTANCE: &quot;</span><span class="p">,</span> <span class="n">distance</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"DATA and MODEL DISTANCE: "</span><span class="p">,</span> <span class="n">distance</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">distance</span></div>
 
@@ -548,7 +548,7 @@
 <div class="viewcode-block" id="calc_moments">
 <a class="viewcode-back" href="../../content/api/estimate_beta_j.html#ogusa.estimate_beta_j.calc_moments">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">calc_moments</span><span class="p">(</span><span class="n">ss_output</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    This function calculates moments from the SS output that correspond</span>
 <span class="sd">    to the data moments used for estimation.</span>
 
@@ -559,10 +559,10 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        model_moments (array-like): Array of model moments</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># Create Inequality object</span>
     <span class="n">wealth_ineq</span> <span class="o">=</span> <span class="n">Inequality</span><span class="p">(</span>
-        <span class="n">ss_output</span><span class="p">[</span><span class="s2">&quot;bssmat_splus1&quot;</span><span class="p">],</span> <span class="n">p</span><span class="o">.</span><span class="n">omega_SS</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">lambdas</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">S</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">J</span>
+        <span class="n">ss_output</span><span class="p">[</span><span class="s2">"bssmat_splus1"</span><span class="p">],</span> <span class="n">p</span><span class="o">.</span><span class="n">omega_SS</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">lambdas</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">S</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">J</span>
     <span class="p">)</span>
 
     <span class="c1"># wealth moments</span>
@@ -592,7 +592,7 @@
 <div class="viewcode-block" id="compute_weighting_matrix">
 <a class="viewcode-back" href="../../content/api/estimate_beta_j.html#ogusa.estimate_beta_j.compute_weighting_matrix">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">compute_weighting_matrix</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">optimal_weight</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Function to compute the weighting matrix for the GMM estimator.</span>
 
 <span class="sd">    Args:</span>
@@ -603,7 +603,7 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        W (Numpy array): Weighting matrix</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># determine weighting matrix</span>
     <span class="k">if</span> <span class="n">optimal_weight</span><span class="p">:</span>
         <span class="c1"># This uses the inverse of the VCV matrix for the data moments</span>
@@ -628,7 +628,7 @@
 <div class="viewcode-block" id="VCV_moments">
 <a class="viewcode-back" href="../../content/api/estimate_beta_j.html#ogusa.estimate_beta_j.VCV_moments">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">VCV_moments</span><span class="p">(</span><span class="n">scf</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">bin_weights</span><span class="p">,</span> <span class="n">J</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Compute variance-covariance matrix for wealth moments by</span>
 <span class="sd">    bootstrapping data.</span>
 
@@ -642,7 +642,7 @@
 <span class="sd">        VCV (Numpy array): variance-covariance matrix of wealth moments,</span>
 <span class="sd">            (J+2xJ+2) array</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">wealth_moments_boot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">J</span> <span class="o">+</span> <span class="mi">2</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
         <span class="n">sample</span> <span class="o">=</span> <span class="n">scf</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">scf</span><span class="o">.</span><span class="n">index</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)]</span>
@@ -661,7 +661,7 @@
 <div class="viewcode-block" id="compute_se">
 <a class="viewcode-back" href="../../content/api/estimate_beta_j.html#ogusa.estimate_beta_j.compute_se">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">compute_se</span><span class="p">(</span><span class="n">beta_hat</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Function to compute standard errors for the SMM estimator.</span>
 
 <span class="sd">    Args:</span>
@@ -676,8 +676,8 @@
 <span class="sd">        beta_se (array-like): standard errors for beta estimates</span>
 <span class="sd">        VCV_params (Numpy array): VCV matrix for parameter estimates</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># compute numerical derivatives that will need for SE&#39;s</span>
+<span class="sd">    """</span>
+    <span class="c1"># compute numerical derivatives that will need for SE's</span>
     <span class="n">model_moments_low</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">p</span><span class="o">.</span><span class="n">J</span><span class="p">,</span> <span class="n">K</span><span class="p">))</span>
     <span class="n">model_moments_high</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">p</span><span class="o">.</span><span class="n">J</span><span class="p">,</span> <span class="n">K</span><span class="p">))</span>
     <span class="n">beta_low</span> <span class="o">=</span> <span class="n">beta_hat</span>

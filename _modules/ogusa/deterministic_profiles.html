@@ -410,7 +410,7 @@
 <div class="viewcode-block" id="estimate_profiles">
 <a class="viewcode-back" href="../../content/api/deterministic_profiles.html#ogusa.deterministic_profiles.estimate_profiles">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">estimate_profiles</span><span class="p">(</span><span class="n">data_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Function to estimate deterministic lifecycle profiles of hourly</span>
 <span class="sd">    earnings.  Follows methodology of Fullerton and Rogers (1993).</span>
 
@@ -422,90 +422,90 @@
 <span class="sd">        reg_results (Pandas DataFrame): regression model coefficients</span>
 <span class="sd">            for lifetime earnings profiles</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># Read in PSID data</span>
     <span class="k">if</span> <span class="n">data_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># Read data file shipped with OG-USA package</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s2">&quot;psid_lifetime_income.csv.gz&quot;</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s2">"psid_lifetime_income.csv.gz"</span><span class="p">)</span>
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># This is the case when running this from a branch of the OG-USA repo</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_path</span><span class="p">)</span>
 
     <span class="n">model_results</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;Names&quot;</span><span class="p">:</span> <span class="p">[</span>
-            <span class="s2">&quot;Constant&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;Head Age&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;Head Age^2&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;Head Age^3&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;R-Squared&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;Observations&quot;</span><span class="p">,</span>
+        <span class="s2">"Names"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">"Constant"</span><span class="p">,</span>
+            <span class="s2">""</span><span class="p">,</span>
+            <span class="s2">"Head Age"</span><span class="p">,</span>
+            <span class="s2">""</span><span class="p">,</span>
+            <span class="s2">"Head Age^2"</span><span class="p">,</span>
+            <span class="s2">""</span><span class="p">,</span>
+            <span class="s2">"Head Age^3"</span><span class="p">,</span>
+            <span class="s2">""</span><span class="p">,</span>
+            <span class="s2">"R-Squared"</span><span class="p">,</span>
+            <span class="s2">"Observations"</span><span class="p">,</span>
         <span class="p">]</span>
     <span class="p">}</span>
-    <span class="n">cats_pct</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;0-25&quot;</span><span class="p">,</span> <span class="s2">&quot;26-50&quot;</span><span class="p">,</span> <span class="s2">&quot;51-70&quot;</span><span class="p">,</span> <span class="s2">&quot;71-80&quot;</span><span class="p">,</span> <span class="s2">&quot;81-90&quot;</span><span class="p">,</span> <span class="s2">&quot;91-99&quot;</span><span class="p">,</span> <span class="s2">&quot;100&quot;</span><span class="p">]</span>
+    <span class="n">cats_pct</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"0-25"</span><span class="p">,</span> <span class="s2">"26-50"</span><span class="p">,</span> <span class="s2">"51-70"</span><span class="p">,</span> <span class="s2">"71-80"</span><span class="p">,</span> <span class="s2">"81-90"</span><span class="p">,</span> <span class="s2">"91-99"</span><span class="p">,</span> <span class="s2">"100"</span><span class="p">]</span>
     <span class="n">long_model_results</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;Lifetime Income Group&quot;</span><span class="p">:</span> <span class="p">[],</span>
-        <span class="s2">&quot;Constant&quot;</span><span class="p">:</span> <span class="p">[],</span>
-        <span class="s2">&quot;Age&quot;</span><span class="p">:</span> <span class="p">[],</span>
-        <span class="s2">&quot;Age^2&quot;</span><span class="p">:</span> <span class="p">[],</span>
-        <span class="s2">&quot;Age^3&quot;</span><span class="p">:</span> <span class="p">[],</span>
-        <span class="s2">&quot;Observations&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">"Lifetime Income Group"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">"Constant"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">"Age"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">"Age^2"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">"Age^3"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">"Observations"</span><span class="p">:</span> <span class="p">[],</span>
     <span class="p">}</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cats_pct</span><span class="p">):</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;ones&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
+        <span class="n">data</span><span class="p">[</span><span class="s2">"ones"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
         <span class="n">mod</span> <span class="o">=</span> <span class="n">PanelOLS</span><span class="p">(</span>
-            <span class="n">data</span><span class="o">.</span><span class="n">ln_earn_rate</span><span class="p">,</span> <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;ones&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;age2&quot;</span><span class="p">,</span> <span class="s2">&quot;age3&quot;</span><span class="p">]]</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">ln_earn_rate</span><span class="p">,</span> <span class="n">data</span><span class="p">[[</span><span class="s2">"ones"</span><span class="p">,</span> <span class="s2">"age"</span><span class="p">,</span> <span class="s2">"age2"</span><span class="p">,</span> <span class="s2">"age3"</span><span class="p">]]</span>
         <span class="p">)</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">cov_type</span><span class="o">=</span><span class="s2">&quot;clustered&quot;</span><span class="p">,</span> <span class="n">cluster_entity</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="c1"># print(&#39;Summary for lifetime income group &#39;, group)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">cov_type</span><span class="o">=</span><span class="s2">"clustered"</span><span class="p">,</span> <span class="n">cluster_entity</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># print('Summary for lifetime income group ', group)</span>
         <span class="c1"># print(res.summary)</span>
         <span class="c1"># Save model results to dictionary</span>
         <span class="n">model_results</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;ones&quot;</span><span class="p">],</span>
-            <span class="n">res</span><span class="o">.</span><span class="n">std_errors</span><span class="p">[</span><span class="s2">&quot;ones&quot;</span><span class="p">],</span>
-            <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">],</span>
-            <span class="n">res</span><span class="o">.</span><span class="n">std_errors</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">],</span>
-            <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;age2&quot;</span><span class="p">],</span>
-            <span class="n">res</span><span class="o">.</span><span class="n">std_errors</span><span class="p">[</span><span class="s2">&quot;age2&quot;</span><span class="p">],</span>
-            <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;age3&quot;</span><span class="p">],</span>
-            <span class="n">res</span><span class="o">.</span><span class="n">std_errors</span><span class="p">[</span><span class="s2">&quot;age3&quot;</span><span class="p">],</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">"ones"</span><span class="p">],</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">std_errors</span><span class="p">[</span><span class="s2">"ones"</span><span class="p">],</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">"age"</span><span class="p">],</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">std_errors</span><span class="p">[</span><span class="s2">"age"</span><span class="p">],</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">"age2"</span><span class="p">],</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">std_errors</span><span class="p">[</span><span class="s2">"age2"</span><span class="p">],</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">"age3"</span><span class="p">],</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">std_errors</span><span class="p">[</span><span class="s2">"age3"</span><span class="p">],</span>
             <span class="n">res</span><span class="o">.</span><span class="n">rsquared</span><span class="p">,</span>
             <span class="n">res</span><span class="o">.</span><span class="n">nobs</span><span class="p">,</span>
         <span class="p">]</span>
-        <span class="n">long_model_results</span><span class="p">[</span><span class="s2">&quot;Lifetime Income Group&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">cats_pct</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s2">&quot;&quot;</span><span class="p">])</span>
-        <span class="n">long_model_results</span><span class="p">[</span><span class="s2">&quot;Constant&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
-            <span class="p">[</span><span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;ones&quot;</span><span class="p">],</span> <span class="n">res</span><span class="o">.</span><span class="n">std_errors</span><span class="p">[</span><span class="s2">&quot;ones&quot;</span><span class="p">]]</span>
+        <span class="n">long_model_results</span><span class="p">[</span><span class="s2">"Lifetime Income Group"</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">cats_pct</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s2">""</span><span class="p">])</span>
+        <span class="n">long_model_results</span><span class="p">[</span><span class="s2">"Constant"</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">"ones"</span><span class="p">],</span> <span class="n">res</span><span class="o">.</span><span class="n">std_errors</span><span class="p">[</span><span class="s2">"ones"</span><span class="p">]]</span>
         <span class="p">)</span>
-        <span class="n">long_model_results</span><span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
-            <span class="p">[</span><span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">],</span> <span class="n">res</span><span class="o">.</span><span class="n">std_errors</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]]</span>
+        <span class="n">long_model_results</span><span class="p">[</span><span class="s2">"Age"</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">"age"</span><span class="p">],</span> <span class="n">res</span><span class="o">.</span><span class="n">std_errors</span><span class="p">[</span><span class="s2">"age"</span><span class="p">]]</span>
         <span class="p">)</span>
-        <span class="n">long_model_results</span><span class="p">[</span><span class="s2">&quot;Age^2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
-            <span class="p">[</span><span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;age2&quot;</span><span class="p">],</span> <span class="n">res</span><span class="o">.</span><span class="n">std_errors</span><span class="p">[</span><span class="s2">&quot;age2&quot;</span><span class="p">]]</span>
+        <span class="n">long_model_results</span><span class="p">[</span><span class="s2">"Age^2"</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">"age2"</span><span class="p">],</span> <span class="n">res</span><span class="o">.</span><span class="n">std_errors</span><span class="p">[</span><span class="s2">"age2"</span><span class="p">]]</span>
         <span class="p">)</span>
-        <span class="n">long_model_results</span><span class="p">[</span><span class="s2">&quot;Age^3&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
-            <span class="p">[</span><span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;age3&quot;</span><span class="p">],</span> <span class="n">res</span><span class="o">.</span><span class="n">std_errors</span><span class="p">[</span><span class="s2">&quot;age3&quot;</span><span class="p">]]</span>
+        <span class="n">long_model_results</span><span class="p">[</span><span class="s2">"Age^3"</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">"age3"</span><span class="p">],</span> <span class="n">res</span><span class="o">.</span><span class="n">std_errors</span><span class="p">[</span><span class="s2">"age3"</span><span class="p">]]</span>
         <span class="p">)</span>
-        <span class="n">long_model_results</span><span class="p">[</span><span class="s2">&quot;Observations&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">res</span><span class="o">.</span><span class="n">nobs</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">])</span>
+        <span class="n">long_model_results</span><span class="p">[</span><span class="s2">"Observations"</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">res</span><span class="o">.</span><span class="n">nobs</span><span class="p">,</span> <span class="s2">""</span><span class="p">])</span>
 
     <span class="n">reg_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">model_results</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">output_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="c1"># Create directory if it doesn&#39;t already exist</span>
+        <span class="c1"># Create directory if it doesn't already exist</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">output_path</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>
         <span class="n">reg_results</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">&quot;DeterministicProfileRegResults.csv&quot;</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">"DeterministicProfileRegResults.csv"</span><span class="p">)</span>
         <span class="p">)</span>
         <span class="n">long_reg_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">model_results</span><span class="p">)</span>
         <span class="n">long_reg_results</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
             <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                <span class="n">output_path</span><span class="p">,</span> <span class="s2">&quot;DeterministicProfileRegResults_long.csv&quot;</span>
+                <span class="n">output_path</span><span class="p">,</span> <span class="s2">"DeterministicProfileRegResults_long.csv"</span>
             <span class="p">)</span>
         <span class="p">)</span>
 
@@ -520,45 +520,45 @@
             <span class="p">)</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">age_vec</span><span class="p">,</span> <span class="n">earn_profile</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">group</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span>
-            <span class="s2">&quot;Estimated Lifecycle Earnings Profiles by Lifetime Income Group&quot;</span>
+            <span class="s2">"Estimated Lifecycle Earnings Profiles by Lifetime Income Group"</span>
         <span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 
         <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">&quot;lifecycle_earnings_profiles.png&quot;</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">"lifecycle_earnings_profiles.png"</span><span class="p">)</span>
         <span class="p">)</span>
 
         <span class="c1"># Plot of lifecycles of hourly earnings from processes from data</span>
         <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
             <span class="n">df</span><span class="p">,</span>
-            <span class="n">values</span><span class="o">=</span><span class="s2">&quot;ln_earn_rate&quot;</span><span class="p">,</span>
-            <span class="n">index</span><span class="o">=</span><span class="s2">&quot;age&quot;</span><span class="p">,</span>
-            <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;li_group&quot;</span><span class="p">,</span>
-            <span class="n">aggfunc</span><span class="o">=</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span>
+            <span class="n">values</span><span class="o">=</span><span class="s2">"ln_earn_rate"</span><span class="p">,</span>
+            <span class="n">index</span><span class="o">=</span><span class="s2">"age"</span><span class="p">,</span>
+            <span class="n">columns</span><span class="o">=</span><span class="s2">"li_group"</span><span class="p">,</span>
+            <span class="n">aggfunc</span><span class="o">=</span><span class="s2">"mean"</span><span class="p">,</span>
         <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span>
-            <span class="s2">&quot;Empirical Lifecycle Earnings Profiles by Lifetime Income Group&quot;</span>
+            <span class="s2">"Empirical Lifecycle Earnings Profiles by Lifetime Income Group"</span>
         <span class="p">)</span>
 
         <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">&quot;lifecycle_earnings_profiles_data.png&quot;</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">"lifecycle_earnings_profiles_data.png"</span><span class="p">)</span>
         <span class="p">)</span>
 
         <span class="c1"># Plot of lifecycle profiles of hours by lifetime income group</span>
         <span class="c1"># create variable from fraction of time endowment work</span>
-        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;labor_supply&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;earnhours_hh&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span>
-            <span class="mi">24</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">*</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;married&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">50</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">"labor_supply"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"earnhours_hh"</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span>
+            <span class="mi">24</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">*</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"married"</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">50</span>
         <span class="p">)</span>
         <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
             <span class="n">df</span><span class="p">,</span>
-            <span class="n">values</span><span class="o">=</span><span class="s2">&quot;labor_supply&quot;</span><span class="p">,</span>
-            <span class="n">index</span><span class="o">=</span><span class="s2">&quot;age&quot;</span><span class="p">,</span>
-            <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;li_group&quot;</span><span class="p">,</span>
-            <span class="n">aggfunc</span><span class="o">=</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span>
+            <span class="n">values</span><span class="o">=</span><span class="s2">"labor_supply"</span><span class="p">,</span>
+            <span class="n">index</span><span class="o">=</span><span class="s2">"age"</span><span class="p">,</span>
+            <span class="n">columns</span><span class="o">=</span><span class="s2">"li_group"</span><span class="p">,</span>
+            <span class="n">aggfunc</span><span class="o">=</span><span class="s2">"mean"</span><span class="p">,</span>
         <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Lifecycle Profiles of Hours by Lifetime Income Group&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Lifecycle Profiles of Hours by Lifetime Income Group"</span><span class="p">)</span>
 
-        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">&quot;lifecycle_laborsupply.png&quot;</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">"lifecycle_laborsupply.png"</span><span class="p">))</span>
 
     <span class="k">return</span> <span class="n">reg_results</span></div>
 

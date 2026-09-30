@@ -410,45 +410,45 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">ssl</span>
 
 <span class="n">_HEADERS</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="p">(</span>
-        <span class="s2">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) &quot;</span>
-        <span class="s2">&quot;AppleWebKit/537.36 (KHTML, like Gecko) &quot;</span>
-        <span class="s2">&quot;Chrome/124.0.0.0 Safari/537.36&quot;</span>
+    <span class="s2">"User-Agent"</span><span class="p">:</span> <span class="p">(</span>
+        <span class="s2">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) "</span>
+        <span class="s2">"AppleWebKit/537.36 (KHTML, like Gecko) "</span>
+        <span class="s2">"Chrome/124.0.0.0 Safari/537.36"</span>
     <span class="p">),</span>
-    <span class="s2">&quot;Accept&quot;</span><span class="p">:</span> <span class="p">(</span>
-        <span class="s2">&quot;text/html,application/xhtml+xml,application/xml;&quot;</span>
-        <span class="s2">&quot;q=0.9,image/avif,image/webp,*/*;q=0.8&quot;</span>
+    <span class="s2">"Accept"</span><span class="p">:</span> <span class="p">(</span>
+        <span class="s2">"text/html,application/xhtml+xml,application/xml;"</span>
+        <span class="s2">"q=0.9,image/avif,image/webp,*/*;q=0.8"</span>
     <span class="p">),</span>
-    <span class="s2">&quot;Accept-Language&quot;</span><span class="p">:</span> <span class="s2">&quot;en-US,en;q=0.9&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Referer&quot;</span><span class="p">:</span> <span class="s2">&quot;https://www.cbo.gov/&quot;</span><span class="p">,</span>
+    <span class="s2">"Accept-Language"</span><span class="p">:</span> <span class="s2">"en-US,en;q=0.9"</span><span class="p">,</span>
+    <span class="s2">"Referer"</span><span class="p">:</span> <span class="s2">"https://www.cbo.gov/"</span><span class="p">,</span>
 <span class="p">}</span>
 <span class="n">CBO_FORECAST_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;CBO_forecasts&quot;</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">".."</span><span class="p">,</span> <span class="s2">"data"</span><span class="p">,</span> <span class="s2">"CBO_forecasts"</span><span class="p">)</span>
 <span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_cbo_forecast_file</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Return the path to a locally saved CBO forecast workbook.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CBO_FORECAST_DIR</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_fetch_excel</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Download a CBO Excel file using a session to acquire cookies first.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Download a CBO Excel file using a session to acquire cookies first."""</span>
     <span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
-    <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://www.cbo.gov/&quot;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">_HEADERS</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"https://www.cbo.gov/"</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">_HEADERS</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
     <span class="n">response</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">_HEADERS</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
     <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_excel_source</span><span class="p">(</span><span class="n">source</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Return a file-like object for URLs and a local path for saved files.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">source</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fspath</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">source</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">&quot;http://&quot;</span><span class="p">,</span> <span class="s2">&quot;https://&quot;</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">source</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">"http://"</span><span class="p">,</span> <span class="s2">"https://"</span><span class="p">)):</span>
         <span class="k">return</span> <span class="n">_fetch_excel</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
 
@@ -456,55 +456,55 @@
 <div class="viewcode-block" id="read_cbo_forecast">
 <a class="viewcode-back" href="../../content/api/utils.html#ogusa.bequest_transmission.read_cbo_forecast">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">read_cbo_forecast</span><span class="p">(</span>
-    <span class="n">lt_econ_url</span><span class="o">=</span><span class="n">_cbo_forecast_file</span><span class="p">(</span><span class="s2">&quot;57054-2025-03-LTBO-econ.xlsx&quot;</span><span class="p">),</span>
-    <span class="n">lt_budget_url</span><span class="o">=</span><span class="n">_cbo_forecast_file</span><span class="p">(</span><span class="s2">&quot;51119-2025-03-LTBO-budget.xlsx&quot;</span><span class="p">),</span>
+    <span class="n">lt_econ_url</span><span class="o">=</span><span class="n">_cbo_forecast_file</span><span class="p">(</span><span class="s2">"57054-2025-03-LTBO-econ.xlsx"</span><span class="p">),</span>
+    <span class="n">lt_budget_url</span><span class="o">=</span><span class="n">_cbo_forecast_file</span><span class="p">(</span><span class="s2">"51119-2025-03-LTBO-budget.xlsx"</span><span class="p">),</span>
     <span class="n">ten_year_budget_url</span><span class="o">=</span><span class="n">_cbo_forecast_file</span><span class="p">(</span>
-        <span class="s2">&quot;51118-2025-01-Budget-Projections.xlsx&quot;</span>
+        <span class="s2">"51118-2025-01-Budget-Projections.xlsx"</span>
     <span class="p">),</span>
     <span class="n">ten_year_macro_url</span><span class="o">=</span><span class="n">_cbo_forecast_file</span><span class="p">(</span>
-        <span class="s2">&quot;51135-2025-01-Economic-Projections.xlsx&quot;</span>
+        <span class="s2">"51135-2025-01-Economic-Projections.xlsx"</span>
     <span class="p">),</span>
     <span class="n">lt_start_year</span><span class="o">=</span><span class="mi">1995</span><span class="p">,</span>
     <span class="n">lt_end_year</span><span class="o">=</span><span class="mi">2055</span><span class="p">,</span>
     <span class="n">st_start_year</span><span class="o">=</span><span class="mi">2024</span><span class="p">,</span>
     <span class="n">st_end_year</span><span class="o">=</span><span class="mi">2035</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    This function reads the CBO Long-Term Budget Projections document</span>
 <span class="sd">    from https://www.cbo.gov/about/products/budget-economic-data#1</span>
 <span class="sd">    and then formats the relevant data for use with OG-Core.</span>
 
 <span class="sd">    Warning: CBO spreadsheets are not consistent across years so you may</span>
 <span class="sd">    run into errors passing different URLs to this function.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">CBO_VAR_NAMES</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;Real GDP (trillions of 2017 dollars)&quot;</span><span class="p">:</span> <span class="s2">&quot;Y&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Real rates&quot;</span><span class="p">:</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Growth of real earnings per worker&quot;</span><span class="p">:</span> <span class="s2">&quot;w_growth&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Growth of total hours worked&quot;</span><span class="p">:</span> <span class="s2">&quot;L_growth&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Hours of All Persons (nonfarm business sector)&quot;</span><span class="p">:</span> <span class="s2">&quot;L&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Personal consumption expenditures&quot;</span><span class="p">:</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Gross private domestic investment&quot;</span><span class="p">:</span> <span class="s2">&quot;I_total&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Government Consumption Expenditures and Gross Investment&quot;</span><span class="p">:</span> <span class="s2">&quot;G&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Old-Age and Survivors Insurance&quot;</span><span class="p">:</span> <span class="s2">&quot;agg_pension_outlays&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Individual income taxes&quot;</span><span class="p">:</span> <span class="s2">&quot;iit_revenue&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Payroll taxes&quot;</span><span class="p">:</span> <span class="s2">&quot;payroll_tax_revenue&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Corporate income taxes&quot;</span><span class="p">:</span> <span class="s2">&quot;business_tax_revenue&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;U.S. wage and salary disbursements</span><span class="se">\n</span><span class="s2"> (trillions of dollars)&quot;</span><span class="p">:</span> <span class="s2">&quot;wL&quot;</span><span class="p">,</span>
+        <span class="s2">"Real GDP (trillions of 2017 dollars)"</span><span class="p">:</span> <span class="s2">"Y"</span><span class="p">,</span>
+        <span class="s2">"Real rates"</span><span class="p">:</span> <span class="s2">"r"</span><span class="p">,</span>
+        <span class="s2">"Growth of real earnings per worker"</span><span class="p">:</span> <span class="s2">"w_growth"</span><span class="p">,</span>
+        <span class="s2">"Growth of total hours worked"</span><span class="p">:</span> <span class="s2">"L_growth"</span><span class="p">,</span>
+        <span class="s2">"Hours of All Persons (nonfarm business sector)"</span><span class="p">:</span> <span class="s2">"L"</span><span class="p">,</span>
+        <span class="s2">"Personal consumption expenditures"</span><span class="p">:</span> <span class="s2">"C"</span><span class="p">,</span>
+        <span class="s2">"Gross private domestic investment"</span><span class="p">:</span> <span class="s2">"I_total"</span><span class="p">,</span>
+        <span class="s2">"Government Consumption Expenditures and Gross Investment"</span><span class="p">:</span> <span class="s2">"G"</span><span class="p">,</span>
+        <span class="s2">"Old-Age and Survivors Insurance"</span><span class="p">:</span> <span class="s2">"agg_pension_outlays"</span><span class="p">,</span>
+        <span class="s2">"Individual income taxes"</span><span class="p">:</span> <span class="s2">"iit_revenue"</span><span class="p">,</span>
+        <span class="s2">"Payroll taxes"</span><span class="p">:</span> <span class="s2">"payroll_tax_revenue"</span><span class="p">,</span>
+        <span class="s2">"Corporate income taxes"</span><span class="p">:</span> <span class="s2">"business_tax_revenue"</span><span class="p">,</span>
+        <span class="s2">"U.S. wage and salary disbursements</span><span class="se">\n</span><span class="s2"> (trillions of dollars)"</span><span class="p">:</span> <span class="s2">"wL"</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="c1"># Econ data in levels</span>
     <span class="c1"># Read in data</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span>
         <span class="n">_excel_source</span><span class="p">(</span><span class="n">lt_econ_url</span><span class="p">),</span>
-        <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;3. Econ Vars_Annual Levels&quot;</span><span class="p">,</span>
+        <span class="n">sheet_name</span><span class="o">=</span><span class="s2">"3. Econ Vars_Annual Levels"</span><span class="p">,</span>
         <span class="n">skiprows</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
         <span class="n">nrows</span><span class="o">=</span><span class="mi">62</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="c1"># replace column names with full variable names</span>
     <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">CBO_VAR_NAMES</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="c1"># keep only variables that map to model variables</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;Year&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"Year"</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">df_levels</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">CBO_VAR_NAMES</span><span class="o">.</span><span class="n">values</span><span class="p">())]</span>
     <span class="n">df_levels</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -512,81 +512,81 @@
     <span class="c1"># Read in data</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span>
         <span class="n">_excel_source</span><span class="p">(</span><span class="n">lt_econ_url</span><span class="p">),</span>
-        <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;1. Econ Vars_Annual Rates&quot;</span><span class="p">,</span>
+        <span class="n">sheet_name</span><span class="o">=</span><span class="s2">"1. Econ Vars_Annual Rates"</span><span class="p">,</span>
         <span class="n">skiprows</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
         <span class="n">nrows</span><span class="o">=</span><span class="mi">39</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Unnamed: 0&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()]</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Unnamed: 0&quot;</span><span class="p">:</span> <span class="s2">&quot;variable&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;var_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;variable&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">CBO_VAR_NAMES</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"Unnamed: 0"</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()]</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">"Unnamed: 0"</span><span class="p">:</span> <span class="s2">"variable"</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">"var_name"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"variable"</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">CBO_VAR_NAMES</span><span class="p">)</span>
     <span class="c1"># keep just variables of interest</span>
     <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span>
-        <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;variable&quot;</span><span class="p">],</span>
+        <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"variable"</span><span class="p">],</span>
         <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;var_name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">CBO_VAR_NAMES</span><span class="o">.</span><span class="n">values</span><span class="p">())]</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"var_name"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">CBO_VAR_NAMES</span><span class="o">.</span><span class="n">values</span><span class="p">())]</span>
     <span class="c1"># Keep just real interest rate (not nominal)</span>
     <span class="c1"># Note that real interest rate comes first in table</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s2">&quot;var_name&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s2">"var_name"</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="c1"># reshape so that variable names down column</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span>
         <span class="n">df</span><span class="p">,</span>
-        <span class="n">id_vars</span><span class="o">=</span><span class="s2">&quot;var_name&quot;</span><span class="p">,</span>
+        <span class="n">id_vars</span><span class="o">=</span><span class="s2">"var_name"</span><span class="p">,</span>
         <span class="n">value_vars</span><span class="o">=</span><span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">lt_start_year</span><span class="p">,</span> <span class="n">lt_end_year</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)],</span>
     <span class="p">)</span>
-    <span class="n">df_rates</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;variable&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;var_name&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">&quot;value&quot;</span><span class="p">)</span>
+    <span class="n">df_rates</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">"variable"</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">"var_name"</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">"value"</span><span class="p">)</span>
     <span class="n">df_rates</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">df_rates</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;variable&quot;</span><span class="p">:</span> <span class="s2">&quot;Year&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df_rates</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">"variable"</span><span class="p">:</span> <span class="s2">"Year"</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="c1"># add debt forecast</span>
     <span class="n">df_fiscal</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span>
         <span class="n">_excel_source</span><span class="p">(</span><span class="n">lt_budget_url</span><span class="p">),</span>
-        <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;1. Summary Ext Baseline&quot;</span><span class="p">,</span>
+        <span class="n">sheet_name</span><span class="o">=</span><span class="s2">"1. Summary Ext Baseline"</span><span class="p">,</span>
         <span class="n">skiprows</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
         <span class="n">nrows</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">df_fiscal</span> <span class="o">=</span> <span class="n">df_fiscal</span><span class="p">[</span>
-        <span class="p">[</span><span class="s2">&quot;Fiscal year&quot;</span><span class="p">,</span> <span class="s2">&quot;Total&quot;</span><span class="p">,</span> <span class="s2">&quot;Federal debt held by the public&quot;</span><span class="p">]</span>
+        <span class="p">[</span><span class="s2">"Fiscal year"</span><span class="p">,</span> <span class="s2">"Total"</span><span class="p">,</span> <span class="s2">"Federal debt held by the public"</span><span class="p">]</span>
     <span class="p">]</span>
-    <span class="c1"># rename Total to &quot;Revenues&quot;</span>
-    <span class="n">df_fiscal</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Total&quot;</span><span class="p">:</span> <span class="s2">&quot;Revenues&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># rename Total to "Revenues"</span>
+    <span class="n">df_fiscal</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">"Total"</span><span class="p">:</span> <span class="s2">"Revenues"</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="c1"># merge to macro levels data</span>
     <span class="n">df_lt</span> <span class="o">=</span> <span class="n">df_fiscal</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
-        <span class="n">df_levels</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">&quot;Fiscal year&quot;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">&quot;Year&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span>
+        <span class="n">df_levels</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">"Fiscal year"</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">"Year"</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span>
     <span class="p">)</span>
     <span class="c1"># merge to macro rates data</span>
     <span class="n">df_lt</span> <span class="o">=</span> <span class="n">df_lt</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
-        <span class="n">df_rates</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">&quot;Fiscal year&quot;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">&quot;Year&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span>
+        <span class="n">df_rates</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">"Fiscal year"</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">"Year"</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span>
     <span class="p">)</span>
     <span class="n">df_lt</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
-        <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Federal debt held by the public&quot;</span><span class="p">:</span> <span class="s2">&quot;D/Y&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span>
+        <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">"Federal debt held by the public"</span><span class="p">:</span> <span class="s2">"D/Y"</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span>
     <span class="p">)</span>
-    <span class="n">df_lt</span><span class="p">[</span><span class="s2">&quot;D&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_lt</span><span class="p">[</span><span class="s2">&quot;Y&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">df_lt</span><span class="p">[</span><span class="s2">&quot;D/Y&quot;</span><span class="p">]</span>
+    <span class="n">df_lt</span><span class="p">[</span><span class="s2">"D"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_lt</span><span class="p">[</span><span class="s2">"Y"</span><span class="p">]</span> <span class="o">*</span> <span class="n">df_lt</span><span class="p">[</span><span class="s2">"D/Y"</span><span class="p">]</span>
     <span class="c1"># drop Year_x, Year_y columns</span>
-    <span class="n">df_lt</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Year_x&quot;</span><span class="p">,</span> <span class="s2">&quot;Year_y&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df_lt</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"Year_x"</span><span class="p">,</span> <span class="s2">"Year_y"</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="c1"># rename Fiscal year to year</span>
-    <span class="n">df_lt</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Fiscal year&quot;</span><span class="p">:</span> <span class="s2">&quot;year&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df_lt</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">"Fiscal year"</span><span class="p">:</span> <span class="s2">"year"</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="c1"># %%</span>
     <span class="c1">#  10 year budget</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span>
         <span class="n">_excel_source</span><span class="p">(</span><span class="n">ten_year_budget_url</span><span class="p">),</span>
-        <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;Table B-1&quot;</span><span class="p">,</span>
+        <span class="n">sheet_name</span><span class="o">=</span><span class="s2">"Table B-1"</span><span class="p">,</span>
         <span class="n">skiprows</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
         <span class="n">nrows</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
         <span class="n">columns</span><span class="o">=</span><span class="p">{</span>
-            <span class="s2">&quot;Unnamed: 0&quot;</span><span class="p">:</span> <span class="s2">&quot;variable&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;Actual, 2024&quot;</span><span class="p">:</span> <span class="n">st_start_year</span><span class="p">,</span>
+            <span class="s2">"Unnamed: 0"</span><span class="p">:</span> <span class="s2">"variable"</span><span class="p">,</span>
+            <span class="s2">"Actual, 2024"</span><span class="p">:</span> <span class="n">st_start_year</span><span class="p">,</span>
         <span class="p">},</span>
         <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;2026–2030&quot;</span><span class="p">,</span> <span class="s2">&quot;2026–2035&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"2026–2030"</span><span class="p">,</span> <span class="s2">"2026–2035"</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">df1</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span>
         <span class="o">~</span><span class="p">(</span>
             <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">variable</span><span class="p">))</span>
-            <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">variable</span> <span class="o">==</span> <span class="s2">&quot;Other&quot;</span><span class="p">)</span>
-            <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">variable</span> <span class="o">==</span> <span class="s2">&quot;Revenues&quot;</span><span class="p">)</span>
+            <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">variable</span> <span class="o">==</span> <span class="s2">"Other"</span><span class="p">)</span>
+            <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">variable</span> <span class="o">==</span> <span class="s2">"Revenues"</span><span class="p">)</span>
         <span class="p">)</span>
     <span class="p">]</span>
     <span class="c1"># cast all year columns to float</span>
@@ -599,19 +599,19 @@
     <span class="c1"># data from other table</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span>
         <span class="n">_excel_source</span><span class="p">(</span><span class="n">ten_year_budget_url</span><span class="p">),</span>
-        <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;Table B-4&quot;</span><span class="p">,</span>
+        <span class="n">sheet_name</span><span class="o">=</span><span class="s2">"Table B-4"</span><span class="p">,</span>
         <span class="n">skiprows</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
         <span class="n">nrows</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
         <span class="n">columns</span><span class="o">=</span><span class="p">{</span>
-            <span class="s2">&quot;Unnamed: 0&quot;</span><span class="p">:</span> <span class="s2">&quot;variable&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;Actual, 2024&quot;</span><span class="p">:</span> <span class="n">st_start_year</span><span class="p">,</span>
+            <span class="s2">"Unnamed: 0"</span><span class="p">:</span> <span class="s2">"variable"</span><span class="p">,</span>
+            <span class="s2">"Actual, 2024"</span><span class="p">:</span> <span class="n">st_start_year</span><span class="p">,</span>
         <span class="p">},</span>
         <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;2026–2030&quot;</span><span class="p">,</span> <span class="s2">&quot;2026–2035&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s2">&quot;variable&quot;</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="s2">&quot;last&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"2026–2030"</span><span class="p">,</span> <span class="s2">"2026–2035"</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s2">"variable"</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="s2">"last"</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">df2</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">variable</span><span class="p">)]</span>
     <span class="c1"># cast all year columns to float</span>
     <span class="n">df2</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
@@ -625,14 +625,14 @@
     <span class="c1"># 10 year macro forecast</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span>
         <span class="n">_excel_source</span><span class="p">(</span><span class="n">ten_year_macro_url</span><span class="p">),</span>
-        <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;2. Calendar Year&quot;</span><span class="p">,</span>
+        <span class="n">sheet_name</span><span class="o">=</span><span class="s2">"2. Calendar Year"</span><span class="p">,</span>
         <span class="n">skiprows</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
         <span class="n">nrows</span><span class="o">=</span><span class="mi">131</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Unnamed: 0&quot;</span><span class="p">:</span> <span class="s2">&quot;variable&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">"Unnamed: 0"</span><span class="p">:</span> <span class="s2">"variable"</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="c1"># Note that real values come second (after nominal values)</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s2">&quot;variable&quot;</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="s2">&quot;last&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Units&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s2">"variable"</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="s2">"last"</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"Units"</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">df3</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">variable</span><span class="p">)]</span>
     <span class="c1"># cast all year columns to float</span>
     <span class="n">df3</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="n">df3</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
@@ -641,30 +641,30 @@
         <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">i</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">else</span> <span class="n">i</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">df3</span><span class="o">.</span><span class="n">columns</span>
     <span class="p">]</span>
-    <span class="c1"># it&#39;s creating a lot of NaN values in the final dataframe</span>
+    <span class="c1"># it's creating a lot of NaN values in the final dataframe</span>
     <span class="n">df_st</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">,</span> <span class="n">df3</span><span class="p">],</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="n">df_st</span><span class="p">[</span><span class="s2">&quot;var_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_st</span><span class="p">[</span><span class="s2">&quot;variable&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">CBO_VAR_NAMES</span><span class="p">)</span>
+    <span class="n">df_st</span><span class="p">[</span><span class="s2">"var_name"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_st</span><span class="p">[</span><span class="s2">"variable"</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">CBO_VAR_NAMES</span><span class="p">)</span>
     <span class="n">df_st</span> <span class="o">=</span> <span class="n">df_st</span><span class="p">[</span><span class="o">~</span><span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">df_st</span><span class="o">.</span><span class="n">var_name</span><span class="p">)]</span>
-    <span class="n">df_st</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;variable&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df_st</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"variable"</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="c1"># reshape so each row a year</span>
     <span class="n">df_st</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span>
         <span class="n">df_st</span><span class="p">,</span>
-        <span class="n">id_vars</span><span class="o">=</span><span class="s2">&quot;var_name&quot;</span><span class="p">,</span>
+        <span class="n">id_vars</span><span class="o">=</span><span class="s2">"var_name"</span><span class="p">,</span>
         <span class="n">value_vars</span><span class="o">=</span><span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">st_start_year</span><span class="p">,</span> <span class="n">st_end_year</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)],</span>
     <span class="p">)</span>
     <span class="n">df_st</span> <span class="o">=</span> <span class="n">df_st</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span>
-        <span class="n">index</span><span class="o">=</span><span class="s2">&quot;variable&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;var_name&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">&quot;value&quot;</span>
+        <span class="n">index</span><span class="o">=</span><span class="s2">"variable"</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">"var_name"</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">"value"</span>
     <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-    <span class="n">df_st</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;variable&quot;</span><span class="p">:</span> <span class="s2">&quot;year&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df_st</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">"variable"</span><span class="p">:</span> <span class="s2">"year"</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="c1"># %%</span>
     <span class="c1"># merge with long term data</span>
     <span class="n">df_cbo</span> <span class="o">=</span> <span class="n">df_lt</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
-        <span class="n">df_st</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="n">suffixes</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;_lt&quot;</span><span class="p">,</span> <span class="s2">&quot;_st&quot;</span><span class="p">)</span>
+        <span class="n">df_st</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"outer"</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"year"</span><span class="p">,</span> <span class="n">suffixes</span><span class="o">=</span><span class="p">(</span><span class="s2">"_lt"</span><span class="p">,</span> <span class="s2">"_st"</span><span class="p">)</span>
     <span class="p">)</span>
     <span class="c1"># replace * with 0</span>
-    <span class="n">df_cbo</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">to_replace</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df_cbo</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">to_replace</span><span class="o">=</span><span class="s2">"*"</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">df_cbo</span></div>
 
@@ -677,12 +677,12 @@
     <span class="n">S</span><span class="p">,</span>
     <span class="n">J</span><span class="p">,</span>
     <span class="n">proportion_matrix</span><span class="p">,</span>
-    <span class="n">zaxis_label</span><span class="o">=</span><span class="s2">&quot;Received proportion of total transfers&quot;</span><span class="p">,</span>
+    <span class="n">zaxis_label</span><span class="o">=</span><span class="s2">"Received proportion of total transfers"</span><span class="p">,</span>
     <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">bandwidth</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Generates a Multivariate Kernel Density Estimator and returns a</span>
 <span class="sd">    matrix representing a probability distribution according to given</span>
 <span class="sd">    age categories, and ability type categories.</span>
@@ -704,17 +704,17 @@
 <span class="sd">            that represents the smoothed distribution of proportions</span>
 <span class="sd">            going to each (s,j)</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">proportion_matrix_income</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">proportion_matrix</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">proportion_matrix_age</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">proportion_matrix</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">age_probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multinomial</span><span class="p">(</span><span class="mi">70000</span><span class="p">,</span> <span class="n">proportion_matrix_age</span><span class="p">)</span>
     <span class="n">income_probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multinomial</span><span class="p">(</span><span class="mi">70000</span><span class="p">,</span> <span class="n">proportion_matrix_income</span><span class="p">)</span>
     <span class="n">age_frequency</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
     <span class="n">income_frequency</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
-    <span class="n">age_mesh</span> <span class="o">=</span> <span class="nb">complex</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">S</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;j&quot;</span><span class="p">)</span>
-    <span class="n">income_mesh</span> <span class="o">=</span> <span class="nb">complex</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">J</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;j&quot;</span><span class="p">)</span>
+    <span class="n">age_mesh</span> <span class="o">=</span> <span class="nb">complex</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">S</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"j"</span><span class="p">)</span>
+    <span class="n">income_mesh</span> <span class="o">=</span> <span class="nb">complex</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">J</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"j"</span><span class="p">)</span>
     <span class="n">j</span> <span class="o">=</span> <span class="mi">18</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;creating a distribution of age values&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""creating a distribution of age values"""</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">age_probs</span><span class="p">:</span>
         <span class="n">listit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
         <span class="n">listit</span> <span class="o">*=</span> <span class="n">j</span>
@@ -722,7 +722,7 @@
         <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
 
     <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;creating a distribution of ability type values&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""creating a distribution of ability type values"""</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">income_probs</span><span class="p">:</span>
         <span class="n">listit2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
         <span class="n">listit2</span> <span class="o">*=</span> <span class="n">k</span>
@@ -741,10 +741,10 @@
     <span class="n">estimator_scaled</span> <span class="o">=</span> <span class="n">estimator</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">estimator</span><span class="p">))</span>
     <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
         <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s2">&quot;3d&quot;</span><span class="p">)</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s2">"3d"</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">agei</span><span class="p">,</span> <span class="n">incomei</span><span class="p">,</span> <span class="n">estimator_scaled</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Age&quot;</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Ability Types&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Age"</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Ability Types"</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="n">zaxis_label</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">estimator_scaled</span></div>
@@ -752,12 +752,12 @@
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">CustomHttpAdapter</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">adapters</span><span class="o">.</span><span class="n">HTTPAdapter</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    The UN Data Portal server doesn&#39;t support &quot;RFC 5746 secure renegotiation&quot;. This causes and error when the client is using OpenSSL 3, which enforces that standard by default.</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    The UN Data Portal server doesn't support "RFC 5746 secure renegotiation". This causes and error when the client is using OpenSSL 3, which enforces that standard by default.</span>
 <span class="sd">    The fix is to create a custom SSL context that allows for legacy connections. This defines a function get_legacy_session() that should be used instead of requests().</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="c1"># &quot;Transport adapter&quot; that allows us to use custom ssl_context.</span>
+    <span class="c1"># "Transport adapter" that allows us to use custom ssl_context.</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ssl_context</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ssl_context</span> <span class="o">=</span> <span class="n">ssl_context</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -775,7 +775,7 @@
     <span class="n">ctx</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">create_default_context</span><span class="p">(</span><span class="n">ssl</span><span class="o">.</span><span class="n">Purpose</span><span class="o">.</span><span class="n">SERVER_AUTH</span><span class="p">)</span>
     <span class="n">ctx</span><span class="o">.</span><span class="n">options</span> <span class="o">|=</span> <span class="mh">0x4</span>  <span class="c1"># OP_LEGACY_SERVER_CONNECT  #in Python 3.12 you will be able to switch from 0x4 to ssl.OP_LEGACY_SERVER_CONNECT.</span>
     <span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">session</span><span class="p">()</span>
-    <span class="n">session</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s2">&quot;https://&quot;</span><span class="p">,</span> <span class="n">CustomHttpAdapter</span><span class="p">(</span><span class="n">ctx</span><span class="p">))</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s2">"https://"</span><span class="p">,</span> <span class="n">CustomHttpAdapter</span><span class="p">(</span><span class="n">ctx</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">session</span>
 </pre></div>
 

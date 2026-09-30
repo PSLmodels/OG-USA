@@ -402,7 +402,11 @@
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ogusa</span><span class="w"> </span><span class="kn">import</span> <span class="n">estimate_beta_j</span><span class="p">,</span> <span class="n">bequest_transmission</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ogusa</span><span class="w"> </span><span class="kn">import</span> <span class="n">macro_params</span><span class="p">,</span> <span class="n">transfer_distribution</span><span class="p">,</span> <span class="n">income</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ogusa</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_micro_data</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ogusa</span><span class="w"> </span><span class="kn">import</span> <span class="n">calibrate_lifecycle</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">taxcalc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Records</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ogcore</span><span class="w"> </span><span class="kn">import</span> <span class="n">txfunc</span><span class="p">,</span> <span class="n">demographics</span>
@@ -412,7 +416,7 @@
 <div class="viewcode-block" id="Calibration">
 <a class="viewcode-back" href="../../content/api/calibrate.html#ogusa.calibrate.Calibration">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Calibration</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;OG-USA calibration class&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""OG-USA calibration class"""</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -420,13 +424,19 @@
         <span class="n">estimate_tax_functions</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">estimate_beta</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">estimate_chi_n</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">estimate_lifecycle_prefs</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">estimate_pop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">get_macro_params</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">tax_func_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">lifecycle_params_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">lifecycle_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">lifecycle_options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">lifecycle_initial_ss</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">lifecycle_kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">iit_baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">iit_reform</span><span class="o">=</span><span class="p">{},</span>
-        <span class="n">guid</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="n">data</span><span class="o">=</span><span class="s2">&quot;cps&quot;</span><span class="p">,</span>
+        <span class="n">guid</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="s2">"cps"</span><span class="p">,</span>
         <span class="n">gfactors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">records_start_year</span><span class="o">=</span><span class="n">Records</span><span class="o">.</span><span class="n">CPSCSV_YEAR</span><span class="p">,</span>
@@ -435,18 +445,42 @@
         <span class="n">demographic_data_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">output_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Constructor for the Calibration class.  This class is used to find</span>
 <span class="sd">        parameter values for the OG-USA model.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            p (OG-USA Parameters object): parameters object</span>
 <span class="sd">            estimate_tax_functions (bool): whether to estimate tax functions</span>
-<span class="sd">            estimate_beta (bool): whether to estimate beta</span>
-<span class="sd">            estimate_chi_n (bool): whether to estimate chi_n</span>
+<span class="sd">            estimate_beta (bool): whether to estimate beta with the</span>
+<span class="sd">                legacy wealth-moment SMM (`estimate_beta_j`)</span>
+<span class="sd">            estimate_chi_n (bool): deprecated alias for</span>
+<span class="sd">                `estimate_lifecycle_prefs`; `chi_n` is only calibrated</span>
+<span class="sd">                jointly with `beta_annual` and `chi_b`</span>
+<span class="sd">            estimate_lifecycle_prefs (bool): whether to calibrate</span>
+<span class="sd">                `beta_annual` by type, `chi_b`, and the `chi_n` age</span>
+<span class="sd">                profile with the nested general-equilibrium routine in</span>
+<span class="sd">                `calibrate_lifecycle.calibrate_lifecycle_preferences`</span>
+<span class="sd">                (20 to 40 minutes serially; see</span>
+<span class="sd">                `LIFECYCLE_CALIBRATION_PLAN.md`)</span>
 <span class="sd">            estimate_pop (bool): whether to estimate population</span>
 <span class="sd">            get_macro_params (bool): whether to get macro parameters</span>
 <span class="sd">            tax_func_path (str): path to tax function parameters</span>
+<span class="sd">            lifecycle_params_path (str): JSON file with calibrated</span>
+<span class="sd">                lifecycle preference parameters. If it exists and is</span>
+<span class="sd">                consistent with `p`, the parameters are read instead of</span>
+<span class="sd">                re-calibrated; otherwise the calibration runs and the</span>
+<span class="sd">                result is written there. When None the calibration</span>
+<span class="sd">                always runs and is saved to `p.output_base`.</span>
+<span class="sd">            lifecycle_config (LifecycleCalibrationConfig): moment</span>
+<span class="sd">                configuration for the lifecycle calibration</span>
+<span class="sd">            lifecycle_options (PreferenceCalibrationOptions): options</span>
+<span class="sd">                for the beta / chi_b step</span>
+<span class="sd">            lifecycle_initial_ss (dict): OG-Core steady-state output to</span>
+<span class="sd">                start the outer loop from, instead of a cold solve</span>
+<span class="sd">            lifecycle_kwargs (dict): further keyword arguments for</span>
+<span class="sd">                `calibrate_lifecycle_preferences` (for example</span>
+<span class="sd">                `max_outer`, `param_tol`, `ge_client`)</span>
 <span class="sd">            iit_baseline (dict): baseline policy to use</span>
 <span class="sd">            iit_reform (dict): reform tax parameters</span>
 <span class="sd">            guid (str): id for tax function parameters</span>
@@ -459,18 +493,29 @@
 <span class="sd">            records_start_year (int): year micro data begins</span>
 <span class="sd">            client (Dask client object): client</span>
 <span class="sd">            num_workers (int): number of workers for Dask client</span>
+<span class="sd">            demographic_data_path (str): path to save or find</span>
+<span class="sd">                downloaded UN demographic data</span>
 <span class="sd">            output_path (str): path to save output to</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            Calibration class object instance</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Create output_path if it doesn&#39;t exist</span>
+<span class="sd">        """</span>
+        <span class="c1"># Create output_path if it doesn't exist</span>
         <span class="k">if</span> <span class="n">output_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">output_path</span><span class="p">):</span>
                 <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">estimate_tax_functions</span> <span class="o">=</span> <span class="n">estimate_tax_functions</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">estimate_beta</span> <span class="o">=</span> <span class="n">estimate_beta</span>
+        <span class="k">if</span> <span class="n">estimate_chi_n</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">estimate_lifecycle_prefs</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">"estimate_chi_n is deprecated; chi_n is calibrated jointly "</span>
+                <span class="s2">"with beta_annual and chi_b. Use estimate_lifecycle_prefs."</span><span class="p">,</span>
+                <span class="ne">DeprecationWarning</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">estimate_lifecycle_prefs</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">estimate_chi_n</span> <span class="o">=</span> <span class="n">estimate_chi_n</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">estimate_lifecycle_prefs</span> <span class="o">=</span> <span class="n">estimate_lifecycle_prefs</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">estimate_pop</span> <span class="o">=</span> <span class="n">estimate_pop</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">get_macro_params</span> <span class="o">=</span> <span class="n">get_macro_params</span>
         <span class="k">if</span> <span class="n">estimate_tax_functions</span><span class="p">:</span>
@@ -493,9 +538,9 @@
                 <span class="n">tax_func_path</span><span class="o">=</span><span class="n">tax_func_path</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimate_beta</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">beta_j</span> <span class="o">=</span> <span class="n">estimate_beta_j</span><span class="o">.</span><span class="n">beta_estimate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="c1"># if estimate_chi_n:</span>
-        <span class="c1">#     chi_n = self.get_chi_n()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">beta_j</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta_j_se</span> <span class="o">=</span> <span class="n">estimate_beta_j</span><span class="o">.</span><span class="n">beta_estimate</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">beta_annual</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span> <span class="n">client</span><span class="o">=</span><span class="n">client</span>
+            <span class="p">)</span>
 
         <span class="c1"># Macro estimation</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_macro_params</span><span class="p">:</span>
@@ -542,8 +587,8 @@
             <span class="c1"># earnings profiles</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="n">income</span><span class="o">.</span><span class="n">get_e_interp</span><span class="p">(</span>
                 <span class="n">p</span><span class="o">.</span><span class="n">S</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">demographic_params</span><span class="p">[</span><span class="s2">&quot;omega_SS&quot;</span><span class="p">],</span>
-                <span class="n">demog80</span><span class="p">[</span><span class="s2">&quot;omega_SS&quot;</span><span class="p">],</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">demographic_params</span><span class="p">[</span><span class="s2">"omega_SS"</span><span class="p">],</span>
+                <span class="n">demog80</span><span class="p">[</span><span class="s2">"omega_SS"</span><span class="p">],</span>
                 <span class="n">p</span><span class="o">.</span><span class="n">lambdas</span><span class="p">,</span>
                 <span class="n">plot_path</span><span class="o">=</span><span class="n">output_path</span><span class="p">,</span>
             <span class="p">)</span>
@@ -556,6 +601,145 @@
                 <span class="n">plot_path</span><span class="o">=</span><span class="n">output_path</span><span class="p">,</span>
             <span class="p">)</span>
 
+        <span class="c1"># Lifecycle preference parameters: beta by type, chi_b, chi_n</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lifecycle_outcome</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimate_lifecycle_prefs</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lifecycle_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_lifecycle_parameters</span><span class="p">(</span>
+                <span class="n">p</span><span class="p">,</span>
+                <span class="n">lifecycle_params_path</span><span class="o">=</span><span class="n">lifecycle_params_path</span><span class="p">,</span>
+                <span class="n">config</span><span class="o">=</span><span class="n">lifecycle_config</span><span class="p">,</span>
+                <span class="n">options</span><span class="o">=</span><span class="n">lifecycle_options</span><span class="p">,</span>
+                <span class="n">initial_ss</span><span class="o">=</span><span class="n">lifecycle_initial_ss</span><span class="p">,</span>
+                <span class="n">client</span><span class="o">=</span><span class="n">client</span><span class="p">,</span>
+                <span class="o">**</span><span class="p">(</span><span class="n">lifecycle_kwargs</span> <span class="ow">or</span> <span class="p">{}),</span>
+            <span class="p">)</span>
+
+    <span class="c1"># Lifecycle preference parameters</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_lifecycle_parameters</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">p</span><span class="p">,</span>
+        <span class="n">lifecycle_params_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">initial_ss</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">client</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Reads calibrated lifecycle preference parameters from a JSON file</span>
+<span class="sd">        or calibrates them with the nested general-equilibrium routine.</span>
+
+<span class="sd">        The calibration runs on a copy of ``p`` that already carries every</span>
+<span class="sd">        other parameter this class has produced so far (tax functions,</span>
+<span class="sd">        transfer and bequest matrices, earnings profiles, demographics,</span>
+<span class="sd">        macro parameters), so the calibrated preferences are consistent</span>
+<span class="sd">        with the rest of ``get_dict()``.  ``p`` itself is not modified.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            p (OG-Core Specifications object): parameters object</span>
+<span class="sd">            lifecycle_params_path (str): JSON file to read from or write</span>
+<span class="sd">                to; None writes to ``p.output_base``</span>
+<span class="sd">            config (LifecycleCalibrationConfig): moment configuration</span>
+<span class="sd">            options (PreferenceCalibrationOptions): beta / chi_b options</span>
+<span class="sd">            initial_ss (dict): steady state to start the outer loop from</span>
+<span class="sd">            client (Dask client object): client for household solves</span>
+<span class="sd">            kwargs: passed to ``calibrate_lifecycle_preferences``</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: ``beta_annual``, ``chi_b``, ``chi_n`` as lists</span>
+
+<span class="sd">        """</span>
+        <span class="n">run_calibration</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">lifecycle_params_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">lifecycle_params_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">output_base</span><span class="p">,</span> <span class="s2">"LifecyclePrefEst.json"</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">,</span> <span class="n">run_calibration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_lifecycle_parameters</span><span class="p">(</span>
+                <span class="n">p</span><span class="p">,</span> <span class="n">lifecycle_params_path</span>
+            <span class="p">)</span>
+        <span class="n">mkdirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">lifecycle_params_path</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">run_calibration</span><span class="p">:</span>
+            <span class="n">p_calib</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+            <span class="n">updates</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">k</span><span class="p">:</span> <span class="n">v</span>
+                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parameter_updates</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">p_calib</span><span class="o">.</span><span class="n">_data</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="n">updates</span><span class="p">:</span>
+                <span class="n">p_calib</span><span class="o">.</span><span class="n">update_specifications</span><span class="p">(</span><span class="n">updates</span><span class="p">)</span>
+            <span class="n">outcome</span> <span class="o">=</span> <span class="n">calibrate_lifecycle</span><span class="o">.</span><span class="n">calibrate_lifecycle_preferences</span><span class="p">(</span>
+                <span class="n">p_calib</span><span class="p">,</span>
+                <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+                <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span>
+                <span class="n">initial_ss</span><span class="o">=</span><span class="n">initial_ss</span><span class="p">,</span>
+                <span class="n">client</span><span class="o">=</span><span class="n">client</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lifecycle_outcome</span> <span class="o">=</span> <span class="n">outcome</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="n">outcome</span><span class="o">.</span><span class="n">parameter_dict</span>
+            <span class="n">record</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+            <span class="n">record</span><span class="p">[</span><span class="s2">"_meta"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">"S"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">S</span><span class="p">),</span>
+                <span class="s2">"J"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">J</span><span class="p">),</span>
+                <span class="s2">"start_year"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">start_year</span><span class="p">),</span>
+                <span class="s2">"converged"</span><span class="p">:</span> <span class="nb">bool</span><span class="p">(</span><span class="n">outcome</span><span class="o">.</span><span class="n">converged</span><span class="p">),</span>
+                <span class="s2">"iterations"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">outcome</span><span class="o">.</span><span class="n">iterations</span><span class="p">),</span>
+            <span class="p">}</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">lifecycle_params_path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">"Saved lifecycle preference parameters to "</span><span class="p">,</span>
+                <span class="n">lifecycle_params_path</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">params</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_lifecycle_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">lifecycle_params_path</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Reads calibrated lifecycle preference parameters from a JSON</span>
+<span class="sd">        file and checks that they fit the model dimensions.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            p (OG-Core Specifications object): parameters object</span>
+<span class="sd">            lifecycle_params_path (str): path to the JSON file</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            params (dict or None): ``beta_annual``, ``chi_b``, ``chi_n``</span>
+<span class="sd">            run_calibration (bool): whether the calibration must run</span>
+
+<span class="sd">        """</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"beta_annual"</span><span class="p">,</span> <span class="s2">"chi_b"</span><span class="p">,</span> <span class="s2">"chi_n"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">lifecycle_params_path</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">"Lifecycle preference parameters do not exist at given "</span>
+                <span class="s2">"path. Running new calibration."</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">True</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">lifecycle_params_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">record</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">k</span> <span class="ow">in</span> <span class="n">record</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">"Lifecycle preference parameter file at given path is "</span>
+                <span class="s2">"missing one of "</span> <span class="o">+</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">}</span>
+        <span class="n">consistent</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s2">"beta_annual"</span><span class="p">])</span> <span class="o">==</span> <span class="n">p</span><span class="o">.</span><span class="n">J</span>
+            <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s2">"chi_b"</span><span class="p">])</span> <span class="o">==</span> <span class="n">p</span><span class="o">.</span><span class="n">J</span>
+            <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s2">"chi_n"</span><span class="p">])</span> <span class="o">==</span> <span class="n">p</span><span class="o">.</span><span class="n">S</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">consistent</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">"Lifecycle preference parameters at given path do not "</span>
+                <span class="s2">"match the model's S and J. Running new calibration."</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">True</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">"Using lifecycle preference parameters from "</span><span class="p">,</span>
+            <span class="n">lifecycle_params_path</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">params</span><span class="p">,</span> <span class="kc">False</span>
+
     <span class="c1"># Tax Functions</span>
 <div class="viewcode-block" id="Calibration.get_tax_function_parameters">
 <a class="viewcode-back" href="../../content/api/calibrate.html#ogusa.calibrate.Calibration.get_tax_function_parameters">[docs]</a>
@@ -564,8 +748,8 @@
         <span class="n">p</span><span class="p">,</span>
         <span class="n">iit_baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">iit_reform</span><span class="o">=</span><span class="p">{},</span>
-        <span class="n">guid</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="n">data</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">guid</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span>
         <span class="n">gfactors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">records_start_year</span><span class="o">=</span><span class="n">Records</span><span class="o">.</span><span class="n">CPSCSV_YEAR</span><span class="p">,</span>
@@ -574,7 +758,7 @@
         <span class="n">run_micro</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">tax_func_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Reads pickle file of tax function parameters or estimates the</span>
 <span class="sd">        parameters from microsimulation model output.</span>
 
@@ -600,18 +784,18 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># set paths if none given</span>
         <span class="k">if</span> <span class="n">tax_func_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">baseline</span><span class="p">:</span>
-                <span class="n">pckl</span> <span class="o">=</span> <span class="s2">&quot;TxFuncEst_baseline</span><span class="si">{}</span><span class="s2">.pkl&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">guid</span><span class="p">)</span>
+                <span class="n">pckl</span> <span class="o">=</span> <span class="s2">"TxFuncEst_baseline</span><span class="si">{}</span><span class="s2">.pkl"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">guid</span><span class="p">)</span>
                 <span class="n">tax_func_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">output_base</span><span class="p">,</span> <span class="n">pckl</span><span class="p">)</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using baseline tax parameters from &quot;</span><span class="p">,</span> <span class="n">tax_func_path</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">"Using baseline tax parameters from "</span><span class="p">,</span> <span class="n">tax_func_path</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">pckl</span> <span class="o">=</span> <span class="s2">&quot;TxFuncEst_policy</span><span class="si">{}</span><span class="s2">.pkl&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">guid</span><span class="p">)</span>
+                <span class="n">pckl</span> <span class="o">=</span> <span class="s2">"TxFuncEst_policy</span><span class="si">{}</span><span class="s2">.pkl"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">guid</span><span class="p">)</span>
                 <span class="n">tax_func_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">output_base</span><span class="p">,</span> <span class="n">pckl</span><span class="p">)</span>
                 <span class="nb">print</span><span class="p">(</span>
-                    <span class="s2">&quot;Using reform policy tax parameters from &quot;</span><span class="p">,</span> <span class="n">tax_func_path</span>
+                    <span class="s2">"Using reform policy tax parameters from "</span><span class="p">,</span> <span class="n">tax_func_path</span>
                 <span class="p">)</span>
         <span class="c1"># create directory for tax function pickles to be saved to</span>
         <span class="n">mkdirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">tax_func_path</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
@@ -621,7 +805,7 @@
             <span class="n">dict_params</span><span class="p">,</span> <span class="n">run_micro</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_tax_func_estimate</span><span class="p">(</span>
                 <span class="n">p</span><span class="p">,</span> <span class="n">tax_func_path</span>
             <span class="p">)</span>
-            <span class="n">taxcalc_version</span> <span class="o">=</span> <span class="s2">&quot;Cached tax parameters, no taxcalc version&quot;</span>
+            <span class="n">taxcalc_version</span> <span class="o">=</span> <span class="s2">"Cached tax parameters, no taxcalc version"</span>
         <span class="k">if</span> <span class="n">run_micro</span><span class="p">:</span>
             <span class="n">micro_data</span><span class="p">,</span> <span class="n">taxcalc_version</span> <span class="o">=</span> <span class="n">get_micro_data</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span>
                 <span class="n">baseline</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">baseline</span><span class="p">,</span>
@@ -650,23 +834,23 @@
                 <span class="n">num_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">,</span>
                 <span class="n">tax_func_path</span><span class="o">=</span><span class="n">tax_func_path</span><span class="p">,</span>
             <span class="p">)</span>
-        <span class="n">mean_income_data</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">&quot;tfunc_avginc&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">mean_income_data</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">"tfunc_avginc"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">frac_tax_payroll</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="n">dict_params</span><span class="p">[</span><span class="s2">&quot;tfunc_frac_tax_payroll&quot;</span><span class="p">],</span>
+            <span class="n">dict_params</span><span class="p">[</span><span class="s2">"tfunc_frac_tax_payroll"</span><span class="p">],</span>
             <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">S</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">BW</span><span class="p">)</span>
-            <span class="o">*</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">&quot;tfunc_frac_tax_payroll&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+            <span class="o">*</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">"tfunc_frac_tax_payroll"</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
         <span class="p">)</span>
         <span class="c1"># Conduct checks to be sure tax function params are consistent</span>
         <span class="c1"># with the model run</span>
-        <span class="n">params_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;etr&quot;</span><span class="p">,</span> <span class="s2">&quot;mtrx&quot;</span><span class="p">,</span> <span class="s2">&quot;mtry&quot;</span><span class="p">]</span>
-        <span class="n">BW_in_tax_params</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">&quot;BW&quot;</span><span class="p">]</span>
-        <span class="n">start_year_in_tax_params</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">&quot;start_year&quot;</span><span class="p">]</span>
-        <span class="n">S_in_tax_params</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dict_params</span><span class="p">[</span><span class="s2">&quot;tfunc_etr_params_S&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">params_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"etr"</span><span class="p">,</span> <span class="s2">"mtrx"</span><span class="p">,</span> <span class="s2">"mtry"</span><span class="p">]</span>
+        <span class="n">BW_in_tax_params</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">"BW"</span><span class="p">]</span>
+        <span class="n">start_year_in_tax_params</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">"start_year"</span><span class="p">]</span>
+        <span class="n">S_in_tax_params</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dict_params</span><span class="p">[</span><span class="s2">"tfunc_etr_params_S"</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
         <span class="c1"># Check that start years are consistent in model and cached tax functions</span>
         <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">start_year</span> <span class="o">!=</span> <span class="n">start_year_in_tax_params</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span>
-                <span class="s2">&quot;Input Error: There is a discrepancy between the start&quot;</span>
-                <span class="o">+</span> <span class="s2">&quot; year of the model and that of the tax functions!!&quot;</span>
+                <span class="s2">"Input Error: There is a discrepancy between the start"</span>
+                <span class="o">+</span> <span class="s2">" year of the model and that of the tax functions!!"</span>
             <span class="p">)</span>
             <span class="k">assert</span> <span class="kc">False</span>
         <span class="c1"># Check that S is consistent in model and cached tax functions</span>
@@ -674,8 +858,8 @@
         <span class="c1"># ogcore.txfunc_est should be of length S</span>
         <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">S</span> <span class="o">!=</span> <span class="n">S_in_tax_params</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span>
-                <span class="s2">&quot;Input Error: There is a discrepancy between the ages&quot;</span>
-                <span class="o">+</span> <span class="s2">&quot; used in the model and those in the tax functions!!&quot;</span>
+                <span class="s2">"Input Error: There is a discrepancy between the ages"</span>
+                <span class="o">+</span> <span class="s2">" used in the model and those in the tax functions!!"</span>
             <span class="p">)</span>
             <span class="k">assert</span> <span class="kc">False</span>
 
@@ -687,51 +871,51 @@
         <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">S</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">p</span><span class="o">.</span><span class="n">BW</span><span class="p">:</span>
-                    <span class="n">etr_params</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">&quot;tfunc_etr_params_S&quot;</span><span class="p">][</span><span class="n">t</span><span class="p">][</span><span class="n">s</span><span class="p">]</span>
-                    <span class="n">mtrx_params</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">&quot;tfunc_mtrx_params_S&quot;</span><span class="p">][</span><span class="n">t</span><span class="p">][</span>
+                    <span class="n">etr_params</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">"tfunc_etr_params_S"</span><span class="p">][</span><span class="n">t</span><span class="p">][</span><span class="n">s</span><span class="p">]</span>
+                    <span class="n">mtrx_params</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">"tfunc_mtrx_params_S"</span><span class="p">][</span><span class="n">t</span><span class="p">][</span>
                         <span class="n">s</span>
                     <span class="p">]</span>
-                    <span class="n">mtry_params</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">&quot;tfunc_mtry_params_S&quot;</span><span class="p">][</span><span class="n">t</span><span class="p">][</span>
+                    <span class="n">mtry_params</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">"tfunc_mtry_params_S"</span><span class="p">][</span><span class="n">t</span><span class="p">][</span>
                         <span class="n">s</span>
                     <span class="p">]</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">etr_params</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">&quot;tfunc_etr_params_S&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">s</span><span class="p">]</span>
-                    <span class="n">mtrx_params</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">&quot;tfunc_mtrx_params_S&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span>
+                    <span class="n">etr_params</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">"tfunc_etr_params_S"</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">s</span><span class="p">]</span>
+                    <span class="n">mtrx_params</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">"tfunc_mtrx_params_S"</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span>
                         <span class="n">s</span>
                     <span class="p">]</span>
-                    <span class="n">mtry_params</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">&quot;tfunc_mtry_params_S&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span>
+                    <span class="n">mtry_params</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">"tfunc_mtry_params_S"</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span>
                         <span class="n">s</span>
                     <span class="p">]</span>
 
         <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">constant_rates</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using constant rates!&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"Using constant rates!"</span><span class="p">)</span>
             <span class="c1"># Make all tax rates equal the average</span>
-            <span class="n">p</span><span class="o">.</span><span class="n">tax_func_type</span> <span class="o">=</span> <span class="s2">&quot;linear&quot;</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">tax_func_type</span> <span class="o">=</span> <span class="s2">"linear"</span>
             <span class="n">etr_params</span> <span class="o">=</span> <span class="p">[[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">p</span><span class="o">.</span><span class="n">S</span><span class="p">]</span> <span class="o">*</span> <span class="n">p</span><span class="o">.</span><span class="n">T</span>
             <span class="n">mtrx_params</span> <span class="o">=</span> <span class="p">[[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">p</span><span class="o">.</span><span class="n">S</span><span class="p">]</span> <span class="o">*</span> <span class="n">p</span><span class="o">.</span><span class="n">T</span>
             <span class="n">mtry_params</span> <span class="o">=</span> <span class="p">[[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">p</span><span class="o">.</span><span class="n">S</span><span class="p">]</span> <span class="o">*</span> <span class="n">p</span><span class="o">.</span><span class="n">T</span>
             <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">S</span><span class="p">):</span>
                 <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
                     <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">p</span><span class="o">.</span><span class="n">BW</span><span class="p">:</span>
-                        <span class="n">etr_params</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">&quot;tfunc_avg_etr&quot;</span><span class="p">][</span><span class="n">t</span><span class="p">]</span>
-                        <span class="n">mtrx_params</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">&quot;tfunc_avg_mtrx&quot;</span><span class="p">][</span><span class="n">t</span><span class="p">]</span>
-                        <span class="n">mtry_params</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">&quot;tfunc_avg_mtry&quot;</span><span class="p">][</span><span class="n">t</span><span class="p">]</span>
+                        <span class="n">etr_params</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">"tfunc_avg_etr"</span><span class="p">][</span><span class="n">t</span><span class="p">]</span>
+                        <span class="n">mtrx_params</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">"tfunc_avg_mtrx"</span><span class="p">][</span><span class="n">t</span><span class="p">]</span>
+                        <span class="n">mtry_params</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">"tfunc_avg_mtry"</span><span class="p">][</span><span class="n">t</span><span class="p">]</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="n">etr_params</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">&quot;tfunc_avg_etr&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-                        <span class="n">mtrx_params</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">&quot;tfunc_avg_mtrx&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-                        <span class="n">mtry_params</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">&quot;tfunc_avg_mtry&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="n">etr_params</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">"tfunc_avg_etr"</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="n">mtrx_params</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">"tfunc_avg_mtrx"</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="n">mtry_params</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">"tfunc_avg_mtry"</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">zero_taxes</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Zero taxes!&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"Zero taxes!"</span><span class="p">)</span>
             <span class="n">etr_params</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">p</span><span class="o">.</span><span class="n">S</span><span class="p">]</span> <span class="o">*</span> <span class="n">p</span><span class="o">.</span><span class="n">T</span>
             <span class="n">mtrx_params</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">p</span><span class="o">.</span><span class="n">S</span><span class="p">]</span> <span class="o">*</span> <span class="n">p</span><span class="o">.</span><span class="n">T</span>
             <span class="n">mtry_params</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">p</span><span class="o">.</span><span class="n">S</span><span class="p">]</span> <span class="o">*</span> <span class="n">p</span><span class="o">.</span><span class="n">T</span>
         <span class="n">tax_param_dict</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;etr_params&quot;</span><span class="p">:</span> <span class="n">etr_params</span><span class="p">,</span>
-            <span class="s2">&quot;mtrx_params&quot;</span><span class="p">:</span> <span class="n">mtrx_params</span><span class="p">,</span>
-            <span class="s2">&quot;mtry_params&quot;</span><span class="p">:</span> <span class="n">mtry_params</span><span class="p">,</span>
-            <span class="s2">&quot;taxcalc_version&quot;</span><span class="p">:</span> <span class="n">taxcalc_version</span><span class="p">,</span>
-            <span class="s2">&quot;mean_income_data&quot;</span><span class="p">:</span> <span class="n">mean_income_data</span><span class="p">,</span>
-            <span class="s2">&quot;frac_tax_payroll&quot;</span><span class="p">:</span> <span class="n">frac_tax_payroll</span><span class="p">,</span>
+            <span class="s2">"etr_params"</span><span class="p">:</span> <span class="n">etr_params</span><span class="p">,</span>
+            <span class="s2">"mtrx_params"</span><span class="p">:</span> <span class="n">mtrx_params</span><span class="p">,</span>
+            <span class="s2">"mtry_params"</span><span class="p">:</span> <span class="n">mtry_params</span><span class="p">,</span>
+            <span class="s2">"taxcalc_version"</span><span class="p">:</span> <span class="n">taxcalc_version</span><span class="p">,</span>
+            <span class="s2">"mean_income_data"</span><span class="p">:</span> <span class="n">mean_income_data</span><span class="p">,</span>
+            <span class="s2">"frac_tax_payroll"</span><span class="p">:</span> <span class="n">frac_tax_payroll</span><span class="p">,</span>
         <span class="p">}</span>
 
         <span class="k">return</span> <span class="n">tax_param_dict</span></div>
@@ -740,7 +924,7 @@
 <div class="viewcode-block" id="Calibration.read_tax_func_estimate">
 <a class="viewcode-back" href="../../content/api/calibrate.html#ogusa.calibrate.Calibration.read_tax_func_estimate">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">read_tax_func_estimate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">tax_func_path</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        This function reads in tax function parameters from pickle</span>
 <span class="sd">        files.</span>
 
@@ -753,55 +937,55 @@
 <span class="sd">                function parameters</span>
 <span class="sd">            run_micro (bool): whether to estimate tax function parameters</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">tax_func_path</span><span class="p">):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tax Function Path Exists&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"Tax Function Path Exists"</span><span class="p">)</span>
             <span class="n">dict_params</span> <span class="o">=</span> <span class="n">safe_read_pickle</span><span class="p">(</span><span class="n">tax_func_path</span><span class="p">)</span>
             <span class="c1"># check to see if tax_functions compatible</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">start_year</span> <span class="o">!=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">&quot;start_year&quot;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">start_year</span> <span class="o">!=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">"start_year"</span><span class="p">]:</span>
                     <span class="nb">print</span><span class="p">(</span>
-                        <span class="s2">&quot;Model start year not consistent with tax &quot;</span>
-                        <span class="o">+</span> <span class="s2">&quot;function parameter estimates&quot;</span>
+                        <span class="s2">"Model start year not consistent with tax "</span>
+                        <span class="o">+</span> <span class="s2">"function parameter estimates"</span>
                     <span class="p">)</span>
                     <span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span>
             <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
                 <span class="k">pass</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">p</span><span class="o">.</span><span class="n">BW</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">&quot;BW&quot;</span><span class="p">]</span>  <span class="c1"># QUICK FIX</span>
-                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">BW</span> <span class="o">!=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">&quot;BW&quot;</span><span class="p">]:</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">BW</span> <span class="o">=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">"BW"</span><span class="p">]</span>  <span class="c1"># QUICK FIX</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">BW</span> <span class="o">!=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">"BW"</span><span class="p">]:</span>
                     <span class="nb">print</span><span class="p">(</span>
-                        <span class="s2">&quot;Model budget window length is &quot;</span>
+                        <span class="s2">"Model budget window length is "</span>
                         <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">BW</span><span class="p">)</span>
-                        <span class="o">+</span> <span class="s2">&quot; but the tax function parameter &quot;</span>
-                        <span class="o">+</span> <span class="s2">&quot;estimates have a budget window length of &quot;</span>
-                        <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">dict_params</span><span class="p">[</span><span class="s2">&quot;BW&quot;</span><span class="p">])</span>
+                        <span class="o">+</span> <span class="s2">" but the tax function parameter "</span>
+                        <span class="o">+</span> <span class="s2">"estimates have a budget window length of "</span>
+                        <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">dict_params</span><span class="p">[</span><span class="s2">"BW"</span><span class="p">])</span>
                     <span class="p">)</span>
                     <span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span>
             <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
                 <span class="k">pass</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">tax_func_type</span> <span class="o">!=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">&quot;tax_func_type&quot;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">tax_func_type</span> <span class="o">!=</span> <span class="n">dict_params</span><span class="p">[</span><span class="s2">"tax_func_type"</span><span class="p">]:</span>
                     <span class="nb">print</span><span class="p">(</span>
-                        <span class="s2">&quot;Model tax function type is not &quot;</span>
-                        <span class="o">+</span> <span class="s2">&quot;consistent with tax function parameter &quot;</span>
-                        <span class="o">+</span> <span class="s2">&quot;estimates&quot;</span>
+                        <span class="s2">"Model tax function type is not "</span>
+                        <span class="o">+</span> <span class="s2">"consistent with tax function parameter "</span>
+                        <span class="o">+</span> <span class="s2">"estimates"</span>
                     <span class="p">)</span>
                     <span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span>
             <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
                 <span class="k">pass</span>
             <span class="k">if</span> <span class="n">flag</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                    <span class="s2">&quot;Tax function parameter estimates at given path&quot;</span>
-                    <span class="o">+</span> <span class="s2">&quot; are not consistent with model parameters&quot;</span>
-                    <span class="o">+</span> <span class="s2">&quot; specified.&quot;</span>
+                    <span class="s2">"Tax function parameter estimates at given path"</span>
+                    <span class="o">+</span> <span class="s2">" are not consistent with model parameters"</span>
+                    <span class="o">+</span> <span class="s2">" specified."</span>
                 <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span>
             <span class="nb">print</span><span class="p">(</span>
-                <span class="s2">&quot;Tax function parameter estimates do not exist at&quot;</span>
-                <span class="o">+</span> <span class="s2">&quot; given path. Running new estimation.&quot;</span>
+                <span class="s2">"Tax function parameter estimates do not exist at"</span>
+                <span class="o">+</span> <span class="s2">" given path. Running new estimation."</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="n">flag</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">dict_params</span> <span class="o">=</span> <span class="kc">None</span>
@@ -812,24 +996,51 @@
         <span class="k">return</span> <span class="n">dict_params</span><span class="p">,</span> <span class="n">run_micro</span></div>
 
 
-    <span class="c1"># method to return all newly calibrated parameters in a dictionary</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_parameter_updates</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Collects the calibrated parameters other than the lifecycle</span>
+<span class="sd">        preferences (tax functions, legacy beta, eta, zeta, macro</span>
+<span class="sd">        parameters, e, demographics).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict (dict): parameter updates in `update_specifications`</span>
+<span class="sd">                format</span>
+
+<span class="sd">        """</span>
         <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimate_tax_functions</span><span class="p">:</span>
             <span class="nb">dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tax_function_params</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimate_beta</span><span class="p">:</span>
-            <span class="nb">dict</span><span class="p">[</span><span class="s2">&quot;beta_annual&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimate_chi_n</span><span class="p">:</span>
-            <span class="nb">dict</span><span class="p">[</span><span class="s2">&quot;chi_n&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">chi_n</span>
-        <span class="nb">dict</span><span class="p">[</span><span class="s2">&quot;eta&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta</span>
-        <span class="nb">dict</span><span class="p">[</span><span class="s2">&quot;zeta&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zeta</span>
+            <span class="nb">dict</span><span class="p">[</span><span class="s2">"beta_annual"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta_j</span>
+        <span class="nb">dict</span><span class="p">[</span><span class="s2">"eta"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta</span>
+        <span class="nb">dict</span><span class="p">[</span><span class="s2">"zeta"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zeta</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_macro_params</span><span class="p">:</span>
             <span class="nb">dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">macro_params</span><span class="p">)</span>
-        <span class="nb">dict</span><span class="p">[</span><span class="s2">&quot;e&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span>
+        <span class="nb">dict</span><span class="p">[</span><span class="s2">"e"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimate_pop</span><span class="p">:</span>
             <span class="nb">dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">demographic_params</span><span class="p">)</span>
 
+        <span class="k">return</span> <span class="nb">dict</span>
+
+    <span class="c1"># method to return all newly calibrated parameters in a dictionary</span>
+<div class="viewcode-block" id="Calibration.get_dict">
+<a class="viewcode-back" href="../../content/api/calibrate.html#ogusa.calibrate.Calibration.get_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Returns all newly calibrated parameters in a dictionary.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict (dict): parameter updates in `update_specifications`</span>
+<span class="sd">                format, including `beta_annual`, `chi_b`, and `chi_n`</span>
+<span class="sd">                when the lifecycle preferences were calibrated</span>
+
+<span class="sd">        """</span>
+        <span class="nb">dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parameter_updates</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimate_lifecycle_prefs</span><span class="p">:</span>
+            <span class="nb">dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lifecycle_params</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="nb">dict</span></div>
+</div>
 
 </pre></div>
 

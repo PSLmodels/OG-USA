@@ -579,7 +579,7 @@ you are working with the latest version of OG-USA:</p>
 introduce bugs or degrade the accuracy of the <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code>. To do
 this, run the following command from the command line from inside
 the <code class="docutils literal notranslate"><span class="pre">/OG-USA/ogusa/</span></code> directory:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> OG-USA$ uv run pytest -m &quot;not needs_puf and not regression&quot;
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> OG-USA$ uv run pytest -m "not needs_puf and not regression"
 </pre></div>
 </div>
 <p>Note that running this full suite of tests may take close to 24 hours
@@ -594,7 +594,7 @@ possible or doesn’t work, the core maintainers are here to help via a
 <li><p>Now you’re ready to <a class="reference external" href="https://help.github.com/articles/github-glossary/#commit">commit</a> your changes to your local repo using the code below. The first line of code tells <code class="docutils literal notranslate"><span class="pre">Git</span></code> to track a file. Use “git status” to find all the files you’ve edited, and “git add” each of the files that you’d like <code class="docutils literal notranslate"><span class="pre">Git</span></code> to track. As a rule, do not add large files. If you’d like to add a file that is larger than 25 MB, please contact the other contributors and ask how to proceed. The second line of code commits your changes to your local repo and allows you to create a commit message; this should be a short description of your changes.</p>
 <p><em>Tip</em>: Committing often is a good idea as <code class="docutils literal notranslate"><span class="pre">Git</span></code> keeps a record of your changes. This means that you can always revert to a previous version of your work if you need to. Do this to commit:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> OG-USA$ git add [filename]
- OG-USA$ git commit -m &quot;[description-of-your-commit]&quot;
+ OG-USA$ git commit -m "[description-of-your-commit]"
 </pre></div>
 </div>
 </li>

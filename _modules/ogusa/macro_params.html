@@ -399,10 +399,10 @@
                 <article class="bd-article">
                   
   <h1>Source code for ogusa.macro_params</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">This module uses data from FRED to find values for parameters for the</span>
 <span class="sd">OG-USA model that rely on macro data for calibration.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="c1"># imports</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">fredapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">Fred</span>
@@ -416,9 +416,9 @@
 <div class="viewcode-block" id="get_macro_params">
 <a class="viewcode-back" href="../../content/api/macro_params.html#ogusa.macro_params.get_macro_params">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_macro_params</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Compute values of parameters that are derived from macro data</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="c1"># set beginning and end dates for data</span>
     <span class="c1"># format is year (1940),month (1),day (1)</span>
@@ -427,28 +427,28 @@
     <span class="n">baseline_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span>
 
     <span class="n">variable_dict</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;GDP Per Capita&quot;</span><span class="p">:</span> <span class="s2">&quot;A939RX0Q048SBEA&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Labor share&quot;</span><span class="p">:</span> <span class="s2">&quot;LABSHPUSA156NRUG&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Debt held by foreigners&quot;</span><span class="p">:</span> <span class="s2">&quot;FDHBFIN&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Debt held by public&quot;</span><span class="p">:</span> <span class="s2">&quot;FYGFDPUN&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;BAA Corp Bond Rates&quot;</span><span class="p">:</span> <span class="s2">&quot;DBAA&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;10 year treasury rate&quot;</span><span class="p">:</span> <span class="s2">&quot;DGS10&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Total gov transfer payments&quot;</span><span class="p">:</span> <span class="s2">&quot;B087RC1Q027SBEA&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Social Security payments&quot;</span><span class="p">:</span> <span class="s2">&quot;W823RC1&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Gov expenditures&quot;</span><span class="p">:</span> <span class="s2">&quot;FGEXPND&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Gov investment&quot;</span><span class="p">:</span> <span class="s2">&quot;A782RC1Q027SBEA&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Gov interest payments&quot;</span><span class="p">:</span> <span class="s2">&quot;A091RC1Q027SBEA&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Real GDP&quot;</span><span class="p">:</span> <span class="s2">&quot;GDPC1&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Nominal GDP&quot;</span><span class="p">:</span> <span class="s2">&quot;GDP&quot;</span><span class="p">,</span>
+        <span class="s2">"GDP Per Capita"</span><span class="p">:</span> <span class="s2">"A939RX0Q048SBEA"</span><span class="p">,</span>
+        <span class="s2">"Labor share"</span><span class="p">:</span> <span class="s2">"LABSHPUSA156NRUG"</span><span class="p">,</span>
+        <span class="s2">"Debt held by foreigners"</span><span class="p">:</span> <span class="s2">"FDHBFIN"</span><span class="p">,</span>
+        <span class="s2">"Debt held by public"</span><span class="p">:</span> <span class="s2">"FYGFDPUN"</span><span class="p">,</span>
+        <span class="s2">"BAA Corp Bond Rates"</span><span class="p">:</span> <span class="s2">"DBAA"</span><span class="p">,</span>
+        <span class="s2">"10 year treasury rate"</span><span class="p">:</span> <span class="s2">"DGS10"</span><span class="p">,</span>
+        <span class="s2">"Total gov transfer payments"</span><span class="p">:</span> <span class="s2">"B087RC1Q027SBEA"</span><span class="p">,</span>
+        <span class="s2">"Social Security payments"</span><span class="p">:</span> <span class="s2">"W823RC1"</span><span class="p">,</span>
+        <span class="s2">"Gov expenditures"</span><span class="p">:</span> <span class="s2">"FGEXPND"</span><span class="p">,</span>
+        <span class="s2">"Gov investment"</span><span class="p">:</span> <span class="s2">"A782RC1Q027SBEA"</span><span class="p">,</span>
+        <span class="s2">"Gov interest payments"</span><span class="p">:</span> <span class="s2">"A091RC1Q027SBEA"</span><span class="p">,</span>
+        <span class="s2">"Real GDP"</span><span class="p">:</span> <span class="s2">"GDPC1"</span><span class="p">,</span>
+        <span class="s2">"Nominal GDP"</span><span class="p">:</span> <span class="s2">"GDP"</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="c1"># pull series of interest using fredapi</span>
-    <span class="n">api_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;FRED_API_KEY&quot;</span><span class="p">)</span>
+    <span class="n">api_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"FRED_API_KEY"</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">api_key</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;FRED_API_KEY environment variable is not set. &quot;</span>
-            <span class="s2">&quot;A free API key can be obtained at &quot;</span>
-            <span class="s2">&quot;https://fred.stlouisfed.org/docs/api/api_key.html&quot;</span>
+            <span class="s2">"FRED_API_KEY environment variable is not set. "</span>
+            <span class="s2">"A free API key can be obtained at "</span>
+            <span class="s2">"https://fred.stlouisfed.org/docs/api/api_key.html"</span>
         <span class="p">)</span>
     <span class="n">fred</span> <span class="o">=</span> <span class="n">Fred</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">)</span>
     <span class="n">series_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -461,69 +461,69 @@
     <span class="n">fred_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">series_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="c1"># make sure all dollar value data are in billions</span>
-    <span class="n">fred_data</span><span class="p">[</span><span class="s2">&quot;Debt held by public&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fred_data</span><span class="p">[</span><span class="s2">&quot;Debt held by public&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">1000</span>
+    <span class="n">fred_data</span><span class="p">[</span><span class="s2">"Debt held by public"</span><span class="p">]</span> <span class="o">=</span> <span class="n">fred_data</span><span class="p">[</span><span class="s2">"Debt held by public"</span><span class="p">]</span> <span class="o">/</span> <span class="mi">1000</span>
 
     <span class="c1"># Separate quarterly, monthly, and annual data series</span>
     <span class="n">fred_data_q</span> <span class="o">=</span> <span class="p">(</span>
         <span class="n">fred_data</span><span class="p">[</span>
             <span class="p">[</span>
-                <span class="s2">&quot;Debt held by public&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;Nominal GDP&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;Total gov transfer payments&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;Social Security payments&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;Gov expenditures&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;Gov investment&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;Gov interest payments&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;GDP Per Capita&quot;</span><span class="p">,</span>
+                <span class="s2">"Debt held by public"</span><span class="p">,</span>
+                <span class="s2">"Nominal GDP"</span><span class="p">,</span>
+                <span class="s2">"Total gov transfer payments"</span><span class="p">,</span>
+                <span class="s2">"Social Security payments"</span><span class="p">,</span>
+                <span class="s2">"Gov expenditures"</span><span class="p">,</span>
+                <span class="s2">"Gov investment"</span><span class="p">,</span>
+                <span class="s2">"Gov interest payments"</span><span class="p">,</span>
+                <span class="s2">"GDP Per Capita"</span><span class="p">,</span>
             <span class="p">]</span>
         <span class="p">]</span>
-        <span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">&quot;QE&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">"QE"</span><span class="p">)</span>
         <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
     <span class="p">)</span>
-    <span class="n">fred_data_a</span> <span class="o">=</span> <span class="n">fred_data</span><span class="p">[[</span><span class="s2">&quot;Labor share&quot;</span><span class="p">]]</span>
-    <span class="n">fred_data_d</span> <span class="o">=</span> <span class="n">fred_data</span><span class="p">[[</span><span class="s2">&quot;BAA Corp Bond Rates&quot;</span><span class="p">,</span> <span class="s2">&quot;10 year treasury rate&quot;</span><span class="p">]]</span>
+    <span class="n">fred_data_a</span> <span class="o">=</span> <span class="n">fred_data</span><span class="p">[[</span><span class="s2">"Labor share"</span><span class="p">]]</span>
+    <span class="n">fred_data_d</span> <span class="o">=</span> <span class="n">fred_data</span><span class="p">[[</span><span class="s2">"BAA Corp Bond Rates"</span><span class="p">,</span> <span class="s2">"10 year treasury rate"</span><span class="p">]]</span>
 
     <span class="c1"># initialize a dictionary of parameters</span>
     <span class="n">macro_parameters</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="c1"># print(fred_data.loc(str(baseline_date)))</span>
     <span class="c1"># find initial_debt_ratio</span>
-    <span class="n">macro_parameters</span><span class="p">[</span><span class="s2">&quot;initial_debt_ratio&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
-        <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">&quot;Debt held by public&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">&quot;Nominal GDP&quot;</span><span class="p">]</span>
+    <span class="n">macro_parameters</span><span class="p">[</span><span class="s2">"initial_debt_ratio"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
+        <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">"Debt held by public"</span><span class="p">]</span> <span class="o">/</span> <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">"Nominal GDP"</span><span class="p">]</span>
     <span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">baseline_date</span><span class="p">]</span>
 
     <span class="c1"># find alpha_T</span>
-    <span class="n">macro_parameters</span><span class="p">[</span><span class="s2">&quot;alpha_T&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
+    <span class="n">macro_parameters</span><span class="p">[</span><span class="s2">"alpha_T"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
         <span class="p">(</span>
-            <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">&quot;Total gov transfer payments&quot;</span><span class="p">]</span>
-            <span class="o">-</span> <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">&quot;Social Security payments&quot;</span><span class="p">]</span>
+            <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">"Total gov transfer payments"</span><span class="p">]</span>
+            <span class="o">-</span> <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">"Social Security payments"</span><span class="p">]</span>
         <span class="p">)</span>
-        <span class="o">/</span> <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">&quot;Nominal GDP&quot;</span><span class="p">]</span>
+        <span class="o">/</span> <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">"Nominal GDP"</span><span class="p">]</span>
     <span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">baseline_date</span><span class="p">]</span>
 
     <span class="c1"># find alpha_G</span>
-    <span class="n">macro_parameters</span><span class="p">[</span><span class="s2">&quot;alpha_G&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
+    <span class="n">macro_parameters</span><span class="p">[</span><span class="s2">"alpha_G"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
         <span class="p">(</span>
-            <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">&quot;Gov expenditures&quot;</span><span class="p">]</span>
-            <span class="o">-</span> <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">&quot;Total gov transfer payments&quot;</span><span class="p">]</span>
-            <span class="o">-</span> <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">&quot;Gov interest payments&quot;</span><span class="p">]</span>
-            <span class="o">-</span> <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">&quot;Gov investment&quot;</span><span class="p">]</span>
+            <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">"Gov expenditures"</span><span class="p">]</span>
+            <span class="o">-</span> <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">"Total gov transfer payments"</span><span class="p">]</span>
+            <span class="o">-</span> <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">"Gov interest payments"</span><span class="p">]</span>
+            <span class="o">-</span> <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">"Gov investment"</span><span class="p">]</span>
         <span class="p">)</span>
-        <span class="o">/</span> <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">&quot;Nominal GDP&quot;</span><span class="p">]</span>
+        <span class="o">/</span> <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">"Nominal GDP"</span><span class="p">]</span>
     <span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">baseline_date</span><span class="p">]</span>
 
     <span class="c1"># find alpha_I</span>
-    <span class="n">macro_parameters</span><span class="p">[</span><span class="s2">&quot;alpha_I&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
-        <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">&quot;Gov investment&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">&quot;Nominal GDP&quot;</span><span class="p">]</span>
+    <span class="n">macro_parameters</span><span class="p">[</span><span class="s2">"alpha_I"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
+        <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">"Gov investment"</span><span class="p">]</span> <span class="o">/</span> <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">"Nominal GDP"</span><span class="p">]</span>
     <span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">baseline_date</span><span class="p">]</span>
 
     <span class="c1"># find gamma</span>
-    <span class="n">macro_parameters</span><span class="p">[</span><span class="s2">&quot;gamma&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">fred_data_a</span><span class="p">[</span><span class="s2">&quot;Labor share&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">macro_parameters</span><span class="p">[</span><span class="s2">"gamma"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">fred_data_a</span><span class="p">[</span><span class="s2">"Labor share"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 
     <span class="c1"># find g_y</span>
-    <span class="n">macro_parameters</span><span class="p">[</span><span class="s2">&quot;g_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">&quot;GDP Per Capita&quot;</span><span class="p">]</span>
-        <span class="o">.</span><span class="n">pct_change</span><span class="p">(</span><span class="n">periods</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;QE&quot;</span><span class="p">,</span> <span class="n">fill_method</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">macro_parameters</span><span class="p">[</span><span class="s2">"g_y"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">fred_data_q</span><span class="p">[</span><span class="s2">"GDP Per Capita"</span><span class="p">]</span>
+        <span class="o">.</span><span class="n">pct_change</span><span class="p">(</span><span class="n">periods</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">"QE"</span><span class="p">,</span> <span class="n">fill_method</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
         <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
     <span class="p">)</span>
 
@@ -531,19 +531,19 @@
     <span class="n">rate_data</span> <span class="o">=</span> <span class="p">(</span>
         <span class="p">(</span>
             <span class="n">fred_data_d</span><span class="p">[</span>
-                <span class="p">[</span><span class="s2">&quot;10 year treasury rate&quot;</span><span class="p">,</span> <span class="s2">&quot;BAA Corp Bond Rates&quot;</span><span class="p">]</span>
+                <span class="p">[</span><span class="s2">"10 year treasury rate"</span><span class="p">,</span> <span class="s2">"BAA Corp Bond Rates"</span><span class="p">]</span>
             <span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()[</span><span class="o">-</span><span class="mi">50</span><span class="p">:]</span>
         <span class="p">)</span>
         <span class="o">/</span> <span class="mi">100</span>
     <span class="p">)</span>  <span class="c1"># divide by 100 bc data in percentage points</span>
-    <span class="n">rate_data</span><span class="p">[</span><span class="s2">&quot;constant&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rate_data</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
+    <span class="n">rate_data</span><span class="p">[</span><span class="s2">"constant"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rate_data</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
     <span class="n">mod</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span>
-        <span class="n">rate_data</span><span class="p">[</span><span class="s2">&quot;10 year treasury rate&quot;</span><span class="p">],</span>
-        <span class="n">rate_data</span><span class="p">[[</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span> <span class="s2">&quot;BAA Corp Bond Rates&quot;</span><span class="p">]],</span>
+        <span class="n">rate_data</span><span class="p">[</span><span class="s2">"10 year treasury rate"</span><span class="p">],</span>
+        <span class="n">rate_data</span><span class="p">[[</span><span class="s2">"constant"</span><span class="p">,</span> <span class="s2">"BAA Corp Bond Rates"</span><span class="p">]],</span>
     <span class="p">)</span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-    <span class="n">macro_parameters</span><span class="p">[</span><span class="s2">&quot;r_gov_scale&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;BAA Corp Bond Rates&quot;</span><span class="p">]</span>
-    <span class="n">macro_parameters</span><span class="p">[</span><span class="s2">&quot;r_gov_shift&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;constant&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">macro_parameters</span><span class="p">[</span><span class="s2">"r_gov_scale"</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">"BAA Corp Bond Rates"</span><span class="p">]</span>
+    <span class="n">macro_parameters</span><span class="p">[</span><span class="s2">"r_gov_shift"</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">"constant"</span><span class="p">]</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span>
 
     <span class="k">return</span> <span class="n">macro_parameters</span></div>
 

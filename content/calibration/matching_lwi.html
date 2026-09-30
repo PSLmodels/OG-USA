@@ -60,6 +60,8 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/calibration/matching_lwi';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -152,6 +154,10 @@
     </div>
   
 
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
   
 </div>
 
@@ -422,7 +428,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -438,6 +446,21 @@
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approach">Approach</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-and-targets">Data and Targets</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calibrating-the-disutility-of-labor-chi-n-s">Calibrating the Disutility of Labor <span class="math notranslate nohighlight">\(\chi^n_s\)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calibrating-patience-beta-j-and-the-bequest-motive-chi-b-j">Calibrating Patience <span class="math notranslate nohighlight">\(\beta_j\)</span> and the Bequest Motive <span class="math notranslate nohighlight">\(\chi^b_j\)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-equilibrium-consistency">General-Equilibrium Consistency</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-errors-and-overidentification">Standard Errors and Overidentification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-along-the-transition-path">Validation Along the Transition Path</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reproducing-the-calibration">Reproducing the Calibration</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -449,7 +472,474 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="matching-labor-wealth-and-income-moments">
 <span id="chap-matchinglwi"></span><h1>Matching Labor, Wealth, and Income Moments<a class="headerlink" href="#matching-labor-wealth-and-income-moments" title="Link to this heading">#</a></h1>
-<p>[TODO: We should include our calibration notes here for how we calibrate <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> to match the distribution of labor supply by age in the data, how we match wealth share moments, and how we match income share moments.]</p>
+<p>This chapter describes how <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> calibrates the three household preference objects that govern lifecycle labor supply and saving: the disutility-of-labor profile by age <span class="math notranslate nohighlight">\(\chi^n_s\)</span> (<code class="docutils literal notranslate"><span class="pre">chi_n</span></code>), the annual discount factor by lifetime-income group <span class="math notranslate nohighlight">\(\beta_j\)</span> (<code class="docutils literal notranslate"><span class="pre">beta_annual</span></code>), and the strength of the warm-glow bequest motive by lifetime-income group <span class="math notranslate nohighlight">\(\chi^b_j\)</span> (<code class="docutils literal notranslate"><span class="pre">chi_b</span></code>). The household problem these parameters enter, including the elliptical disutility of labor and the warm-glow bequest motive, is described in the <a class="reference external" href="https://pslmodels.github.io/OG-Core/content/theory/households.html">households chapter of the <code class="docutils literal notranslate"><span class="pre">OG-Core</span></code> documentation</a>. Here we describe the data targets, the calibration method, and the fit.</p>
+<p>The values reported in this chapter are the defaults in <code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> version 0.6.0 and later. The figures compare them with the defaults that preceded them (version 0.5.0), labeled “Current parameters” in the figures because they were generated before the calibrated values were adopted.</p>
+<section id="approach">
+<span id="seclwiapproach"></span><h2>Approach<a class="headerlink" href="#approach" title="Link to this heading">#</a></h2>
+<p>Earlier attempts to estimate these parameters jointly by simulated method of moments (SMM), solving the full general-equilibrium steady state at every objective evaluation, were slow and poorly identified: <span class="math notranslate nohighlight">\(\beta_j\)</span> and <span class="math notranslate nohighlight">\(\chi^b_j\)</span> both raise the wealth of group <span class="math notranslate nohighlight">\(j\)</span>, so aggregate age profiles cannot tell them apart, and hours at ages above 70, where the decline in the data is retirement, dominated an objective that the model, which has no participation margin, cannot fit.</p>
+<p><code class="docutils literal notranslate"><span class="pre">OG-USA</span></code> instead uses a nested calibration that exploits the structure of the problem. The code is in <code class="docutils literal notranslate"><span class="pre">ogusa/calibrate_lifecycle.py</span></code>.</p>
+<ol class="arabic simple">
+<li><p><strong>Household-only solve.</strong> Given the prices <span class="math notranslate nohighlight">\(r\)</span>, <span class="math notranslate nohighlight">\(w\)</span>, the composite good price <span class="math notranslate nohighlight">\(\tilde{p}\)</span>, transfers, bequests, and the income scaling factor from a general-equilibrium steady state, re-solve only the household Euler equations for every lifetime-income group <span class="math notranslate nohighlight">\(j\)</span>. This takes well under a second and is the inner step for everything that follows (<code class="docutils literal notranslate"><span class="pre">partial_equilibrium_ss</span></code>).</p></li>
+<li><p><strong>Invert the labor first-order condition for <span class="math notranslate nohighlight">\(\chi^n_s\)</span></strong> so that population-weighted model hours match the data at every age from 20 to 79 (<code class="docutils literal notranslate"><span class="pre">invert_chi_n</span></code>).</p></li>
+<li><p><strong>Nonlinear least squares for <span class="math notranslate nohighlight">\(\beta_j\)</span> and <span class="math notranslate nohighlight">\(\chi^b_j\)</span></strong> at fixed prices, with household-only solves as the residual function, targeting the distribution and level of wealth and the shape of the old-age wealth profile (<code class="docutils literal notranslate"><span class="pre">calibrate_beta_chi_b</span></code>).</p></li>
+<li><p><strong>General-equilibrium outer loop.</strong> Re-solve the steady state, warm-started from the previous solution, and repeat steps 2 and 3 until the parameters and prices settle (<code class="docutils literal notranslate"><span class="pre">calibrate_lifecycle_preferences</span></code>).</p></li>
+</ol>
+<p>The calibration runs through the <code class="docutils literal notranslate"><span class="pre">Calibration</span></code> class with <code class="docutils literal notranslate"><span class="pre">estimate_lifecycle_prefs=True</span></code> and takes about 30 minutes on one core. The example script <code class="docutils literal notranslate"><span class="pre">examples/run_lifecycle_calibration.py</span></code> runs it end to end and produces the figures and tables in this chapter.</p>
+</section>
+<section id="data-and-targets">
+<span id="seclwidata"></span><h2>Data and Targets<a class="headerlink" href="#data-and-targets" title="Link to this heading">#</a></h2>
+<p><strong>Hours by age.</strong> Mean weekly hours worked by single year of age, including those working zero hours, from the Current Population Survey (CPS) Annual Social and Economic Supplement for 2022 and 2023, weighted by the survey weights, expressed as a share of the 112-hour weekly time endowment (<span class="math notranslate nohighlight">\(\tilde{l}\)</span>), and lightly smoothed with a three-year centered window. There is one target for each age 20 through 79.</p>
+<p><strong>Wealth shares by lifetime-income group.</strong> Net worth shares from the 2019 Survey of Consumer Finances (SCF), with percentile bins equal to the population shares <span class="math notranslate nohighlight">\(\lambda_j\)</span> of the ten lifetime-income groups, so that there is one share target per group. <a class="reference internal" href="#tablwiscfshares"><span class="std std-numref">Table 7</span></a> lists the shares. The bottom-quarter share is negative in the SCF and the bottom-half share is about one percent. A deterministic model with no within-group heterogeneity cannot deliver that, because young households of every group fill the bottom percentiles, so the bottom two bins are excluded from the targets and groups 1 to 3 share a single <span class="math notranslate nohighlight">\(\beta\)</span>.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="tablwiscfshares">
+<caption><span class="caption-number">Table 7 </span><span class="caption-text">SCF 2019 net worth shares by lifetime-income group bin</span><a class="headerlink" href="#tablwiscfshares" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Bin (percentile)</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(\lambda_j\)</span></p></th>
+<th class="head"><p>SCF share</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0 to 25</p></td>
+<td><p>0.25</p></td>
+<td><p>-0.005</p></td>
+</tr>
+<tr class="row-odd"><td><p>25 to 50</p></td>
+<td><p>0.25</p></td>
+<td><p>0.019</p></td>
+</tr>
+<tr class="row-even"><td><p>50 to 70</p></td>
+<td><p>0.20</p></td>
+<td><p>0.055</p></td>
+</tr>
+<tr class="row-odd"><td><p>70 to 80</p></td>
+<td><p>0.10</p></td>
+<td><p>0.056</p></td>
+</tr>
+<tr class="row-even"><td><p>80 to 90</p></td>
+<td><p>0.10</p></td>
+<td><p>0.110</p></td>
+</tr>
+<tr class="row-odd"><td><p>90 to 99</p></td>
+<td><p>0.09</p></td>
+<td><p>0.392</p></td>
+</tr>
+<tr class="row-even"><td><p>99 to 99.5</p></td>
+<td><p>0.005</p></td>
+<td><p>0.092</p></td>
+</tr>
+<tr class="row-odd"><td><p>99.5 to 99.9</p></td>
+<td><p>0.004</p></td>
+<td><p>0.140</p></td>
+</tr>
+<tr class="row-even"><td><p>99.9 to 99.99</p></td>
+<td><p>0.0009</p></td>
+<td><p>0.089</p></td>
+</tr>
+<tr class="row-odd"><td><p>99.99 to 100</p></td>
+<td><p>0.0001</p></td>
+<td><p>0.051</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Wealth level.</strong> Mean SCF net worth divided by mean SCF pre-transfer income (wages, business income, interest, dividends, capital gains, and retirement income, before government transfers), which is the concept closest to the model’s before-tax income. The ratio is 8.4. This moment pins down the average level of <span class="math notranslate nohighlight">\(\beta\)</span>.</p>
+<p><strong>Old-age wealth tilt.</strong> For each wealth bin, the ratio of mean net worth at ages 80 to 89 to mean net worth at ages 60 to 64 in the SCF. Households in the data decumulate slowly: the ratio is 0.75 to 0.85 for bins above the median. This is what separates the bequest motive from patience, because a stronger <span class="math notranslate nohighlight">\(\chi^b_j\)</span> holds wealth up at old ages for a given <span class="math notranslate nohighlight">\(\beta_j\)</span>.</p>
+<p><strong>Bequest flow.</strong> Wealth of decedents over wealth of the living, computed by weighting the SCF wealth-by-age profile with the model’s own mortality rates on both sides so that the data and model concepts match. The ratio is 0.017.</p>
+<p>Moments that do not depend on the preference parameters to first order, or that the model cannot match for structural reasons, are not targeted: the income Gini (the earnings process is exogenous), the wealth Gini and the variance of log wealth (dominated by within-group age variation), and hours above age 79.</p>
+</section>
+<section id="calibrating-the-disutility-of-labor-chi-n-s">
+<span id="seclwichin"></span><h2>Calibrating the Disutility of Labor <span class="math notranslate nohighlight">\(\chi^n_s\)</span><a class="headerlink" href="#calibrating-the-disutility-of-labor-chi-n-s" title="Link to this heading">#</a></h2>
+<p>The household’s labor supply first-order condition in the steady state (see the <code class="docutils literal notranslate"><span class="pre">OG-Core</span></code> household chapter) is</p>
+<div class="math notranslate nohighlight" id="equation-eqlwilaborfoc">
+<span class="eqno">(32)<a class="headerlink" href="#equation-eqlwilaborfoc" title="Link to this equation">#</a></span>\[  \frac{w e_{j,s}}{\tilde{p}}\left(1 - \tau^{mtrx}_{s}\right)\left(c_{j,s}\right)^{-\sigma} = \chi^n_s\, MDU(n_{j,s}), \quad\text{where}\quad MDU(n) \equiv \frac{b}{\tilde{l}}\left(\frac{n}{\tilde{l}}\right)^{\upsilon-1}\left[1 - \left(\frac{n}{\tilde{l}}\right)^\upsilon\right]^{\frac{1-\upsilon}{\upsilon}}\]</div>
+<p>is the marginal disutility of labor under the elliptical utility function with parameters <span class="math notranslate nohighlight">\(b\)</span> and <span class="math notranslate nohighlight">\(\upsilon\)</span>. There is one free <span class="math notranslate nohighlight">\(\chi^n_s\)</span> for each age and one target, the population-weighted mean of hours at that age, so the problem is exactly identified. Holding the left-hand side of <a class="reference internal" href="#equation-eqlwilaborfoc">(32)</a> fixed, the value of <span class="math notranslate nohighlight">\(\chi^n_s\)</span> that delivers the target hours is</p>
+<div class="math notranslate nohighlight" id="equation-eqlwichinupdate">
+<span class="eqno">(33)<a class="headerlink" href="#equation-eqlwichinupdate" title="Link to this equation">#</a></span>\[  \chi^{n\prime}_s = \chi^n_s \frac{MDU\left(\bar{n}^{model}_s\right)}{MDU\left(\bar{n}^{data}_s\right)},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\bar{n}_s\)</span> is the mean over lifetime-income groups weighted by the steady-state population distribution <span class="math notranslate nohighlight">\(\omega_{s,j}\)</span>. Because consumption on the left-hand side responds to the change in hours, the update is applied and the household block re-solved a few times; the largest absolute log gap between model and data hours falls below 0.001 in three to five iterations. Values are clipped to the ParamTools range for <code class="docutils literal notranslate"><span class="pre">chi_n</span></code>, and any ages where the bound binds are reported.</p>
+<p><a class="reference internal" href="#figlwilaborprofiles"><span class="std std-numref">Figure 12</span></a> shows the resulting fit. The previous default profile matched hours only in the middle of working life. The calibrated profile matches the CPS at every age, including the rise from age 20 to the late twenties and the decline after 60.</p>
+<figure class="align-default" id="figlwilaborprofiles">
+<a class="reference internal image-reference" href="content/calibration/images/labor_supply_profiles.png"><img alt="content/calibration/images/labor_supply_profiles.png" src="content/calibration/images/labor_supply_profiles.png" style="height: 500px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 12 </span><span class="caption-text">Steady-state labor supply by age as a share of the time endowment, previous default parameters, calibrated parameters, and CPS data</span><a class="headerlink" href="#figlwilaborprofiles" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Matching hours after age 65 requires a much steeper <span class="math notranslate nohighlight">\(\chi^n_s\)</span> profile than before, shown on a log scale in <a class="reference internal" href="#figlwichin"><span class="std std-numref">Figure 13</span></a>. The previous default profile ranged only from about 20 to 40 across all ages. Hours in the CPS fall from 0.30 of the endowment at age 50 to 0.04 at age 75, and that decline is almost entirely participation, which the model represents only through the intensive margin. With a Frisch elasticity of 0.4 the elliptical disutility has <span class="math notranslate nohighlight">\(\upsilon \approx 2.86\)</span>, so moving mean hours from 0.30 to 0.04 needs <span class="math notranslate nohighlight">\(\chi^n_s\)</span> to rise by a factor of roughly 60. <a class="reference internal" href="#tablwichin"><span class="std std-numref">Table 8</span></a> lists hours and <span class="math notranslate nohighlight">\(\chi^n_s\)</span> at selected ages.</p>
+<figure class="align-default" id="figlwichin">
+<a class="reference internal image-reference" href="content/calibration/images/chi_n_comparison_log.png"><img alt="content/calibration/images/chi_n_comparison_log.png" src="content/calibration/images/chi_n_comparison_log.png" style="height: 500px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 13 </span><span class="caption-text">Disutility of labor <span class="math notranslate nohighlight">\(\chi^n_s\)</span> by age on a log scale, previous default and calibrated parameters</span><a class="headerlink" href="#figlwichin" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="pst-scrollable-table-container"><table class="table" id="tablwichin">
+<caption><span class="caption-number">Table 8 </span><span class="caption-text">Hours and <span class="math notranslate nohighlight">\(\chi^n_s\)</span> at selected ages</span><a class="headerlink" href="#tablwichin" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Age</p></th>
+<th class="head"><p>CPS hours (share of endowment)</p></th>
+<th class="head"><p>Model hours</p></th>
+<th class="head"><p>Previous default <span class="math notranslate nohighlight">\(\chi^n_s\)</span></p></th>
+<th class="head"><p>Calibrated <span class="math notranslate nohighlight">\(\chi^n_s\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>20</p></td>
+<td><p>0.184</p></td>
+<td><p>0.184</p></td>
+<td><p>38.1</p></td>
+<td><p>526.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>25</p></td>
+<td><p>0.281</p></td>
+<td><p>0.281</p></td>
+<td><p>23.2</p></td>
+<td><p>108.6</p></td>
+</tr>
+<tr class="row-even"><td><p>30</p></td>
+<td><p>0.301</p></td>
+<td><p>0.301</p></td>
+<td><p>21.6</p></td>
+<td><p>71.4</p></td>
+</tr>
+<tr class="row-odd"><td><p>40</p></td>
+<td><p>0.306</p></td>
+<td><p>0.306</p></td>
+<td><p>20.6</p></td>
+<td><p>69.2</p></td>
+</tr>
+<tr class="row-even"><td><p>50</p></td>
+<td><p>0.305</p></td>
+<td><p>0.305</p></td>
+<td><p>19.6</p></td>
+<td><p>82.9</p></td>
+</tr>
+<tr class="row-odd"><td><p>60</p></td>
+<td><p>0.244</p></td>
+<td><p>0.244</p></td>
+<td><p>22.4</p></td>
+<td><p>157.0</p></td>
+</tr>
+<tr class="row-even"><td><p>65</p></td>
+<td><p>0.159</p></td>
+<td><p>0.158</p></td>
+<td><p>29.7</p></td>
+<td><p>392.4</p></td>
+</tr>
+<tr class="row-odd"><td><p>70</p></td>
+<td><p>0.079</p></td>
+<td><p>0.079</p></td>
+<td><p>38.1</p></td>
+<td><p>1,565.7</p></td>
+</tr>
+<tr class="row-even"><td><p>75</p></td>
+<td><p>0.043</p></td>
+<td><p>0.043</p></td>
+<td><p>37.1</p></td>
+<td><p>5,331.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>79</p></td>
+<td><p>0.036</p></td>
+<td><p>0.036</p></td>
+<td><p>39.5</p></td>
+<td><p>7,181.7</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The large values at ages 20 and above 70 are worth noting. At 20, hours in the CPS are low because many are in school, which the model also lacks. Above 70, <span class="math notranslate nohighlight">\(\chi^n_s\)</span> in the thousands is what the intensive margin needs to replicate retirement. Both are consequences of matching the data with the model as it is, and both were checked along the transition path: the time-path solver converged for a baseline and a reform with Euler errors at machine precision.</p>
+</section>
+<section id="calibrating-patience-beta-j-and-the-bequest-motive-chi-b-j">
+<span id="seclwibetachib"></span><h2>Calibrating Patience <span class="math notranslate nohighlight">\(\beta_j\)</span> and the Bequest Motive <span class="math notranslate nohighlight">\(\chi^b_j\)</span><a class="headerlink" href="#calibrating-patience-beta-j-and-the-bequest-motive-chi-b-j" title="Link to this heading">#</a></h2>
+<p>With <span class="math notranslate nohighlight">\(\chi^n_s\)</span> concentrated out, <span class="math notranslate nohighlight">\(\beta_j\)</span> and <span class="math notranslate nohighlight">\(\chi^b_j\)</span> are chosen by bounded nonlinear least squares at fixed prices. The free parameters are additive shifts to <span class="math notranslate nohighlight">\(\text{logit}(\beta_j)\)</span>, one per group (groups 1 to 3 tied, as explained above), and to <span class="math notranslate nohighlight">\(\log(\chi^b_j)\)</span>, one per group with the four groups in the top one percent tied, for 8 + 5 = 13 free parameters. The residuals are the logs of model over data for 15 targets: the eight wealth shares for bins above the bottom half, the wealth-to-income ratio, the five old-age tilts for bins above the bottom half, and the bequest-flow ratio. Every residual evaluation is a household-only solve; a solve that fails to converge returns a bounded penalty. The Jacobian is formed by forward differences with an absolute step of 0.001 in the transformed space, every column from the same household guess, so that solver noise does not enter the derivatives.</p>
+<p><a class="reference internal" href="#tablwibetachib"><span class="std std-numref">Table 9</span></a> reports the calibrated values with standard errors from the sandwich form described in Section <a class="reference internal" href="#seclwiinference"><span class="std std-ref">Standard Errors and Overidentification</span></a>. The previous defaults were <span class="math notranslate nohighlight">\(\beta_j\)</span> rising from 0.91 to 0.995 across the ten groups and <span class="math notranslate nohighlight">\(\chi^b_j = 80\)</span> for every group. Patience rises with lifetime income, from 0.953 for the bottom half to the ParamTools ceiling of 0.9999 for groups 6 to 9 (the 90th to 99.99th percentiles). The bequest motive rises from 9 for the bottom half to 76 for the top one percent.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="tablwibetachib">
+<caption><span class="caption-number">Table 9 </span><span class="caption-text">Calibrated <span class="math notranslate nohighlight">\(\beta_j\)</span> and <span class="math notranslate nohighlight">\(\chi^b_j\)</span> by lifetime-income group</span><a class="headerlink" href="#tablwibetachib" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Group <span class="math notranslate nohighlight">\(j\)</span></p></th>
+<th class="head"><p>Percentiles</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(\beta_j\)</span></p></th>
+<th class="head"><p>s.e.</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(\chi^b_j\)</span></p></th>
+<th class="head"><p>s.e.</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1 to 3</p></td>
+<td><p>0 to 70</p></td>
+<td><p>0.953 (group 3: 0.959)</p></td>
+<td><p>0.004</p></td>
+<td><p>9.1</p></td>
+<td><p>1.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>70 to 80</p></td>
+<td><p>0.959</p></td>
+<td><p>0.023</p></td>
+<td><p>24.7</p></td>
+<td><p>6.3</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>80 to 90</p></td>
+<td><p>0.933</p></td>
+<td><p>0.024</p></td>
+<td><p>20.0</p></td>
+<td><p>5.9</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>90 to 99</p></td>
+<td><p>0.9999</p></td>
+<td><p>at bound</p></td>
+<td><p>33.1</p></td>
+<td><p>9.4</p></td>
+</tr>
+<tr class="row-even"><td><p>7 to 9</p></td>
+<td><p>99 to 99.99</p></td>
+<td><p>0.9999</p></td>
+<td><p>at bound</p></td>
+<td><p>75.9</p></td>
+<td><p>10.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>10</p></td>
+<td><p>99.99 to 100</p></td>
+<td><p>0.997</p></td>
+<td><p>0.005</p></td>
+<td><p>75.9</p></td>
+<td><p>10.3</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a class="reference internal" href="#tablwiwealthshares"><span class="std std-numref">Table 10</span></a> shows the fit of the wealth shares. The previous defaults put too much wealth in the bottom 90 percent and too little in the top one percent. The calibrated parameters match the 80 to 90 and 90 to 99 bins and the top three bins to within five percent. The 99 to 99.5 bin remains 40 percent below the data: group 7’s ability profile is not far enough above group 6’s for patience alone to separate them, and both sit at the <span class="math notranslate nohighlight">\(\beta\)</span> ceiling.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="tablwiwealthshares">
+<caption><span class="caption-number">Table 10 </span><span class="caption-text">Net worth shares: SCF, previous default, and calibrated parameters</span><a class="headerlink" href="#tablwiwealthshares" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Bin (percentile)</p></th>
+<th class="head"><p>SCF data</p></th>
+<th class="head"><p>Previous default</p></th>
+<th class="head"><p>Calibrated</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0 to 25</p></td>
+<td><p>-0.005</p></td>
+<td><p>0.022</p></td>
+<td><p>0.009</p></td>
+</tr>
+<tr class="row-odd"><td><p>25 to 50</p></td>
+<td><p>0.019</p></td>
+<td><p>0.064</p></td>
+<td><p>0.037</p></td>
+</tr>
+<tr class="row-even"><td><p>50 to 70</p></td>
+<td><p>0.055</p></td>
+<td><p>0.119</p></td>
+<td><p>0.063</p></td>
+</tr>
+<tr class="row-odd"><td><p>70 to 80</p></td>
+<td><p>0.056</p></td>
+<td><p>0.099</p></td>
+<td><p>0.049</p></td>
+</tr>
+<tr class="row-even"><td><p>80 to 90</p></td>
+<td><p>0.110</p></td>
+<td><p>0.158</p></td>
+<td><p>0.108</p></td>
+</tr>
+<tr class="row-odd"><td><p>90 to 99</p></td>
+<td><p>0.392</p></td>
+<td><p>0.345</p></td>
+<td><p>0.390</p></td>
+</tr>
+<tr class="row-even"><td><p>99 to 99.5</p></td>
+<td><p>0.092</p></td>
+<td><p>0.036</p></td>
+<td><p>0.056</p></td>
+</tr>
+<tr class="row-odd"><td><p>99.5 to 99.9</p></td>
+<td><p>0.140</p></td>
+<td><p>0.070</p></td>
+<td><p>0.147</p></td>
+</tr>
+<tr class="row-even"><td><p>99.9 to 99.99</p></td>
+<td><p>0.089</p></td>
+<td><p>0.052</p></td>
+<td><p>0.090</p></td>
+</tr>
+<tr class="row-odd"><td><p>99.99 to 100</p></td>
+<td><p>0.051</p></td>
+<td><p>0.035</p></td>
+<td><p>0.051</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a class="reference internal" href="#tablwileveltilt"><span class="std std-numref">Table 11</span></a> shows the level and old-age moments. The old-age tilts for the middle of the distribution (50 to 90th percentiles) are matched to within five percent, where the previous defaults had the elderly holding twice the wealth of 60 to 64 year olds. Two gaps remain, and they are the same gap seen from two sides. The rich in the model do not decumulate (tilt of 1.0 for the 90 to 99 bin against 0.76 in the SCF), so the bequest flow is overstated. And the wealth-to-income ratio is 5.4 against 8.4 in the data even with four groups at the <span class="math notranslate nohighlight">\(\beta\)</span> ceiling, because the middle groups’ betas are held down by their share targets. The SCF wealth concentration is more than the model’s ability profiles can generate through patience alone at a 3.5 percent portfolio return. Closing it would need return heterogeneity, a larger ability gap between the top groups, or a bequest motive that strengthens with wealth more than the by-group <span class="math notranslate nohighlight">\(\chi^b_j\)</span> allows.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="tablwileveltilt">
+<caption><span class="caption-number">Table 11 </span><span class="caption-text">Wealth level and old-age moments</span><a class="headerlink" href="#tablwileveltilt" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Moment</p></th>
+<th class="head"><p>SCF data</p></th>
+<th class="head"><p>Previous default</p></th>
+<th class="head"><p>Calibrated</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Mean net worth over mean pre-transfer income</p></td>
+<td><p>8.43</p></td>
+<td><p>6.09</p></td>
+<td><p>5.43</p></td>
+</tr>
+<tr class="row-odd"><td><p>Bequest flow over wealth of the living</p></td>
+<td><p>0.017</p></td>
+<td><p>0.043</p></td>
+<td><p>0.030</p></td>
+</tr>
+<tr class="row-even"><td><p>Mean net worth 75 to 79 over 60 to 64</p></td>
+<td><p>0.80</p></td>
+<td><p>1.68</p></td>
+<td><p>1.07</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tilt (80 to 89 over 60 to 64), bin 50 to 70</p></td>
+<td><p>0.87</p></td>
+<td><p>2.43</p></td>
+<td><p>0.83</p></td>
+</tr>
+<tr class="row-even"><td><p>Tilt, bin 70 to 80</p></td>
+<td><p>0.76</p></td>
+<td><p>1.83</p></td>
+<td><p>0.74</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tilt, bin 80 to 90</p></td>
+<td><p>0.75</p></td>
+<td><p>1.68</p></td>
+<td><p>0.73</p></td>
+</tr>
+<tr class="row-even"><td><p>Tilt, bin 90 to 99</p></td>
+<td><p>0.76</p></td>
+<td><p>1.95</p></td>
+<td><p>1.04</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tilt, top 1 percent</p></td>
+<td><p>0.84</p></td>
+<td><p>1.29</p></td>
+<td><p>1.02</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a class="reference internal" href="#figlwiwealthprofiles"><span class="std std-numref">Figure 14</span></a> plots mean net worth by age in 2019 dollars, converting model savings with the steady state’s income scaling factor and aligning wealth observed at age <span class="math notranslate nohighlight">\(a\)</span> with the saving chosen at <span class="math notranslate nohighlight">\(a - 1\)</span>. The calibrated profile peaks near age 70 and declines afterward, as in the SCF, whereas the previous defaults kept wealth rising to age 100. Both parameter sets fall below the SCF between ages 40 and 65, which is the wealth-level gap in <a class="reference internal" href="#tablwileveltilt"><span class="std std-numref">Table 11</span></a> seen by age.</p>
+<figure class="align-default" id="figlwiwealthprofiles">
+<a class="reference internal image-reference" href="content/calibration/images/wealth_profiles.png"><img alt="content/calibration/images/wealth_profiles.png" src="content/calibration/images/wealth_profiles.png" style="height: 500px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 14 </span><span class="caption-text">Mean net worth by age in thousands of 2019 dollars, previous default parameters, calibrated parameters, and SCF data</span><a class="headerlink" href="#figlwiwealthprofiles" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="general-equilibrium-consistency">
+<span id="seclwigeloop"></span><h2>General-Equilibrium Consistency<a class="headerlink" href="#general-equilibrium-consistency" title="Link to this heading">#</a></h2>
+<p>Steps 2 and 3 hold prices fixed, but the calibrated parameters change saving and labor supply and therefore the interest rate, wage, bequests, transfers, and the income scaling factor. The outer loop re-solves the general-equilibrium steady state after each pass, warm-starting <code class="docutils literal notranslate"><span class="pre">OG-Core</span></code>’s outer root finder from the previous solution (15 to 20 seconds against 70 to 150 seconds for a cold solve), and repeats the inner steps at the new prices. Parameter updates are blended in the transformed space with a damping factor that halves whenever the parameter change fails to shrink by ten percent from one pass to the next. The loop stops when the largest change in the transformed parameters is below 0.01 and the largest relative price change is below 0.001. The parameter tolerance is the looser of the two because <span class="math notranslate nohighlight">\(\beta_j\)</span> and <span class="math notranslate nohighlight">\(\chi^b_j\)</span> trade off along a ridge that leaves the moments unchanged once prices have settled.</p>
+<p><a class="reference internal" href="#tablwiouterloop"><span class="std std-numref">Table 12</span></a> records the run that produced the default parameters. It converged in seven passes without any reduction in damping. The interest rate feedback is visible in the first passes: the higher betas raise saving, the portfolio return falls from 3.7 to 3.55 percent, and the inner steps adjust.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="tablwiouterloop">
+<caption><span class="caption-number">Table 12 </span><span class="caption-text">Outer-loop passes</span><a class="headerlink" href="#tablwiouterloop" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Pass</p></th>
+<th class="head"><p>Max parameter change</p></th>
+<th class="head"><p>Max price change</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(\chi^n\)</span> iterations</p></th>
+<th class="head"><p>Household solves in the <span class="math notranslate nohighlight">\(\beta\)</span>, <span class="math notranslate nohighlight">\(\chi^b\)</span> step</p></th>
+<th class="head"><p>Portfolio return <span class="math notranslate nohighlight">\(r_p\)</span></p></th>
+<th class="head"><p>Wage <span class="math notranslate nohighlight">\(w\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>5.68</p></td>
+<td><p>0.637 (bequests)</p></td>
+<td><p>5</p></td>
+<td><p>1,740</p></td>
+<td><p>0.0369</p></td>
+<td><p>1.373</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>1.87</p></td>
+<td><p>0.148 (factor)</p></td>
+<td><p>4</p></td>
+<td><p>212</p></td>
+<td><p>0.0367</p></td>
+<td><p>1.376</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>0.196</p></td>
+<td><p>0.043</p></td>
+<td><p>3</p></td>
+<td><p>127</p></td>
+<td><p>0.0359</p></td>
+<td><p>1.387</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>0.089</p></td>
+<td><p>0.018</p></td>
+<td><p>2</p></td>
+<td><p>353</p></td>
+<td><p>0.0357</p></td>
+<td><p>1.391</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>0.014</p></td>
+<td><p>0.007</p></td>
+<td><p>1</p></td>
+<td><p>239</p></td>
+<td><p>0.0356</p></td>
+<td><p>1.393</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>0.005</p></td>
+<td><p>0.002</p></td>
+<td><p>2</p></td>
+<td><p>141</p></td>
+<td><p>0.0355</p></td>
+<td><p>1.393</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>0.002</p></td>
+<td><p>0.001</p></td>
+<td><p>1</p></td>
+<td><p>113</p></td>
+<td><p>0.0355</p></td>
+<td><p>1.394</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="standard-errors-and-overidentification">
+<span id="seclwiinference"></span><h2>Standard Errors and Overidentification<a class="headerlink" href="#standard-errors-and-overidentification" title="Link to this heading">#</a></h2>
+<p>The least-squares step is a generalized method of moments estimator with an identity weighting matrix on the weighted log moments, so standard errors follow from the Jacobian <span class="math notranslate nohighlight">\(G\)</span> of the residuals at the solution. With <span class="math notranslate nohighlight">\(V_d\)</span> the covariance of the data targets from a row bootstrap of the SCF and CPS (200 draws), carried to the merged targets and converted to log units, the parameter covariance is <span class="math notranslate nohighlight">\((G'G)^{-1} G' V_r G (G'G)^{-1}\)</span>, and standard errors for <span class="math notranslate nohighlight">\(\beta_j\)</span> and <span class="math notranslate nohighlight">\(\chi^b_j\)</span> follow from the delta method. Parameters at a bound are treated as fixed and receive no standard error. The standard errors in <a class="reference internal" href="#tablwibetachib"><span class="std std-numref">Table 9</span></a> are small because the row-bootstrap sampling variances of SCF shares are small; they understate the true uncertainty, since the SCF’s five implicates per household are resampled as independent draws and the top bin rests on fewer than one hundred households.</p>
+<p>The overidentification statistic is 2,234 on 6 degrees of freedom (15 targets, 9 free parameters not at a bound), and rejects. With sampling variances this small, the rejection is the statistical face of the structural gaps described above rather than evidence about the parameters.</p>
+</section>
+<section id="validation-along-the-transition-path">
+<span id="seclwivalidation"></span><h2>Validation Along the Transition Path<a class="headerlink" href="#validation-along-the-transition-path" title="Link to this heading">#</a></h2>
+<p>Because <span class="math notranslate nohighlight">\(\chi^n_s\)</span> in the thousands at ages 75 to 79 is the part of the calibration most likely to trouble the time-path solver, the calibrated parameters were checked on a baseline transition path and on a reform that raises the corporate income tax rate to 35 percent. Both converged in about eight minutes with six Dask workers, with maximum household Euler errors of order <span class="math notranslate nohighlight">\(10^{-12}\)</span> on both paths. The reform’s effects have the expected signs: output falls 0.7 percent and the capital stock 1.9 percent on average over the first ten years. The script <code class="docutils literal notranslate"><span class="pre">examples/validate_lifecycle_time_path.py</span></code> reproduces this check.</p>
+</section>
+<section id="reproducing-the-calibration">
+<span id="seclwireproduce"></span><h2>Reproducing the Calibration<a class="headerlink" href="#reproducing-the-calibration" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ogusa.calibrate</span><span class="w"> </span><span class="kn">import</span> <span class="n">Calibration</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">Calibration</span><span class="p">(</span>
+    <span class="n">p</span><span class="p">,</span>
+    <span class="n">estimate_lifecycle_prefs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">lifecycle_params_path</span><span class="o">=</span><span class="s2">"lifecycle_prefs.json"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">update_specifications</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">get_dict</span><span class="p">())</span>  <span class="c1"># includes beta_annual, chi_b, chi_n</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">lifecycle_params_path</span></code> behaves like the tax-function cache: if the file exists and its dimensions match the model it is read; otherwise the calibration runs and writes it. The <code class="docutils literal notranslate"><span class="pre">lifecycle_config</span></code> argument takes a <code class="docutils literal notranslate"><span class="pre">LifecycleCalibrationConfig</span></code> (moment set, SCF income concept, ages) and <code class="docutils literal notranslate"><span class="pre">lifecycle_options</span></code> a <code class="docutils literal notranslate"><span class="pre">PreferenceCalibrationOptions</span></code> (whether <span class="math notranslate nohighlight">\(\chi^b_j\)</span> varies by group or by a common scale, whether the bottom bin is excluded, the bequest-flow weight, and bounds). The example script writes the moment comparison, the outer-loop history, the standard errors, and the figures in this chapter:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/run_lifecycle_calibration.py<span class="w"> </span>--standard-errors
+</pre></div>
+</div>
+<p>The design notes, the review that motivated the approach, and the results of every phase of its development are recorded in <code class="docutils literal notranslate"><span class="pre">LIFECYCLE_CALIBRATION_PLAN.md</span></code> in the repository root, and a guide to porting the approach to other country calibrations with thinner data is in <code class="docutils literal notranslate"><span class="pre">PREFERENCE_CALIBRATION_GUIDE.md</span></code>.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -506,6 +996,30 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approach">Approach</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-and-targets">Data and Targets</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calibrating-the-disutility-of-labor-chi-n-s">Calibrating the Disutility of Labor <span class="math notranslate nohighlight">\(\chi^n_s\)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calibrating-patience-beta-j-and-the-bequest-motive-chi-b-j">Calibrating Patience <span class="math notranslate nohighlight">\(\beta_j\)</span> and the Bequest Motive <span class="math notranslate nohighlight">\(\chi^b_j\)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-equilibrium-consistency">General-Equilibrium Consistency</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-errors-and-overidentification">Standard Errors and Overidentification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-along-the-transition-path">Validation Along the Transition Path</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reproducing-the-calibration">Reproducing the Calibration</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

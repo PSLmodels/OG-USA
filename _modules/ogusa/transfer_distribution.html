@@ -415,7 +415,7 @@
     <span class="n">data_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">output_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Compute SxJ matrix representing the distribution of aggregate</span>
 <span class="sd">    government transfers by age and lifetime income group.</span>
 
@@ -429,99 +429,99 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        kde_matrix (Numpy array): SxJ shaped array that represents the</span>
 <span class="sd">            smoothed distribution of proportions going to each (s,j)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># Read in PSID data</span>
     <span class="k">if</span> <span class="n">data_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># Read data file shipped with OG-USA package</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s2">&quot;psid_lifetime_income.csv.gz&quot;</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CODE_PATH</span><span class="p">,</span> <span class="s2">"psid_lifetime_income.csv.gz"</span><span class="p">)</span>
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># This is the case when running this from a branch of the OG-USA repo</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_path</span><span class="p">)</span>
 
     <span class="c1"># Do some tabs with data file...</span>
-    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;total_transfers&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;head_and_spouse_transfer_income&quot;</span><span class="p">]</span>
-        <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;other_familyunit_transfer_income&quot;</span><span class="p">]</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">"total_transfers"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">"head_and_spouse_transfer_income"</span><span class="p">]</span>
+        <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s2">"other_familyunit_transfer_income"</span><span class="p">]</span>
     <span class="p">)</span>
 
-    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;sum_transfers&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="c1"># df[&quot;other_familyunit_ssi_prior_year&quot;] # don&#39;t include SSI since OG-USA models separately</span>
-        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;head_other_welfare_prior_year&quot;</span><span class="p">]</span>
-        <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;spouse_other_welfare_prior_year&quot;</span><span class="p">]</span>
-        <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;other_familyunit_other_welfare_prior_year&quot;</span><span class="p">]</span>
-        <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;head_unemp_inc_prior_year&quot;</span><span class="p">]</span>
-        <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;spouse_unemp_inc_prior_year&quot;</span><span class="p">]</span>
-        <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;other_familyunit_unemp_inc_prior_year&quot;</span><span class="p">]</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">"sum_transfers"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="c1"># df["other_familyunit_ssi_prior_year"] # don't include SSI since OG-USA models separately</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">"head_other_welfare_prior_year"</span><span class="p">]</span>
+        <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s2">"spouse_other_welfare_prior_year"</span><span class="p">]</span>
+        <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s2">"other_familyunit_other_welfare_prior_year"</span><span class="p">]</span>
+        <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s2">"head_unemp_inc_prior_year"</span><span class="p">]</span>
+        <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s2">"spouse_unemp_inc_prior_year"</span><span class="p">]</span>
+        <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s2">"other_familyunit_unemp_inc_prior_year"</span><span class="p">]</span>
     <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">output_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="c1"># Create plot path directory if it doesn&#39;t already exist</span>
+        <span class="c1"># Create plot path directory if it doesn't already exist</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">output_path</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>
         <span class="c1"># Total total_transfers by year</span>
-        <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;year_data&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-            <span class="n">y</span><span class="o">=</span><span class="s2">&quot;total_transfers&quot;</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"year_data"</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">y</span><span class="o">=</span><span class="s2">"total_transfers"</span>
         <span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">&quot;total_transfers_year.png&quot;</span><span class="p">))</span>
-        <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;year_data&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;sum_transfers&quot;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">&quot;sum_transfers_year.png&quot;</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">"total_transfers_year.png"</span><span class="p">))</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"year_data"</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s2">"sum_transfers"</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">"sum_transfers_year.png"</span><span class="p">))</span>
         <span class="c1"># note that the sum of transfer categories is much lower than the</span>
-        <span class="c1"># &quot;total transfers&quot; variable.  The transfers variable goes more to high income</span>
+        <span class="c1"># "total transfers" variable.  The transfers variable goes more to high income</span>
         <span class="c1"># and old, even though it says it excludes social security</span>
-        <span class="c1"># because of this, we&#39;ll use the &quot;sum transfers&quot; variable</span>
+        <span class="c1"># because of this, we'll use the "sum transfers" variable</span>
 
         <span class="c1"># Fraction of total_transfers in a year by age</span>
         <span class="c1"># line plot</span>
-        <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;year_data&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1988</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;age&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"year_data"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1988</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"age"</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
             <span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;total_transfers&quot;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">&quot;total_transfers_age.png&quot;</span><span class="p">))</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s2">"total_transfers"</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">"total_transfers_age.png"</span><span class="p">))</span>
 
         <span class="c1"># total_transfers by lifetime income group</span>
         <span class="c1"># bar plot</span>
-        <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;year_data&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1988</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;li_group&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"year_data"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1988</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"li_group"</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
             <span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;total_transfers&quot;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">&quot;total_transfers_li.png&quot;</span><span class="p">))</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s2">"total_transfers"</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">"total_transfers_li.png"</span><span class="p">))</span>
 
         <span class="c1"># lifecycle plots with line for each ability type</span>
         <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
-            <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;year_data&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1988</span><span class="p">],</span>
-            <span class="n">values</span><span class="o">=</span><span class="s2">&quot;total_transfers&quot;</span><span class="p">,</span>
-            <span class="n">index</span><span class="o">=</span><span class="s2">&quot;age&quot;</span><span class="p">,</span>
-            <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;li_group&quot;</span><span class="p">,</span>
-            <span class="n">aggfunc</span><span class="o">=</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span>
+            <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"year_data"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1988</span><span class="p">],</span>
+            <span class="n">values</span><span class="o">=</span><span class="s2">"total_transfers"</span><span class="p">,</span>
+            <span class="n">index</span><span class="o">=</span><span class="s2">"age"</span><span class="p">,</span>
+            <span class="n">columns</span><span class="o">=</span><span class="s2">"li_group"</span><span class="p">,</span>
+            <span class="n">aggfunc</span><span class="o">=</span><span class="s2">"mean"</span><span class="p">,</span>
         <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">&quot;total_transfers_age_li.png&quot;</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">"total_transfers_age_li.png"</span><span class="p">))</span>
 
         <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
-            <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;year_data&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1988</span><span class="p">],</span>
-            <span class="n">values</span><span class="o">=</span><span class="s2">&quot;sum_transfers&quot;</span><span class="p">,</span>
-            <span class="n">index</span><span class="o">=</span><span class="s2">&quot;age&quot;</span><span class="p">,</span>
-            <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;li_group&quot;</span><span class="p">,</span>
-            <span class="n">aggfunc</span><span class="o">=</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span>
+            <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"year_data"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1988</span><span class="p">],</span>
+            <span class="n">values</span><span class="o">=</span><span class="s2">"sum_transfers"</span><span class="p">,</span>
+            <span class="n">index</span><span class="o">=</span><span class="s2">"age"</span><span class="p">,</span>
+            <span class="n">columns</span><span class="o">=</span><span class="s2">"li_group"</span><span class="p">,</span>
+            <span class="n">aggfunc</span><span class="o">=</span><span class="s2">"mean"</span><span class="p">,</span>
         <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">&quot;sum_transfers_age_li.png&quot;</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">"sum_transfers_age_li.png"</span><span class="p">))</span>
 
     <span class="c1"># Matrix Fraction of sum_transfers in a year by age and lifetime_inc</span>
     <span class="n">transfers_matrix</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
-        <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;year_data&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1988</span><span class="p">],</span>
-        <span class="n">values</span><span class="o">=</span><span class="s2">&quot;sum_transfers&quot;</span><span class="p">,</span>
-        <span class="n">index</span><span class="o">=</span><span class="s2">&quot;age&quot;</span><span class="p">,</span>
-        <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;li_group&quot;</span><span class="p">,</span>
-        <span class="n">aggfunc</span><span class="o">=</span><span class="s2">&quot;sum&quot;</span><span class="p">,</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"year_data"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1988</span><span class="p">],</span>
+        <span class="n">values</span><span class="o">=</span><span class="s2">"sum_transfers"</span><span class="p">,</span>
+        <span class="n">index</span><span class="o">=</span><span class="s2">"age"</span><span class="p">,</span>
+        <span class="n">columns</span><span class="o">=</span><span class="s2">"li_group"</span><span class="p">,</span>
+        <span class="n">aggfunc</span><span class="o">=</span><span class="s2">"sum"</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="c1"># replace NaN with zero</span>
     <span class="n">transfers_matrix</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">transfers_matrix</span> <span class="o">=</span> <span class="n">transfers_matrix</span> <span class="o">/</span> <span class="n">transfers_matrix</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
     <span class="c1"># total_transfers_matrix.to_csv(os.path.join(</span>
-    <span class="c1">#     output_dir, &#39;transfer_matrix.csv&#39;))</span>
+    <span class="c1">#     output_dir, 'transfer_matrix.csv'))</span>
 
     <span class="c1"># estimate kernel density of transfers</span>
     <span class="k">if</span> <span class="n">output_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">&quot;sum_transfers_kde.png&quot;</span><span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">"sum_transfers_kde.png"</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">filename</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">kde_matrix</span> <span class="o">=</span> <span class="n">MVKDE</span><span class="p">(</span>
@@ -547,9 +547,9 @@
 
     <span class="k">if</span> <span class="n">output_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">&quot;sum_transfers_kde.csv&quot;</span><span class="p">),</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">"sum_transfers_kde.csv"</span><span class="p">),</span>
             <span class="n">kde_matrix</span><span class="p">,</span>
-            <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span>
+            <span class="n">delimiter</span><span class="o">=</span><span class="s2">","</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">kde_matrix</span></div>

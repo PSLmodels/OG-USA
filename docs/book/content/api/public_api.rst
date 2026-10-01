@@ -8,16 +8,4 @@ make up the `OG-USA` package. Below is a list of these modules (in alphabetical
 order) with documentation about how to call each class method and function.
 There is also a link to the source code for each documented member.
 
-.. toctree::
-   :maxdepth: 1
-
-   bequest_transmission
-   calibrate
-   deterministic_profiles
-   estimate_beta_j
-   get_micro_data
-   income
-   macro_params
-   psid_data_setup
-   transfer_distribution
-   utils
+.. tableofcontents::

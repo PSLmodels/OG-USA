@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [0.6.1] - 2026-10-01
+
+### Changed
+- Updates `test_prep_data()` test with local marker in `test_psid_data_setup.py`. Otherwise, test would fail on GH Actions with "`FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/OG-USA/OG-USA/ogusa/data/PSID/psid1968to2015.csv.gz'`".
+- Removes version ceiling on numpy in `pyproject.toml` to `"numpy>=2.5"`
+
 ## [0.6.0] - 2026-09-29 22:20:00
 
 ### Added
@@ -251,6 +257,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Any earlier versions of OG-USA can be found in the [`OG-Core`](https://github.com/PSLmodels/OG-Core) repository [release history](https://github.com/PSLmodels/OG-Core/releases) from [v.0.6.4](https://github.com/PSLmodels/OG-Core/releases/tag/v0.6.4) (Jul. 20, 2021) or earlier.
 
 
+[0.6.1]: https://github.com/PSLmodels/OG-USA/compare/v0.5.0...v0.6.1
 [0.6.0]: https://github.com/PSLmodels/OG-USA/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/PSLmodels/OG-USA/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/PSLmodels/OG-USA/compare/v0.3.3...v0.4.0

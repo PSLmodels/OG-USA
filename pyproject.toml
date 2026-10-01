@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ogusa"
-version = "0.6.0"
+version = "0.6.1"
 authors = [
     {name = "Jason DeBacker and Richard W. Evans"},
 ]
@@ -29,7 +29,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
-    "numpy>=1.26,<2.4",
+    "numpy>=2.5",
     "psutil",
     "scipy>=1.7.1",
     "pandas>=1.2.5",

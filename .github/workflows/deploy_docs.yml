@@ -1,17 +1,16 @@
 name: Build and Deploy Jupyter Book documentation
 on:
   push:
-    branches:
-      - master
+    branches: [master]
     paths:
-      - './docs/**.png'
-      - './docs/**.py'
-      - './docs/book/content/calibration/images/**.png'
-      - './docs/book/**.yml'
-      - './docs/book/**.bib'
+      - 'docs/**.png'
+      - 'docs/**.py'
+      - 'docs/book/content/calibration/images/**.png'
+      - 'docs/book/**.yml'
+      - 'docs/book/**.bib'
       - '**.md'
-      - './docs/book/content/api/**.rst'
-      - './ogusa/**.py'
+      - 'docs/book/content/api/**.rst'
+      - 'ogusa/**.py'
 jobs:
   build-and-deploy:
     if: github.repository == 'PSLmodels/OG-USA'

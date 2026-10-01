@@ -24,12 +24,13 @@ def prep_data(
 ):
     """
     This script takes PSID data created from psid_download.R and:
+
     1) Creates variables at the "tax filing unit" (equal to family
-        unit in PSID since there is no info on the filing status chosen).
+       unit in PSID since there is no info on the filing status chosen).
     2) Selects a sample of observations to work with (e.g., dropping
-        very old, very low income, etc.).
+       very old, very low income, etc.).
     3) Computes a measure of lifetime income and places each household
-        into a lifetime income percentile group
+       into a lifetime income percentile group
 
     Args:
         data (str): path to RData file with PSID data

@@ -525,9 +525,12 @@ class Calibration:
                 parameter estimates
 
         Returns:
-            dict_params (dict): dictionary containing arrays of tax
-                function parameters
-            run_micro (bool): whether to estimate tax function parameters
+            (tuple): tax function parameters and estimation flag:
+
+                * dict_params (dict): dictionary containing arrays of tax
+                  function parameters
+                * run_micro (bool): whether to estimate tax function
+                  parameters
 
         """
         flag = 0

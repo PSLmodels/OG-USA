@@ -80,11 +80,13 @@ git-pr:
 pip-package:
 	uv build
 
+.PHONY: format
 format:
 	uv run ruff format .
 	uv run ruff check . --fix
 	uv run linecheck . --fix
 
+.PHONY: documentation
 documentation:
 	uv run --extra docs jupyter-book clean docs/book
 	uv run --extra docs python docs/create_doc_figures.py

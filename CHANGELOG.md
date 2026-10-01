@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.1] - 2026-10-01
 
-### Changed
+### Changes
 - Updates `test_prep_data()` test with local marker in `test_psid_data_setup.py`. Otherwise, test would fail on GH Actions with "`FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/OG-USA/OG-USA/ogusa/data/PSID/psid1968to2015.csv.gz'`".
 - Removes version ceiling on numpy in `pyproject.toml` to `"numpy>=2.5"`.
 - Updates `.py`, `.rst`, and `.md` files to get rid of warnings and errors in Jupyter Book compiling.

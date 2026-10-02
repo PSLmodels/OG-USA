@@ -6,6 +6,7 @@ CUR_PATH = os.path.abspath(os.path.dirname(__file__))
 
 
 @pytest.mark.needs_fred
+@pytest.mark.local
 def test_prep_data():
     """
     Test that function works

@@ -22,14 +22,15 @@ from mpl_toolkits.mplot3d import Axes3D
 def get_labor_data():
     """
     Read in "raw" CPS data to calculate moments.  These data were
-    cleaned in hours_data_cps_setup.do
-    fileDir = os.path.dirname(os.path.realpath('__file__'))
-    filename = os.path.join(
-        fileDir,
-        '../Data/Current_Population_Survey/cps_est_ability_hours_1992to2013.dta')
-    filename = os.path.abspath(os.path.realpath(filename))
-    cps = pd.read_stata(filename, columns=['year', 'age', 'hours',
-                                           'hours_unit', 'wtsupp'])
+    cleaned in hours_data_cps_setup.do. The data were read with::
+
+        fileDir = os.path.dirname(os.path.realpath('__file__'))
+        filename = os.path.join(
+            fileDir,
+            '../Data/Current_Population_Survey/cps_est_ability_hours_1992to2013.dta')
+        filename = os.path.abspath(os.path.realpath(filename))
+        cps = pd.read_stata(filename, columns=['year', 'age', 'hours',
+                                               'hours_unit', 'wtsupp'])
 
     Args:
         None

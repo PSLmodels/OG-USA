@@ -350,10 +350,14 @@ def partial_equilibrium_ss(
             workers
 
     Returns:
-        updated (dict): copy of ``ss_output`` with ``b_sp1``, ``b_s``,
-            ``n``, and ``before_tax_income`` replaced by the new household
-            solution
-        solution (HouseholdSolution): Euler errors and convergence flags
+        (tuple): updated steady-state output and household solution:
+
+            * updated (dict): copy of ``ss_output`` with ``b_sp1``,
+              ``b_s``, ``n``, and ``before_tax_income`` replaced by the
+              new household solution
+            * solution (HouseholdSolution): Euler errors and convergence
+              flags
+
     """
     env = HouseholdEnvironment.from_ss_output(ss_output, p)
     if b_guess is None:
@@ -999,11 +1003,14 @@ def preference_targets(
         options (PreferenceCalibrationOptions): grouping options
 
     Returns:
-        names (tuple): target names
-        values (Numpy array): target values
-        selection (dict): ``share_bins`` (lists of type indices per share
-            target) and ``tilt_idx`` (indices of the tilt bins used), needed
-            to compute matching model values
+        (tuple): target names, values, and selection:
+
+            * names (tuple): target names
+            * values (Numpy array): target values
+            * selection (dict): ``share_bins`` (lists of type indices per
+              share target) and ``tilt_idx`` (indices of the tilt bins
+              used), needed to compute matching model values
+
     """
     from ogusa import estimate_lifecycle_params as elp
 
@@ -1640,9 +1647,12 @@ def _price_change(new: dict, old: dict) -> tuple[float, dict]:
         old (dict): steady-state output before the re-solve
 
     Returns:
-        max_change (float): largest relative change
-        changes (dict): relative change for ``r_p``, ``r``, ``w``,
-            ``factor``, ``TR``, and total ``BQ``
+        (tuple): largest change and changes by price:
+
+            * max_change (float): largest relative change
+            * changes (dict): relative change for ``r_p``, ``r``, ``w``,
+              ``factor``, ``TR``, and total ``BQ``
+
     """
     keys = ("r_p", "r", "w", "factor", "TR")
     changes = {}

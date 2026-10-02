@@ -125,7 +125,7 @@ def get_data(
 
     Args:
         baseline (boolean): True if baseline tax policy
-        calculator_start_year (int): first year of budget window
+        start_year (int): first year of budget window
         iit_baseline (dictionary): IIT policy parameters for baseline
         iit_reform (dictionary): IIT policy reform parameters, None if
             baseline
@@ -142,10 +142,12 @@ def get_data(
             multiprocessing
 
     Returns:
-        micro_data_dict (dict): dict of Pandas Dataframe, one for each
-            year from start_year to the maximum year Tax-Calculator can
-            analyze
-        taxcalc_version (str): version of Tax-Calculator used
+        (tuple): micro data and Tax-Calculator version:
+
+            * micro_data_dict (dict): dict of Pandas Dataframe, one for
+              each year from start_year to the maximum year
+              Tax-Calculator can analyze
+            * taxcalc_version (str): version of Tax-Calculator used
 
     """
     # Compute MTRs and taxes or each year, but not beyond TC_LAST_YEAR
@@ -382,10 +384,13 @@ def is_paramtools_format(reform):
     """
     Check first item in reform to determine if it is using the ParamTools
     adjustment or the Tax-Calculator reform format.
-    If first item is a dict, then it is likely be a Tax-Calculator reform:
-    {
-        param: {2020: 1000}
-    }
+    If first item is a dict, then it is likely be a Tax-Calculator
+    reform::
+
+        {
+            param: {2020: 1000}
+        }
+
     Otherwise, it is likely to be a ParamTools format.
 
     Args:

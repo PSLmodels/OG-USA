@@ -176,5 +176,6 @@ situations, in which case other contributors are here to help.
 
 (Sec_ContribFootnotes)=
 ## Footnotes
+This section contains the footnotes to this chapter.
 
 [^commandline_note]:The dollar sign is the end of the command prompt on a Mac. If you are using the Windows operating system, this is usually the right angle bracket (>). No matter the symbol, you don't need to type it (or anything to its left, which shows the current working directory) at the command line before you enter a command; the prompt symbol and preceding characters should already be there.

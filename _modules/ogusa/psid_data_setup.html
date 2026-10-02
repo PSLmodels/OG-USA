@@ -427,12 +427,13 @@
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    This script takes PSID data created from psid_download.R and:</span>
+
 <span class="sd">    1) Creates variables at the "tax filing unit" (equal to family</span>
-<span class="sd">        unit in PSID since there is no info on the filing status chosen).</span>
+<span class="sd">       unit in PSID since there is no info on the filing status chosen).</span>
 <span class="sd">    2) Selects a sample of observations to work with (e.g., dropping</span>
-<span class="sd">        very old, very low income, etc.).</span>
+<span class="sd">       very old, very low income, etc.).</span>
 <span class="sd">    3) Computes a measure of lifetime income and places each household</span>
-<span class="sd">        into a lifetime income percentile group</span>
+<span class="sd">       into a lifetime income percentile group</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        data (str): path to RData file with PSID data</span>

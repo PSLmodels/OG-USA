@@ -531,7 +531,7 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        baseline (boolean): True if baseline tax policy</span>
-<span class="sd">        calculator_start_year (int): first year of budget window</span>
+<span class="sd">        start_year (int): first year of budget window</span>
 <span class="sd">        iit_baseline (dictionary): IIT policy parameters for baseline</span>
 <span class="sd">        iit_reform (dictionary): IIT policy reform parameters, None if</span>
 <span class="sd">            baseline</span>
@@ -548,10 +548,12 @@
 <span class="sd">            multiprocessing</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        micro_data_dict (dict): dict of Pandas Dataframe, one for each</span>
-<span class="sd">            year from start_year to the maximum year Tax-Calculator can</span>
-<span class="sd">            analyze</span>
-<span class="sd">        taxcalc_version (str): version of Tax-Calculator used</span>
+<span class="sd">        (tuple): micro data and Tax-Calculator version:</span>
+
+<span class="sd">            * micro_data_dict (dict): dict of Pandas Dataframe, one for</span>
+<span class="sd">              each year from start_year to the maximum year</span>
+<span class="sd">              Tax-Calculator can analyze</span>
+<span class="sd">            * taxcalc_version (str): version of Tax-Calculator used</span>
 
 <span class="sd">    """</span>
     <span class="c1"># Compute MTRs and taxes or each year, but not beyond TC_LAST_YEAR</span>
@@ -800,10 +802,13 @@
 <span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Check first item in reform to determine if it is using the ParamTools</span>
 <span class="sd">    adjustment or the Tax-Calculator reform format.</span>
-<span class="sd">    If first item is a dict, then it is likely be a Tax-Calculator reform:</span>
-<span class="sd">    {</span>
-<span class="sd">        param: {2020: 1000}</span>
-<span class="sd">    }</span>
+<span class="sd">    If first item is a dict, then it is likely be a Tax-Calculator</span>
+<span class="sd">    reform::</span>
+
+<span class="sd">        {</span>
+<span class="sd">            param: {2020: 1000}</span>
+<span class="sd">        }</span>
+
 <span class="sd">    Otherwise, it is likely to be a ParamTools format.</span>
 
 <span class="sd">    Args:</span>

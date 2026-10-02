@@ -543,7 +543,7 @@ returned and saved to disk in a pickle file.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>baseline</strong> (<em>boolean</em>) – True if baseline tax policy</p></li>
-<li><p><strong>calculator_start_year</strong> (<em>int</em>) – first year of budget window</p></li>
+<li><p><strong>start_year</strong> (<em>int</em>) – first year of budget window</p></li>
 <li><p><strong>iit_baseline</strong> (<em>dictionary</em>) – IIT policy parameters for baseline</p></li>
 <li><p><strong>iit_reform</strong> (<em>dictionary</em>) – IIT policy reform parameters, None if
 baseline</p></li>
@@ -561,16 +561,19 @@ multiprocessing</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><dl class="simple">
-<dt>dict of Pandas Dataframe, one for each</dt><dd><p>year from start_year to the maximum year Tax-Calculator can
-analyze</p>
-</dd>
-</dl>
-<p>taxcalc_version (str): version of Tax-Calculator used</p>
+<dd class="field-even"><p><p>micro data and Tax-Calculator version:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>micro_data_dict (dict): dict of Pandas Dataframe, one for
+each year from start_year to the maximum year
+Tax-Calculator can analyze</p></li>
+<li><p>taxcalc_version (str): version of Tax-Calculator used</p></li>
+</ul>
+</div></blockquote>
 </p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>micro_data_dict (dict)</p>
+<dd class="field-odd"><p>(tuple)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -580,13 +583,14 @@ analyze</p>
 <span class="sig-prename descclassname"><span class="pre">ogusa.get_micro_data.</span></span><span class="sig-name descname"><span class="pre">is_paramtools_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reform</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/ogusa/get_micro_data.html#is_paramtools_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ogusa.get_micro_data.is_paramtools_format" title="Link to this definition">#</a></dt>
 <dd><p>Check first item in reform to determine if it is using the ParamTools
 adjustment or the Tax-Calculator reform format.
-If first item is a dict, then it is likely be a Tax-Calculator reform:
-{</p>
-<blockquote>
-<div><p>param: {2020: 1000}</p>
-</div></blockquote>
-<p>}
-Otherwise, it is likely to be a ParamTools format.</p>
+If first item is a dict, then it is likely be a Tax-Calculator
+reform:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="n">param</span><span class="p">:</span> <span class="p">{</span><span class="mi">2020</span><span class="p">:</span> <span class="mi">1000</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Otherwise, it is likely to be a ParamTools format.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>reform</strong> (<em>dict</em><em> or </em><em>str</em>) – JSON string or dictionary of reform

@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.2] - 2026-10-12
 
-### Fixes
+### Fixed
 - Sets default `income_tax_filer` parameter to 1 in `ogusa_default_parameters.json`.  The current value of 0 results in no tax revenue.
 
 

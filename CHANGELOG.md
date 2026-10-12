@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixes
 - Sets default `income_tax_filer` parameter to 1 in `ogusa_default_parameters.json`.  The current value of 0 results in no tax revenue.
+- Updates `ogcore>=0.21.0` in `pyproject.toml` and updates the brackets in the `tau_payroll` and `alpha_db` parameters to match the updated OG-Core version.
+- Updates the `uv.lock` file.
 
 
 ## [0.6.1] - 2026-10-01
@@ -265,6 +267,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Any earlier versions of OG-USA can be found in the [`OG-Core`](https://github.com/PSLmodels/OG-Core) repository [release history](https://github.com/PSLmodels/OG-Core/releases) from [v.0.6.4](https://github.com/PSLmodels/OG-Core/releases/tag/v0.6.4) (Jul. 20, 2021) or earlier.
 
 
+[0.6.2]: https://github.com/PSLmodels/OG-USA/compare/v0.6.1...v0.6.2
 [0.6.1]: https://github.com/PSLmodels/OG-USA/compare/v0.5.0...v0.6.1
 [0.6.0]: https://github.com/PSLmodels/OG-USA/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/PSLmodels/OG-USA/compare/v0.4.0...v0.5.0

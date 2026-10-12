@@ -45,7 +45,7 @@ dependencies = [
     "statsmodels",
     "linearmodels",
     "dfo-ls",
-    "ogcore>=0.18.0",
+    "ogcore>=0.21.0",
     "tabulate",
 ]
 

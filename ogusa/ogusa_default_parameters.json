@@ -2757,7 +2757,9 @@
         0.0
     ],
     "tau_payroll": [
-        0.0
+        [
+            0.0
+        ]
     ],
     "chi_b": [
         9.055933560373418,
@@ -5756,7 +5758,7 @@
     "tau_p": 0.0,
     "indR": 0.0,
     "k_ret": 0.0,
-    "alpha_db": 0.0,
+    "alpha_db": [[0.0]],
     "vpoint": 0.0,
     "yr_contrib": 40,
     "avg_earn_num_years": 35,
@@ -5788,7 +5790,7 @@
     ],
     "income_tax_filer": [
         [
-            0.0
+            1.0
         ]
     ],
     "wealth_tax_filer": [

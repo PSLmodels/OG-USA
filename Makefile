@@ -38,10 +38,12 @@ install:
 	uv sync --extra dev
 
 test:
+	uv sync --extra dev
 	uv run pytest -m 'not local' --cov=./ --cov-report=xml
 
 .PHONY=pytest
 pytest:
+	uv sync --extra dev
 	@uv run pytest -W ignore
 
 .PHONY=lint
